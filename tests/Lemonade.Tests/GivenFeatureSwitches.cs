@@ -7,11 +7,28 @@ namespace Lemonade.Tests
     public class GivenFeatureSwitches
     {
         [Test]
-        public void WhenUsingFeatureIndexAndMethodIsFeatureSwitchedOff_ThenItIsNotExecuted()
+        public void WhenUsingFeatureIndexAndMethodIsFeatureSwitchedOn_ThenItIsExecuted()
         {
             Feature.SetResolver(new FakeResolver());
             var executed = Feature.Switches["UseTestFunctionality"];
-            Assert.That(executed, Is.False);
+            Assert.That(executed, Is.True);
+        }
+
+        [Test]
+        public void WhenUsingDynamicIndexAndMethodIsFeatureSwitchedOn_ThenItIsExecuted()
+        {
+            Feature.SetResolver(new FakeResolver());
+            var executed = Feature.Switches[d => d.UseTestFunctionality];
+            Assert.That(executed, Is.True);
+        }
+
+        [Test]
+        public void WhenUsingFeatureWrapperAndMethodIsFeatureSwitchedOn_ThenItIsExecuted()
+        {
+            var executed = false;
+            Feature.SetResolver(new FakeResolver());
+            Feature.Switches.Execute("UseTestFunctionality", () => executed = true);
+            Assert.That(executed, Is.True);
         }
 
         [Test]

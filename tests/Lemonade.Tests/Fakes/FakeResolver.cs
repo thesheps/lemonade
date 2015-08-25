@@ -6,7 +6,7 @@ namespace Lemonade.Tests.Fakes
     {
         public bool? Get(string value)
         {
-            return value == "UseTestFunctionality" ? false : (bool?)null;
+            return value == "UseTestFunctionality" ? true : (bool?)null;
         }
     }
 }
