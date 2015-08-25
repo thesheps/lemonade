@@ -4,15 +4,17 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{06665811-5ED9-4088-81B2-805E80119772}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{23B4FC4A-9FBE-4222-B448-87FAC4E911F8}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Lemonade.SqlServer</RootNamespace>
-    <AssemblyName>Lemonade.SqlServer</AssemblyName>
+    <RootNamespace>Lemonade.Web.Host</RootNamespace>
+    <AssemblyName>Lemonade.Web.Host</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -22,6 +24,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -30,12 +33,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Dapper, Version=1.40.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Dapper.1.42\lib\net45\Dapper.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="FluentMigrator, Version=1.6.0.0, Culture=neutral, PublicKeyToken=aacfc7de5acabf05, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\FluentMigrator.1.6.0\lib\40\FluentMigrator.dll</HintPath>
+    <Reference Include="Nancy, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Nancy.1.2.0\lib\net40\Nancy.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -49,22 +48,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Migrations\CreateTable.cs" />
+    <Compile Include="Bootstrapper.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Queries\GetAllFeatures.cs" />
-    <Compile Include="Queries\GetFeatureByName.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Lemonade.Core\Lemonade.csproj">
-      <Project>{A5518007-A595-4C05-91C8-077FFCB17FC2}</Project>
-      <Name>Lemonade</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Lemonade.Data\Lemonade.Data.csproj">
       <Project>{1D8325AC-51B7-4870-ADFE-B1B03B8921D8}</Project>
       <Name>Lemonade.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Lemonade.SqlServer\Lemonade.SqlServer.csproj">
+      <Project>{06665811-5ED9-4088-81B2-805E80119772}</Project>
+      <Name>Lemonade.SqlServer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Lemonade.Web\Lemonade.Web.csproj">
+      <Project>{F3F461B3-2FC8-4704-9A8E-7B9A490668C9}</Project>
+      <Name>Lemonade.Web</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
