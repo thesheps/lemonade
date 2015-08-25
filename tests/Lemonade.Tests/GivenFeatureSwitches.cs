@@ -32,22 +32,26 @@ namespace Lemonade.Tests
         }
 
         [Test]
+        public void WhenUsingDynamicFeatureWrapperAndMethodIsFeatureSwitchedOn_ThenItIsExecuted()
+        {
+            var executed = false;
+            Feature.SetResolver(new FakeResolver());
+            Feature.Switches.Execute(d => d.UseTestFunctionality, () => executed = true);
+            Assert.That(executed, Is.True);
+        }
+
+        [Test]
         public void WhenNoResolverHasBeenSet_ThenResolverNotFoundExceptionIsThrown()
         {
-            Assert.Throws<ResolverNotFoundException>(() =>
-            {
-                var executed = Feature.Switches["UseTestFunctionality"];
-            });
+            Feature.SetResolver(null);
+            Assert.Throws<ResolverNotFoundException>(() => { var executed = Feature.Switches["UseTestFunctionality"]; });
         }
 
         [Test]
         public void WhenUnknownFeature_ThenUnknownFeatureExceptionIsThrown()
         {
             Feature.SetResolver(new FakeResolver());
-            Assert.Throws<UnknownFeatureException>(() =>
-            {
-                var executed = Feature.Switches["Nonsense"];
-            });
+            Assert.Throws<UnknownFeatureException>(() => { var executed = Feature.Switches["Nonsense"]; });
         }
     }
 }

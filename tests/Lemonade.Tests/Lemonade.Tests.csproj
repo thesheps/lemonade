@@ -48,10 +48,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Fakes\FakeResolver.cs" />
+    <Compile Include="Fakes\FakeSwitch.cs" />
+    <Compile Include="GivenAppConfigFeatureResolver.cs" />
+    <Compile Include="GivenFeatureSwitch.cs" />
     <Compile Include="GivenFeatureSwitches.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

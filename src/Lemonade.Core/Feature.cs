@@ -7,7 +7,7 @@ namespace Lemonade
 {
     public class Feature
     {
-        public static Feature Switches { get; } = new Feature();
+        public bool this[Func<dynamic, dynamic> keyFunction] => this[keyFunction(_key)];
 
         public bool this[string key]
         {
@@ -21,13 +21,11 @@ namespace Lemonade
             }
         }
 
-        public bool this[Func<dynamic, dynamic> keyFunction]
+        public static Feature Switches { get; } = new Feature();
+
+        public static void SetResolver(IFeatureResolver featureResolver)
         {
-            get
-            {
-                keyFunction(_key);
-                return this[_key.Name];
-            }
+            Switches._featureResolver = featureResolver;
         }
 
         public void Execute(string key, Action action)
@@ -40,23 +38,15 @@ namespace Lemonade
             if (this[keyFunction]) action.Invoke();
         }
 
-        public static void SetResolver(IFeatureResolver featureResolver)
-        {
-            Switches._featureResolver = featureResolver;
-        }
-
         private Feature()
         {
         }
 
         private class DynamicKey : DynamicObject
         {
-            public string Name { get; private set; }
-
             public override bool TryGetMember(GetMemberBinder binder, out object result)
             {
-                Name = binder.Name;
-                result = null;
+                result = binder.Name;
                 return true;
             }
         }
