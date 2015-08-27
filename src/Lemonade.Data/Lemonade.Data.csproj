@@ -43,6 +43,7 @@
     <Compile Include="Entities\Feature.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Queries\IGetAllFeatures.cs" />
+    <Compile Include="Queries\IGetAllFeaturesByApplication.cs" />
     <Compile Include="Queries\IGetFeatureByName.cs" />
     <Compile Include="Services\FeatureResolver.cs" />
   </ItemGroup>

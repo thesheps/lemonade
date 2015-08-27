@@ -60,6 +60,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Mappers\FeatureMapper.cs" />
+    <Compile Include="Models\FeatureModel.cs" />
     <Compile Include="Models\FeaturesModel.cs" />
     <Compile Include="Modules\FeaturesModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

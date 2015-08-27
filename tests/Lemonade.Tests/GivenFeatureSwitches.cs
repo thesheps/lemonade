@@ -23,11 +23,20 @@ namespace Lemonade.Tests
         }
 
         [Test]
-        public void WhenUsingFeatureWrapperAndMethodIsFeatureSwitchedOn_ThenItIsExecuted()
+        public void WhenUsingFeatureWrapperwithIndexAndMethodIsFeatureSwitchedOn_ThenItIsExecuted()
         {
             var executed = false;
             Feature.SetResolver(new FakeResolver());
             Feature.Switches.Execute("UseTestFunctionality", () => executed = true);
+            Assert.That(executed, Is.True);
+        }
+
+        [Test]
+        public void WhenUsingFeatureWrapperwithDynamicIndexAndMethodIsFeatureSwitchedOn_ThenItIsExecuted()
+        {
+            var executed = false;
+            Feature.SetResolver(new FakeResolver());
+            Feature.Switches.Execute(d => d.UseTestFunctionality, () => executed = true);
             Assert.That(executed, Is.True);
         }
 

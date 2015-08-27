@@ -6,7 +6,7 @@ namespace Lemonade.Tests
     public class GivenFeatureSwitch
     {
         [Test]
-        public void When()
+        public void WhenFeatureSwitchedOn_ThenFeatureIsExecuted()
         {
             Feature.SetResolver(new FakeResolver());
             var featureSwitch = new FakeSwitch();

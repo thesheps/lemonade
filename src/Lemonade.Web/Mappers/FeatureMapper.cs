@@ -4,9 +4,9 @@ namespace Lemonade.Web.Mappers
 {
     public static class FeatureMapper
     {
-        public static FeaturesModel ToModel(this Data.Entities.Feature feature)
+        public static FeatureModel ToModel(this Data.Entities.Feature feature)
         {
-            return new FeaturesModel
+            return new FeatureModel
             {
                 ExpirationDays = feature.ExpirationDays,
                 IsEnabled = feature.IsEnabled,
