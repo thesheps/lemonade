@@ -15,5 +15,12 @@ namespace Lemonade.Web.Host
             DbMigrations.Run(ConfigurationManager.ConnectionStrings["Lemonade"].ConnectionString);
             container.Register<IGetAllFeatures>((pp, c) => new GetAllFeatures(ConfigurationManager.ConnectionStrings["Lemonade"].ConnectionString));
         }
+
+        protected override void ConfigureConventions(Nancy.Conventions.NancyConventions nancyConventions)
+        {
+            base.ConfigureConventions(nancyConventions);
+            nancyConventions.ViewLocationConventions.Add((viewName, model, context) => string.Concat("bin/views/", viewName));
+            nancyConventions.StaticContentsConventions.Add(Nancy.Conventions.StaticContentConventionBuilder.AddDirectory("assets", "bin/content/"));
+        }
     }
 }
