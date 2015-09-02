@@ -13,5 +13,25 @@
     <div class="page-header">
         <h1><span><i class="glyphicon glyphicon-glass"></i> Lemonade.</span></h1>
     </div>
+    <div class="well container">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Feature Name</th>
+                    <th>Value</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var feature in Model.Features)
+                {
+                    <tr>
+                        <td>@feature.Name</td>
+                        <td>@feature.IsEnabled</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 </body>
 </html>

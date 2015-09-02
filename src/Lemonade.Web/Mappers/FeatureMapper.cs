@@ -8,6 +8,7 @@ namespace Lemonade.Web.Mappers
         {
             return new FeatureModel
             {
+                Name = feature.Name,
                 ExpirationDays = feature.ExpirationDays,
                 IsEnabled = feature.IsEnabled,
                 StartDate = feature.StartDate

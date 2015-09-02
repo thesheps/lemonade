@@ -8,7 +8,7 @@ namespace Lemonade.SqlServer.Migrations
         public override void Up()
         {
             Create.Table("Feature")
-                .WithColumn("FeatureId").AsInt32().PrimaryKey("PK_FeatureId")
+                .WithColumn("FeatureId").AsInt32().PrimaryKey("PK_FeatureId").Identity()
                 .WithColumn("Application").AsString()
                 .WithColumn("Name").AsString()
                 .WithColumn("StartDate").AsDateTime()
