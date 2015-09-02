@@ -2,8 +2,7 @@
 using System.Web.Mvc;
 using System.Web.Routing;
 using Lemonade.Services;
-using Lemonade.Tests.Fakes;
-using Moq;
+using NSubstitute;
 using NUnit.Framework;
 
 namespace Lemonade.Tests
@@ -15,20 +14,20 @@ namespace Lemonade.Tests
         {
             Feature.SetResolver(new AppConfigFeatureResolver());
             var filterAttribute = new FeatureAttribute("DisabledProperty");
-            var request = new Mock<HttpRequestBase>();
-            request.SetupGet(r => r.ContentType).Returns("application/json");
+            var request = Substitute.For<HttpRequestBase>();
+            request.ContentType.Returns("application/json");
 
-            var httpContext = new Mock<HttpContextBase>();
-            httpContext.SetupGet(c => c.Request).Returns(request.Object);
+            var httpContext = Substitute.For<HttpContextBase>();
+            httpContext.Request.Returns(request);
 
             var routeData = new RouteData();
             routeData.Values.Add("employeeId", "123");
 
-            var context = new Mock<ActionExecutingContext>();
-            context.SetupGet<HttpContextBase>(c => c.HttpContext).Returns(httpContext.Object);
-            filterAttribute.OnActionExecuting(context.Object);
+            var context = Substitute.For<ActionExecutingContext>();
+            context.HttpContext.Returns(httpContext);
+            filterAttribute.OnActionExecuting(context);
             
-            Assert.That(context.Object.Result, Is.Not.Null);
+            Assert.That(context.Result, Is.Not.Null);
         }
     }
 }

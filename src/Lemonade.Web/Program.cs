@@ -1,4 +1,5 @@
 ﻿using System.Configuration;
+using Lemonade.Web.Infrastructure;
 using Topshelf;
 
 namespace Lemonade.Web
@@ -9,16 +10,17 @@ namespace Lemonade.Web
         {
             HostFactory.Run(configurator =>
             {
-                configurator.Service<LemonadeService>(s => s.ConstructUsing(n => new LemonadeService("")));
+                configurator.Service<LemonadeService>(s =>
+                {
+                    s.ConstructUsing(n => new LemonadeService(ConfigurationManager.AppSettings["LemonadeUrl"]));
+                    s.WhenStarted(svc => svc.Start());
+                    s.WhenStopped(svc => svc.Dispose());
+                });
+
                 configurator.RunAsNetworkService();
-                configurator.SetDescription("Lemonade");
+                configurator.SetDescription("Lemonade Web Service");
                 configurator.SetDisplayName(ConfigurationManager.AppSettings["LemonadeServiceName"]);
                 configurator.SetServiceName(ConfigurationManager.AppSettings["LemonadeServiceName"]);
-                configurator.EnableServiceRecovery(rc =>
-                {
-                    rc.RestartService(0);
-                    rc.SetResetPeriod(1);
-                });
             });
         }
     }

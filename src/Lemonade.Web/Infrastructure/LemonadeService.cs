@@ -1,7 +1,7 @@
 ﻿using System;
 using Nancy.Hosting.Self;
 
-namespace Lemonade.Web
+namespace Lemonade.Web.Infrastructure
 {
     public class LemonadeService : IDisposable
     {

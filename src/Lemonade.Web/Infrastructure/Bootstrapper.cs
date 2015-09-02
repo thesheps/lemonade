@@ -6,7 +6,7 @@ using Nancy;
 using Nancy.Bootstrapper;
 using Nancy.TinyIoc;
 
-namespace Lemonade.Web
+namespace Lemonade.Web.Infrastructure
 {
     public class Bootstrapper : DefaultNancyBootstrapper
     {
