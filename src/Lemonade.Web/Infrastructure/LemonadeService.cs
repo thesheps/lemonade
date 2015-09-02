@@ -12,7 +12,8 @@ namespace Lemonade.Web.Infrastructure
 
         public void Start()
         {
-            _host = new NancyHost(new Uri(_hostingUrl));
+            var urlReservations = new UrlReservations { CreateAutomatically = true };
+            _host = new NancyHost(new HostConfiguration { UrlReservations = urlReservations }, new Uri(_hostingUrl));
             _host.Start();
         }
 

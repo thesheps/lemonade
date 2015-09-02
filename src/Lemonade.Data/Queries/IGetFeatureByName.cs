@@ -2,6 +2,6 @@
 {
     public interface IGetFeatureByName
     {
-        Entities.Feature Execute(string value);
+        Entities.Feature Execute(string name);
     }
 }

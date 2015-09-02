@@ -7,11 +7,11 @@ namespace Lemonade.SqlServer.Queries
 {
     public class GetFeatureByName : IGetFeatureByName
     {
-        public Data.Entities.Feature Execute(string value)
+        public Data.Entities.Feature Execute(string name)
         {
             using (var cnn = DbProviderFactories.GetFactory("Lemonade").CreateConnection())
             {
-                return cnn.Query<Data.Entities.Feature>("SELECT * FROM Features WHERE Name = @name", new { name = value }).First();
+                return cnn.Query<Data.Entities.Feature>("SELECT * FROM Features WHERE Name = @name", new { name = name }).First();
             }
         }
     }

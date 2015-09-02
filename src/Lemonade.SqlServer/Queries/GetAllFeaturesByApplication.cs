@@ -12,11 +12,11 @@ namespace Lemonade.SqlServer.Queries
             _connectionString = connectionString;
         }
 
-        public IEnumerable<Data.Entities.Feature> Execute(string application)
+        public IEnumerable<Data.Entities.Feature> Execute(string applicationName)
         {
             using (var cnn = new SqlConnection(_connectionString))
             {
-                return cnn.Query<Data.Entities.Feature>("SELECT * FROM Features WHERE Application = @application", new { application });
+                return cnn.Query<Data.Entities.Feature>("SELECT * FROM Features WHERE Application = @applicationName", new { application = applicationName });
             }
         }
 
