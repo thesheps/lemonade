@@ -17,8 +17,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lemonade.Web", "src\Lemonad
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lemonade.Data", "src\Lemonade.Data\Lemonade.Data.csproj", "{1D8325AC-51B7-4870-ADFE-B1B03B8921D8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lemonade.Web.Host", "src\Lemonade.Web.Host\Lemonade.Web.Host.csproj", "{23B4FC4A-9FBE-4222-B448-87FAC4E911F8}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,10 +43,6 @@ Global
 		{1D8325AC-51B7-4870-ADFE-B1B03B8921D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1D8325AC-51B7-4870-ADFE-B1B03B8921D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1D8325AC-51B7-4870-ADFE-B1B03B8921D8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{23B4FC4A-9FBE-4222-B448-87FAC4E911F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{23B4FC4A-9FBE-4222-B448-87FAC4E911F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{23B4FC4A-9FBE-4222-B448-87FAC4E911F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{23B4FC4A-9FBE-4222-B448-87FAC4E911F8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -59,6 +53,5 @@ Global
 		{06665811-5ED9-4088-81B2-805E80119772} = {C92253CB-CC26-4544-9469-C7677DB42084}
 		{F3F461B3-2FC8-4704-9A8E-7B9A490668C9} = {C92253CB-CC26-4544-9469-C7677DB42084}
 		{1D8325AC-51B7-4870-ADFE-B1B03B8921D8} = {C92253CB-CC26-4544-9469-C7677DB42084}
-		{23B4FC4A-9FBE-4222-B448-87FAC4E911F8} = {C92253CB-CC26-4544-9469-C7677DB42084}
 	EndGlobalSection
 EndGlobal

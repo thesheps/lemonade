@@ -3,9 +3,9 @@ using Nancy.Hosting.Self;
 
 namespace Lemonade.Web
 {
-    public class StartUp : IDisposable
+    public class LemonadeService : IDisposable
     {
-        public StartUp(string hostingUrl)
+        public LemonadeService(string hostingUrl)
         {
             _hostingUrl = hostingUrl;
         }
