@@ -90,6 +90,7 @@
     <Compile Include="FeatureResolver.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Lemonade.nuspec" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

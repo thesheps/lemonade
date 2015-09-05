@@ -78,10 +78,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Lemonade.Core\Lemonade.csproj">
-      <Project>{a5518007-a595-4c05-91c8-077ffcb17fc2}</Project>
-      <Name>Lemonade</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\src\Lemonade.Data\Lemonade.Data.csproj">
       <Project>{1d8325ac-51b7-4870-adfe-b1b03b8921d8}</Project>
       <Name>Lemonade.Data</Name>
@@ -89,6 +85,10 @@
     <ProjectReference Include="..\..\src\Lemonade.Web\Lemonade.Web.csproj">
       <Project>{f3f461b3-2fc8-4704-9a8e-7b9a490668c9}</Project>
       <Name>Lemonade.Web</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Lemonade\Lemonade.csproj">
+      <Project>{A5518007-A595-4C05-91C8-077FFCB17FC2}</Project>
+      <Name>Lemonade</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

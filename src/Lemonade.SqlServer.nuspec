@@ -1,0 +1,18 @@
+﻿<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Lemonade</id>
+    <version>$version$</version>
+    <title>Lemonade Feature Switch Framework</title>
+    <authors>Chris Shepherd</authors>
+    <owners>Chris Shepherd</owners>
+    <iconUrl>https://avatars3.githubusercontent.com/u/7890777?s=140</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Lemonade provides an easy to use feature-switch library, with very little configuration.</description>
+    <releaseNotes></releaseNotes>
+    <tags>featureswitch feature lemonade toggle featuretoggle configuration</tags>
+  </metadata>
+  <files>
+    <file src="Lemonade.SqlServer\bin\$configuration$\Terrarium.Sdk.dll" target="lib\net40\" />
+  </files>
+</package>
