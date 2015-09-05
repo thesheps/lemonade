@@ -13,6 +13,6 @@
     <tags>featureswitch feature lemonade toggle featuretoggle configuration</tags>
   </metadata>
   <files>
-    <file src="Lemonade\bin\$configuration$\Terrarium.Sdk.dll" target="lib\net40\" />
+    <file src="Lemonade\bin\$configuration$\Lemonade.dll" target="lib\net40\" />
   </files>
 </package>
