@@ -3,7 +3,6 @@ using Lemonade.Data.Queries;
 using Lemonade.Web.Mappers;
 using Lemonade.Web.Models;
 using Nancy;
-using Nancy.ModelBinding;
 
 namespace Lemonade.Web.Modules
 {

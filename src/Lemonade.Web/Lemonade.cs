@@ -1,11 +1,11 @@
 ﻿using System;
 using Nancy.Hosting.Self;
 
-namespace Lemonade.Web.Infrastructure
+namespace Lemonade.Web
 {
-    public class LemonadeService : IDisposable
+    public class Lemonade : IDisposable
     {
-        public LemonadeService(string hostingUrl)
+        public Lemonade(string hostingUrl)
         {
             _hostingUrl = hostingUrl;
         }
