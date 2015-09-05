@@ -4,7 +4,7 @@ namespace Lemonade.Exceptions
 {
     public class UnknownFeatureException : Exception
     {
-        public UnknownFeatureException(string featureName) : base($"The specified feature {featureName} could not be identified.")
+        public UnknownFeatureException(string featureName) : base(string.Format(Errors.UnknownFeature, featureName))
         {
         }
     }

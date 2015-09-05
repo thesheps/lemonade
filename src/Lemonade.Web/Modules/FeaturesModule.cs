@@ -3,6 +3,7 @@ using Lemonade.Data.Queries;
 using Lemonade.Web.Mappers;
 using Lemonade.Web.Models;
 using Nancy;
+using Nancy.ModelBinding;
 
 namespace Lemonade.Web.Modules
 {
@@ -12,6 +13,7 @@ namespace Lemonade.Web.Modules
         {
             _getAllFeatures = getAllFeatures;
             Get["/features"] = parameters => View[new FeaturesModel { Features = _getAllFeatures.Execute().Select(f => f.ToModel()).ToList() }];
+            Post["/features"] = parameters => HttpStatusCode.OK;
         }
 
         private readonly IGetAllFeatures _getAllFeatures;

@@ -1,7 +1,7 @@
 ﻿using System;
+using System.Configuration;
 using System.Dynamic;
 using Lemonade.Exceptions;
-using Lemonade.Services;
 
 namespace Lemonade
 {
@@ -13,9 +13,19 @@ namespace Lemonade
         {
             get
             {
-                if (_featureResolver == null) throw new ResolverNotFoundException();
+                if (_featureResolver == null)
+                {
+                    var featureConfiguration = ConfigurationManager.GetSection("FeatureConfiguration") as FeatureConfigurationSection;
+                    if (featureConfiguration != null)
+                    {
+                        var type = Type.GetType(featureConfiguration.FeatureResolver);
+                        if (type != null) _featureResolver = Activator.CreateInstance(type) as IFeatureResolver;
+                    }
+                }
+
+                if (_featureResolver == null) { throw new ResolverNotFoundException(); }
                 var isEnabled = _featureResolver.Get(key);
-                
+
                 if (!isEnabled.HasValue) throw new UnknownFeatureException(key);
                 return isEnabled.Value;
             }
@@ -23,7 +33,7 @@ namespace Lemonade
 
         public static Feature Switches { get; } = new Feature();
 
-        public static void SetResolver(IFeatureResolver featureResolver)
+        public static void Resolver(IFeatureResolver featureResolver)
         {
             Switches._featureResolver = featureResolver;
         }

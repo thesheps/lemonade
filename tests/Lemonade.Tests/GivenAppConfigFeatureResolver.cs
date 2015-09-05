@@ -1,12 +1,11 @@
-﻿using Lemonade.Services;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 
 namespace Lemonade.Tests
 {
     public class GivenAppConfigFeatureResolver
     {
         [Test]
-        public void WhenIHaveAnEnabledKnownAppConfigSetting_ThenTheValueIsRetrievedAsTrue()
+        public void WhenIHaveAnEnabledKnownFeatureSwitch_ThenTheValueIsRetrievedAsTrue()
         {
             var resolver = new AppConfigFeatureResolver();
             var enabled = resolver.Get("EnabledProperty");
@@ -14,7 +13,7 @@ namespace Lemonade.Tests
         }
 
         [Test]
-        public void WhenIHaveADisabledKnownAppConfigSetting_ThenTheValueIsRetrievedAsFalse()
+        public void WhenIHaveADisabledKnownFeatureSwitch_ThenTheValueIsRetrievedAsFalse()
         {
             var resolver = new AppConfigFeatureResolver();
             var enabled = resolver.Get("DisabledProperty");
@@ -22,7 +21,7 @@ namespace Lemonade.Tests
         }
 
         [Test]
-        public void WhenIHaveAnUnknownAppConfigSetting_ThenTheValueIsRetrievedAsNull()
+        public void WhenIHaveAnUnknownFeatureSwitch_ThenTheValueIsRetrievedAsNull()
         {
             var resolver = new AppConfigFeatureResolver();
             var enabled = resolver.Get("NullProperty");
@@ -32,7 +31,14 @@ namespace Lemonade.Tests
         [Test]
         public void WhenIHaveAnEnabledKnownAppConfigSettingAndUseFeatureWrapper_ThenTheValueIsRetrievedAsTrue()
         {
-            Feature.SetResolver(new AppConfigFeatureResolver());
+            Feature.Resolver(new AppConfigFeatureResolver());
+            Assert.That(Feature.Switches["EnabledProperty"], Is.True);
+            Assert.That(Feature.Switches[d => d.EnabledProperty], Is.True);
+        }
+
+        [Test]
+        public void WhenIHaveAKnownFeatureSwitchAndUseXmlConfiguration_ThenTheValueIsRetrievedAsTrue()
+        {
             Assert.That(Feature.Switches["EnabledProperty"], Is.True);
             Assert.That(Feature.Switches[d => d.EnabledProperty], Is.True);
         }

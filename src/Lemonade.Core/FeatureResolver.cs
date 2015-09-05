@@ -1,6 +1,6 @@
 ﻿using System.Configuration;
 
-namespace Lemonade.Services
+namespace Lemonade
 {
     public interface IFeatureResolver
     {

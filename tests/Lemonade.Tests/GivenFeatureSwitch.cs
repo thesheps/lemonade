@@ -8,7 +8,7 @@ namespace Lemonade.Tests
         [Test]
         public void WhenFeatureSwitchedOn_ThenFeatureIsExecuted()
         {
-            Feature.SetResolver(new FakeResolver());
+            Feature.Resolver(new FakeResolver());
             var featureSwitch = new FakeSwitch();
             featureSwitch.Execute();
 

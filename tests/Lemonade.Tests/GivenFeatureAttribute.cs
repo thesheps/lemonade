@@ -1,7 +1,6 @@
 ﻿using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
-using Lemonade.Services;
 using NSubstitute;
 using NUnit.Framework;
 
@@ -12,7 +11,7 @@ namespace Lemonade.Tests
         [Test]
         public void WhenFeatureSwitchedOff_ThenEmptyResults()
         {
-            Feature.SetResolver(new AppConfigFeatureResolver());
+            Feature.Resolver(new AppConfigFeatureResolver());
             var filterAttribute = new FeatureAttribute("DisabledProperty");
             var request = Substitute.For<HttpRequestBase>();
             request.ContentType.Returns("application/json");

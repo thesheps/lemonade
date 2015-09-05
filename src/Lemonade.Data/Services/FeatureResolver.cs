@@ -1,6 +1,5 @@
 ﻿using System;
 using Lemonade.Data.Queries;
-using Lemonade.Services;
 
 namespace Lemonade.Data.Services
 {
