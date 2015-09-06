@@ -1,6 +1,6 @@
 ﻿using System.Linq;
-using Lemonade.Data.Commands;
-using Lemonade.Data.Queries;
+using Lemonade.Sql.Commands;
+using Lemonade.Sql.Queries;
 using Lemonade.Web.Mappers;
 using Lemonade.Web.Models;
 using Nancy;
@@ -10,7 +10,7 @@ namespace Lemonade.Web.Modules
 {
     public class FeaturesModule : NancyModule
     {
-        public FeaturesModule(IGetAllFeatures getAllFeatures, ISaveFeature saveFeature)
+        public FeaturesModule(GetAllFeatures getAllFeatures, SaveFeature saveFeature)
         {
             Get["/features"] = parameters => View[new FeaturesModel { Features = getAllFeatures.Execute().Select(f => f.ToModel()).ToList() }];
             Post["/features"] = parameters =>

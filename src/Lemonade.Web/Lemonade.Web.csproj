@@ -97,16 +97,15 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Lemonade.Data\Lemonade.Data.csproj">
-      <Project>{1D8325AC-51B7-4870-ADFE-B1B03B8921D8}</Project>
-      <Name>Lemonade.Data</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup />
-  <ItemGroup>
     <Content Include="Views\Features.cshtml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Lemonade.Sql\Lemonade.Sql.csproj">
+      <Project>{06665811-5ED9-4088-81B2-805E80119772}</Project>
+      <Name>Lemonade.Sql</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

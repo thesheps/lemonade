@@ -1,26 +1,33 @@
 ﻿using System.Collections.Generic;
+using System.Configuration;
 using System.Data.Common;
 using Dapper;
-using Lemonade.Data.Queries;
 
 namespace Lemonade.Sql.Queries
 {
-    public class GetAllFeaturesByApplication : IGetAllFeaturesByApplication
+    public class GetAllFeaturesByApplication
     {
+        public GetAllFeaturesByApplication()
+        {
+            var connectionString = ConfigurationManager.ConnectionStrings["Lemonade"];
+            _dbProviderFactory = DbProviderFactories.GetFactory(connectionString.ProviderName);
+            _connectionString = connectionString.ConnectionString;
+        }
+
         public GetAllFeaturesByApplication(DbProviderFactory dbProviderFactory, string connectionString)
         {
             _dbProviderFactory = dbProviderFactory;
             _connectionString = connectionString;
         }
 
-        public IEnumerable<Data.Entities.Feature> Execute(string applicationName)
+        public IEnumerable<Feature> Execute(string applicationName)
         {
             using (var cnn = _dbProviderFactory.CreateConnection())
             {
                 if (cnn == null) return null;
 
                 cnn.ConnectionString = _connectionString;
-                return cnn.Query<Data.Entities.Feature>("SELECT * FROM Features WHERE Application = @applicationName", new { application = applicationName });
+                return cnn.Query<Feature>("SELECT * FROM Features WHERE Application = @applicationName", new { application = applicationName });
             }
         }
 

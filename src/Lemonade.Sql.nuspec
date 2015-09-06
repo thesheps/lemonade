@@ -8,11 +8,11 @@
     <owners>Chris Shepherd</owners>
     <iconUrl>https://avatars3.githubusercontent.com/u/7890777?s=140</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Lemonade provides an easy to use feature-switch library, with very little configuration.</description>
+    <description>Provides an SQL data layer for use with Lemonade.</description>
     <releaseNotes></releaseNotes>
-    <tags>featureswitch feature lemonade toggle featuretoggle configuration</tags>
+    <tags>featureswitch feature lemonade toggle featuretoggle configuration sql sqlite fluentmigrator</tags>
   </metadata>
   <files>
-    <file src="Lemonade.SqlServer\bin\$configuration$\Lemonade.SqlServer.dll" target="lib\net40\" />
+    <file src="Lemonade.Sql\bin\$configuration$\Lemonade.Sql.dll" target="lib\net40\" />
   </files>
 </package>

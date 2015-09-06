@@ -105,11 +105,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Lemonade.Data\Lemonade.Data.csproj">
-      <Project>{1d8325ac-51b7-4870-adfe-b1b03b8921d8}</Project>
-      <Name>Lemonade.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Lemonade.SqlServer\Lemonade.Sql.csproj">
+    <ProjectReference Include="..\..\src\Lemonade.Sql\Lemonade.Sql.csproj">
       <Project>{06665811-5ED9-4088-81B2-805E80119772}</Project>
       <Name>Lemonade.Sql</Name>
     </ProjectReference>

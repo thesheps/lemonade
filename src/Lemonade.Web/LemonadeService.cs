@@ -15,7 +15,10 @@ namespace Lemonade.Web
         public void Start()
         {
             var urlReservations = new UrlReservations { CreateAutomatically = true };
-            _host = new NancyHost(_bootstrapper, new HostConfiguration { UrlReservations = urlReservations }, new Uri(_hostingUrl));
+            _host = new NancyHost(_bootstrapper, 
+                new HostConfiguration { UrlReservations = urlReservations }, 
+                new Uri(_hostingUrl));
+
             _host.Start();
         }
 

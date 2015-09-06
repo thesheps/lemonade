@@ -8,9 +8,9 @@
     <owners>Chris Shepherd</owners>
     <iconUrl>https://avatars3.githubusercontent.com/u/7890777?s=140</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Lemonade provides an easy to use feature-switch library, with very little configuration.</description>
+    <description>A Nancy web UI for supporting the configuration of feature switches.</description>
     <releaseNotes></releaseNotes>
-    <tags>featureswitch feature lemonade toggle featuretoggle configuration</tags>
+    <tags>featureswitch feature lemonade toggle featuretoggle configuration nancy web self-host</tags>
   </metadata>
   <files>
     <file src="Lemonade.Web\bin\$configuration$\Lemonade.Web.dll" target="lib\net40\" />

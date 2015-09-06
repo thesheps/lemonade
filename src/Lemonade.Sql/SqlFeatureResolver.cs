@@ -1,11 +1,16 @@
 ﻿using System;
-using Lemonade.Data.Queries;
+using Lemonade.Sql.Queries;
 
-namespace Lemonade.Data
+namespace Lemonade.Sql
 {
-    public class FeatureResolver : IFeatureResolver
+    public class SqlFeatureResolver : IFeatureResolver
     {
-        public FeatureResolver(IGetFeatureByName getFeatureByName)
+        public SqlFeatureResolver()
+        {
+            _getFeatureByName = new GetFeatureByName();
+        }
+
+        public SqlFeatureResolver(GetFeatureByName getFeatureByName)
         {
             _getFeatureByName = getFeatureByName;
         }
@@ -16,6 +21,6 @@ namespace Lemonade.Data
             return feature.ExpirationDays.HasValue && DateTime.Now > feature.StartDate.AddDays(feature.ExpirationDays.Value);
         }
 
-        private readonly IGetFeatureByName _getFeatureByName;
+        private readonly GetFeatureByName _getFeatureByName;
     }
 }
