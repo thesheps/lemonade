@@ -11,7 +11,7 @@ namespace Lemonade.Tests
         [Test]
         public void WhenFeatureSwitchedOff_ThenEmptyResults()
         {
-            Feature.Resolver(new AppConfigFeatureResolver());
+            Feature.Resolver = new AppConfigFeatureResolver();
             var filterAttribute = new FeatureAttribute("DisabledProperty");
             var request = Substitute.For<HttpRequestBase>();
             request.ContentType.Returns("application/json");

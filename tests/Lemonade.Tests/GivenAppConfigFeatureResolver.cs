@@ -31,7 +31,7 @@ namespace Lemonade.Tests
         [Test]
         public void WhenIHaveAnEnabledKnownAppConfigSettingAndUseFeatureWrapper_ThenTheValueIsRetrievedAsTrue()
         {
-            Feature.Resolver(new AppConfigFeatureResolver());
+            Feature.Resolver = new AppConfigFeatureResolver();
             Assert.That(Feature.Switches["EnabledProperty"], Is.True);
             Assert.That(Feature.Switches[d => d.EnabledProperty], Is.True);
         }

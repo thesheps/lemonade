@@ -33,9 +33,10 @@ namespace Lemonade
 
         public static Feature Switches { get; } = new Feature();
 
-        public static void Resolver(IFeatureResolver featureResolver)
+        public static IFeatureResolver Resolver
         {
-            Switches._featureResolver = featureResolver;
+            get { return Switches._featureResolver; }
+            set { Switches._featureResolver = value; }
         }
 
         public void Execute(string key, Action action)
