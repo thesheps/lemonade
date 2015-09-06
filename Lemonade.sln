@@ -9,7 +9,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Source", "Source", "{C92253
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{87416585-33B0-4DEE-A807-57F5FA129A34}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lemonade.SqlServer", "src\Lemonade.SqlServer\Lemonade.SqlServer.csproj", "{06665811-5ED9-4088-81B2-805E80119772}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lemonade.Sql", "src\Lemonade.SqlServer\Lemonade.Sql.csproj", "{06665811-5ED9-4088-81B2-805E80119772}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lemonade.Web", "src\Lemonade.Web\Lemonade.Web.csproj", "{F3F461B3-2FC8-4704-9A8E-7B9A490668C9}"
 EndProject

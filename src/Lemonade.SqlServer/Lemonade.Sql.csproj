@@ -7,8 +7,8 @@
     <ProjectGuid>{06665811-5ED9-4088-81B2-805E80119772}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Lemonade.SqlServer</RootNamespace>
-    <AssemblyName>Lemonade.SqlServer</AssemblyName>
+    <RootNamespace>Lemonade.Sql</RootNamespace>
+    <AssemblyName>Lemonade.Sql</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -54,6 +54,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\SaveFeature.cs" />
     <Compile Include="Migrations\CreateTables.cs" />
     <Compile Include="DbMigrations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

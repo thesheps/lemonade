@@ -1,7 +1,7 @@
 ﻿using System;
 using Lemonade.Data.Queries;
 
-namespace Lemonade.Data.Services
+namespace Lemonade.Data
 {
     public class FeatureResolver : IFeatureResolver
     {

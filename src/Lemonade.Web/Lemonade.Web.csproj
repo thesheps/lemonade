@@ -85,13 +85,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Infrastructure\Bootstrapper.cs" />
     <Compile Include="Mappers\FeatureMapper.cs" />
     <Compile Include="Models\FeatureModel.cs" />
     <Compile Include="Models\FeaturesModel.cs" />
     <Compile Include="Modules\FeaturesModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Lemonade.cs" />
+    <Compile Include="LemonadeService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -101,10 +100,6 @@
     <ProjectReference Include="..\Lemonade.Data\Lemonade.Data.csproj">
       <Project>{1D8325AC-51B7-4870-ADFE-B1B03B8921D8}</Project>
       <Name>Lemonade.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Lemonade.SqlServer\Lemonade.SqlServer.csproj">
-      <Project>{06665811-5ED9-4088-81B2-805E80119772}</Project>
-      <Name>Lemonade.SqlServer</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

@@ -1,6 +1,6 @@
 ﻿using FluentMigrator;
 
-namespace Lemonade.SqlServer.Migrations
+namespace Lemonade.Sql.Migrations
 {
     [Migration(1)]
     public class CreateTables : ForwardOnlyMigration
@@ -8,7 +8,7 @@ namespace Lemonade.SqlServer.Migrations
         public override void Up()
         {
             Create.Table("Feature")
-                .WithColumn("FeatureId").AsInt32().PrimaryKey("PK_FeatureId").Identity()
+                .WithColumn("Id").AsInt32().PrimaryKey("PK_FeatureId").Identity()
                 .WithColumn("Application").AsString()
                 .WithColumn("Name").AsString()
                 .WithColumn("StartDate").AsDateTime()
