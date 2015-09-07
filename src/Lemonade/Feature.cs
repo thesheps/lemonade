@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Configuration;
 using System.Dynamic;
-using Lemonade.Exceptions;
 
 namespace Lemonade
 {
@@ -13,15 +12,8 @@ namespace Lemonade
         {
             get
             {
-                if (_featureResolver == null)
-                    _featureResolver = GetFeatureResolver();
-
-                var isEnabled = _featureResolver.Get(key);
-
-                if (!isEnabled.HasValue)
-                    throw new UnknownFeatureException(key);
-
-                return isEnabled.Value;
+                if (_featureResolver == null) _featureResolver = GetFeatureResolver();
+                return _featureResolver.Get(key);
             }
         }
 

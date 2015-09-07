@@ -62,6 +62,7 @@
       <DependentUpon>Errors.resx</DependentUpon>
     </Compile>
     <Compile Include="Exceptions\ConnectionStringNotFoundException.cs" />
+    <Compile Include="Queries\GetFeatureByNameAndApplication.cs" />
     <Compile Include="SqlFeatureResolver.cs" />
     <Compile Include="Migrations\CreateTables.cs" />
     <Compile Include="DbMigrations.cs" />

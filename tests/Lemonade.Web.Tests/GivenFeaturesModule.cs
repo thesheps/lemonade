@@ -56,8 +56,8 @@ namespace Lemonade.Web.Tests
                 ExpirationDays = 1,
                 IsEnabled = true,
                 StartDate = DateTime.Now,
-                Name = name,
-                Application = "TestApplication"
+                FeatureName = name,
+                ApplicationName = "TestApplication"
             };
         }
     }

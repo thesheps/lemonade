@@ -35,10 +35,10 @@ namespace Lemonade.Sql.Commands
                 if (cnn == null) return;
 
                 cnn.ConnectionString = _connectionString;
-                cnn.Execute("INSERT INTO Feature (IsEnabled, ExpirationDays, StartDate, Name, Application) " +
-                            "VALUES (@IsEnabled, @ExpirationDays, @StartDate, @Name, @Application)", new
+                cnn.Execute("INSERT INTO Feature (IsEnabled, ExpirationDays, StartDate, FeatureName, ApplicationName) " +
+                            "VALUES (@IsEnabled, @ExpirationDays, @StartDate, @FeatureName, @ApplicationName)", new
                             {
-                                feature.IsEnabled, feature.ExpirationDays, feature.StartDate, feature.Name, feature.Application
+                                feature.IsEnabled, feature.ExpirationDays, feature.StartDate, feature.FeatureName, feature.ApplicationName
                             });
             }
         }

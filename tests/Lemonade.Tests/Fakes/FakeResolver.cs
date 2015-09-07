@@ -2,9 +2,9 @@
 {
     public class FakeResolver : IFeatureResolver
     {
-        public bool? Get(string value)
+        public bool Get(string value)
         {
-            return value == "UseTestFunctionality" ? true : (bool?)null;
+            return value == "UseTestFunctionality";
         }
     }
 }

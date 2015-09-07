@@ -1,19 +1,19 @@
-﻿using System.Collections.Generic;
-using System.Configuration;
+﻿using System.Configuration;
 using System.Data.Common;
+using System.Linq;
 using Dapper;
 using Lemonade.Sql.Exceptions;
 
 namespace Lemonade.Sql.Queries
 {
-    public class GetAllFeaturesByApplication
+    public class GetFeatureByNameAndApplication
     {
-        public GetAllFeaturesByApplication() 
+        public GetFeatureByNameAndApplication() 
             : this("Lemonade")
         {
         }
 
-        public GetAllFeaturesByApplication(string connectionStringName)
+        public GetFeatureByNameAndApplication(string connectionStringName)
         {
             var connectionStringSettings = ConfigurationManager.ConnectionStrings[connectionStringName];
             if (connectionStringSettings == null)
@@ -23,20 +23,27 @@ namespace Lemonade.Sql.Queries
             _connectionString = connectionStringSettings.ConnectionString;
         }
 
-        public GetAllFeaturesByApplication(DbProviderFactory dbProviderFactory, string connectionString)
+        public GetFeatureByNameAndApplication(DbProviderFactory dbProviderFactory, string connectionString)
         {
             _dbProviderFactory = dbProviderFactory;
             _connectionString = connectionString;
         }
 
-        public IEnumerable<Feature> Execute(string applicationName)
+        public Entities.Feature Execute(string featureName, string applicationName)
         {
             using (var cnn = _dbProviderFactory.CreateConnection())
             {
                 if (cnn == null) return null;
 
                 cnn.ConnectionString = _connectionString;
-                return cnn.Query<Feature>("SELECT * FROM Features WHERE ApplicationName = @applicationName", new { application = applicationName });
+
+                return cnn.Query<Entities.Feature>("SELECT * FROM Feature WHERE FeatureName = @featureName " +
+                                                   "AND ApplicationName = @applicationName",
+                    new
+                    {
+                        featureName,
+                        applicationName
+                    }).SingleOrDefault();
             }
         }
 

@@ -1,5 +1,4 @@
-﻿using Lemonade.Exceptions;
-using Lemonade.Tests.Fakes;
+﻿using Lemonade.Tests.Fakes;
 using NUnit.Framework;
 
 namespace Lemonade.Tests
@@ -47,13 +46,6 @@ namespace Lemonade.Tests
             Feature.Resolver = new FakeResolver();
             Feature.Switches.Execute(d => d.UseTestFunctionality, () => executed = true);
             Assert.That(executed, Is.True);
-        }
-
-        [Test]
-        public void WhenUnknownFeature_ThenUnknownFeatureExceptionIsThrown()
-        {
-            Feature.Resolver = new FakeResolver();
-            Assert.Throws<UnknownFeatureException>(() => { var executed = Feature.Switches["Nonsense"]; });
         }
     }
 }

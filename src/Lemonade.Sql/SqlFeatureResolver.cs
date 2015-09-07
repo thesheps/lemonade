@@ -5,25 +5,29 @@ namespace Lemonade.Sql
 {
     public class SqlFeatureResolver : IFeatureResolver
     {
-        public SqlFeatureResolver() : this(new GetFeatureByName())
+        public SqlFeatureResolver() : this(new GetFeatureByNameAndApplication())
         {
         }
 
-        public SqlFeatureResolver(string connectionString) : this(new GetFeatureByName(connectionString))
+        public SqlFeatureResolver(string connectionString) : this(new GetFeatureByNameAndApplication(connectionString))
         {
         }
 
-        public SqlFeatureResolver(GetFeatureByName getFeatureByName)
+        public SqlFeatureResolver(GetFeatureByNameAndApplication getFeatureByNameAndApplication)
         {
-            _getFeatureByName = getFeatureByName;
+            _getFeatureByNameAndApplication = getFeatureByNameAndApplication;
         }
 
-        public bool? Get(string value)
+        public bool Get(string featureName)
         {
-            var feature = _getFeatureByName.Execute(value);
+            var applicationName = AppDomain.CurrentDomain.FriendlyName;
+            var feature = _getFeatureByNameAndApplication.Execute(featureName, applicationName);
+
+            if (feature == null) return false;
+
             return feature.IsEnabled && feature.ExpirationDays.HasValue && DateTime.Now <= feature.StartDate.AddDays(feature.ExpirationDays.Value);
         }
 
-        private readonly GetFeatureByName _getFeatureByName;
+        private readonly GetFeatureByNameAndApplication _getFeatureByNameAndApplication;
     }
 }

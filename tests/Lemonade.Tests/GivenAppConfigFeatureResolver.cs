@@ -21,11 +21,11 @@ namespace Lemonade.Tests
         }
 
         [Test]
-        public void WhenIHaveAnUnknownFeatureSwitch_ThenTheValueIsRetrievedAsNull()
+        public void WhenIHaveAnUnknownFeatureSwitch_ThenTheValueIsRetrievedAsFalse()
         {
             var resolver = new AppConfigFeatureResolver();
             var enabled = resolver.Get("NullProperty");
-            Assert.That(enabled, Is.Null);
+            Assert.That(enabled, Is.False);
         }
 
         [Test]

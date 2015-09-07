@@ -19,6 +19,7 @@
             <table class="table table-striped">
                 <thead>
                 <tr>
+                    <th>Application Name</th>
                     <th>Feature Name</th>
                     <th>Value</th>
                 </tr>
@@ -30,7 +31,8 @@
                     var feature = Model.Features[i];
 
                     <tr class="feature">
-                        <td><input type="text" value="@feature.Name" name="@string.Format("features[{0}].Name", i)"/></td>
+                        <td><input type="text" value="@feature.ApplicationName" name="@string.Format("features[{0}].ApplicationName", i)" /></td>
+                        <td><input type="text" value="@feature.FeatureName" name="@string.Format("features[{0}].FeatureName", i)"/></td>
                         <td><input type="text" value="@feature.IsEnabled" name="@string.Format("features[{0}].IsEnabled", i)"/></td>
                     </tr>
                 }

@@ -29,14 +29,14 @@ namespace Lemonade.Sql.Queries
             _connectionString = connectionString;
         }
 
-        public Entities.Feature Execute(string name)
+        public Entities.Feature Execute(string featureName)
         {
             using (var cnn = _dbProviderFactory.CreateConnection())
             {
                 if (cnn == null) return null;
 
                 cnn.ConnectionString = _connectionString;
-                return cnn.Query<Entities.Feature>("SELECT * FROM Feature WHERE Name = @name", new { name }).First();
+                return cnn.Query<Entities.Feature>("SELECT * FROM Feature WHERE FeatureName = @featureName", new { featureName }).First();
             }
         }
 

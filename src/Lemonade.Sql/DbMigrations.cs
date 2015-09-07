@@ -12,11 +12,6 @@ namespace Lemonade.Sql
 {
     public class DbMigrations
     {
-        private DbMigrations(MigrationRunner runner)
-        {
-            _runner = runner;
-        }
-
         public static DbMigrations SqlServer(string connectionString)
         {
             return new DbMigrations(GetRunner(connectionString, new SqlServer2008ProcessorFactory()));
@@ -32,7 +27,17 @@ namespace Lemonade.Sql
             _runner.MigrateUp();
         }
 
-        private static MigrationRunner GetRunner(string connectionString, MigrationProcessorFactory factory)
+        public void Down()
+        {
+            _runner.MigrateDown(0);
+        }
+
+        private DbMigrations(MigrationRunner runner)
+        {
+            _runner = runner;
+        }
+
+        private static MigrationRunner GetRunner(string connectionString, IMigrationProcessorFactory factory)
         {
             var announcer = new TextWriterAnnouncer(s => Debug.WriteLine(s));
             var assembly = Assembly.GetExecutingAssembly();
