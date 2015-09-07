@@ -13,7 +13,7 @@ namespace Lemonade.Web.Modules
         public FeaturesModule(GetAllFeatures getAllFeatures, SaveFeature saveFeature)
         {
             Get["/features"] = parameters => View[new FeaturesModel { Features = getAllFeatures.Execute().Select(f => f.ToModel()).ToList() }];
-            Post["/features"] = parameters =>
+            Post["/api/features"] = parameters =>
             {
                 saveFeature.Execute(this.Bind<FeatureModel>().ToEntity());
                 return HttpStatusCode.OK;

@@ -32,13 +32,13 @@ namespace Lemonade.Web.Tests
                 with.Dependency(saveFeature);
             }));
 
-            browser.Post("/features", with =>
+            browser.Post("/api/features", with =>
             {
                 with.Header("Content-Type", "application/json");
                 with.Body(JsonConvert.SerializeObject(GetFeatureModel("MySuperCoolFeature1")));
             });
 
-            browser.Post("/features", with =>
+            browser.Post("/api/features", with =>
             {
                 with.Header("Content-Type", "application/json");
                 with.Body(JsonConvert.SerializeObject(GetFeatureModel("MySuperCoolFeature2")));
