@@ -6,11 +6,19 @@ namespace Lemonade.Sql.Commands
 {
     public class SaveFeature
     {
-        public SaveFeature()
+        public SaveFeature() 
+            : this("Lemonade")
         {
-            var connectionString = ConfigurationManager.ConnectionStrings["Lemonade"];
-            _dbProviderFactory = DbProviderFactories.GetFactory(connectionString.ProviderName);
-            _connectionString = connectionString.ConnectionString;
+        }
+
+        public SaveFeature(string connectionStringName) 
+            : this(ConfigurationManager.ConnectionStrings[connectionStringName])
+        {
+        }
+
+        public SaveFeature(ConnectionStringSettings connectionStringSettings) 
+            : this(DbProviderFactories.GetFactory(connectionStringSettings.ProviderName), connectionStringSettings.ConnectionString)
+        {
         }
 
         public SaveFeature(DbProviderFactory dbProviderFactory, string connectionString)

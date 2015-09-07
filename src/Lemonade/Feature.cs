@@ -14,19 +14,13 @@ namespace Lemonade
             get
             {
                 if (_featureResolver == null)
-                {
-                    var featureConfiguration = ConfigurationManager.GetSection("FeatureConfiguration") as FeatureConfigurationSection;
-                    if (featureConfiguration != null)
-                    {
-                        var type = Type.GetType(featureConfiguration.FeatureResolver);
-                        if (type != null) _featureResolver = Activator.CreateInstance(type) as IFeatureResolver;
-                    }
-                }
+                    _featureResolver = GetFeatureResolver();
 
-                if (_featureResolver == null) { throw new ResolverNotFoundException(); }
                 var isEnabled = _featureResolver.Get(key);
 
-                if (!isEnabled.HasValue) throw new UnknownFeatureException(key);
+                if (!isEnabled.HasValue)
+                    throw new UnknownFeatureException(key);
+
                 return isEnabled.Value;
             }
         }
@@ -51,6 +45,17 @@ namespace Lemonade
 
         private Feature()
         {
+        }
+
+        private static IFeatureResolver GetFeatureResolver()
+        {
+            var featureConfiguration = ConfigurationManager.GetSection("FeatureConfiguration") as FeatureConfigurationSection;
+
+            if (featureConfiguration == null) return new AppConfigFeatureResolver();
+            var type = Type.GetType(featureConfiguration.FeatureResolver);
+            if (type != null) return Activator.CreateInstance(type) as IFeatureResolver;
+
+            return new AppConfigFeatureResolver();
         }
 
         private class DynamicKey : DynamicObject

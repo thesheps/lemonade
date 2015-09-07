@@ -8,7 +8,7 @@
     <owners>Chris Shepherd</owners>
     <iconUrl>https://avatars3.githubusercontent.com/u/7890777?s=140</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Lemonade provides an easy to use feature-switch library, with very little configuration.</description>
+    <description>Lemonade provides an easy to use feature-switch library.</description>
     <releaseNotes></releaseNotes>
     <tags>featureswitch feature lemonade toggle featuretoggle configuration</tags>
   </metadata>

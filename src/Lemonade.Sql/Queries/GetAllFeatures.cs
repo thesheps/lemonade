@@ -7,11 +7,19 @@ namespace Lemonade.Sql.Queries
 {
     public class GetAllFeatures
     {
-        public GetAllFeatures()
+        public GetAllFeatures() 
+            : this("Lemonade")
         {
-            var connectionString = ConfigurationManager.ConnectionStrings["Lemonade"];
-            _dbProviderFactory = DbProviderFactories.GetFactory(connectionString.ProviderName);
-            _connectionString = connectionString.ConnectionString;
+        }
+
+        public GetAllFeatures(string connectionStringName) 
+            : this(ConfigurationManager.ConnectionStrings[connectionStringName])
+        {
+        }
+
+        public GetAllFeatures(ConnectionStringSettings connectionStringSettings) 
+            : this(DbProviderFactories.GetFactory(connectionStringSettings.ProviderName), connectionStringSettings.ConnectionString)
+        {
         }
 
         public GetAllFeatures(DbProviderFactory dbProviderFactory, string connectionString)

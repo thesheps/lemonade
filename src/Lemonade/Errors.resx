@@ -117,9 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ResolverNotFound" xml:space="preserve">
-    <value>A feature resolver could not be found, please ensure you register one via the Resolver property, or via Xml configuration.</value>
-  </data>
   <data name="UnknownFeature" xml:space="preserve">
     <value>The specified feature {0} could not be identified.</value>
   </data>

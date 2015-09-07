@@ -82,7 +82,6 @@
     <Compile Include="FeatureConfigurationSection.cs" />
     <Compile Include="FeatureSwitch.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Exceptions\ResolverNotFoundException.cs" />
     <Compile Include="FeatureResolver.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -61,15 +61,6 @@ namespace Lemonade {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to A feature resolver could not be found, please ensure you register one via the Resolver property, or via Xml configuration..
-        /// </summary>
-        internal static string ResolverNotFound {
-            get {
-                return ResourceManager.GetString("ResolverNotFound", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to The specified feature {0} could not be identified..
         /// </summary>
         internal static string UnknownFeature {

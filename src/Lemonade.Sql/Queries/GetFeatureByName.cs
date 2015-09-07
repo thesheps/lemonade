@@ -1,5 +1,4 @@
-﻿using System;
-using System.Configuration;
+﻿using System.Configuration;
 using System.Data.Common;
 using System.Linq;
 using Dapper;
@@ -8,16 +7,23 @@ namespace Lemonade.Sql.Queries
 {
     public class GetFeatureByName
     {
-        public GetFeatureByName()
+        public GetFeatureByName() 
+            : this("Lemonade")
         {
-            var connectionString = ConfigurationManager.ConnectionStrings["Lemonade"];
-            _dbProviderFactory = DbProviderFactories.GetFactory(connectionString.ProviderName);
-            _connectionString = connectionString.ConnectionString;
+        }
+
+        public GetFeatureByName(string connectionStringName) 
+            : this(ConfigurationManager.ConnectionStrings[connectionStringName])
+        {
+        }
+
+        public GetFeatureByName(ConnectionStringSettings connectionStringSettings) 
+            : this(DbProviderFactories.GetFactory(connectionStringSettings.ProviderName), connectionStringSettings.ConnectionString)
+        {
         }
 
         public GetFeatureByName(DbProviderFactory dbProviderFactory, string connectionString)
         {
-            if (dbProviderFactory == null) throw new ArgumentNullException(nameof(dbProviderFactory));
             _dbProviderFactory = dbProviderFactory;
             _connectionString = connectionString;
         }
