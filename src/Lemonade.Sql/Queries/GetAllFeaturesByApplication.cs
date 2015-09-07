@@ -1,46 +1,32 @@
 ﻿using System.Collections.Generic;
-using System.Configuration;
 using System.Data.Common;
 using Dapper;
-using Lemonade.Sql.Exceptions;
 
 namespace Lemonade.Sql.Queries
 {
-    public class GetAllFeaturesByApplication
+    public class GetAllFeaturesByApplication : LemonadeConnection
     {
-        public GetAllFeaturesByApplication() 
-            : this("Lemonade")
+        public GetAllFeaturesByApplication()
         {
         }
 
-        public GetAllFeaturesByApplication(string connectionStringName)
+        public GetAllFeaturesByApplication(string connectionStringName) : base(connectionStringName)
         {
-            var connectionStringSettings = ConfigurationManager.ConnectionStrings[connectionStringName];
-            if (connectionStringSettings == null)
-                throw new ConnectionStringNotFoundException(connectionStringName);
-
-            _dbProviderFactory = DbProviderFactories.GetFactory(connectionStringSettings.ProviderName);
-            _connectionString = connectionStringSettings.ConnectionString;
         }
 
-        public GetAllFeaturesByApplication(DbProviderFactory dbProviderFactory, string connectionString)
+        public GetAllFeaturesByApplication(DbProviderFactory dbProviderFactory, string connectionString) : base(dbProviderFactory, connectionString)
         {
-            _dbProviderFactory = dbProviderFactory;
-            _connectionString = connectionString;
         }
 
         public IEnumerable<Feature> Execute(string applicationName)
         {
-            using (var cnn = _dbProviderFactory.CreateConnection())
+            using (var cnn = DbProviderFactory.CreateConnection())
             {
                 if (cnn == null) return null;
 
-                cnn.ConnectionString = _connectionString;
+                cnn.ConnectionString = ConnectionString;
                 return cnn.Query<Feature>("SELECT * FROM Features WHERE ApplicationName = @applicationName", new { application = applicationName });
             }
         }
-
-        private readonly DbProviderFactory _dbProviderFactory;
-        private readonly string _connectionString;
     }
 }
