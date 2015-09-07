@@ -1,6 +1,7 @@
 ﻿using System.Configuration;
 using System.Data.Common;
 using Dapper;
+using Lemonade.Sql.Exceptions;
 
 namespace Lemonade.Sql.Commands
 {
@@ -11,14 +12,14 @@ namespace Lemonade.Sql.Commands
         {
         }
 
-        public SaveFeature(string connectionStringName) 
-            : this(ConfigurationManager.ConnectionStrings[connectionStringName])
+        public SaveFeature(string connectionStringName)
         {
-        }
+            var connectionStringSettings = ConfigurationManager.ConnectionStrings[connectionStringName];
+            if (connectionStringSettings == null)
+                throw new ConnectionStringNotFoundException(connectionStringName);
 
-        public SaveFeature(ConnectionStringSettings connectionStringSettings) 
-            : this(DbProviderFactories.GetFactory(connectionStringSettings.ProviderName), connectionStringSettings.ConnectionString)
-        {
+            _dbProviderFactory = DbProviderFactories.GetFactory(connectionStringSettings.ProviderName);
+            _connectionString = connectionStringSettings.ConnectionString;
         }
 
         public SaveFeature(DbProviderFactory dbProviderFactory, string connectionString)

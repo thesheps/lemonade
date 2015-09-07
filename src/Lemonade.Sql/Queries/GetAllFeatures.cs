@@ -2,6 +2,7 @@
 using System.Configuration;
 using System.Data.Common;
 using Dapper;
+using Lemonade.Sql.Exceptions;
 
 namespace Lemonade.Sql.Queries
 {
@@ -12,14 +13,14 @@ namespace Lemonade.Sql.Queries
         {
         }
 
-        public GetAllFeatures(string connectionStringName) 
-            : this(ConfigurationManager.ConnectionStrings[connectionStringName])
+        public GetAllFeatures(string connectionStringName)
         {
-        }
+            var connectionStringSettings = ConfigurationManager.ConnectionStrings[connectionStringName];
+            if (connectionStringSettings == null)
+                throw new ConnectionStringNotFoundException(connectionStringName);
 
-        public GetAllFeatures(ConnectionStringSettings connectionStringSettings) 
-            : this(DbProviderFactories.GetFactory(connectionStringSettings.ProviderName), connectionStringSettings.ConnectionString)
-        {
+            _dbProviderFactory = DbProviderFactories.GetFactory(connectionStringSettings.ProviderName);
+            _connectionString = connectionStringSettings.ConnectionString;
         }
 
         public GetAllFeatures(DbProviderFactory dbProviderFactory, string connectionString)

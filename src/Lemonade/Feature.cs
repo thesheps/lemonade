@@ -29,7 +29,7 @@ namespace Lemonade
 
         public static IFeatureResolver Resolver
         {
-            get { return Switches._featureResolver; }
+            get { return Switches._featureResolver ?? (Switches._featureResolver = GetFeatureResolver()); }
             set { Switches._featureResolver = value; }
         }
 
@@ -50,10 +50,12 @@ namespace Lemonade
         private static IFeatureResolver GetFeatureResolver()
         {
             var featureConfiguration = ConfigurationManager.GetSection("FeatureConfiguration") as FeatureConfigurationSection;
+            if (featureConfiguration == null)
+                return new AppConfigFeatureResolver();
 
-            if (featureConfiguration == null) return new AppConfigFeatureResolver();
             var type = Type.GetType(featureConfiguration.FeatureResolver);
-            if (type != null) return Activator.CreateInstance(type) as IFeatureResolver;
+            if (type != null)
+                return Activator.CreateInstance(type) as IFeatureResolver;
 
             return new AppConfigFeatureResolver();
         }

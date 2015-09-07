@@ -2,6 +2,7 @@
 using System.Data.Common;
 using System.Linq;
 using Dapper;
+using Lemonade.Sql.Exceptions;
 
 namespace Lemonade.Sql.Queries
 {
@@ -12,14 +13,14 @@ namespace Lemonade.Sql.Queries
         {
         }
 
-        public GetFeatureByName(string connectionStringName) 
-            : this(ConfigurationManager.ConnectionStrings[connectionStringName])
+        public GetFeatureByName(string connectionStringName)
         {
-        }
+            var connectionStringSettings = ConfigurationManager.ConnectionStrings[connectionStringName];
+            if (connectionStringSettings == null)
+                throw new ConnectionStringNotFoundException(connectionStringName);
 
-        public GetFeatureByName(ConnectionStringSettings connectionStringSettings) 
-            : this(DbProviderFactories.GetFactory(connectionStringSettings.ProviderName), connectionStringSettings.ConnectionString)
-        {
+            _dbProviderFactory = DbProviderFactories.GetFactory(connectionStringSettings.ProviderName);
+            _connectionString = connectionStringSettings.ConnectionString;
         }
 
         public GetFeatureByName(DbProviderFactory dbProviderFactory, string connectionString)
@@ -35,7 +36,7 @@ namespace Lemonade.Sql.Queries
                 if (cnn == null) return null;
 
                 cnn.ConnectionString = _connectionString;
-                return cnn.Query<Entities.Feature>("SELECT * FROM Features WHERE Name = @name", new { name }).First();
+                return cnn.Query<Entities.Feature>("SELECT * FROM Feature WHERE Name = @name", new { name }).First();
             }
         }
 

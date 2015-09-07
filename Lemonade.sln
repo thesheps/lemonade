@@ -24,6 +24,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Nuget", "Nuget", "{E5AABCAD
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lemonade.Sql", "src\Lemonade.Sql\Lemonade.Sql.csproj", "{06665811-5ED9-4088-81B2-805E80119772}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lemonade.Sql.Tests", "tests\Lemonade.Sql.Tests\Lemonade.Sql.Tests.csproj", "{C5FDBC1B-34E4-4B3D-8E76-0936A6879753}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -50,6 +52,10 @@ Global
 		{06665811-5ED9-4088-81B2-805E80119772}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{06665811-5ED9-4088-81B2-805E80119772}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{06665811-5ED9-4088-81B2-805E80119772}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C5FDBC1B-34E4-4B3D-8E76-0936A6879753}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5FDBC1B-34E4-4B3D-8E76-0936A6879753}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5FDBC1B-34E4-4B3D-8E76-0936A6879753}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5FDBC1B-34E4-4B3D-8E76-0936A6879753}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -60,5 +66,6 @@ Global
 		{712BC1A0-D0FD-44EE-8091-F1567EC5B0DE} = {87416585-33B0-4DEE-A807-57F5FA129A34}
 		{A5518007-A595-4C05-91C8-077FFCB17FC2} = {C92253CB-CC26-4544-9469-C7677DB42084}
 		{06665811-5ED9-4088-81B2-805E80119772} = {C92253CB-CC26-4544-9469-C7677DB42084}
+		{C5FDBC1B-34E4-4B3D-8E76-0936A6879753} = {87416585-33B0-4DEE-A807-57F5FA129A34}
 	EndGlobalSection
 EndGlobal
