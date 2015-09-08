@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.SQLite.EF6;
 using System.Linq;
 using Lemonade.Sql;
@@ -15,38 +16,64 @@ namespace Lemonade.Web.Tests
 {
     public class GivenFeaturesModule
     {
-        [Test]
-        public void WhenIPostMultipleFeatures_ThenTheFeaturesAreSaved()
+        [SetUp]
+        public void SetUp()
         {
             const string connectionString = "FullUri=file::memory:?cache=shared";
-            var dbProviderFactory = new SQLiteProviderFactory();
+            _dbProviderFactory = new SQLiteProviderFactory();
 
             DbMigrations.Sqlite(connectionString).Up();
-            var saveFeature = new SaveFeature(dbProviderFactory, connectionString);
-            var getAllFeatures = new GetAllFeatures(dbProviderFactory, connectionString);
+            _saveFeature = new SaveFeature(_dbProviderFactory, connectionString);
+            _getAllFeatures = new GetAllFeatures(_dbProviderFactory, connectionString);
 
-            var browser = new Browser(new ConfigurableBootstrapper(with =>
+            _browser = new Browser(new ConfigurableBootstrapper(with =>
             {
-                with.Module<FeaturesModule>();
-                with.Dependency(getAllFeatures);
-                with.Dependency(saveFeature);
+                with.Module<FeatureModule>();
+                with.Dependency(_getAllFeatures);
+                with.Dependency(_saveFeature);
             }));
+        }
 
-            browser.Post("/api/features", with =>
+        [Test]
+        public void WhenIPostMultipleFeatures_ThenTheFeaturesAreSavedAndTheSameNumberAreRendered()
+        {
+            _browser.Post("/api/feature", with =>
             {
                 with.Header("Content-Type", "application/json");
                 with.Body(JsonConvert.SerializeObject(GetFeatureModel("MySuperCoolFeature1")));
             });
 
-            browser.Post("/api/features", with =>
+            _browser.Post("/api/feature", with =>
             {
                 with.Header("Content-Type", "application/json");
                 with.Body(JsonConvert.SerializeObject(GetFeatureModel("MySuperCoolFeature2")));
             });
 
-            var response = browser.Get("/features");
+            var response = _browser.Get("/feature");
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
             Assert.That(response.Body[".feature"].Count(), Is.EqualTo(2));
+        }
+
+        [Test]
+        public void WhenIPostMultipleFeatures_ThenTheFeaturesAreSavedAndTheSameNumberAreRetrievedViaRest()
+        {
+            _browser.Post("/api/feature", with =>
+            {
+                with.Header("Content-Type", "application/json");
+                with.Body(JsonConvert.SerializeObject(GetFeatureModel("MySuperCoolFeature1")));
+            });
+
+            _browser.Post("/api/feature", with =>
+            {
+                with.Header("Content-Type", "application/json");
+                with.Body(JsonConvert.SerializeObject(GetFeatureModel("MySuperCoolFeature2")));
+            });
+
+            var response = _browser.Get("/api/feature", b => b.Header("Accept", "application/json"));
+            var results = JsonConvert.DeserializeObject<IList<FeatureModel>>(response.Body.AsString());
+
+            Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
+            Assert.That(results.Count, Is.EqualTo(2));
         }
 
         private static FeatureModel GetFeatureModel(string name)
@@ -60,5 +87,10 @@ namespace Lemonade.Web.Tests
                 ApplicationName = "TestApplication"
             };
         }
+
+        private Browser _browser;
+        private SaveFeature _saveFeature;
+        private GetAllFeatures _getAllFeatures;
+        private SQLiteProviderFactory _dbProviderFactory;
     }
 }
