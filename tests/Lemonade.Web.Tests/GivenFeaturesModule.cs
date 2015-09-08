@@ -19,12 +19,11 @@ namespace Lemonade.Web.Tests
         [SetUp]
         public void SetUp()
         {
-            const string connectionString = "FullUri=file::memory:?cache=shared";
-            _dbProviderFactory = new SQLiteProviderFactory();
+            DbMigrations.Sqlite(ConnectionString).Up();
 
-            DbMigrations.Sqlite(connectionString).Up();
-            _saveFeature = new SaveFeature(_dbProviderFactory, connectionString);
-            _getAllFeatures = new GetAllFeatures(_dbProviderFactory, connectionString);
+            _dbProviderFactory = new SQLiteProviderFactory();
+            _saveFeature = new SaveFeature(_dbProviderFactory, ConnectionString);
+            _getAllFeatures = new GetAllFeatures(_dbProviderFactory, ConnectionString);
 
             _browser = new Browser(new ConfigurableBootstrapper(with =>
             {
@@ -32,6 +31,12 @@ namespace Lemonade.Web.Tests
                 with.Dependency(_getAllFeatures);
                 with.Dependency(_saveFeature);
             }));
+        }
+
+        [TearDown]
+        public void Teardown()
+        {
+            DbMigrations.Sqlite(ConnectionString).Down();
         }
 
         [Test]
@@ -92,5 +97,6 @@ namespace Lemonade.Web.Tests
         private SaveFeature _saveFeature;
         private GetAllFeatures _getAllFeatures;
         private SQLiteProviderFactory _dbProviderFactory;
+        private const string ConnectionString = "Data Source=temp.db";
     }
 }
