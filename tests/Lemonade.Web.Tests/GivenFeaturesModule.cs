@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Data.SQLite.EF6;
 using System.Linq;
 using Lemonade.Sql;
-using Lemonade.Sql.Commands;
-using Lemonade.Sql.Queries;
 using Lemonade.Web.Models;
 using Lemonade.Web.Modules;
 using Nancy;
@@ -21,15 +20,9 @@ namespace Lemonade.Web.Tests
         {
             DbMigrations.Sqlite(ConnectionString).Up();
 
-            _dbProviderFactory = new SQLiteProviderFactory();
-            _saveFeature = new SaveFeature(_dbProviderFactory, ConnectionString);
-            _getAllFeatures = new GetAllFeatures(_dbProviderFactory, ConnectionString);
-
             _browser = new Browser(new ConfigurableBootstrapper(with =>
             {
                 with.Module<FeatureModule>();
-                with.Dependency(_getAllFeatures);
-                with.Dependency(_saveFeature);
             }));
         }
 
@@ -81,6 +74,22 @@ namespace Lemonade.Web.Tests
             Assert.That(results.Count, Is.EqualTo(2));
         }
 
+        [Test]
+        public void WhenIPostAFeature_ThenICanGetItViaHttp()
+        {
+            _browser.Post("/api/feature", with =>
+            {
+                with.Header("Content-Type", "application/json");
+                with.Body(JsonConvert.SerializeObject(GetFeatureModel("MySuperCoolFeature1")));
+            });
+
+            var response = _browser.Get("/api/feature", b => b.Header("Accept", "application/json"));
+            var results = JsonConvert.DeserializeObject<IList<FeatureModel>>(response.Body.AsString());
+
+            Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
+            Assert.That(results.Count, Is.EqualTo(1));
+        }
+
         private static FeatureModel GetFeatureModel(string name)
         {
             return new FeatureModel
@@ -94,9 +103,6 @@ namespace Lemonade.Web.Tests
         }
 
         private Browser _browser;
-        private SaveFeature _saveFeature;
-        private GetAllFeatures _getAllFeatures;
-        private SQLiteProviderFactory _dbProviderFactory;
         private const string ConnectionString = "Data Source=temp.db";
     }
 }
