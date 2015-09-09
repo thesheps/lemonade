@@ -37,6 +37,10 @@
       <HintPath>..\..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="RestSharp, Version=105.2.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\RestSharp.105.2.3\lib\net45\RestSharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -76,10 +80,18 @@
     <Compile Include="FeatureConfigurationSection.cs" />
     <Compile Include="FeatureSwitch.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="FeatureResolver.cs" />
+    <Compile Include="Resolvers\AppConfigFeatureResolver.cs" />
+    <Compile Include="Resolvers\FeatureResolver.cs" />
+    <Compile Include="Resolvers\HttpFeatureResolver.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Lemonade.Web.Contracts\Lemonade.Web.Contracts.csproj">
+      <Project>{DF4CCA5C-FF05-4471-BF04-C4E36C7101D8}</Project>
+      <Name>Lemonade.Web.Contracts</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Lemonade.Web.Models
+namespace Lemonade.Web.Contracts
 {
     public class FeatureModel
     {

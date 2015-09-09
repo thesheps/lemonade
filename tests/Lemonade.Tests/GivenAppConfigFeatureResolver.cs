@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using Lemonade.Resolvers;
+using NUnit.Framework;
 
 namespace Lemonade.Tests
 {

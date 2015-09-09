@@ -1,4 +1,5 @@
 ﻿using System;
+using Lemonade.Resolvers;
 using Lemonade.Sql.Queries;
 
 namespace Lemonade.Sql

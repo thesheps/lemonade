@@ -8,18 +8,18 @@ using FluentMigrator.Runner.Processors;
 using FluentMigrator.Runner.Processors.SqlServer;
 using FluentMigrator.Runner.Processors.SQLite;
 
-namespace Lemonade.Sql
+namespace Lemonade.Sql.Migrations
 {
-    public class DbMigrations
+    public class Runner
     {
-        public static DbMigrations SqlServer(string connectionString)
+        public static Runner SqlServer(string connectionString)
         {
-            return new DbMigrations(GetRunner(connectionString, new SqlServer2008ProcessorFactory()));
+            return new Runner(GetRunner(connectionString, new SqlServer2008ProcessorFactory()));
         }
 
-        public static DbMigrations Sqlite(string connectionString)
+        public static Runner Sqlite(string connectionString)
         {
-            return new DbMigrations(GetRunner(connectionString, new SQLiteProcessorFactory()));
+            return new Runner(GetRunner(connectionString, new SQLiteProcessorFactory()));
         }
 
         public void Up()
@@ -32,7 +32,7 @@ namespace Lemonade.Sql
             _runner.MigrateDown(0);
         }
 
-        private DbMigrations(MigrationRunner runner)
+        private Runner(MigrationRunner runner)
         {
             _runner = runner;
         }

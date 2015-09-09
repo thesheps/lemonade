@@ -66,7 +66,7 @@
     <Compile Include="Queries\GetFeatureByNameAndApplication.cs" />
     <Compile Include="SqlFeatureResolver.cs" />
     <Compile Include="Migrations\CreateTables.cs" />
-    <Compile Include="DbMigrations.cs" />
+    <Compile Include="Migrations\Runner.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Queries\GetAllFeaturesByApplication.cs" />
     <Compile Include="Queries\GetAllFeatures.cs" />

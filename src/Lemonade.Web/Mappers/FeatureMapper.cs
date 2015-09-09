@@ -1,5 +1,5 @@
 ﻿using Lemonade.Sql.Entities;
-using Lemonade.Web.Models;
+using Lemonade.Web.Contracts;
 
 namespace Lemonade.Web.Mappers
 {

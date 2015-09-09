@@ -86,8 +86,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Mappers\FeatureMapper.cs" />
-    <Compile Include="Models\FeatureModel.cs" />
-    <Compile Include="Models\FeaturesModel.cs" />
     <Compile Include="Modules\FeatureModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="LemonadeService.cs" />
@@ -107,6 +105,10 @@
     <ProjectReference Include="..\Lemonade.Sql\Lemonade.Sql.csproj">
       <Project>{06665811-5ED9-4088-81B2-805E80119772}</Project>
       <Name>Lemonade.Sql</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Lemonade.Web.Contracts\Lemonade.Web.Contracts.csproj">
+      <Project>{DF4CCA5C-FF05-4471-BF04-C4E36C7101D8}</Project>
+      <Name>Lemonade.Web.Contracts</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

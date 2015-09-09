@@ -69,6 +69,10 @@
       <HintPath>..\..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="SelfishHttp, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\SelfishHttp.0.3.0\lib\net40\SelfishHttp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -107,6 +111,10 @@
     <ProjectReference Include="..\..\src\Lemonade.Sql\Lemonade.Sql.csproj">
       <Project>{06665811-5ED9-4088-81B2-805E80119772}</Project>
       <Name>Lemonade.Sql</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Lemonade.Web.Contracts\Lemonade.Web.Contracts.csproj">
+      <Project>{DF4CCA5C-FF05-4471-BF04-C4E36C7101D8}</Project>
+      <Name>Lemonade.Web.Contracts</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Lemonade.Web\Lemonade.Web.csproj">
       <Project>{f3f461b3-2fc8-4704-9a8e-7b9a490668c9}</Project>

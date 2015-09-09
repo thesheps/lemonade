@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Lemonade.Web.Models
+namespace Lemonade.Web.Contracts
 {
     public class FeaturesModel
     {

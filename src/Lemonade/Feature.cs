@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Configuration;
 using System.Dynamic;
+using Lemonade.Resolvers;
 
 namespace Lemonade
 {

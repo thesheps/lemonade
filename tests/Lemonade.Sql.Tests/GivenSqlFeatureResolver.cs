@@ -1,19 +1,21 @@
 ﻿using System;
 using System.Data.SQLite.EF6;
+using System.IO;
 using Dapper;
 using Lemonade.Sql.Exceptions;
+using Lemonade.Sql.Migrations;
 using NUnit.Framework;
 
 namespace Lemonade.Sql.Tests
 {
     public class GivenSqlFeatureResolver
     {
-        const string ConnectionString = "FullUri=file::memory:?cache=shared";
+        const string ConnectionString = "Data Source=test.db";
 
         [SetUp]
         public void SetUp()
         {
-            DbMigrations.Sqlite(ConnectionString).Up();
+            Runner.Sqlite(ConnectionString).Up();
             InsertFeature(true, "MyEnabledFeature", "NUnit Lemonade.Sql.Tests");
             InsertFeature(false, "MyDisabledFeature", "NUnit Lemonade.Sql.Tests");
             InsertFeature(true, "MyEnabledApplicationSpecificFeature", "Lemonade");
@@ -22,7 +24,7 @@ namespace Lemonade.Sql.Tests
         [TearDown]
         public void TearDown()
         {
-            DbMigrations.Sqlite(ConnectionString).Down();
+            Runner.Sqlite(ConnectionString).Down();
         }
 
         [Test]

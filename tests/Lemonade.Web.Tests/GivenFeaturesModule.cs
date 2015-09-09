@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Common;
-using System.Data.SQLite.EF6;
 using System.Linq;
-using Lemonade.Sql;
-using Lemonade.Web.Models;
+using Lemonade.Resolvers;
+using Lemonade.Sql.Migrations;
+using Lemonade.Web.Contracts;
 using Lemonade.Web.Modules;
 using Nancy;
 using Nancy.Testing;
 using Newtonsoft.Json;
 using NUnit.Framework;
+using SelfishHttp;
 
 namespace Lemonade.Web.Tests
 {
@@ -18,7 +18,8 @@ namespace Lemonade.Web.Tests
         [SetUp]
         public void SetUp()
         {
-            DbMigrations.Sqlite(ConnectionString).Up();
+            _server = new Server(64978);
+            Runner.Sqlite(ConnectionString).Up();
 
             _browser = new Browser(new ConfigurableBootstrapper(with =>
             {
@@ -29,7 +30,8 @@ namespace Lemonade.Web.Tests
         [TearDown]
         public void Teardown()
         {
-            DbMigrations.Sqlite(ConnectionString).Down();
+            _server.Dispose();
+            Runner.Sqlite(ConnectionString).Down();
         }
 
         [Test]
@@ -47,7 +49,7 @@ namespace Lemonade.Web.Tests
                 with.Body(JsonConvert.SerializeObject(GetFeatureModel("MySuperCoolFeature2")));
             });
 
-            var response = _browser.Get("/feature");
+            var response = _browser.Get("/features");
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
             Assert.That(response.Body[".feature"].Count(), Is.EqualTo(2));
         }
@@ -67,7 +69,7 @@ namespace Lemonade.Web.Tests
                 with.Body(JsonConvert.SerializeObject(GetFeatureModel("MySuperCoolFeature2")));
             });
 
-            var response = _browser.Get("/api/feature", b => b.Header("Accept", "application/json"));
+            var response = _browser.Get("/api/features", b => b.Header("Accept", "application/json"));
             var results = JsonConvert.DeserializeObject<IList<FeatureModel>>(response.Body.AsString());
 
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
@@ -83,11 +85,46 @@ namespace Lemonade.Web.Tests
                 with.Body(JsonConvert.SerializeObject(GetFeatureModel("MySuperCoolFeature1")));
             });
 
-            var response = _browser.Get("/api/feature", b => b.Header("Accept", "application/json"));
-            var results = JsonConvert.DeserializeObject<IList<FeatureModel>>(response.Body.AsString());
+            var response = _browser.Get("/api/feature", with =>
+            {
+                with.Header("Accept", "application/json");
+                with.Query("application", "TestApplication");
+                with.Query("feature", "MySuperCoolFeature1");
+            });
 
+            var result = JsonConvert.DeserializeObject<FeatureModel>(response.Body.AsString());
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
-            Assert.That(results.Count, Is.EqualTo(1));
+            Assert.That(result.IsEnabled, Is.True);
+        }
+
+        [Test]
+        public void WhenIHaveAnUnknownUrlAppConfigAndITryToResolveAFeatureUsingHttpFeatureResolver_ThenUnknownUrlExceptionIsThrown()
+        {
+            _browser.Post("/api/feature", with =>
+            {
+                with.Header("Content-Type", "application/json");
+                with.Body(JsonConvert.SerializeObject(GetFeatureModel("MySuperCoolFeature1")));
+            });
+
+            Assert.Throws<UriFormatException>(() => new HttpFeatureResolver("TestTestTest!!!"));
+        }
+
+        [Test]
+        public void WhenIHaveAKnownFeatureAndITryToResolveAFeatureUsingHttpFeatureResolver_ThenTheFeatureIsResolved()
+        {
+            var featureModel = GetFeatureModel("MySuperCoolFeature1");
+            var featureResolver = new HttpFeatureResolver();
+            _server.OnGet("/api/feature").RespondWith(JsonConvert.SerializeObject(featureModel));
+            Assert.That(featureResolver.Get("MySuperCoolFeature1"), Is.True);
+        }
+
+        [Test]
+        public void WhenIHaveAnUnknownFeatureAndITryToResolveTheFeatureUsingHttpFeatureResolver_ThenTheFeatureIsFalse()
+        {
+            var featureModel = GetFeatureModel("MySuperCoolFeature1");
+            var featureResolver = new HttpFeatureResolver();
+            _server.OnGet("/api/feature").RespondWith(JsonConvert.SerializeObject(featureModel));
+            Assert.That(featureResolver.Get("MySuperCoolFeature2"), Is.True);
         }
 
         private static FeatureModel GetFeatureModel(string name)
@@ -103,6 +140,7 @@ namespace Lemonade.Web.Tests
         }
 
         private Browser _browser;
-        private const string ConnectionString = "Data Source=temp.db";
+        private Server _server;
+        private const string ConnectionString = "Data Source=test.db";
     }
 }
