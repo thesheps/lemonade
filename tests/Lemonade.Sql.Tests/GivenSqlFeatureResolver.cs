@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Data.SQLite.EF6;
-using System.IO;
 using Dapper;
 using Lemonade.Sql.Exceptions;
 using Lemonade.Sql.Migrations;
@@ -16,8 +15,8 @@ namespace Lemonade.Sql.Tests
         public void SetUp()
         {
             Runner.Sqlite(ConnectionString).Up();
-            InsertFeature(true, "MyEnabledFeature", "NUnit Lemonade.Sql.Tests");
-            InsertFeature(false, "MyDisabledFeature", "NUnit Lemonade.Sql.Tests");
+            InsertFeature(true, "MyEnabledFeature", AppDomain.CurrentDomain.FriendlyName);
+            InsertFeature(false, "MyDisabledFeature", AppDomain.CurrentDomain.FriendlyName);
             InsertFeature(true, "MyEnabledApplicationSpecificFeature", "Lemonade");
         }
 
