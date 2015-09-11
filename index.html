@@ -1,41 +1,77 @@
 <!DOCTYPE HTML>
 <html>
+    <head>
+        <title>Lemonade</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.5/flatly/bootstrap.min.css">
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.8.0/styles/default.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.8.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+    </head>
 
-<head>
-    <title>Lemonade</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.5/flatly/bootstrap.min.css">
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.8.0/styles/default.min.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.8.0/highlight.min.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
-</head>
-
-<body>
-    <div class="navbar navbar-default">
-        <div class="navbar-header">
-            <a href="http://thesheps.github.io/" class="navbar-brand">thesheps.github.io</a>
+    <body>
+        <div class="navbar navbar-default">
+            <div class="navbar-header">
+                <a href="http://thesheps.github.io/" class="navbar-brand">thesheps.github.io</a>
+            </div>
         </div>
-    </div>
-    <div class="container">
-        <div class="page-header">
-            <h1>Lemonade.</h1>
+        <div class="container">
+            <div class="page-header">
+                <h1>Lemonade.</h1>
+            </div>
+            <p>A feature-switching framework which allows you to move your configurations from app.configs to an Sql database or RESTful service.</p>
+
+            <hr>
+
+            <h2>Usage.<h2>
+            Lemonade can be drunk in a variety of different ways:
+
+            <h3>Via a standard string index:</h3>
+            <pre>
+                <code>
+                    if(Feature.Switches["MySuperCoolFeature"])
+                    {
+                        // Do some crazy thing.
+                    }
+                </code>
+            </pre>
+
+            <h3>Via a dynamic expression index:</h3>
+            <pre>
+                <code>
+                    if(Feature.Switches[d => d.MySuperCoolFeature])
+                    {
+                        // Do some even crazier thing.
+                    }
+                </code>
+            </pre>
+
+            <h3>Encorporated into a "FeatureWrapper":</h3>
+            <pre>
+                <code>
+                    public class MySuperCoolFeature : FeatureWrapper
+                    {
+                        protected override string Key => "UseTestFunctionality";
+
+                        protected override void OnExecute()
+                        {
+                            // Crazy, crazy functionality.  Totally unsanctioned.
+                        }
+                    }
+                </code>
+            </pre>
+
+            <h3>To suppress/allow an Mvc Action:</h3>
+            <pre>
+                <code>
+                    [Feature("SuperCoolNewFeature")]
+                    public void SuperCoolNewFeature()
+                    {
+                        // Crazy MVC Action.
+                    }
+                </code>
+            </pre>
         </div>
-        <p>A feature-switching framework which allows you to move your configurations from app.configs to an Sql database or RESTful service.</p>
-
-        <hr>
-
-        <h2>Usage.<h2>
-        <pre><code>
-            public static void Main(string[] args)
-            {
-                if(Feature.Switches["MySuperCoolFeature"])
-                {
-                    Console.WriteLine("Yes, it seems to be enabled!");
-                }
-            }
-        </code></pre>
-    </div>
-</body>
-
+    </body>
 </html>
