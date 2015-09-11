@@ -10,7 +10,7 @@ namespace Lemonade.Sql
         {
         }
 
-        public SqlFeatureResolver(string connectionString) : this(new GetFeatureByNameAndApplication(connectionString))
+        public SqlFeatureResolver(string connectionStringName) : this(new GetFeatureByNameAndApplication(connectionStringName))
         {
         }
 
