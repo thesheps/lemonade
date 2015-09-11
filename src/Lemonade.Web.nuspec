@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0"?>
 <package >
   <metadata>
-    <id>Lemonade</id>
+    <id>Lemonade.Web</id>
     <version>$version$</version>
-    <title>Lemonade Feature Switch Framework</title>
+    <title>Web Front-End & API for Lemonade Feature Switch Framework</title>
     <authors>Chris Shepherd</authors>
     <owners>Chris Shepherd</owners>
     <iconUrl>https://avatars3.githubusercontent.com/u/7890777?s=140</iconUrl>
