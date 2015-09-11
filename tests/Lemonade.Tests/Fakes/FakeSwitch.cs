@@ -1,6 +1,6 @@
 ﻿namespace Lemonade.Tests.Fakes
 {
-    public class FakeSwitch : FeatureSwitch
+    public class FakeSwitch : FeatureWrapper
     {
         protected override string Key => "UseTestFunctionality";
 
