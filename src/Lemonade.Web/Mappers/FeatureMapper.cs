@@ -1,4 +1,4 @@
-﻿using Lemonade.Sql.Entities;
+﻿using Lemonade.Data.Entities;
 using Lemonade.Web.Contracts;
 
 namespace Lemonade.Web.Mappers

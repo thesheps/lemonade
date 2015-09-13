@@ -1,4 +1,6 @@
 ﻿using System;
+using Lemonade.Data.Commands;
+using Lemonade.Data.Queries;
 using Nancy.Bootstrapper;
 using Nancy.Hosting.Self;
 
@@ -6,19 +8,16 @@ namespace Lemonade.Web
 {
     public class LemonadeService : IDisposable
     {
-        public LemonadeService(INancyBootstrapper bootstrapper, string hostingUrl)
+        public LemonadeService(string hostingUrl, IGetAllFeatures getAllFeatures, IGetFeatureByNameAndApplication getFeatureByNameAndApplication, ISaveFeature saveFeature)
         {
-            _bootstrapper = bootstrapper;
             _hostingUrl = hostingUrl;
+            _bootstrapper = new Bootstrapper(getAllFeatures, getFeatureByNameAndApplication, saveFeature);
         }
 
         public void Start()
         {
             var urlReservations = new UrlReservations { CreateAutomatically = true };
-            _host = new NancyHost(_bootstrapper, 
-                new HostConfiguration { UrlReservations = urlReservations }, 
-                new Uri(_hostingUrl));
-
+            _host = new NancyHost(_bootstrapper, new HostConfiguration { UrlReservations = urlReservations }, new Uri(_hostingUrl));
             _host.Start();
         }
 

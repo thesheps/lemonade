@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Lemonade.Data.Commands;
+using Lemonade.Data.Queries;
 using Lemonade.Resolvers;
+using Lemonade.Sql.Commands;
 using Lemonade.Sql.Migrations;
+using Lemonade.Sql.Queries;
 using Lemonade.Web.Contracts;
 using Lemonade.Web.Modules;
 using Nancy;
@@ -24,6 +28,9 @@ namespace Lemonade.Web.Tests
             _browser = new Browser(new ConfigurableBootstrapper(with =>
             {
                 with.Module<FeatureModule>();
+                with.Dependencies<IGetAllFeatures>(new GetAllFeatures());
+                with.Dependencies<IGetFeatureByNameAndApplication>(new GetFeatureByNameAndApplication());
+                with.Dependencies<ISaveFeature>(new SaveFeature());
             }));
         }
 

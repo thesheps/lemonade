@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Data.Common;
 using Dapper;
+using Lemonade.Data.Queries;
 
 namespace Lemonade.Sql.Queries
 {
-    public class GetAllFeaturesByApplication : LemonadeConnection
+    public class GetAllFeaturesByApplication : LemonadeConnection, IGetAllFeaturesByApplication
     {
         public GetAllFeaturesByApplication()
         {
@@ -18,14 +19,14 @@ namespace Lemonade.Sql.Queries
         {
         }
 
-        public IEnumerable<Feature> Execute(string applicationName)
+        public IEnumerable<Data.Entities.Feature> Execute(string applicationName)
         {
             using (var cnn = DbProviderFactory.CreateConnection())
             {
                 if (cnn == null) return null;
 
                 cnn.ConnectionString = ConnectionString;
-                return cnn.Query<Feature>("SELECT * FROM Features WHERE ApplicationName = @applicationName", new { application = applicationName });
+                return cnn.Query<Data.Entities.Feature>("SELECT * FROM Features WHERE ApplicationName = @applicationName", new { application = applicationName });
             }
         }
     }

@@ -1,9 +1,10 @@
 ﻿using System.Data.Common;
 using Dapper;
+using Lemonade.Data.Commands;
 
 namespace Lemonade.Sql.Commands
 {
-    public class SaveFeature : LemonadeConnection
+    public class SaveFeature : LemonadeConnection, ISaveFeature
     {
         public SaveFeature()
         {
@@ -17,7 +18,7 @@ namespace Lemonade.Sql.Commands
         {
         }
 
-        public void Execute(Entities.Feature feature)
+        public void Execute(Data.Entities.Feature feature)
         {
             using (var cnn = DbProviderFactory.CreateConnection())
             {
