@@ -8,7 +8,7 @@
     <owners>Chris Shepherd</owners>
     <iconUrl>https://avatars3.githubusercontent.com/u/7890777?s=140</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>A Nancy web UI for supporting the configuration of feature switches.</description>
+    <description>A web UI and Api for supporting the configuration of feature switches.</description>
     <releaseNotes></releaseNotes>
     <tags>featureswitch feature lemonade toggle featuretoggle configuration nancy web self-host</tags>
   </metadata>
