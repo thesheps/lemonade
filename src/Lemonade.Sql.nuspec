@@ -11,12 +11,15 @@
     <description>Provides an SQL data layer for use with Lemonade</description>
     <releaseNotes></releaseNotes>
     <tags>featureswitch feature lemonade toggle featuretoggle configuration sql sqlite fluentmigrator</tags>
+
+    <files>
+      <file src="Lemonade.Data\bin\$configuration$\Lemonade.Data.dll" />
+    </files>
+
+    <dependencies>
+      <dependency id="Dapper" version="1.42" />
+      <dependency id="FluentMigrator" version="1.6.0" />
+      <dependency id="FluentMigrator.Runner" version="1.6.0" />
+    </dependencies>
   </metadata>
-  
-  <dependencies>
-    <dependency id="Lemonade.Data" />
-    <dependency id="Dapper" version="1.42" />
-    <dependency id="FluentMigrator" version="1.6.0" />
-    <dependency id="FluentMigrator.Runner" version="1.6.0" />
-  </dependencies>
 </package>
