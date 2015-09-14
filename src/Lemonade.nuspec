@@ -12,13 +12,9 @@
     <releaseNotes></releaseNotes>
     <tags>featureswitch feature lemonade toggle featuretoggle configuration</tags>
   </metadata>
-  
-  <files>
-    <file src="Lemonade\bin\$configuration$\Lemonade.dll" target="lib\net40\" />
-    <file src="Lemonade.Web.Contracts\bin\$configuration$\Lemonade.Web.Contracts.dll" target="lib\net40\" />
-  </files>
-  
+
   <dependencies>
+    <dependency id="Lemonade.Web.Contracts"/>
     <dependency id="Microsoft.AspNet.Mvc" version="5.2.3" />
     <dependency id="Microsoft.AspNet.Razor" version="3.2.3" />
     <dependency id="Microsoft.AspNet.WebPages" version="3.2.3" />

@@ -12,12 +12,9 @@
     <releaseNotes></releaseNotes>
     <tags>featureswitch feature lemonade toggle featuretoggle configuration nancy web self-host</tags>
   </metadata>
-  
-  <files>
-    <file src="Lemonade.Web\bin\$configuration$\Lemonade.Web.dll" target="lib\net40\" />
-  </files>
 
   <dependencies>
+    <dependency id="Lemonade.Web.Contracts"/>
     <dependency id="Microsoft.AspNet.Mvc" version="5.2.3" />
     <dependency id="Microsoft.AspNet.Razor" version="3.2.3" />
     <dependency id="Microsoft.AspNet.WebPages" version="3.2.3" />
