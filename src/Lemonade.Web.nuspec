@@ -3,16 +3,27 @@
   <metadata>
     <id>Lemonade.Web</id>
     <version>$version$</version>
-    <title>Web Front-End and API for Lemonade Feature Switch Framework</title>
+    <title>Web front-end and API for Lemonade feature-switch framework</title>
     <authors>Chris Shepherd</authors>
     <owners>Chris Shepherd</owners>
     <iconUrl>https://avatars3.githubusercontent.com/u/7890777?s=140</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>A web UI and Api for supporting the configuration of feature switches.</description>
+    <description>A web UI and Api for supporting the configuration of feature switches</description>
     <releaseNotes></releaseNotes>
     <tags>featureswitch feature lemonade toggle featuretoggle configuration nancy web self-host</tags>
   </metadata>
+  
   <files>
     <file src="Lemonade.Web\bin\$configuration$\Lemonade.Web.dll" target="lib\net40\" />
   </files>
+
+  <dependencies>
+    <dependency id="Microsoft.AspNet.Mvc" version="5.2.3" />
+    <dependency id="Microsoft.AspNet.Razor" version="3.2.3" />
+    <dependency id="Microsoft.AspNet.WebPages" version="3.2.3" />
+    <dependency id="Microsoft.Web.Infrastructure" version="1.0.0.0" />
+    <dependency id="Nancy" version="1.2.0" />
+    <dependency id="Nancy.Hosting.Self" version="1.2.0" />
+    <dependency id="Nancy.Viewengines.Razor" version="1.2.0" />
+  </dependencies>
 </package>

@@ -3,17 +3,26 @@
   <metadata>
     <id>Lemonade</id>
     <version>$version$</version>
-    <title>Lemonade Feature Switch Framework</title>
+    <title>Lemonade feature-switch framework</title>
     <authors>Chris Shepherd</authors>
     <owners>Chris Shepherd</owners>
     <iconUrl>https://avatars3.githubusercontent.com/u/7890777?s=140</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Lemonade provides an easy to use feature-switch library.</description>
+    <description>Lemonade provides an easy to use feature-switch framework</description>
     <releaseNotes></releaseNotes>
     <tags>featureswitch feature lemonade toggle featuretoggle configuration</tags>
   </metadata>
+  
   <files>
     <file src="Lemonade\bin\$configuration$\Lemonade.dll" target="lib\net40\" />
     <file src="Lemonade.Web.Contracts\bin\$configuration$\Lemonade.Web.Contracts.dll" target="lib\net40\" />
   </files>
+  
+  <dependencies>
+    <dependency id="Microsoft.AspNet.Mvc" version="5.2.3" />
+    <dependency id="Microsoft.AspNet.Razor" version="3.2.3" />
+    <dependency id="Microsoft.AspNet.WebPages" version="3.2.3" />
+    <dependency id="Microsoft.Web.Infrastructure" version="1.0.0.0" />
+    <dependency id="RestSharp" version="105.2.3" />
+  </dependencies>
 </package>

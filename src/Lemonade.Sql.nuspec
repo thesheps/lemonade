@@ -3,17 +3,24 @@
   <metadata>
     <id>Lemonade.Sql</id>
     <version>$version$</version>
-    <title>Sql Providers for Lemonade Feature Switch Framework</title>
+    <title>Sql providers for Lemonade feature-switch framework</title>
     <authors>Chris Shepherd</authors>
     <owners>Chris Shepherd</owners>
     <iconUrl>https://avatars3.githubusercontent.com/u/7890777?s=140</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Provides an SQL data layer for use with Lemonade.</description>
+    <description>Provides an SQL data layer for use with Lemonade</description>
     <releaseNotes></releaseNotes>
     <tags>featureswitch feature lemonade toggle featuretoggle configuration sql sqlite fluentmigrator</tags>
   </metadata>
+  
   <files>
     <file src="Lemonade.Data\bin\$configuration$\Lemonade.Data.dll" target="lib\net40\" />
     <file src="Lemonade.Sql\bin\$configuration$\Lemonade.Sql.dll" target="lib\net40\" />
   </files>
+
+  <dependencies>
+    <dependency id="Dapper" version="1.42" />
+    <dependency id="FluentMigrator" version="1.6.0" />
+    <dependency id="FluentMigrator.Runner" version="1.6.0" />
+  </dependencies>
 </package>
