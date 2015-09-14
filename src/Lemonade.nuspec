@@ -3,12 +3,12 @@
   <metadata>
     <id>Lemonade</id>
     <version>$version$</version>
-    <title>Lemonade feature-switch framework</title>
+    <title>Lemonade feature-switch framework.</title>
     <authors>Chris Shepherd</authors>
     <owners>Chris Shepherd</owners>
     <iconUrl>https://avatars3.githubusercontent.com/u/7890777?s=140</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Lemonade provides an easy to use feature-switch framework</description>
+    <description>Lemonade provides an easy to use feature-switch framework with an http back-end.</description>
     <releaseNotes></releaseNotes>
     <tags>featureswitch feature lemonade toggle featuretoggle configuration</tags>
 

@@ -3,12 +3,12 @@
   <metadata>
     <id>Lemonade.Sql</id>
     <version>$version$</version>
-    <title>Sql providers for Lemonade feature-switch framework</title>
+    <title>Sql providers for Lemonade feature-switch framework.</title>
     <authors>Chris Shepherd</authors>
     <owners>Chris Shepherd</owners>
     <iconUrl>https://avatars3.githubusercontent.com/u/7890777?s=140</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Provides an SQL data layer for use with Lemonade</description>
+    <description>Provides an SQL data layer for use with Lemonade.</description>
     <releaseNotes></releaseNotes>
     <tags>featureswitch feature lemonade toggle featuretoggle configuration sql sqlite fluentmigrator</tags>
 

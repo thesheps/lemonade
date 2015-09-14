@@ -1,0 +1,25 @@
+﻿<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Lemonade.Web.Contracts</id>
+    <version>$version$</version>
+    <title>Supporting library for Lemonade's http back-end.</title>
+    <authors>Chris Shepherd</authors>
+    <owners>Chris Shepherd</owners>
+    <iconUrl>https://avatars3.githubusercontent.com/u/7890777?s=140</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A web UI and Api for supporting the configuration of feature switches</description>
+    <releaseNotes></releaseNotes>
+    <tags>featureswitch feature lemonade toggle featuretoggle configuration nancy web self-host</tags>
+
+    <dependencies>
+      <dependency id="Microsoft.AspNet.Mvc" version="5.2.3" />
+      <dependency id="Microsoft.AspNet.Razor" version="3.2.3" />
+      <dependency id="Microsoft.AspNet.WebPages" version="3.2.3" />
+      <dependency id="Microsoft.Web.Infrastructure" version="1.0.0.0" />
+      <dependency id="Nancy" version="1.2.0" />
+      <dependency id="Nancy.Hosting.Self" version="1.2.0" />
+      <dependency id="Nancy.Viewengines.Razor" version="1.2.0" />
+    </dependencies>
+  </metadata>
+</package>
