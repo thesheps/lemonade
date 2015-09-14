@@ -37,8 +37,10 @@ mkdir Build
 mkdir Build\lib
 mkdir Build\lib\net40
 call %nuget% pack "src\Lemonade.nuspec" -IncludeReferencedProjects -NoPackageAnalysis -verbosity detailed -o Build -Version %version% -p Configuration="%config%"
+call %nuget% pack "src\Lemonade.Data.nuspec" -IncludeReferencedProjects -NoPackageAnalysis -verbosity detailed -o Build -Version %version% -p Configuration="%config%"
 call %nuget% pack "src\Lemonade.Sql.nuspec" -IncludeReferencedProjects -NoPackageAnalysis -verbosity detailed -o Build -Version %version% -p Configuration="%config%"
 call %nuget% pack "src\Lemonade.Web.nuspec" -IncludeReferencedProjects -NoPackageAnalysis -verbosity detailed -o Build -Version %version% -p Configuration="%config%"
+call %nuget% pack "src\Lemonade.Web.Contracts.nuspec" -IncludeReferencedProjects -NoPackageAnalysis -verbosity detailed -o Build -Version %version% -p Configuration="%config%"
 
 :success
 exit 0
