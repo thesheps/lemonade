@@ -13,6 +13,7 @@
     <tags>featureswitch feature lemonade toggle featuretoggle configuration sql sqlite fluentmigrator</tags>
   </metadata>
   <files>
+    <file src="Lemonade.Data\bin\$configuration$\Lemonade.Data.dll" target="lib\net40\" />
     <file src="Lemonade.Sql\bin\$configuration$\Lemonade.Sql.dll" target="lib\net40\" />
   </files>
 </package>
