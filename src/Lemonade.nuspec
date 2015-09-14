@@ -14,5 +14,6 @@
   </metadata>
   <files>
     <file src="Lemonade\bin\$configuration$\Lemonade.dll" target="lib\net40\" />
+    <file src="Lemonade.Web.Contracts\bin\$configuration$\Lemonade.Web.Contracts.dll" target="lib\net40\" />
   </files>
 </package>
