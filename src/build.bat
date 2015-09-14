@@ -18,7 +18,7 @@ call %NuGet% restore src\Lemonade\packages.config -OutputDirectory %cd%\packages
 call %NuGet% restore src\Lemonade.Sql\packages.config -OutputDirectory %cd%\packages -NonInteractive
 call %NuGet% restore src\Lemonade.Web\packages.config -OutputDirectory %cd%\packages -NonInteractive
 
-%ProgramFiles%\MSBuild\12.0\bin\msbuild Lemonade.sln /p:Configuration="%config%" /m /v:M /fl /flp:LogFile=msbuild.log;Verbosity=diag /nr:false
+msbuild Lemonade.sln /p:Configuration="%config%" /m /v:M /fl /flp:LogFile=msbuild.log;Verbosity=diag /nr:false
 
 mkdir Build
 mkdir Build\lib
