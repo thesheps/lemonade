@@ -17,6 +17,8 @@ if "%nuget%" == "" (
 call %NuGet% restore src\Lemonade\packages.config -OutputDirectory %cd%\packages -NonInteractive
 call %NuGet% restore src\Lemonade.Sql\packages.config -OutputDirectory %cd%\packages -NonInteractive
 call %NuGet% restore src\Lemonade.Web\packages.config -OutputDirectory %cd%\packages -NonInteractive
+call %NuGet% restore tests\Lemonade.Web.Tests\packages.config -OutputDirectory %cd%\packages -NonInteractive
+call %NuGet% restore tests\Lemonade.Sql.Tests\packages.config -OutputDirectory %cd%\packages -NonInteractive
 
 msbuild Lemonade.sln /p:Configuration="%config%" /m /v:M /fl /flp:LogFile=msbuild.log;Verbosity=diag /nr:false
 
