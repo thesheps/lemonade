@@ -36,9 +36,9 @@ REM Package
 mkdir Build
 mkdir Build\lib
 mkdir Build\lib\net40
-%nuget% pack "src\Lemonade.nuspec" -IncludeReferencedProjects -NoPackageAnalysis -verbosity detailed -o Build -Version %version% -p Configuration="%config%"
-%nuget% pack "src\Lemonade.Sql.nuspec" -IncludeReferencedProjects -NoPackageAnalysis -verbosity detailed -o Build -Version %version% -p Configuration="%config%"
-%nuget% pack "src\Lemonade.Web.nuspec" -IncludeReferencedProjects -NoPackageAnalysis -verbosity detailed -o Build -Version %version% -p Configuration="%config%"
+call %nuget% pack "src\Lemonade.nuspec" -IncludeReferencedProjects -NoPackageAnalysis -verbosity detailed -o Build -Version %version% -p Configuration="%config%"
+call %nuget% pack "src\Lemonade.Sql.nuspec" -IncludeReferencedProjects -NoPackageAnalysis -verbosity detailed -o Build -Version %version% -p Configuration="%config%"
+call %nuget% pack "src\Lemonade.Web.nuspec" -IncludeReferencedProjects -NoPackageAnalysis -verbosity detailed -o Build -Version %version% -p Configuration="%config%"
 
 :success
 exit 0
