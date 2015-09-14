@@ -8,7 +8,7 @@
     <owners>Chris Shepherd</owners>
     <iconUrl>https://raw.githubusercontent.com/thesheps/lemonade/master/src/nuget-icon.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>A web UI and Api for supporting the configuration of feature switches</description>
+    <description>Supporting web contracts for the Lemonade feature-switch framework.</description>
     <releaseNotes></releaseNotes>
     <tags>featureswitch feature lemonade toggle featuretoggle configuration nancy web self-host</tags>
 
