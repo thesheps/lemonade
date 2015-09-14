@@ -6,7 +6,7 @@
     <title>Supporting library for Lemonade's http back-end.</title>
     <authors>Chris Shepherd</authors>
     <owners>Chris Shepherd</owners>
-    <iconUrl>https://avatars3.githubusercontent.com/u/7890777?s=140</iconUrl>
+    <iconUrl>https://raw.githubusercontent.com/thesheps/lemonade/master/src/nuget-icon.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>A web UI and Api for supporting the configuration of feature switches</description>
     <releaseNotes></releaseNotes>
