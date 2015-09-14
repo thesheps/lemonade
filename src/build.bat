@@ -26,7 +26,9 @@ msbuild Lemonade.sln /p:Configuration="%config%" /m /v:M /fl /flp:LogFile=msbuil
 if not "%errorlevel%"=="0" goto failure
 
 REM Unit Tests
-%GallioEcho% YourSolution\ProjectA.Tests\bin\%config%\ProjectA.Tests.dll
+Gallio.Echo tests\Lemonade.Tests\bin\%config%\Lemonade.Tests.dll
+Gallio.Echo tests\Lemonade.Web.Tests\bin\%config%\Lemonade.Web.Tests.dll
+Gallio.Echo tests\Lemonade.Sql.Tests\bin\%config%\Lemonade.Sql.Tests.dll
 if not "%errorlevel%"=="0" goto failure
 
 REM Package
