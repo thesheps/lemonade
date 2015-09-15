@@ -3,7 +3,7 @@
   <metadata>
     <id>Lemonade.Sql</id>
     <version>$version$</version>
-    <title>Lemonade Sql library.</title>
+    <title>Lemonade.Sql</title>
     <authors>Chris Shepherd</authors>
     <owners>Chris Shepherd</owners>
     <iconUrl>https://raw.githubusercontent.com/thesheps/lemonade/master/src/nuget-icon.png</iconUrl>

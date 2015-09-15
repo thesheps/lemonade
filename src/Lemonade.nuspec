@@ -3,7 +3,7 @@
   <metadata>
     <id>Lemonade</id>
     <version>$version$</version>
-    <title>Lemonade feature-switch framework.</title>
+    <title>Lemonade</title>
     <authors>Chris Shepherd</authors>
     <owners>Chris Shepherd</owners>
     <iconUrl>https://raw.githubusercontent.com/thesheps/lemonade/master/src/nuget-icon.png</iconUrl>
