@@ -12,4 +12,9 @@
     <releaseNotes></releaseNotes>
     <tags>featureswitch feature lemonade toggle featuretoggle configuration</tags>
   </metadata>
+
+  <files>
+    <file src="Lemonade\bin\$configuration$\Lemonade.dll" />
+    <file src="Lemonade\bin\$configuration$\Lemonade.Web.Contracts.dll" />
+  </files>
 </package>

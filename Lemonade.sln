@@ -17,10 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lemonade", "src\Lemonade\Le
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Nuget", "Nuget", "{E5AABCAD-A86B-497A-A844-64DB72520FCE}"
 	ProjectSection(SolutionItems) = preProject
-		src\Lemonade.Data.nuspec = src\Lemonade.Data.nuspec
 		src\Lemonade.nuspec = src\Lemonade.nuspec
 		src\Lemonade.Sql.nuspec = src\Lemonade.Sql.nuspec
-		src\Lemonade.Web.Contracts.nuspec = src\Lemonade.Web.Contracts.nuspec
 		src\Lemonade.Web.nuspec = src\Lemonade.Web.nuspec
 		src\nuget-icon.png = src\nuget-icon.png
 	EndProjectSection
