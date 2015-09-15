@@ -148,6 +148,6 @@ namespace Lemonade.Web.Tests
 
         private Browser _browser;
         private Server _server;
-        private const string ConnectionString = "Data Source=test.db";
+        private const string ConnectionString = "Lemonade";
     }
 }

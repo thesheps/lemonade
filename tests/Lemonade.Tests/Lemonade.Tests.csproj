@@ -86,7 +86,6 @@
     <Compile Include="GivenFeatureAttribute.cs" />
     <Compile Include="GivenFeatureSwitch.cs" />
     <Compile Include="GivenFeatureSwitches.cs" />
-    <Compile Include="GivenHttpFeatureResolver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
