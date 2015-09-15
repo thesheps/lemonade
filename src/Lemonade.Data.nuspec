@@ -3,7 +3,7 @@
   <metadata>
     <id>Lemonade.Data</id>
     <version>$version$</version>
-    <title>Supporting library for Lemonade feature-switch framework.</title>
+    <title>Lemonade supporting data library.</title>
     <authors>Chris Shepherd</authors>
     <owners>Chris Shepherd</owners>
     <iconUrl>https://raw.githubusercontent.com/thesheps/lemonade/master/src/nuget-icon.png</iconUrl>
@@ -11,11 +11,5 @@
     <description>Contains supporting classes and abstractions for the Lemonade feature-switch framework.</description>
     <releaseNotes></releaseNotes>
     <tags>featureswitch feature lemonade toggle featuretoggle configuration sql sqlite fluentmigrator</tags>
-
-    <dependencies>
-      <dependency id="Dapper" version="1.42" />
-      <dependency id="FluentMigrator" version="1.6.0" />
-      <dependency id="FluentMigrator.Runner" version="1.6.0" />
-    </dependencies>
   </metadata>
 </package>

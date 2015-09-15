@@ -11,13 +11,5 @@
     <description>Lemonade provides an easy to use feature-switch framework with an http back-end.</description>
     <releaseNotes></releaseNotes>
     <tags>featureswitch feature lemonade toggle featuretoggle configuration</tags>
-
-    <dependencies>
-      <dependency id="Microsoft.AspNet.Mvc" version="5.2.3" />
-      <dependency id="Microsoft.AspNet.Razor" version="3.2.3" />
-      <dependency id="Microsoft.AspNet.WebPages" version="3.2.3" />
-      <dependency id="Microsoft.Web.Infrastructure" version="1.0.0.0" />
-      <dependency id="RestSharp" version="105.2.3" />
-    </dependencies>
   </metadata>
 </package>
