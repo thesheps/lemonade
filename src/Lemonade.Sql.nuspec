@@ -20,7 +20,7 @@
   </metadata>
 
   <files>
-    <file src="Lemonade.Sql\bin\$configuration$\Lemonade.Sql.dll" />
-    <file src="Lemonade.Sql\bin\$configuration$\Lemonade.Data.dll" />
+    <file src="Lemonade.Sql\bin\$configuration$\Lemonade.Sql.dll" target="lib" />
+    <file src="Lemonade.Sql\bin\$configuration$\Lemonade.Data.dll" target="lib" />
   </files>
 </package>

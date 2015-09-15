@@ -22,7 +22,7 @@
   </metadata>
 
   <files>
-    <file src="Lemonade\bin\$configuration$\Lemonade.dll" />
-    <file src="Lemonade\bin\$configuration$\Lemonade.Web.Contracts.dll" />
+    <file src="Lemonade\bin\$configuration$\Lemonade.dll" target="lib" />
+    <file src="Lemonade\bin\$configuration$\Lemonade.Web.Contracts.dll" target="lib" />
   </files>
 </package>
