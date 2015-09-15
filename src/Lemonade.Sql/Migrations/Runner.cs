@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System.Configuration;
+using System.Diagnostics;
 using System.Reflection;
 using FluentMigrator;
 using FluentMigrator.Runner;
@@ -12,13 +13,15 @@ namespace Lemonade.Sql.Migrations
 {
     public class Runner
     {
-        public static Runner SqlServer(string connectionString)
+        public static Runner SqlServer(string connectionStringName)
         {
+            var connectionString = ConfigurationManager.ConnectionStrings[connectionStringName].ConnectionString;
             return new Runner(GetRunner(connectionString, new SqlServer2008ProcessorFactory()));
         }
 
-        public static Runner Sqlite(string connectionString)
+        public static Runner Sqlite(string connectionStringName)
         {
+            var connectionString = ConfigurationManager.ConnectionStrings[connectionStringName].ConnectionString;
             return new Runner(GetRunner(connectionString, new SQLiteProcessorFactory()));
         }
 
