@@ -63,7 +63,6 @@
     <Compile Include="Exceptions\ConnectionStringNotFoundException.cs" />
     <Compile Include="LemonadeConnection.cs" />
     <Compile Include="Queries\GetFeatureByNameAndApplication.cs" />
-    <Compile Include="SqlFeatureResolver.cs" />
     <Compile Include="Migrations\CreateTables.cs" />
     <Compile Include="Migrations\Runner.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -78,10 +77,6 @@
     <ProjectReference Include="..\Lemonade.Data\Lemonade.Data.csproj">
       <Project>{A9171A74-BFAD-4C2E-A8E2-54BC2BCE496C}</Project>
       <Name>Lemonade.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Lemonade\Lemonade.csproj">
-      <Project>{A5518007-A595-4C05-91C8-077FFCB17FC2}</Project>
-      <Name>Lemonade</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
