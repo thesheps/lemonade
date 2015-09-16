@@ -12,8 +12,8 @@ namespace Lemonade.Sql.Tests
         [SetUp]
         public void SetUp()
         {
-            Runner.SqlServer("Lemonade").Down();
-            Runner.SqlServer("Lemonade").Up();
+            Runner.Sqlite("Lemonade").Down();
+            Runner.Sqlite("Lemonade").Up();
         }
 
         [Test]
