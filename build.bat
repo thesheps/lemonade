@@ -1,4 +1,5 @@
 @echo Off
+
 set config=%1
 if "%config%" == "" (
   	set config=Release
@@ -13,6 +14,8 @@ set nuget=
 if "%nuget%" == "" (
 	set nuget=nuget
 )
+
+netsh http add urlacl url=http://+:12345/
 
 REM Restore
 call %NuGet% restore src\Lemonade\packages.config -OutputDirectory %cd%\packages -NonInteractive
