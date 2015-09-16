@@ -4,9 +4,9 @@ namespace Lemonade.Tests.Fakes
 {
     public class FakeResolver : IFeatureResolver
     {
-        public bool Get(string value)
+        public bool Get(string featureName)
         {
-            return value == "UseTestFunctionality";
+            return featureName == "UseTestFunctionality";
         }
     }
 }

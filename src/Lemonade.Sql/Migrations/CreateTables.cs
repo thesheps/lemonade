@@ -18,7 +18,9 @@ namespace Lemonade.Sql.Migrations
             Create.Index("UK_Application_Feature")
                 .OnTable("Feature")
                 .OnColumn("ApplicationName").Ascending()
-                .OnColumn("FeatureName").Ascending();
+                .OnColumn("FeatureName").Ascending()
+                .WithOptions()
+                .Unique();
         }
 
         public override void Down()

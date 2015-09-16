@@ -18,10 +18,11 @@ namespace Lemonade.Web.Modules
 
             Get["/api/feature"] = parameters =>
             {
-                var feature = Request.Query["feature"].Value as string;
-                var application = Request.Query["application"].Value as string;
-                var model = getFeatureByNameAndApplication.Execute(feature, application).ToModel();
-                return model;
+                var featureName = Request.Query["feature"].Value as string;
+                var applicationName = Request.Query["application"].Value as string;
+                var feature = getFeatureByNameAndApplication.Execute(featureName, applicationName);
+
+                return feature?.ToModel();
             };
 
             Post["/api/feature"] = parameters =>

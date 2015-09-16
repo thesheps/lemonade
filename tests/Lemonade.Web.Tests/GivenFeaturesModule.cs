@@ -116,24 +116,6 @@ namespace Lemonade.Web.Tests
             Assert.Throws<UriFormatException>(() => new HttpFeatureResolver("TestTestTest!!!"));
         }
 
-        [Test]
-        public void WhenIHaveAKnownFeatureAndITryToResolveAFeatureUsingHttpFeatureResolver_ThenTheFeatureIsResolved()
-        {
-            var featureModel = GetFeatureModel("MySuperCoolFeature1");
-            var featureResolver = new HttpFeatureResolver();
-            _server.OnGet("/api/feature").RespondWith(JsonConvert.SerializeObject(featureModel));
-            Assert.That(featureResolver.Get("MySuperCoolFeature1"), Is.True);
-        }
-
-        [Test]
-        public void WhenIHaveAnUnknownFeatureAndITryToResolveTheFeatureUsingHttpFeatureResolver_ThenTheFeatureIsFalse()
-        {
-            var featureModel = GetFeatureModel("MySuperCoolFeature1");
-            var featureResolver = new HttpFeatureResolver();
-            _server.OnGet("/api/feature").RespondWith(JsonConvert.SerializeObject(featureModel));
-            Assert.That(featureResolver.Get("MySuperCoolFeature2"), Is.True);
-        }
-
         private static FeatureModel GetFeatureModel(string name)
         {
             return new FeatureModel

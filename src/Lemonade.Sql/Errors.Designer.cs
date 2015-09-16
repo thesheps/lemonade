@@ -68,5 +68,14 @@ namespace Lemonade.Sql {
                 return ResourceManager.GetString("ConnectionStringNotFound", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not save the specified feature {0}.  Does it already exist for application {1}?.
+        /// </summary>
+        internal static string FailedToSaveFeature {
+            get {
+                return ResourceManager.GetString("FailedToSaveFeature", resourceCulture);
+            }
+        }
     }
 }
