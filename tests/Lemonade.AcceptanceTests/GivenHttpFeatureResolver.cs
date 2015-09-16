@@ -1,5 +1,4 @@
 ﻿using System;
-using Lemonade.AcceptanceTests.Helpers;
 using Lemonade.Resolvers;
 using Lemonade.Sql.Commands;
 using Lemonade.Sql.Migrations;
@@ -14,12 +13,11 @@ namespace Lemonade.AcceptanceTests
         [SetUp]
         public void SetUp()
         {
-            var uri = IpHelper.GetLocalIpAddress("12345");
-            Feature.Resolver = new HttpFeatureResolver(uri);
+            Feature.Resolver = new HttpFeatureResolver("http://localhost:12345");
             Runner.Sqlite("Lemonade").Down();
             Runner.Sqlite("Lemonade").Up();
             _saveFeature = new SaveFeature();
-            _lemonadeService = new LemonadeService(uri, new GetAllFeatures(), new GetFeatureByNameAndApplication(), _saveFeature);
+            _lemonadeService = new LemonadeService("http://localhost:12345", new GetAllFeatures(), new GetFeatureByNameAndApplication(), _saveFeature);
             _lemonadeService.Start();
         }
 
