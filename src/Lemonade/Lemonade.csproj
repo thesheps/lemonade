@@ -85,8 +85,6 @@
     <Compile Include="Resolvers\HttpFeatureResolver.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config.uninstall.xdt" />
-    <None Include="App.config.install.xdt" />
     <None Include="Content\App.config.install.xdt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
