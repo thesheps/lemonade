@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<configuration xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
+<connectionStrings xdt:Transform="InsertIfMissing">
+<connectionString xdt:Transform="InsertIfMissing" name="Lemonade" value="" xdt:Locator="Match(name)" />
+</connectionStrings>
+</configuration>
