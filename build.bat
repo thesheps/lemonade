@@ -15,7 +15,7 @@ if "%nuget%" == "" (
 	set nuget=nuget
 )
 
-netsh http add urlacl url=http://+:12345/
+netsh http add urlacl url=http://+:12345/ user=everyone
 
 REM Restore
 call %NuGet% restore src\Lemonade\packages.config -OutputDirectory %cd%\packages -NonInteractive
