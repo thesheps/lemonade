@@ -75,12 +75,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Errors.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Errors.resx</DependentUpon>
+    </Compile>
     <Compile Include="Feature.cs" />
     <Compile Include="FeatureAttribute.cs" />
     <Compile Include="FeatureConfigurationSection.cs" />
     <Compile Include="FeatureWrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resolvers\AppConfigFeatureResolver.cs" />
+    <Compile Include="Exceptions\ConnectionException.cs" />
     <Compile Include="Resolvers\FeatureResolver.cs" />
     <Compile Include="Resolvers\HttpFeatureResolver.cs" />
   </ItemGroup>
@@ -95,6 +101,14 @@
       <Project>{DF4CCA5C-FF05-4471-BF04-C4E36C7101D8}</Project>
       <Name>Lemonade.Web.Contracts</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Errors.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Errors.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

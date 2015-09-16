@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Configuration;
+using System.Net;
+using Lemonade.Exceptions;
 using Lemonade.Web.Contracts;
 using RestSharp;
 
@@ -27,6 +29,12 @@ namespace Lemonade.Resolvers
             restRequest.AddQueryParameter("feature", featureName);
 
             var response = _restClient.Get<FeatureModel>(restRequest);
+
+            if (response.ErrorMessage == "Unable to connect to the remote server")
+                throw new ConnectionException(string.Format(Errors.UnableToConnect, _restClient.BaseUrl));
+
+            if (response.StatusCode == HttpStatusCode.InternalServerError)
+                throw new ConnectionException(Errors.ServerError, response.ErrorException);
 
             return response.Data != null && response.Data.IsEnabled;
         }
