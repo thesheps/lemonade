@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <configuration xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
-  <configSections xdt:Transform="Insert">
-    <section name="FeatureConfiguration" type="Lemonade.FeatureConfigurationSection, Lemonade"/>
+  <configSections xdt:Transform="SetAttributes">
+    <section name="FeatureConfiguration" type="Lemonade.FeatureConfigurationSection, Lemonade" xdt:Transform="Insert"/>
   </configSections>
 
-  <FeatureConfiguration xdt:Transform="Insert" FeatureResolver="Lemonade.Resolvers.HttpFeatureResolver"/>
+  <FeatureConfiguration xdt:Transform="InsertAfter(/configuration/configSections)" FeatureResolver="Lemonade.Resolvers.HttpFeatureResolver"/>
 
   <appSettings>
-    <add key="LemonadeServiceUrl" xdt:Transform="Insert" xdt:Locator="Match(key)" value="" />
+    <add xdt:Transform="Insert" key="LemonadeServiceUrl" value="" />
   </appSettings>
 </configuration>
