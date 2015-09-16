@@ -8,16 +8,21 @@ namespace Lemonade.Web
 {
     public class LemonadeService : IDisposable
     {
-        public LemonadeService(string hostingUrl, IGetAllFeatures getAllFeatures, IGetFeatureByNameAndApplication getFeatureByNameAndApplication, ISaveFeature saveFeature)
+        public LemonadeService(string hostingUri, IGetAllFeatures getAllFeatures, IGetFeatureByNameAndApplication getFeatureByNameAndApplication, ISaveFeature saveFeature)
+            : this(new Uri(hostingUri), getAllFeatures, getFeatureByNameAndApplication, saveFeature)
         {
-            _hostingUrl = hostingUrl;
+        }
+
+        public LemonadeService(Uri hostingUri, IGetAllFeatures getAllFeatures, IGetFeatureByNameAndApplication getFeatureByNameAndApplication, ISaveFeature saveFeature)
+        {
+            _hostingUri = hostingUri;
             _bootstrapper = new Bootstrapper(getAllFeatures, getFeatureByNameAndApplication, saveFeature);
         }
 
         public void Start()
         {
             var urlReservations = new UrlReservations { CreateAutomatically = true };
-            _host = new NancyHost(_bootstrapper, new HostConfiguration { UrlReservations = urlReservations }, new Uri(_hostingUrl));
+            _host = new NancyHost(_bootstrapper, new HostConfiguration { UrlReservations = urlReservations }, _hostingUri);
             _host.Start();
         }
 
@@ -28,7 +33,7 @@ namespace Lemonade.Web
             _host.Dispose();
         }
 
-        private readonly string _hostingUrl;
+        private readonly Uri _hostingUri;
         private readonly INancyBootstrapper _bootstrapper;
         private NancyHost _host;
     }

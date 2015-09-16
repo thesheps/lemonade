@@ -11,9 +11,13 @@ namespace Lemonade.Resolvers
         {
         }
 
-        public HttpFeatureResolver(string lemonadeServiceUrl)
+        public HttpFeatureResolver(string lemonadeServiceUri) : this(new Uri(lemonadeServiceUri))
         {
-            _restClient = new RestClient(lemonadeServiceUrl);
+        }
+
+        public HttpFeatureResolver(Uri lemonadeServiceUri)
+        {
+            _restClient = new RestClient(lemonadeServiceUri);
         }
 
         public bool Get(string featureName)
