@@ -1,12 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <configuration xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
-  <configSections xdt:Transform="SetAttributes">
-    <section name="FeatureConfiguration" type="Lemonade.FeatureConfigurationSection, Lemonade" xdt:Transform="Insert"/>
+  <configSections xdt:Transform="InsertBefore(/configuration/*[1])" />
+  <configSections xdt:Locator="XPath(/configuration/configSections[last()])">
+    <section name="FeatureConfiguration" type="Lemonade.FeatureConfigurationSection, Lemonade" xdt:Transform="InsertIfMissing"/>
   </configSections>
+  <configSections xdt:Transform="RemoveAll" xdt:Locator="Condition(count(*)=0)" />
 
   <FeatureConfiguration xdt:Transform="InsertAfter(/configuration/configSections)" FeatureResolver="Lemonade.Resolvers.HttpFeatureResolver"/>
 
-  <appSettings>
-    <add xdt:Transform="Insert" key="LemonadeServiceUrl" value="" />
+  <appSettings xdt:Transform="InsertIfMissing">
+    <add xdt:Transform="InsertIfMissing" key="LemonadeServiceUrl" value="" xdt:Locator="Match(key)" />
   </appSettings>
 </configuration>
