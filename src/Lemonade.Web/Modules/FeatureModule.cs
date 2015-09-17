@@ -10,13 +10,19 @@ namespace Lemonade.Web.Modules
 {
     public class FeatureModule : NancyModule
     {
-        public FeatureModule(IGetAllFeatures getAllFeatures, IGetFeatureByNameAndApplication getFeatureByNameAndApplication, ISaveFeature saveFeature)
+        public FeatureModule(IGetAllFeaturesByApplication getAllFeaturesByApplication, IGetFeatureByNameAndApplication getFeatureByNameAndApplication, ISaveFeature saveFeature)
         {
-            Get["/"] = parameters => View["Features", getAllFeatures.Execute().Select(f => f.ToModel()).ToList()];
+            Get["/features"] = parameters =>
+            {
+                var applicationName = Request.Query["application"].Value as string;
+                return View["Features", getAllFeaturesByApplication.Execute(applicationName).Select(f => f.ToModel()).ToList()];
+            };
 
-            Get["/features"] = parameters => View["Features", getAllFeatures.Execute().Select(f => f.ToModel()).ToList()];
-
-            Get["/api/features"] = parameters => getAllFeatures.Execute().Select(f => f.ToContract()).ToList();
+            Get["/api/features"] = parameters =>
+            {
+                var applicationName = Request.Query["application"].Value as string;
+                return getAllFeaturesByApplication.Execute(applicationName).Select(f => f.ToContract()).ToList();
+            };
 
             Get["/api/feature"] = parameters =>
             {

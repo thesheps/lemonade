@@ -1,8 +1,7 @@
-﻿using System;
-using System.Data.Common;
-using System.Data.SqlClient;
+﻿using System.Data.Common;
 using Dapper;
 using Lemonade.Data.Commands;
+using Lemonade.Data.Entities;
 using Lemonade.Sql.Exceptions;
 
 namespace Lemonade.Sql.Commands
@@ -21,7 +20,7 @@ namespace Lemonade.Sql.Commands
         {
         }
 
-        public void Execute(Data.Entities.Feature feature)
+        public void Execute(Feature feature)
         {
             using (var cnn = DbProviderFactory.CreateConnection())
             {

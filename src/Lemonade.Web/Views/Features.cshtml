@@ -6,8 +6,10 @@
     <meta charset="utf-8" />
     <title>Lemonade</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
 </head>
 <body>
     <div class="page-header">
@@ -15,7 +17,6 @@
     </div>
     <div class="well container">
         <form action="/edit/" method="post">
-
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -31,9 +32,9 @@
                         var feature = Model[i];
 
                         <tr class="feature">
-                            <td><input type="text" value="@feature.ApplicationName" name="@string.Format("features[{0}].ApplicationName", i)" /></td>
-                            <td><input type="text" value="@feature.FeatureName" name="@string.Format("features[{0}].FeatureName", i)" /></td>
-                            <td><input type="text" value="@feature.IsEnabled" name="@string.Format("features[{0}].IsEnabled", i)" /></td>
+                            <td>@feature.ApplicationName</td>
+                            <td>@feature.FeatureName</td>
+                            <td>@feature.IsEnabled</td>
                         </tr>
                     }
                 </tbody>

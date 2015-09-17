@@ -2,7 +2,6 @@
 using System.Configuration;
 using System.Net;
 using Lemonade.Exceptions;
-using Lemonade.Web.Contracts;
 using RestSharp;
 
 namespace Lemonade.Resolvers

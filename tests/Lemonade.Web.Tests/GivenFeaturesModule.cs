@@ -51,7 +51,11 @@ namespace Lemonade.Web.Tests
                 with.Body(JsonConvert.SerializeObject(GetFeatureModel("MySuperCoolFeature2")));
             });
 
-            var response = _browser.Get("/features");
+            var response = _browser.Get("/features", with =>
+            {
+                with.Query("application", "TestApplication");
+            });
+
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
             Assert.That(response.Body[".feature"].Count(), Is.EqualTo(2));
         }
@@ -71,7 +75,12 @@ namespace Lemonade.Web.Tests
                 with.Body(JsonConvert.SerializeObject(GetFeatureModel("MySuperCoolFeature2")));
             });
 
-            var response = _browser.Get("/api/features", b => b.Header("Accept", "application/json"));
+            var response = _browser.Get("/api/features", with =>
+            {
+                with.Query("application", "TestApplication");
+                with.Header("Accept", "application/json");
+            });
+
             var results = JsonConvert.DeserializeObject<IList<Contracts.Feature>>(response.Body.AsString());
 
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));

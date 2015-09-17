@@ -28,7 +28,7 @@ namespace Lemonade.Sql.Queries
                 cnn.ConnectionString = ConnectionString;
 
                 return cnn.Query<Data.Entities.Feature>("SELECT * FROM Feature WHERE FeatureName = @featureName " +
-                                                   "AND ApplicationName = @applicationName",
+                                                        "AND ApplicationName = @applicationName",
                     new
                     {
                         featureName,

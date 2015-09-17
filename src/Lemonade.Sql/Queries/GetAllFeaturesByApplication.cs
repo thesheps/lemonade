@@ -26,7 +26,7 @@ namespace Lemonade.Sql.Queries
                 if (cnn == null) return null;
 
                 cnn.ConnectionString = ConnectionString;
-                return cnn.Query<Data.Entities.Feature>("SELECT * FROM Features WHERE ApplicationName = @applicationName", new { application = applicationName });
+                return cnn.Query<Data.Entities.Feature>("SELECT * FROM Feature WHERE ApplicationName = @applicationName", new { applicationName });
             }
         }
     }
