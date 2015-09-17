@@ -12,6 +12,8 @@ namespace Lemonade.Web.Modules
     {
         public FeatureModule(IGetAllFeatures getAllFeatures, IGetFeatureByNameAndApplication getFeatureByNameAndApplication, ISaveFeature saveFeature)
         {
+            Get["/"] = parameters => View["Features", getAllFeatures.Execute().Select(f => f.ToModel()).ToList()];
+
             Get["/features"] = parameters => View["Features", getAllFeatures.Execute().Select(f => f.ToModel()).ToList()];
 
             Get["/api/features"] = parameters => getAllFeatures.Execute().Select(f => f.ToContract()).ToList();
