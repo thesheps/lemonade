@@ -1,13 +1,10 @@
-﻿using Lemonade.Data.Entities;
-using Lemonade.Web.Contracts;
-
-namespace Lemonade.Web.Mappers
+﻿namespace Lemonade.Web.Mappers
 {
     public static class FeatureMapper
     {
-        public static FeatureModel ToModel(this Feature feature)
+        public static Contracts.Feature ToContract(this Data.Entities.Feature feature)
         {
-            return new FeatureModel
+            return new Contracts.Feature
             {
                 Id = feature.Id,
                 FeatureName = feature.FeatureName,
@@ -18,9 +15,22 @@ namespace Lemonade.Web.Mappers
             };
         }
 
-        public static Feature ToEntity(this FeatureModel feature)
+        public static Models.FeatureModel ToModel(this Data.Entities.Feature feature)
         {
-            return new Feature
+            return new Models.FeatureModel
+            {
+                Id = feature.Id,
+                FeatureName = feature.FeatureName,
+                ApplicationName = feature.ApplicationName,
+                ExpirationDays = feature.ExpirationDays,
+                IsEnabled = feature.IsEnabled,
+                StartDate = feature.StartDate
+            };
+        }
+
+        public static Data.Entities.Feature ToEntity(this Contracts.Feature feature)
+        {
+            return new Data.Entities.Feature
             {
                 Id = feature.Id,
                 FeatureName = feature.FeatureName,

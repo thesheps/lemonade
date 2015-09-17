@@ -12,9 +12,9 @@ namespace Lemonade.Web.Modules
     {
         public FeatureModule(IGetAllFeatures getAllFeatures, IGetFeatureByNameAndApplication getFeatureByNameAndApplication, ISaveFeature saveFeature)
         {
-            Get["/features"] = parameters => new FeaturesModel { Features = getAllFeatures.Execute().Select(f => f.ToModel()).ToList() };
+            Get["/features"] = parameters => View["Features", getAllFeatures.Execute().Select(f => f.ToModel()).ToList()];
 
-            Get["/api/features"] = parameters => getAllFeatures.Execute().Select(f => f.ToModel()).ToList();
+            Get["/api/features"] = parameters => getAllFeatures.Execute().Select(f => f.ToContract()).ToList();
 
             Get["/api/feature"] = parameters =>
             {
@@ -22,12 +22,12 @@ namespace Lemonade.Web.Modules
                 var applicationName = Request.Query["application"].Value as string;
                 var feature = getFeatureByNameAndApplication.Execute(featureName, applicationName);
 
-                return feature?.ToModel();
+                return feature?.ToContract();
             };
 
             Post["/api/feature"] = parameters =>
             {
-                saveFeature.Execute(this.Bind<FeatureModel>().ToEntity());
+                saveFeature.Execute(this.Bind<Feature>().ToEntity());
                 return HttpStatusCode.OK;
             };
         }

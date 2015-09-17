@@ -28,7 +28,7 @@ namespace Lemonade.Resolvers
             restRequest.AddQueryParameter("application", AppDomain.CurrentDomain.FriendlyName);
             restRequest.AddQueryParameter("feature", featureName);
 
-            var response = _restClient.Get<FeatureModel>(restRequest);
+            var response = _restClient.Get<Web.Contracts.Feature>(restRequest);
 
             if (response.ErrorMessage == "Unable to connect to the remote server")
                 throw new ConnectionException(string.Format(Errors.UnableToConnect, _restClient.BaseUrl));

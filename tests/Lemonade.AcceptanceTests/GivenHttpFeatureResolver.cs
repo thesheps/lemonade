@@ -1,9 +1,14 @@
 ﻿using System;
+using Lemonade.Data.Commands;
+using Lemonade.Data.Queries;
 using Lemonade.Resolvers;
 using Lemonade.Sql.Commands;
 using Lemonade.Sql.Migrations;
 using Lemonade.Sql.Queries;
-using Lemonade.Web;
+using Nancy;
+using Nancy.Bootstrapper;
+using Nancy.Hosting.Self;
+using Nancy.TinyIoc;
 using NUnit.Framework;
 
 namespace Lemonade.AcceptanceTests
@@ -17,14 +22,15 @@ namespace Lemonade.AcceptanceTests
             Runner.Sqlite("Lemonade").Down();
             Runner.Sqlite("Lemonade").Up();
             _saveFeature = new SaveFeature();
-            _lemonadeService = new LemonadeService("http://localhost:12345", new GetAllFeatures(), new GetFeatureByNameAndApplication(), _saveFeature);
-            _lemonadeService.Start();
+            _nancyHost = new NancyHost(new Uri("http://localhost:12345"), new TestBootstrapper());
+            _nancyHost.Start();
         }
 
         [TearDown]
         public void TearDown()
         {
-            _lemonadeService.Dispose();
+            _nancyHost.Stop();
+            _nancyHost.Dispose();
         }
 
         [Test]
@@ -55,7 +61,18 @@ namespace Lemonade.AcceptanceTests
             Assert.That(enabled, Is.False);
         }
 
-        private LemonadeService _lemonadeService;
+        private class TestBootstrapper : DefaultNancyBootstrapper
+        {
+            protected override void ApplicationStartup(TinyIoCContainer container, IPipelines pipelines)
+            {
+                base.ApplicationStartup(container, pipelines);
+                container.Register<IGetAllFeatures, GetAllFeatures>();
+                container.Register<IGetFeatureByNameAndApplication, GetFeatureByNameAndApplication>();
+                container.Register<ISaveFeature, SaveFeature>();
+            }
+        }
+
         private SaveFeature _saveFeature;
+        private NancyHost _nancyHost;
     }
 }

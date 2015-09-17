@@ -23,6 +23,7 @@ namespace Lemonade.Web.Tests
         public void SetUp()
         {
             _server = new Server(64978);
+            Runner.Sqlite(ConnectionString).Down();
             Runner.Sqlite(ConnectionString).Up();
 
             _browser = new Browser(new ConfigurableBootstrapper(with =>
@@ -38,7 +39,6 @@ namespace Lemonade.Web.Tests
         public void Teardown()
         {
             _server.Dispose();
-            Runner.Sqlite(ConnectionString).Down();
         }
 
         [Test]
@@ -77,7 +77,7 @@ namespace Lemonade.Web.Tests
             });
 
             var response = _browser.Get("/api/features", b => b.Header("Accept", "application/json"));
-            var results = JsonConvert.DeserializeObject<IList<FeatureModel>>(response.Body.AsString());
+            var results = JsonConvert.DeserializeObject<IList<Contracts.Feature>>(response.Body.AsString());
 
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
             Assert.That(results.Count, Is.EqualTo(2));
@@ -99,7 +99,7 @@ namespace Lemonade.Web.Tests
                 with.Query("feature", "MySuperCoolFeature1");
             });
 
-            var result = JsonConvert.DeserializeObject<FeatureModel>(response.Body.AsString());
+            var result = JsonConvert.DeserializeObject<Contracts.Feature>(response.Body.AsString());
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
             Assert.That(result.IsEnabled, Is.True);
         }
@@ -116,9 +116,9 @@ namespace Lemonade.Web.Tests
             Assert.Throws<UriFormatException>(() => new HttpFeatureResolver("TestTestTest!!!"));
         }
 
-        private static FeatureModel GetFeatureModel(string name)
+        private static Contracts.Feature GetFeatureModel(string name)
         {
-            return new FeatureModel
+            return new Contracts.Feature
             {
                 ExpirationDays = 1,
                 IsEnabled = true,
