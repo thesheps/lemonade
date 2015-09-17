@@ -72,9 +72,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Features.cshtml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <EmbeddedResource Include="Views\Features.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Lemonade.Data\Lemonade.Data.csproj">

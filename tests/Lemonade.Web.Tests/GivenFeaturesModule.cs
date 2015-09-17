@@ -8,6 +8,7 @@ using Lemonade.Sql.Commands;
 using Lemonade.Sql.Migrations;
 using Lemonade.Sql.Queries;
 using Lemonade.Web.Contracts;
+using Lemonade.Web.Host;
 using Lemonade.Web.Modules;
 using Nancy;
 using Nancy.Testing;
@@ -26,13 +27,7 @@ namespace Lemonade.Web.Tests
             Runner.Sqlite(ConnectionString).Down();
             Runner.Sqlite(ConnectionString).Up();
 
-            _browser = new Browser(new ConfigurableBootstrapper(with =>
-            {
-                with.Module<FeatureModule>();
-                with.Dependencies<IGetAllFeatures>(new GetAllFeatures());
-                with.Dependencies<IGetFeatureByNameAndApplication>(new GetFeatureByNameAndApplication());
-                with.Dependencies<ISaveFeature>(new SaveFeature());
-            }));
+            _browser = new Browser(new Bootstrapper());
         }
 
         [TearDown]
