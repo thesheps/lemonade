@@ -57,9 +57,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Mappers\ApplicationMapper.cs" />
     <Compile Include="Mappers\FeatureMapper.cs" />
     <Compile Include="Models\ApplicationModel.cs" />
-    <Compile Include="Models\ApplicationsModel.cs" />
+    <Compile Include="Models\IndexModel.cs" />
     <Compile Include="Models\FeatureModel.cs" />
     <Compile Include="Modules\FeatureModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

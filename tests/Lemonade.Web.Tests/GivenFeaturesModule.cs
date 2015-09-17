@@ -1,15 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Lemonade.Data.Commands;
-using Lemonade.Data.Queries;
+using Lemonade.Data.Entities;
 using Lemonade.Resolvers;
 using Lemonade.Sql.Commands;
 using Lemonade.Sql.Migrations;
-using Lemonade.Sql.Queries;
-using Lemonade.Web.Contracts;
 using Lemonade.Web.Host;
-using Lemonade.Web.Modules;
 using Nancy;
 using Nancy.Testing;
 using Newtonsoft.Json;
@@ -58,6 +54,23 @@ namespace Lemonade.Web.Tests
 
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
             Assert.That(response.Body[".feature"].Count(), Is.EqualTo(2));
+        }
+
+        [Test]
+        public void WhenIHaveMultipleApplications_ThenAllApplicationsAreRendered()
+        {
+            var save = new SaveApplication();
+            save.Execute(new Application { Id = 1, Name = "TestApplication1" });
+            save.Execute(new Application { Id = 2, Name = "TestApplication2" });
+            save.Execute(new Application { Id = 3, Name = "TestApplication3" });
+
+            var response = _browser.Get("/features", with =>
+            {
+                with.Query("application", "TestApplication");
+            });
+
+            Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
+            Assert.That(response.Body[".application"].Count(), Is.EqualTo(3));
         }
 
         [Test]

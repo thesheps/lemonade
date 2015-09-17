@@ -5,6 +5,6 @@ namespace Lemonade.Data.Queries
 {
     public interface IGetAllFeatures
     {
-        IEnumerable<Feature> Execute();
+        IList<Feature> Execute();
     }
 }

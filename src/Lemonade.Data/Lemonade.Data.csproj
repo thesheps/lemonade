@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\ISaveApplication.cs" />
     <Compile Include="Commands\ISaveFeature.cs" />
     <Compile Include="Entities\Feature.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -2,7 +2,7 @@
 {
     public class ApplicationModel
     {
-        public string ApplicationName { get; set; }
-        public int ApplicationId { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
     }
 }

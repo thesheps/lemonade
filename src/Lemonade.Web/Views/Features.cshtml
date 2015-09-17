@@ -1,4 +1,4 @@
-﻿@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<System.Collections.Generic.List<Lemonade.Web.Models.FeatureModel>>
+﻿@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<Lemonade.Web.Models.IndexModel>
 
 @{
     Layout = "_Layout.cshtml";
@@ -7,6 +7,15 @@
 <div class="col-md-5">
     <div class="well">
         <h2>Applications</h2>
+        <hr/>
+        @for (int i = 0; i < Model.Applications.Count; i++)
+        {
+            var application = Model.Applications[i];
+
+            <div class="application">
+                @application.Name
+            </div>
+        }
     </div>
 </div>
 
@@ -21,9 +30,9 @@
             </thead>
 
             <tbody>
-                @for (int i = 0; i < Model.Count; i++)
+                @for (int i = 0; i < Model.Features.Count; i++)
                 {
-                    var feature = Model[i];
+                    var feature = Model.Features[i];
 
                     <tr class="feature">
                         <td>@feature.FeatureName</td>

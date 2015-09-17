@@ -21,9 +21,11 @@ namespace Lemonade.Web.Host
 
             ResourceViewLocationProvider.RootNamespaces.Clear();
             ResourceViewLocationProvider.RootNamespaces.Add(typeof(FeatureModule).Assembly, "Lemonade.Web.Views");
+            container.Register<IGetAllApplications, GetAllApplications>();
             container.Register<IGetAllFeatures, GetAllFeatures>();
             container.Register<IGetFeatureByNameAndApplication, GetFeatureByNameAndApplication>();
             container.Register<ISaveFeature, SaveFeature>();
+            container.Register<ISaveApplication, SaveApplication>();
         }
 
         protected override NancyInternalConfiguration InternalConfiguration
