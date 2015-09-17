@@ -19,6 +19,7 @@ REM Restore
 call %NuGet% restore src\Lemonade\packages.config -OutputDirectory %cd%\packages -NonInteractive
 call %NuGet% restore src\Lemonade.Sql\packages.config -OutputDirectory %cd%\packages -NonInteractive
 call %NuGet% restore src\Lemonade.Web\packages.config -OutputDirectory %cd%\packages -NonInteractive
+call %NuGet% restore src\Lemonade.Web.Host\packages.config -OutputDirectory %cd%\packages -NonInteractive
 call %NuGet% restore tests\Lemonade.Web.Tests\packages.config -OutputDirectory %cd%\packages -NonInteractive
 call %NuGet% restore tests\Lemonade.Sql.Tests\packages.config -OutputDirectory %cd%\packages -NonInteractive
 call %NuGet% restore tests\Lemonade.AcceptanceTests\packages.config -OutputDirectory %cd%\packages -NonInteractive
