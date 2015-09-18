@@ -1,5 +1,5 @@
 ﻿using System;
-using Lemonade.Data.Entities;
+using Lemonade.Builders;
 using Lemonade.Sql.Commands;
 using Lemonade.Sql.Exceptions;
 using Lemonade.Sql.Migrations;
@@ -20,15 +20,18 @@ namespace Lemonade.Sql.Tests
         public void WhenITryToSaveADuplicateFeature_ThenSaveFeatureExceptionIsThrown()
         {
             var saveFeature = new SaveFeature();
-            var feature = new Feature { Application = GetApplication("Test12345"), Name = "MyTestFeature", StartDate = DateTime.Now };
+            var application = new ApplicationBuilder()
+                .WithName("Test12345")
+                .Build();
+
+            var feature = new FeatureBuilder()
+                .WithName("MyTestFeature")
+                .WithStartDate(DateTime.Now)
+                .WithApplication(application).Build();
+
             saveFeature.Execute(feature);
 
             Assert.Throws<SaveFeatureException>(() => saveFeature.Execute(feature));
-        }
-
-        private Application GetApplication(string applicationName)
-        {
-            return new Application { Name = applicationName };
         }
     }
 }

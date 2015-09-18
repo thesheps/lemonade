@@ -30,7 +30,7 @@ namespace Lemonade.Resolvers
             var response = _restClient.Get<Web.Contracts.Feature>(restRequest);
 
             if (response.ErrorMessage == "Unable to connect to the remote server")
-                throw new ConnectionException(string.Format(Errors.UnableToConnect, _restClient.BaseUrl));
+                throw new ConnectionException(string.Format(Errors.UnableToConnect, _restClient.BaseUrl), response.ErrorException);
 
             if (response.StatusCode == HttpStatusCode.InternalServerError)
                 throw new ConnectionException(Errors.ServerError, response.ErrorException);

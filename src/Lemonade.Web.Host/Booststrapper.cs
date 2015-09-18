@@ -30,10 +30,7 @@ namespace Lemonade.Web.Host
 
         protected override NancyInternalConfiguration InternalConfiguration
         {
-            get
-            {
-                return NancyInternalConfiguration.WithOverrides(nic => nic.ViewLocationProvider = typeof(ResourceViewLocationProvider));
-            }
+            get { return NancyInternalConfiguration.WithOverrides(nic => nic.ViewLocationProvider = typeof(ResourceViewLocationProvider)); }
         }
 
         protected override IEnumerable<Type> ViewEngines { get { yield return typeof(RazorViewEngine); } }

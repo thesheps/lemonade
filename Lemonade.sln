@@ -36,6 +36,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lemonade.Sql.Tests", "tests
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lemonade.Web.Host", "src\Lemonade.Web.Host\Lemonade.Web.Host.csproj", "{8404DF10-F08F-4A1F-B861-B142DD59F205}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lemonade.Builders", "tests\Lemonade.Builders\Lemonade.Builders.csproj", "{8E3AAD1A-238B-44B4-AB96-3E6C9B1313F1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -82,6 +84,10 @@ Global
 		{8404DF10-F08F-4A1F-B861-B142DD59F205}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8404DF10-F08F-4A1F-B861-B142DD59F205}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8404DF10-F08F-4A1F-B861-B142DD59F205}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E3AAD1A-238B-44B4-AB96-3E6C9B1313F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E3AAD1A-238B-44B4-AB96-3E6C9B1313F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E3AAD1A-238B-44B4-AB96-3E6C9B1313F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E3AAD1A-238B-44B4-AB96-3E6C9B1313F1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -97,5 +103,6 @@ Global
 		{512C5D36-27F0-4F72-9A19-3098BC8834BE} = {87416585-33B0-4DEE-A807-57F5FA129A34}
 		{DEDDDAA6-E984-4E1C-B8F1-AC1991C56862} = {87416585-33B0-4DEE-A807-57F5FA129A34}
 		{8404DF10-F08F-4A1F-B861-B142DD59F205} = {C92253CB-CC26-4544-9469-C7677DB42084}
+		{8E3AAD1A-238B-44B4-AB96-3E6C9B1313F1} = {87416585-33B0-4DEE-A807-57F5FA129A34}
 	EndGlobalSection
 EndGlobal

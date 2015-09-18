@@ -1,5 +1,4 @@
-﻿using System.Data.Common;
-using System.Linq;
+﻿using System.Linq;
 using Dapper;
 using Lemonade.Data.Entities;
 using Lemonade.Data.Queries;
@@ -13,10 +12,6 @@ namespace Lemonade.Sql.Queries
         }
 
         public GetFeatureByNameAndApplication(string connectionStringName) : base(connectionStringName)
-        {
-        }
-
-        public GetFeatureByNameAndApplication(DbProviderFactory dbProviderFactory, string connectionString) : base(dbProviderFactory, connectionString)
         {
         }
 

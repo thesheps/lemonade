@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Data.Common;
 using System.Linq;
 using Dapper;
 using Lemonade.Data.Entities;
@@ -14,10 +13,6 @@ namespace Lemonade.Sql.Queries
         }
 
         public GetAllApplications(string connectionStringName) : base(connectionStringName)
-        {
-        }
-
-        public GetAllApplications(DbProviderFactory dbProviderFactory, string connectionString) : base(dbProviderFactory, connectionString)
         {
         }
 

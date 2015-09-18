@@ -19,12 +19,6 @@ namespace Lemonade.Sql
             ConnectionString = connectionStringSettings.ConnectionString;
         }
 
-        protected LemonadeConnection(DbProviderFactory dbProviderFactory, string connectionString)
-        {
-            DbProviderFactory = dbProviderFactory;
-            ConnectionString = connectionString;
-        }
-
         protected DbProviderFactory DbProviderFactory { get; private set; }
         protected string ConnectionString { get; private set; }
     }

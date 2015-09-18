@@ -21,7 +21,7 @@
             {
                 Id = feature.FeatureId,
                 FeatureName = feature.Name,
-                ApplicationName = feature.Application.Name,
+                ApplicationId = feature.Application.ApplicationId,
                 ExpirationDays = feature.ExpirationDays,
                 IsEnabled = feature.IsEnabled,
                 StartDate = feature.StartDate

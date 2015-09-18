@@ -16,10 +16,6 @@ namespace Lemonade.Sql.Commands
         {
         }
 
-        public SaveFeature(DbProviderFactory dbProviderFactory, string connectionString) : base(dbProviderFactory, connectionString)
-        {
-        }
-
         public void Execute(Feature feature)
         {
             using (var cnn = DbProviderFactory.CreateConnection())

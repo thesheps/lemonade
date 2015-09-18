@@ -1,6 +1,6 @@
 ﻿using System;
+using Lemonade.Builders;
 using Lemonade.Data.Commands;
-using Lemonade.Data.Entities;
 using Lemonade.Data.Queries;
 using Lemonade.Resolvers;
 using Lemonade.Sql.Commands;
@@ -19,7 +19,8 @@ namespace Lemonade.AcceptanceTests
         [SetUp]
         public void SetUp()
         {
-            var application = GetApplication(AppDomain.CurrentDomain.FriendlyName);
+            var application = new ApplicationBuilder().WithName(AppDomain.CurrentDomain.FriendlyName).Build();
+
             Feature.Resolver = new HttpFeatureResolver("http://localhost:12345");
             Runner.Sqlite("Lemonade").Down();
             Runner.Sqlite("Lemonade").Up();
@@ -28,7 +29,14 @@ namespace Lemonade.AcceptanceTests
             _getApplicationByName = new GetApplicationByName();
             _saveApplication.Execute(application);
             application = _getApplicationByName.Execute(application.Name);
-            _saveFeature.Execute(GetFeature(application));
+
+            var feature = new FeatureBuilder().WithName("MySuperDuperFeature")
+                .WithApplication(application)
+                .WithIsEnabled(true)
+                .WithStartDate(DateTime.Now)
+                .Build();
+
+            _saveFeature.Execute(feature);
             _nancyHost = new NancyHost(new Uri("http://localhost:12345"), new TestBootstrapper());
             _nancyHost.Start();
         }
@@ -52,22 +60,6 @@ namespace Lemonade.AcceptanceTests
         {
             var enabled = Feature.Switches["Ponies"];
             Assert.That(enabled, Is.False);
-        }
-
-        private static Data.Entities.Feature GetFeature(Application application)
-        {
-            return new Data.Entities.Feature
-            {
-                Application = application,
-                Name = "MySuperDuperFeature",
-                IsEnabled = true,
-                StartDate = DateTime.Now
-            };
-        }
-
-        private static Application GetApplication(string applicationName)
-        {
-            return new Application { Name = applicationName };
         }
 
         private class TestBootstrapper : DefaultNancyBootstrapper

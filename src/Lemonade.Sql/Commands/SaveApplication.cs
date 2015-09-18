@@ -16,10 +16,6 @@ namespace Lemonade.Sql.Commands
         {
         }
 
-        public SaveApplication(DbProviderFactory dbProviderFactory, string connectionString) : base(dbProviderFactory, connectionString)
-        {
-        }
-
         public void Execute(Application application)
         {
             using (var cnn = DbProviderFactory.CreateConnection())

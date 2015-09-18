@@ -79,6 +79,10 @@
       <Project>{06665811-5ED9-4088-81B2-805E80119772}</Project>
       <Name>Lemonade.Sql</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Lemonade.Builders\Lemonade.Builders.csproj">
+      <Project>{8E3AAD1A-238B-44B4-AB96-3E6C9B1313F1}</Project>
+      <Name>Lemonade.Builders</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
