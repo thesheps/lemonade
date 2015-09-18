@@ -116,10 +116,6 @@
       <Project>{DF4CCA5C-FF05-4471-BF04-C4E36C7101D8}</Project>
       <Name>Lemonade.Web.Contracts</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Lemonade.Web.Host\Lemonade.Web.Host.csproj">
-      <Project>{8404DF10-F08F-4A1F-B861-B142DD59F205}</Project>
-      <Name>Lemonade.Web.Host</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\src\Lemonade.Web\Lemonade.Web.csproj">
       <Project>{f3f461b3-2fc8-4704-9a8e-7b9a490668c9}</Project>
       <Name>Lemonade.Web</Name>
