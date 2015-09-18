@@ -81,36 +81,6 @@ namespace Lemonade.Web.Tests
         }
 
         [Test]
-        public void WhenIPostMultipleFeatures_ThenTheFeaturesAreSavedAndTheSameNumberAreRetrievedViaRest()
-        {
-            var application = new Application { ApplicationId = 1, Name = "TestApplication1" };
-            _saveApplication.Execute(application);
-
-            _browser.Post("/api/feature", with =>
-            {
-                with.Header("Content-Type", "application/json");
-                with.Body(JsonConvert.SerializeObject(GetFeatureModel("MySuperCoolFeature1", _getApplication.Execute(application.Name).ToContract())));
-            });
-
-            _browser.Post("/api/feature", with =>
-            {
-                with.Header("Content-Type", "application/json");
-                with.Body(JsonConvert.SerializeObject(GetFeatureModel("MySuperCoolFeature2", _getApplication.Execute(application.Name).ToContract())));
-            });
-
-            var response = _browser.Get("/api/feature", with =>
-            {
-                with.Query("application", application.Name);
-                with.Header("Accept", "application/json");
-            });
-
-            var results = JsonConvert.DeserializeObject<IList<Contracts.Feature>>(response.Body.AsString());
-
-            Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
-            Assert.That(results.Count, Is.EqualTo(2));
-        }
-
-        [Test]
         public void WhenIPostAFeature_ThenICanGetItViaHttp()
         {
             var application = new Application { ApplicationId = 1, Name = "TestApplication1" };
