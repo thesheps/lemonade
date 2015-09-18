@@ -2,23 +2,23 @@
 
 namespace Lemonade.Sql.Migrations
 {
-    [Migration(1)]
+    [Migration(2)]
     public class CreateFeatureTable : Migration
     {
         public override void Up()
         {
             Create.Table("Feature")
-                .WithColumn("Id").AsInt32().PrimaryKey("PK_FeatureId").Identity()
-                .WithColumn("ApplicationName").AsString()
-                .WithColumn("FeatureName").AsString()
+                .WithColumn("FeatureId").AsInt32().PrimaryKey("PK_FeatureId").Identity()
+                .WithColumn("ApplicationId").AsInt32().ForeignKey("FK_ApplicationId", "Application", "ApplicationId")
+                .WithColumn("Name").AsString()
                 .WithColumn("StartDate").AsDateTime()
                 .WithColumn("ExpirationDays").AsInt32().Nullable()
                 .WithColumn("IsEnabled").AsBoolean();
 
             Create.Index("UK_Application_Feature")
                 .OnTable("Feature")
-                .OnColumn("ApplicationName").Ascending()
-                .OnColumn("FeatureName").Ascending()
+                .OnColumn("ApplicationId").Ascending()
+                .OnColumn("Name").Ascending()
                 .WithOptions()
                 .Unique();
         }

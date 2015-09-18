@@ -6,9 +6,9 @@
         {
             return new Contracts.Feature
             {
-                Id = feature.Id,
-                FeatureName = feature.FeatureName,
-                ApplicationName = feature.ApplicationName,
+                Id = feature.FeatureId,
+                Name = feature.Name,
+                Application = feature.Application.ToContract(),
                 ExpirationDays = feature.ExpirationDays,
                 IsEnabled = feature.IsEnabled,
                 StartDate = feature.StartDate
@@ -19,9 +19,9 @@
         {
             return new Models.FeatureModel
             {
-                Id = feature.Id,
-                FeatureName = feature.FeatureName,
-                ApplicationName = feature.ApplicationName,
+                Id = feature.FeatureId,
+                FeatureName = feature.Name,
+                ApplicationName = feature.Application.Name,
                 ExpirationDays = feature.ExpirationDays,
                 IsEnabled = feature.IsEnabled,
                 StartDate = feature.StartDate
@@ -32,9 +32,9 @@
         {
             return new Data.Entities.Feature
             {
-                Id = feature.Id,
-                FeatureName = feature.FeatureName,
-                ApplicationName = feature.ApplicationName,
+                FeatureId = feature.Id,
+                Name = feature.Name,
+                Application = feature.Application.ToEntity(),
                 ExpirationDays = feature.ExpirationDays,
                 IsEnabled = feature.IsEnabled,
                 StartDate = feature.StartDate

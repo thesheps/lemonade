@@ -2,13 +2,13 @@
 
 namespace Lemonade.Sql.Migrations
 {
-    [Migration(2)]
+    [Migration(1)]
     public class CreateApplicationTable : Migration
     {
         public override void Up()
         {
             Create.Table("Application")
-                .WithColumn("Id").AsInt32().PrimaryKey("PK_ApplicationId").Identity()
+                .WithColumn("ApplicationId").AsInt32().PrimaryKey("PK_ApplicationId").Identity()
                 .WithColumn("Name").AsString();
 
             Create.Index("UK_Application")

@@ -121,9 +121,9 @@
     <value>The specified connection string {0} could not be found</value>
   </data>
   <data name="FailedToSaveApplication" xml:space="preserve">
-    <value>Could not save the specified application {0}.</value>
+    <value>Could not save the specified application {0}</value>
   </data>
   <data name="FailedToSaveFeature" xml:space="preserve">
-    <value>Could not save the specified feature {0}.  Does it already exist for application {1}?</value>
+    <value>Could not save the specified feature {0} for application {1}</value>
   </data>
 </root>

@@ -20,10 +20,15 @@ namespace Lemonade.Sql.Tests
         public void WhenITryToSaveADuplicateFeature_ThenSaveFeatureExceptionIsThrown()
         {
             var saveFeature = new SaveFeature();
-            var feature = new Feature { ApplicationName = "Test12345", FeatureName = "MyTestFeature", StartDate = DateTime.Now };
+            var feature = new Feature { Application = GetApplication("Test12345"), Name = "MyTestFeature", StartDate = DateTime.Now };
             saveFeature.Execute(feature);
 
             Assert.Throws<SaveFeatureException>(() => saveFeature.Execute(feature));
+        }
+
+        private Application GetApplication(string applicationName)
+        {
+            return new Application { Name = applicationName };
         }
     }
 }

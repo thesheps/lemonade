@@ -48,7 +48,7 @@
     <Compile Include="Queries\IGetAllApplications.cs" />
     <Compile Include="Queries\IGetAllFeatures.cs" />
     <Compile Include="Queries\IGetAllFeaturesByApplication.cs" />
-    <Compile Include="Queries\IGetFeatureByName.cs" />
+    <Compile Include="Queries\IGetApplicationByName.cs" />
     <Compile Include="Queries\IGetFeatureByNameAndApplication.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

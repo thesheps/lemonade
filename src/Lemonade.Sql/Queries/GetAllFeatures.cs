@@ -2,6 +2,7 @@
 using System.Data.Common;
 using System.Linq;
 using Dapper;
+using Lemonade.Data.Entities;
 using Lemonade.Data.Queries;
 
 namespace Lemonade.Sql.Queries
@@ -20,14 +21,21 @@ namespace Lemonade.Sql.Queries
         {
         }
 
-        public IList<Data.Entities.Feature> Execute()
+        public IList<Feature> Execute()
         {
             using (var cnn = DbProviderFactory.CreateConnection())
             {
                 if (cnn == null) return null;
 
                 cnn.ConnectionString = ConnectionString;
-                return cnn.Query<Data.Entities.Feature>("SELECT * FROM Feature").ToList();
+
+                var results = cnn.Query<Feature, Application, Feature>(
+                    @"SELECT * FROM Feature f INNER JOIN Application a ON f.ApplicationId = a.ApplicationId
+                      WHERE a.Name = @applicationName",
+                    (f, a) => { f.Application = a; return f; },
+                    splitOn: "FeatureId");
+
+                return results.ToList();
             }
         }
     }

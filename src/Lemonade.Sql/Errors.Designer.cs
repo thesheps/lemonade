@@ -70,7 +70,7 @@ namespace Lemonade.Sql {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Could not save the specified application {0}..
+        ///   Looks up a localized string similar to Could not save the specified application {0}.
         /// </summary>
         internal static string FailedToSaveApplication {
             get {
@@ -79,7 +79,7 @@ namespace Lemonade.Sql {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Could not save the specified feature {0}.  Does it already exist for application {1}?.
+        ///   Looks up a localized string similar to Could not save the specified feature {0} for application {1}.
         /// </summary>
         internal static string FailedToSaveFeature {
             get {

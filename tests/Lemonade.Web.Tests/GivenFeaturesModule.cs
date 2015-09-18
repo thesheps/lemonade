@@ -5,7 +5,9 @@ using Lemonade.Data.Entities;
 using Lemonade.Resolvers;
 using Lemonade.Sql.Commands;
 using Lemonade.Sql.Migrations;
+using Lemonade.Sql.Queries;
 using Lemonade.Web.Host;
+using Lemonade.Web.Mappers;
 using Nancy;
 using Nancy.Testing;
 using Newtonsoft.Json;
@@ -19,6 +21,8 @@ namespace Lemonade.Web.Tests
         [SetUp]
         public void SetUp()
         {
+            _saveApplication = new SaveApplication();
+            _getApplication = new GetApplicationByName();
             _server = new Server(64978);
             Runner.Sqlite(ConnectionString).Down();
             Runner.Sqlite(ConnectionString).Up();
@@ -35,21 +39,24 @@ namespace Lemonade.Web.Tests
         [Test]
         public void WhenIPostMultipleFeatures_ThenTheFeaturesAreSavedAndTheSameNumberAreRendered()
         {
+            var application = new Application { Name = "TestApplication1" };
+            _saveApplication.Execute(application);
+
             _browser.Post("/api/feature", with =>
             {
                 with.Header("Content-Type", "application/json");
-                with.Body(JsonConvert.SerializeObject(GetFeatureModel("MySuperCoolFeature1")));
+                with.Body(JsonConvert.SerializeObject(GetFeatureModel("MySuperCoolFeature1", _getApplication.Execute(application.Name).ToContract())));
             });
 
             _browser.Post("/api/feature", with =>
             {
                 with.Header("Content-Type", "application/json");
-                with.Body(JsonConvert.SerializeObject(GetFeatureModel("MySuperCoolFeature2")));
+                with.Body(JsonConvert.SerializeObject(GetFeatureModel("MySuperCoolFeature2", _getApplication.Execute(application.Name).ToContract())));
             });
 
-            var response = _browser.Get("/features", with =>
+            var response = _browser.Get("/feature", with =>
             {
-                with.Query("application", "TestApplication");
+                with.Query("application", application.Name);
             });
 
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
@@ -60,11 +67,11 @@ namespace Lemonade.Web.Tests
         public void WhenIHaveMultipleApplications_ThenAllApplicationsAreRendered()
         {
             var save = new SaveApplication();
-            save.Execute(new Application { Id = 1, Name = "TestApplication1" });
-            save.Execute(new Application { Id = 2, Name = "TestApplication2" });
-            save.Execute(new Application { Id = 3, Name = "TestApplication3" });
+            save.Execute(new Application { Name = "TestApplication1" });
+            save.Execute(new Application { Name = "TestApplication2" });
+            save.Execute(new Application { Name = "TestApplication3" });
 
-            var response = _browser.Get("/features", with =>
+            var response = _browser.Get("/feature", with =>
             {
                 with.Query("application", "TestApplication");
             });
@@ -76,21 +83,24 @@ namespace Lemonade.Web.Tests
         [Test]
         public void WhenIPostMultipleFeatures_ThenTheFeaturesAreSavedAndTheSameNumberAreRetrievedViaRest()
         {
+            var application = new Application { ApplicationId = 1, Name = "TestApplication1" };
+            _saveApplication.Execute(application);
+
             _browser.Post("/api/feature", with =>
             {
                 with.Header("Content-Type", "application/json");
-                with.Body(JsonConvert.SerializeObject(GetFeatureModel("MySuperCoolFeature1")));
+                with.Body(JsonConvert.SerializeObject(GetFeatureModel("MySuperCoolFeature1", _getApplication.Execute(application.Name).ToContract())));
             });
 
             _browser.Post("/api/feature", with =>
             {
                 with.Header("Content-Type", "application/json");
-                with.Body(JsonConvert.SerializeObject(GetFeatureModel("MySuperCoolFeature2")));
+                with.Body(JsonConvert.SerializeObject(GetFeatureModel("MySuperCoolFeature2", _getApplication.Execute(application.Name).ToContract())));
             });
 
-            var response = _browser.Get("/api/features", with =>
+            var response = _browser.Get("/api/feature", with =>
             {
-                with.Query("application", "TestApplication");
+                with.Query("application", application.Name);
                 with.Header("Accept", "application/json");
             });
 
@@ -103,16 +113,19 @@ namespace Lemonade.Web.Tests
         [Test]
         public void WhenIPostAFeature_ThenICanGetItViaHttp()
         {
+            var application = new Application { ApplicationId = 1, Name = "TestApplication1" };
+            _saveApplication.Execute(application);
+
             _browser.Post("/api/feature", with =>
             {
                 with.Header("Content-Type", "application/json");
-                with.Body(JsonConvert.SerializeObject(GetFeatureModel("MySuperCoolFeature1")));
+                with.Body(JsonConvert.SerializeObject(GetFeatureModel("MySuperCoolFeature1", _getApplication.Execute(application.Name).ToContract())));
             });
 
             var response = _browser.Get("/api/feature", with =>
             {
                 with.Header("Accept", "application/json");
-                with.Query("application", "TestApplication");
+                with.Query("application", application.Name);
                 with.Query("feature", "MySuperCoolFeature1");
             });
 
@@ -124,29 +137,34 @@ namespace Lemonade.Web.Tests
         [Test]
         public void WhenIHaveAnUnknownUrlAppConfigAndITryToResolveAFeatureUsingHttpFeatureResolver_ThenUnknownUrlExceptionIsThrown()
         {
+            var application = new Application { ApplicationId = 1, Name = "TestApplication1" };
+            _saveApplication.Execute(application);
+
             _browser.Post("/api/feature", with =>
             {
                 with.Header("Content-Type", "application/json");
-                with.Body(JsonConvert.SerializeObject(GetFeatureModel("MySuperCoolFeature1")));
+                with.Body(JsonConvert.SerializeObject(GetFeatureModel("MySuperCoolFeature1", _getApplication.Execute(application.Name).ToContract())));
             });
 
             Assert.Throws<UriFormatException>(() => new HttpFeatureResolver("TestTestTest!!!"));
         }
 
-        private static Contracts.Feature GetFeatureModel(string name)
+        private static Contracts.Feature GetFeatureModel(string name, Contracts.Application application)
         {
             return new Contracts.Feature
             {
                 ExpirationDays = 1,
                 IsEnabled = true,
                 StartDate = DateTime.Now,
-                FeatureName = name,
-                ApplicationName = "TestApplication"
+                Name = name,
+                Application = application
             };
         }
 
         private Browser _browser;
         private Server _server;
+        private SaveApplication _saveApplication;
+        private GetApplicationByName _getApplication;
         private const string ConnectionString = "Lemonade";
     }
 }

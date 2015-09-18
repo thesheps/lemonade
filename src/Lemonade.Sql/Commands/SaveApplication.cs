@@ -30,12 +30,7 @@ namespace Lemonade.Sql.Commands
 
                 try
                 {
-                    cnn.Execute(
-                        "INSERT INTO Application (Name) " +
-                        "VALUES (@Name)", new
-                        {
-                            application.Name
-                        });
+                    cnn.Execute("INSERT INTO Application (Name) VALUES (@Name)", new { application.Name });
                 }
                 catch (DbException exception)
                 {

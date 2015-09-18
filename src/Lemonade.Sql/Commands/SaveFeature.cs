@@ -31,19 +31,19 @@ namespace Lemonade.Sql.Commands
                 try
                 {
                     cnn.Execute(
-                        "INSERT INTO Feature (IsEnabled, ExpirationDays, StartDate, FeatureName, ApplicationName) " +
-                        "VALUES (@IsEnabled, @ExpirationDays, @StartDate, @FeatureName, @ApplicationName)", new
+                        "INSERT INTO Feature (IsEnabled, ExpirationDays, StartDate, Name, ApplicationId) " +
+                        "VALUES (@IsEnabled, @ExpirationDays, @StartDate, @Name, @ApplicationId)", new
                         {
                             feature.IsEnabled,
                             feature.ExpirationDays,
                             feature.StartDate,
-                            feature.FeatureName,
-                            feature.ApplicationName
+                            feature.Name,
+                            feature.Application.ApplicationId
                         });
                 }
                 catch (DbException exception)
                 {
-                    throw new SaveFeatureException(feature.ApplicationName, feature.FeatureName, exception);
+                    throw new SaveFeatureException(feature.Application.Name, feature.Name, exception);
                 }
             }
         }
