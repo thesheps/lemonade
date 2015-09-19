@@ -6,6 +6,7 @@ using Lemonade.Resolvers;
 using Lemonade.Sql.Commands;
 using Lemonade.Sql.Migrations;
 using Lemonade.Sql.Queries;
+using Lemonade.Web;
 using Nancy;
 using Nancy.Bootstrapper;
 using Nancy.Hosting.Self;
@@ -62,11 +63,10 @@ namespace Lemonade.AcceptanceTests
             Assert.That(enabled, Is.False);
         }
 
-        private class TestBootstrapper : DefaultNancyBootstrapper
+        private class TestBootstrapper : LemonadeBootstrapper
         {
-            protected override void ApplicationStartup(TinyIoCContainer container, IPipelines pipelines)
+            protected override void ConfigureDependencies(TinyIoCContainer container)
             {
-                base.ApplicationStartup(container, pipelines);
                 container.Register<IGetAllFeatures, GetAllFeatures>();
                 container.Register<IGetFeatureByNameAndApplication, GetFeatureByNameAndApplication>();
                 container.Register<ISaveFeature, SaveFeature>();
