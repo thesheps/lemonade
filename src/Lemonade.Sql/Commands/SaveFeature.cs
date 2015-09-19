@@ -18,12 +18,8 @@ namespace Lemonade.Sql.Commands
 
         public void Execute(Feature feature)
         {
-            using (var cnn = DbProviderFactory.CreateConnection())
+            using (var cnn = CreateConnection())
             {
-                if (cnn == null) return;
-
-                cnn.ConnectionString = ConnectionString;
-
                 try
                 {
                     cnn.Execute(

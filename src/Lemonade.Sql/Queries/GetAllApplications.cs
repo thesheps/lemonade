@@ -18,11 +18,8 @@ namespace Lemonade.Sql.Queries
 
         public IList<Application> Execute()
         {
-            using (var cnn = DbProviderFactory.CreateConnection())
+            using (var cnn = CreateConnection())
             {
-                if (cnn == null) return null;
-
-                cnn.ConnectionString = ConnectionString;
                 return cnn.Query<Application>("SELECT * FROM Application").ToList();
             }
         }

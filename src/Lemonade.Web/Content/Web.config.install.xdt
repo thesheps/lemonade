@@ -3,8 +3,4 @@
   <connectionStrings xdt:Transform="InsertIfMissing">
     <add xdt:Transform="InsertIfMissing" name="Lemonade" providerName="System.Data.SqlClient" connectionString="" xdt:Locator="Match(name)" />
   </connectionStrings>
-
-  <appSettings xdt:Transform="InsertIfMissing">
-    <add xdt:Transform="InsertIfMissing" key="LemonadeUrl" value="http://localhost:12345" />
-  </appSettings>
 </configuration>

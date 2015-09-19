@@ -18,12 +18,8 @@ namespace Lemonade.Sql.Commands
 
         public void Execute(Application application)
         {
-            using (var cnn = DbProviderFactory.CreateConnection())
+            using (var cnn = CreateConnection())
             {
-                if (cnn == null) return;
-
-                cnn.ConnectionString = ConnectionString;
-
                 try
                 {
                     cnn.Execute("INSERT INTO Application (Name) VALUES (@Name)", new { application.Name });

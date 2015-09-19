@@ -18,14 +18,11 @@ namespace Lemonade.Sql.Queries
 
         public IList<Feature> Execute(string applicationName)
         {
-            using (var cnn = DbProviderFactory.CreateConnection())
+            using (var cnn = CreateConnection())
             {
-                if (cnn == null) return null;
-
-                cnn.ConnectionString = ConnectionString;
-
                 var results = cnn.Query<Feature, Application, Feature>(
-                    @"SELECT * FROM Feature f INNER JOIN Application a ON f.ApplicationId = a.ApplicationId
+                    @"SELECT * FROM Feature f 
+                      INNER JOIN Application a ON f.ApplicationId = a.ApplicationId
                       WHERE a.Name = @applicationName",
                     (f, a) => { f.Application = a; return f; },
                     new { applicationName },

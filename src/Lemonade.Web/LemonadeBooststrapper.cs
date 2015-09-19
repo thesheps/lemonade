@@ -9,7 +9,7 @@ using Nancy.ViewEngines.Razor;
 
 namespace Lemonade.Web
 {
-    public abstract class Bootstrapper : DefaultNancyBootstrapper
+    public abstract class LemonadeBootstrapper : DefaultNancyBootstrapper
     {
         protected override void ConfigureApplicationContainer(TinyIoCContainer container)
         {

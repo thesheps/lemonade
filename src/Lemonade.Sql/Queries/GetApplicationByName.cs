@@ -17,13 +17,10 @@ namespace Lemonade.Sql.Queries
 
         public Application Execute(string applicationName)
         {
-            using (var cnn = DbProviderFactory.CreateConnection())
+            using (var cnn = CreateConnection())
             {
-                if (cnn == null) return null;
-
-                cnn.ConnectionString = ConnectionString;
-
-                return cnn.Query<Application>("SELECT * FROM Application a WHERE a.Name = @applicationName",new { applicationName }).SingleOrDefault();
+                return cnn.Query<Application>("SELECT * FROM Application a WHERE a.Name = @applicationName", 
+                    new { applicationName }).SingleOrDefault();
             }
         }
     }

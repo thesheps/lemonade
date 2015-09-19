@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Linq;
 using Lemonade.Data.Commands;
-using Lemonade.Data.Entities;
 using Lemonade.Data.Queries;
 using Lemonade.Resolvers;
 using Lemonade.Sql.Commands;
 using Lemonade.Sql.Migrations;
 using Lemonade.Sql.Queries;
+using Lemonade.Web.Contracts;
 using Lemonade.Web.Mappers;
 using Nancy;
-using Nancy.Bootstrapper;
 using Nancy.Testing;
 using Nancy.TinyIoc;
 using Newtonsoft.Json;
@@ -29,7 +28,7 @@ namespace Lemonade.Web.Tests
             Runner.Sqlite(ConnectionString).Down();
             Runner.Sqlite(ConnectionString).Up();
 
-            _browser = new Browser(new FakeBootstrapper());
+            _browser = new Browser(new FakeLemonadeBootstrapper());
         }
 
         [TearDown]
@@ -41,7 +40,7 @@ namespace Lemonade.Web.Tests
         [Test]
         public void WhenIPostMultipleFeatures_ThenTheFeaturesAreSavedAndTheSameNumberAreRendered()
         {
-            var application = new Application { Name = "TestApplication1" };
+            var application = new Data.Entities.Application { Name = "TestApplication1" };
             _saveApplication.Execute(application);
 
             _browser.Post("/api/feature", with =>
@@ -69,9 +68,9 @@ namespace Lemonade.Web.Tests
         public void WhenIHaveMultipleApplications_ThenAllApplicationsAreRendered()
         {
             var save = new SaveApplication();
-            save.Execute(new Application { Name = "TestApplication1" });
-            save.Execute(new Application { Name = "TestApplication2" });
-            save.Execute(new Application { Name = "TestApplication3" });
+            save.Execute(new Data.Entities.Application { Name = "TestApplication1" });
+            save.Execute(new Data.Entities.Application { Name = "TestApplication2" });
+            save.Execute(new Data.Entities.Application { Name = "TestApplication3" });
 
             var response = _browser.Get("/feature", with =>
             {
@@ -85,7 +84,7 @@ namespace Lemonade.Web.Tests
         [Test]
         public void WhenIPostAFeature_ThenICanGetItViaHttp()
         {
-            var application = new Application { ApplicationId = 1, Name = "TestApplication1" };
+            var application = new Data.Entities.Application { ApplicationId = 1, Name = "TestApplication1" };
             _saveApplication.Execute(application);
 
             _browser.Post("/api/feature", with =>
@@ -109,7 +108,7 @@ namespace Lemonade.Web.Tests
         [Test]
         public void WhenIHaveAnUnknownUrlAppConfigAndITryToResolveAFeatureUsingHttpFeatureResolver_ThenUnknownUrlExceptionIsThrown()
         {
-            var application = new Application { ApplicationId = 1, Name = "TestApplication1" };
+            var application = new Data.Entities.Application { ApplicationId = 1, Name = "TestApplication1" };
             _saveApplication.Execute(application);
 
             _browser.Post("/api/feature", with =>
@@ -121,7 +120,7 @@ namespace Lemonade.Web.Tests
             Assert.Throws<UriFormatException>(() => new HttpFeatureResolver("TestTestTest!!!"));
         }
 
-        private static Contracts.Feature GetFeatureModel(string name, Contracts.Application application)
+        private static Contracts.Feature GetFeatureModel(string name, Application application)
         {
             return new Contracts.Feature
             {
@@ -140,7 +139,7 @@ namespace Lemonade.Web.Tests
         private const string ConnectionString = "Lemonade";
     }
 
-    public class FakeBootstrapper : Bootstrapper
+    public class FakeLemonadeBootstrapper : LemonadeBootstrapper
     {
         protected override void ConfigureDependencies(TinyIoCContainer container)
         {

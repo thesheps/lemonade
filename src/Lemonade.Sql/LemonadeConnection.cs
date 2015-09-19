@@ -19,6 +19,15 @@ namespace Lemonade.Sql
             ConnectionString = connectionStringSettings.ConnectionString;
         }
 
+        protected DbConnection CreateConnection()
+        {
+            var cnn = DbProviderFactory.CreateConnection();
+            if (cnn == null) return null;
+
+            cnn.ConnectionString = ConnectionString;
+            return cnn;
+        }
+
         protected DbProviderFactory DbProviderFactory { get; private set; }
         protected string ConnectionString { get; private set; }
     }

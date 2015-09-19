@@ -19,6 +19,7 @@
       <dependency id="Microsoft.Web.Infrastructure" version="1.0.0.0" />
       <dependency id="Nancy" version="1.2.0" />
       <dependency id="Nancy.Hosting.Self" version="1.2.0" />
+      <dependency id="Nancy.Hosting.Aspnet" version="1.2.0" />
       <dependency id="Nancy.Viewengines.Razor" version="1.2.0" />
     </dependencies>
   </metadata>
@@ -27,5 +28,6 @@
     <file src="Lemonade.Web\bin\$configuration$\Lemonade.Web.dll" target="lib" />
     <file src="Lemonade.Web\bin\$configuration$\Lemonade.Web.Contracts.dll" target="lib" />
     <file src="Lemonade.Web\bin\$configuration$\Content\App.config.install.xdt" target="content" />
+    <file src="Lemonade.Web\bin\$configuration$\Content\Bootstrapper.cs" target="content" />
   </files>
 </package>
