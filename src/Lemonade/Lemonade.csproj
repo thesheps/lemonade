@@ -91,7 +91,9 @@
     <Compile Include="Resolvers\HttpFeatureResolver.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\App.config.install.xdt" />
+    <None Include="Content\App.config.install.xdt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
