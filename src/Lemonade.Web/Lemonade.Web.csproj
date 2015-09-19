@@ -78,8 +78,12 @@
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Content\App.config.install.xdt" />
-    <None Include="Content\Web.config.install.xdt" />
+    <None Include="Content\App.config.install.xdt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Web.config.install.xdt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
     <EmbeddedResource Include="Views\_Layout.cshtml" />
     <EmbeddedResource Include="Views\Index.cshtml" />
