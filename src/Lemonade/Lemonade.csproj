@@ -91,7 +91,7 @@
     <Compile Include="Resolvers\HttpFeatureResolver.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Content\App.config.install.xdt" />
+    <Content Include="Content\App.config.install.xdt" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

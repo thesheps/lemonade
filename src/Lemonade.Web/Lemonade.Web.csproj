@@ -61,9 +61,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Content\Bootstrapper.cs">
+    <Content Include="Content\Bootstrapper.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    </Content>
     <Compile Include="LemonadeBooststrapper.cs" />
     <Compile Include="Mappers\ApplicationMapper.cs" />
     <Compile Include="Mappers\FeatureMapper.cs" />
@@ -78,8 +78,8 @@
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Content\App.config.install.xdt" />
-    <None Include="Content\Web.config.install.xdt" />
+    <Content Include="Content\App.config.install.xdt" />
+    <Content Include="Content\Web.config.install.xdt" />
     <None Include="packages.config" />
     <EmbeddedResource Include="Views\_Layout.cshtml" />
     <EmbeddedResource Include="Views\Index.cshtml" />
