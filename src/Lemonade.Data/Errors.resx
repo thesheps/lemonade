@@ -118,9 +118,9 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="FailedToSaveApplication" xml:space="preserve">
-    <value>Could not save the specified application '{0}'</value>
+    <value>Could not save the specified application '{0}' - {1}</value>
   </data>
   <data name="FailedToSaveFeature" xml:space="preserve">
-    <value>Could not save the specified feature '{0}' for the specified application</value>
+    <value>Could not save the specified feature '{0}' for the specified application - {1}</value>
   </data>
 </root>

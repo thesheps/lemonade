@@ -61,7 +61,7 @@ namespace Lemonade.Data {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Could not save the specified application &apos;{0}&apos;.
+        ///   Looks up a localized string similar to Could not save the specified application &apos;{0}&apos; - {1}.
         /// </summary>
         internal static string FailedToSaveApplication {
             get {
@@ -70,7 +70,7 @@ namespace Lemonade.Data {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Could not save the specified feature &apos;{0}&apos; for the specified application.
+        ///   Looks up a localized string similar to Could not save the specified feature &apos;{0}&apos; for the specified application - {1}.
         /// </summary>
         internal static string FailedToSaveFeature {
             get {

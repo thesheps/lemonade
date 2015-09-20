@@ -8,50 +8,46 @@ using Lemonade.Web.Models;
 using Nancy;
 using Nancy.ModelBinding;
 using Nancy.Responses.Negotiation;
-using Nancy.Validation;
 
 namespace Lemonade.Web.Modules
 {
     public class FeatureModule : NancyModule
     {
-        public FeatureModule(IGetAllApplications getAllApplications, IGetAllFeaturesByApplicationId getAllFeaturesByApplicationId, IGetFeatureByNameAndApplication getFeatureByNameAndApplication, ISaveFeature saveFeature)
+        public FeatureModule(IGetAllApplications getAllApplications, IGetAllFeaturesByApplicationId getAllFeaturesByApplicationId, 
+            IGetFeatureByNameAndApplication getFeatureByNameAndApplication, ISaveFeature saveFeature, ISaveApplication saveApplication)
         {
             _getAllApplications = getAllApplications;
             _getAllFeaturesByApplicationId = getAllFeaturesByApplicationId;
             _getFeatureByNameAndApplication = getFeatureByNameAndApplication;
             _saveFeature = saveFeature;
+            _saveApplication = saveApplication;
 
             Get["/api/feature"] = p => GetFeature();
-            Post["/api/feature"] = p => PostFeature();
-
             Get["/feature"] = p => GetAllFeatures();
+
+            Post["/api/feature"] = p => PostFeature();
             Post["/feature"] = p => PostFeatureFromFormData();
-        }
-
-        private Feature GetFeature()
-        {
-            var featureName = Request.Query["feature"].Value as string;
-            var applicationName = Request.Query["application"].Value as string;
-            var feature = _getFeatureByNameAndApplication.Execute(featureName, applicationName);
-
-            return feature?.ToContract();
+            Post["/application"] = p => PostApplication();
         }
 
         private Negotiator GetAllFeatures()
         {
-            int applicationId;
-            int.TryParse(Request.Query["applicationId"].Value as string, out applicationId);
+            return View["Features", GetIndexModel()];
+        }
 
-            var features = _getAllFeaturesByApplicationId.Execute(applicationId).Select(f => f.ToModel()).ToList();
-            var applications = _getAllApplications.Execute().Select(a => a.ToModel()).ToList();
-            var indexModel = new IndexModel
+        private dynamic PostApplication()
+        {
+            try
             {
-                Applications = applications,
-                Features = features,
-                ApplicationId = applicationId
-            };
+                _saveApplication.Execute(this.Bind<ApplicationModel>().ToEntity());
+            }
+            catch (SaveApplicationException exception)
+            {
+                ModelValidationResult.Errors.Add("SaveException", exception.Message);
+                return View["/features", GetIndexModel()];
+            }
 
-            return View["Features", indexModel];
+            return Response.AsRedirect("/feature");
         }
 
         private HttpStatusCode PostFeature()
@@ -79,14 +75,42 @@ namespace Lemonade.Web.Modules
             catch (SaveFeatureException exception)
             {
                 ModelValidationResult.Errors.Add("SaveException", exception.Message);
+                return View["/features", GetIndexModel()];
             }
 
             return Response.AsRedirect($"/feature?applicationId={feature.ApplicationId}");
+        }
+
+        private Feature GetFeature()
+        {
+            var featureName = Request.Query["feature"].Value as string;
+            var applicationName = Request.Query["application"].Value as string;
+            var feature = _getFeatureByNameAndApplication.Execute(featureName, applicationName);
+
+            return feature?.ToContract();
+        }
+
+        private IndexModel GetIndexModel()
+        {
+            int applicationId;
+            int.TryParse(Request.Query["applicationId"].Value as string, out applicationId);
+
+            var features = _getAllFeaturesByApplicationId.Execute(applicationId).Select(f => f.ToModel()).ToList();
+            var applications = _getAllApplications.Execute().Select(a => a.ToModel()).ToList();
+            var indexModel = new IndexModel
+            {
+                Applications = applications,
+                Features = features,
+                ApplicationId = applicationId
+            };
+
+            return indexModel;
         }
 
         private readonly IGetAllApplications _getAllApplications;
         private readonly IGetAllFeaturesByApplicationId _getAllFeaturesByApplicationId;
         private readonly IGetFeatureByNameAndApplication _getFeatureByNameAndApplication;
         private readonly ISaveFeature _saveFeature;
+        private readonly ISaveApplication _saveApplication;
     }
 }

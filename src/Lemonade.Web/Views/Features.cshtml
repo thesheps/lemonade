@@ -12,9 +12,12 @@
         </div>
 
         <ul class="list-group">
-            @foreach (var error in RenderContext.Context.ModelValidationResult.Errors)
+            @foreach (var errors in RenderContext.Context.ModelValidationResult.Errors)
             {
-                <li class="panel-body list-group-item">@error.Value</li>
+                foreach (var error in errors.Value)
+                {
+                    <li class="panel-body list-group-item">@error.ErrorMessage</li>
+                }
             }
         </ul>
     </div>
@@ -52,7 +55,7 @@
 <div class="col-md-8" id="application-form">
     @if (Model.ApplicationId == 0)
     {
-        <h2>Select an application to continue!</h2>
+        <i>Nothing to see here - select a feature on the left</i>
     }
     else
     {
