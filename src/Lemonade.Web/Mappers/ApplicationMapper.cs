@@ -28,5 +28,14 @@
                 Name = application.Name
             };
         }
+
+        public static Data.Entities.Application ToEntity(this Models.ApplicationModel application)
+        {
+            return new Data.Entities.Application
+            {
+                ApplicationId = application.Id,
+                Name = application.Name
+            };
+        }
     }
 }

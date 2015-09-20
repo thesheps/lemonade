@@ -42,7 +42,7 @@ namespace Lemonade.Sql.Migrations
 
         private static MigrationRunner GetRunner(string connectionString, IMigrationProcessorFactory factory)
         {
-            var announcer = new TextWriterAnnouncer(s => Debug.WriteLine(s));
+            var announcer = new NullAnnouncer();
             var assembly = Assembly.GetExecutingAssembly();
             var migrationContext = new RunnerContext(announcer) { Namespace = "Lemonade.Sql.Migrations" };
             var options = new MigrationOptions { PreviewOnly = false, Timeout = 60 };

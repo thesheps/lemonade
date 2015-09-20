@@ -61,7 +61,7 @@ namespace Lemonade.Sql {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The specified connection string {0} could not be found.
+        ///   Looks up a localized string similar to The specified connection string &apos;{0}&apos; could not be found.
         /// </summary>
         internal static string ConnectionStringNotFound {
             get {
@@ -70,7 +70,7 @@ namespace Lemonade.Sql {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Could not save the specified application {0}.
+        ///   Looks up a localized string similar to Could not save the specified application &apos;{0}&apos;.
         /// </summary>
         internal static string FailedToSaveApplication {
             get {
@@ -79,7 +79,7 @@ namespace Lemonade.Sql {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Could not save the specified feature {0} for application {1}.
+        ///   Looks up a localized string similar to Could not save the specified feature &apos;{0}&apos; for application &apos;{1}&apos;.
         /// </summary>
         internal static string FailedToSaveFeature {
             get {

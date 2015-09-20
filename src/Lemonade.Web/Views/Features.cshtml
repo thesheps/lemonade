@@ -7,7 +7,7 @@
 <div class="col-md-5">
     <div class="well">
         <h2>Applications</h2>
-        <hr/>
+        <hr />
         @for (int i = 0; i < Model.Applications.Count; i++)
         {
             var application = Model.Applications[i];
@@ -16,10 +16,19 @@
                 @application.Name
             </div>
         }
+
+        <form id="add-application-form" action="application" method="post">
+            <div class="input-group">
+                <input type="text" name="name" class="form-control" placeholder="Application name...">
+                <span class="input-group-btn">
+                    <button class="btn btn-default btn-md" type="submit">Add</button>
+                </span>
+            </div>
+        </form>
     </div>
 </div>
 
-<div class="col-md-7">
+<div class="col-md-7" id="application-form">
     <form action="/edit/" method="post">
         <table class="table table-striped">
             <thead>
