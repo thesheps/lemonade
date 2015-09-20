@@ -1,4 +1,5 @@
 ﻿using Lemonade.Data.Commands;
+using Lemonade.Data.Exceptions;
 using Lemonade.Web.Mappers;
 using Lemonade.Web.Models;
 using Nancy;
@@ -17,7 +18,15 @@ namespace Lemonade.Web.Modules
 
         private Response PostApplication()
         {
-            _saveApplication.Execute(this.Bind<ApplicationModel>().ToEntity());
+            try
+            {
+                _saveApplication.Execute(this.Bind<ApplicationModel>().ToEntity());
+            }
+            catch (SaveApplicationException exception)
+            {
+                ModelValidationResult.Errors.Add("SaveException", exception.Message);
+            }
+
             return Response.AsRedirect("/feature");
         }
 

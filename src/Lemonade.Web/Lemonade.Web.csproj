@@ -97,6 +97,10 @@
       <Project>{a9171a74-bfad-4c2e-a8e2-54bc2bce496c}</Project>
       <Name>Lemonade.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Lemonade.Sql\Lemonade.Sql.csproj">
+      <Project>{06665811-5ED9-4088-81B2-805E80119772}</Project>
+      <Name>Lemonade.Sql</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Lemonade.Web.Contracts\Lemonade.Web.Contracts.csproj">
       <Project>{DF4CCA5C-FF05-4471-BF04-C4E36C7101D8}</Project>
       <Name>Lemonade.Web.Contracts</Name>

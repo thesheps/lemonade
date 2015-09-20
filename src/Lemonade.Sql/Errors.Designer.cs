@@ -68,23 +68,5 @@ namespace Lemonade.Sql {
                 return ResourceManager.GetString("ConnectionStringNotFound", resourceCulture);
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Could not save the specified application &apos;{0}&apos;.
-        /// </summary>
-        internal static string FailedToSaveApplication {
-            get {
-                return ResourceManager.GetString("FailedToSaveApplication", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Could not save the specified feature &apos;{0}&apos; for the specified application.
-        /// </summary>
-        internal static string FailedToSaveFeature {
-            get {
-                return ResourceManager.GetString("FailedToSaveFeature", resourceCulture);
-            }
-        }
     }
 }

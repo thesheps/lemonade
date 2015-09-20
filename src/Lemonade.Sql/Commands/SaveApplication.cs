@@ -2,6 +2,7 @@ using System.Data.Common;
 using Dapper;
 using Lemonade.Data.Commands;
 using Lemonade.Data.Entities;
+using Lemonade.Data.Exceptions;
 using Lemonade.Sql.Exceptions;
 
 namespace Lemonade.Sql.Commands

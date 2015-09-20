@@ -55,7 +55,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\SaveApplication.cs" />
-    <Compile Include="Exceptions\SaveApplicationException.cs" />
     <Compile Include="Commands\SaveFeature.cs" />
     <Compile Include="Errors.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -63,7 +62,6 @@
       <DependentUpon>Errors.resx</DependentUpon>
     </Compile>
     <Compile Include="Exceptions\ConnectionStringNotFoundException.cs" />
-    <Compile Include="Exceptions\SaveFeatureException.cs" />
     <Compile Include="LemonadeConnection.cs" />
     <Compile Include="Migrations\CreateApplicationTable.cs" />
     <Compile Include="Queries\GetAllApplications.cs" />

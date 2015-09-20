@@ -4,6 +4,22 @@
     Layout = "_Layout.cshtml";
 }
 
+@if (!RenderContext.Context.ModelValidationResult.IsValid)
+{
+    <div class="panel panel-danger">
+        <div class="panel-heading">
+            <h3 class="panel-title">Oops..!</h3>
+        </div>
+
+        <ul class="list-group">
+            @foreach (var error in RenderContext.Context.ModelValidationResult.Errors)
+            {
+                <li class="panel-body list-group-item">@error.Value</li>
+            }
+        </ul>
+    </div>
+}
+
 <div class="col-md-4">
     <div class="well">
         <h2>Applications</h2>

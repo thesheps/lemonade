@@ -1,5 +1,6 @@
 ﻿using System;
 using Lemonade.Builders;
+using Lemonade.Data.Exceptions;
 using Lemonade.Sql.Commands;
 using Lemonade.Sql.Exceptions;
 using Lemonade.Sql.Migrations;

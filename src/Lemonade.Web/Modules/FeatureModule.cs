@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using Lemonade.Data.Commands;
+using Lemonade.Data.Exceptions;
 using Lemonade.Data.Queries;
 using Lemonade.Web.Contracts;
 using Lemonade.Web.Mappers;
@@ -7,6 +8,7 @@ using Lemonade.Web.Models;
 using Nancy;
 using Nancy.ModelBinding;
 using Nancy.Responses.Negotiation;
+using Nancy.Validation;
 
 namespace Lemonade.Web.Modules
 {
@@ -54,14 +56,31 @@ namespace Lemonade.Web.Modules
 
         private HttpStatusCode PostFeature()
         {
-            _saveFeature.Execute(this.Bind<Feature>().ToEntity());
+            try
+            {
+                _saveFeature.Execute(this.Bind<Feature>().ToEntity());
+            }
+            catch (SaveFeatureException exception)
+            {
+                ModelValidationResult.Errors.Add("SaveException", exception.Message);
+            }
+
             return HttpStatusCode.OK;
         }
 
-        private Response PostFeatureFromFormData()
+        private dynamic PostFeatureFromFormData()
         {
             var feature = this.Bind<FeatureModel>().ToEntity();
-            _saveFeature.Execute(feature);
+
+            try
+            {
+                _saveFeature.Execute(feature);
+            }
+            catch (SaveFeatureException exception)
+            {
+                ModelValidationResult.Errors.Add("SaveException", exception.Message);
+            }
+
             return Response.AsRedirect($"/feature?applicationId={feature.ApplicationId}");
         }
 

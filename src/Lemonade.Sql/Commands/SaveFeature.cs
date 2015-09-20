@@ -1,7 +1,9 @@
-﻿using System.Data.Common;
+﻿using System;
+using System.Data.Common;
 using Dapper;
 using Lemonade.Data.Commands;
 using Lemonade.Data.Entities;
+using Lemonade.Data.Exceptions;
 using Lemonade.Sql.Exceptions;
 
 namespace Lemonade.Sql.Commands
@@ -33,7 +35,7 @@ namespace Lemonade.Sql.Commands
                             feature.ApplicationId
                         });
                 }
-                catch (DbException exception)
+                catch (Exception exception)
                 {
                     throw new SaveFeatureException(feature.Name, exception);
                 }

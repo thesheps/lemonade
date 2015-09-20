@@ -1,7 +1,6 @@
 using System;
-using System.Data.Common;
 
-namespace Lemonade.Sql.Exceptions
+namespace Lemonade.Data.Exceptions
 {
     public class SaveApplicationException : Exception
     {

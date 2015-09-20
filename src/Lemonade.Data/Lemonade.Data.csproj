@@ -43,6 +43,13 @@
     <Compile Include="Commands\ISaveApplication.cs" />
     <Compile Include="Commands\ISaveFeature.cs" />
     <Compile Include="Entities\Feature.cs" />
+    <Compile Include="Errors.Designer.cs">
+      <DependentUpon>Errors.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Exceptions\SaveApplicationException.cs" />
+    <Compile Include="Exceptions\SaveFeatureException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Entities\Application.cs" />
     <Compile Include="Queries\IGetAllApplications.cs" />
@@ -50,6 +57,13 @@
     <Compile Include="Queries\IGetAllFeaturesByApplicationId.cs" />
     <Compile Include="Queries\IGetApplicationByName.cs" />
     <Compile Include="Queries\IGetFeatureByNameAndApplication.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Errors.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Errors.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
