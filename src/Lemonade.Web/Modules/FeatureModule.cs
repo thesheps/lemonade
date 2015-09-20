@@ -12,16 +12,18 @@ namespace Lemonade.Web.Modules
 {
     public class FeatureModule : NancyModule
     {
-        public FeatureModule(IGetAllApplications getAllApplications, IGetAllFeaturesByApplication getAllFeaturesByApplication, IGetFeatureByNameAndApplication getFeatureByNameAndApplication, ISaveFeature saveFeature)
+        public FeatureModule(IGetAllApplications getAllApplications, IGetAllFeaturesByApplicationId getAllFeaturesByApplicationId, IGetFeatureByNameAndApplication getFeatureByNameAndApplication, ISaveFeature saveFeature)
         {
             _getAllApplications = getAllApplications;
-            _getAllFeaturesByApplication = getAllFeaturesByApplication;
+            _getAllFeaturesByApplicationId = getAllFeaturesByApplicationId;
             _getFeatureByNameAndApplication = getFeatureByNameAndApplication;
             _saveFeature = saveFeature;
 
-            Get["/feature"] = p => GetAllFeatures();
             Get["/api/feature"] = p => GetFeature();
             Post["/api/feature"] = p => PostFeature();
+
+            Get["/feature"] = p => GetAllFeatures();
+            Post["/feature"] = p => PostFeatureFromFormData();
         }
 
         private Feature GetFeature()
@@ -35,10 +37,17 @@ namespace Lemonade.Web.Modules
 
         private Negotiator GetAllFeatures()
         {
-            var applicationName = Request.Query["application"].Value as string;
-            var features = _getAllFeaturesByApplication.Execute(applicationName).Select(f => f.ToModel()).ToList();
+            int applicationId;
+            int.TryParse(Request.Query["applicationId"].Value as string, out applicationId);
+
+            var features = _getAllFeaturesByApplicationId.Execute(applicationId).Select(f => f.ToModel()).ToList();
             var applications = _getAllApplications.Execute().Select(a => a.ToModel()).ToList();
-            var indexModel = new IndexModel { Applications = applications, Features = features };
+            var indexModel = new IndexModel
+            {
+                Applications = applications,
+                Features = features,
+                ApplicationId = applicationId
+            };
 
             return View["Features", indexModel];
         }
@@ -49,8 +58,15 @@ namespace Lemonade.Web.Modules
             return HttpStatusCode.OK;
         }
 
+        private Response PostFeatureFromFormData()
+        {
+            var feature = this.Bind<FeatureModel>().ToEntity();
+            _saveFeature.Execute(feature);
+            return Response.AsRedirect($"/feature?applicationId={feature.ApplicationId}");
+        }
+
         private readonly IGetAllApplications _getAllApplications;
-        private readonly IGetAllFeaturesByApplication _getAllFeaturesByApplication;
+        private readonly IGetAllFeaturesByApplicationId _getAllFeaturesByApplicationId;
         private readonly IGetFeatureByNameAndApplication _getFeatureByNameAndApplication;
         private readonly ISaveFeature _saveFeature;
     }

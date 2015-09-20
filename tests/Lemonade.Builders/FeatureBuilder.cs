@@ -30,6 +30,7 @@ namespace Lemonade.Builders
 
         public FeatureBuilder WithApplication(Application application)
         {
+            _feature.ApplicationId = application.ApplicationId;
             _feature.Application = application;
             return this;
         }

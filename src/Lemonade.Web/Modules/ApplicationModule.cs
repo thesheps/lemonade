@@ -15,10 +15,10 @@ namespace Lemonade.Web.Modules
             Post["/application"] = p => PostApplication();
         }
 
-        private HttpStatusCode PostApplication()
+        private Response PostApplication()
         {
             _saveApplication.Execute(this.Bind<ApplicationModel>().ToEntity());
-            return HttpStatusCode.OK;
+            return Response.AsRedirect("/feature");
         }
 
         private readonly ISaveApplication _saveApplication;

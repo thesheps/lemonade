@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Linq;
 using Lemonade.Data.Commands;
 using Lemonade.Data.Queries;
@@ -42,6 +43,7 @@ namespace Lemonade.Web.Tests
         {
             var application = new Data.Entities.Application { Name = "TestApplication1" };
             _saveApplication.Execute(application);
+            application = _getApplication.Execute("TestApplication1");
 
             _browser.Post("/api/feature", with =>
             {
@@ -57,7 +59,7 @@ namespace Lemonade.Web.Tests
 
             var response = _browser.Get("/feature", with =>
             {
-                with.Query("application", application.Name);
+                with.Query("applicationId", application.ApplicationId.ToString());
             });
 
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
@@ -120,6 +122,22 @@ namespace Lemonade.Web.Tests
             Assert.Throws<UriFormatException>(() => new HttpFeatureResolver("TestTestTest!!!"));
         }
 
+        [Test]
+        public void WhenIPostANewFeature_ThenTheResponseIsRedirectToFeaturesPage()
+        {
+            var postResponse = _browser.Post("/feature/", (with) =>
+            {
+                with.HttpRequest();
+                with.FormValue("name", "TestApplication1");
+                with.FormValue("startDate", DateTime.Now.ToString(CultureInfo.InvariantCulture));
+                with.FormValue("expirationDays", "10");
+                with.FormValue("isEnabled", "true");
+            });
+
+            Assert.That(postResponse.StatusCode, Is.EqualTo(HttpStatusCode.SeeOther));
+            Assert.That(postResponse.Headers["Location"], Is.EqualTo("/feature?applicationId=0"));
+        }
+
         private static Contracts.Feature GetFeatureModel(string name, Application application)
         {
             return new Contracts.Feature
@@ -128,7 +146,8 @@ namespace Lemonade.Web.Tests
                 IsEnabled = true,
                 StartDate = DateTime.Now,
                 Name = name,
-                Application = application
+                Application = application,
+                ApplicationId = application.Id
             };
         }
 

@@ -26,7 +26,7 @@ namespace Lemonade.Web.Tests
         }
 
         [Test]
-        public void WhenIPostANewApplication_ThenTheResponseIsOK()
+        public void WhenIPostANewApplication_ThenTheResponseIsRedirectToFeaturesPage()
         {
             var postResponse = _browser.Post("/application/", (with) =>
             {
@@ -34,7 +34,8 @@ namespace Lemonade.Web.Tests
                 with.FormValue("name", "TestApplication1");
             });
 
-            Assert.That(postResponse.StatusCode, Is.EqualTo(HttpStatusCode.OK));
+            Assert.That(postResponse.StatusCode, Is.EqualTo(HttpStatusCode.SeeOther));
+            Assert.That(postResponse.Headers["Location"], Is.EqualTo("/feature"));
         }
 
         [Test]
@@ -45,9 +46,8 @@ namespace Lemonade.Web.Tests
                 with.FormValue("name", "TestApplication1");
             });
 
-            var response = _browser.Get("/feature");
-            Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
-            Assert.That(response.Body[".application"].First().InnerText.Contains("TestApplication1"));
+            var response = _browser.Get("/feature/");
+            Assert.That(response.Body[".application > a"].Any(a => a.InnerText.Contains("TestApplication1")));
         }
 
         private Server _server;

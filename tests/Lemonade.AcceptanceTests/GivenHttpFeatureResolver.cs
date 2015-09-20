@@ -7,8 +7,6 @@ using Lemonade.Sql.Commands;
 using Lemonade.Sql.Migrations;
 using Lemonade.Sql.Queries;
 using Lemonade.Web;
-using Nancy;
-using Nancy.Bootstrapper;
 using Nancy.Hosting.Self;
 using Nancy.TinyIoc;
 using NUnit.Framework;

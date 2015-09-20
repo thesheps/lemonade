@@ -5,7 +5,7 @@ namespace Lemonade.Sql.Exceptions
 {
     public class SaveApplicationException : Exception
     {
-        public SaveApplicationException(string applicationName, DbException innerException)
+        public SaveApplicationException(string applicationName, Exception innerException)
             : base(string.Format(Errors.FailedToSaveApplication, applicationName), innerException)
         {
         }

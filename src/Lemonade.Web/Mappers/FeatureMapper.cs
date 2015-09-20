@@ -1,8 +1,11 @@
-﻿namespace Lemonade.Web.Mappers
+﻿using Lemonade.Data.Entities;
+using Lemonade.Web.Models;
+
+namespace Lemonade.Web.Mappers
 {
     public static class FeatureMapper
     {
-        public static Contracts.Feature ToContract(this Data.Entities.Feature feature)
+        public static Contracts.Feature ToContract(this Feature feature)
         {
             return new Contracts.Feature
             {
@@ -15,12 +18,12 @@
             };
         }
 
-        public static Models.FeatureModel ToModel(this Data.Entities.Feature feature)
+        public static FeatureModel ToModel(this Feature feature)
         {
-            return new Models.FeatureModel
+            return new FeatureModel
             {
                 Id = feature.FeatureId,
-                FeatureName = feature.Name,
+                Name = feature.Name,
                 ApplicationId = feature.Application.ApplicationId,
                 ExpirationDays = feature.ExpirationDays,
                 IsEnabled = feature.IsEnabled,
@@ -28,13 +31,27 @@
             };
         }
 
-        public static Data.Entities.Feature ToEntity(this Contracts.Feature feature)
+        public static Feature ToEntity(this Contracts.Feature feature)
         {
-            return new Data.Entities.Feature
+            return new Feature
             {
                 FeatureId = feature.Id,
-                Name = feature.Name,
+                ApplicationId = feature.ApplicationId,
                 Application = feature.Application.ToEntity(),
+                Name = feature.Name,
+                ExpirationDays = feature.ExpirationDays,
+                IsEnabled = feature.IsEnabled,
+                StartDate = feature.StartDate
+            };
+        }
+
+        public static Feature ToEntity(this FeatureModel feature)
+        {
+            return new Feature
+            {
+                FeatureId = feature.Id,
+                ApplicationId = feature.ApplicationId,
+                Name = feature.Name,
                 ExpirationDays = feature.ExpirationDays,
                 IsEnabled = feature.IsEnabled,
                 StartDate = feature.StartDate

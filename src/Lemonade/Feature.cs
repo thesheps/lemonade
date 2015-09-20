@@ -7,6 +7,8 @@ namespace Lemonade
 {
     public class Feature
     {
+        public static Feature Switches { get; } = new Feature();
+
         public bool this[Func<dynamic, dynamic> keyFunction] => this[keyFunction(_key)];
 
         public bool this[string key]
@@ -17,8 +19,6 @@ namespace Lemonade
                 return _featureResolver.Get(key);
             }
         }
-
-        public static Feature Switches { get; } = new Feature();
 
         public static IFeatureResolver Resolver
         {

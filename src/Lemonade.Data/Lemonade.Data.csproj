@@ -47,7 +47,7 @@
     <Compile Include="Entities\Application.cs" />
     <Compile Include="Queries\IGetAllApplications.cs" />
     <Compile Include="Queries\IGetAllFeatures.cs" />
-    <Compile Include="Queries\IGetAllFeaturesByApplication.cs" />
+    <Compile Include="Queries\IGetAllFeaturesByApplicationId.cs" />
     <Compile Include="Queries\IGetApplicationByName.cs" />
     <Compile Include="Queries\IGetFeatureByNameAndApplication.cs" />
   </ItemGroup>

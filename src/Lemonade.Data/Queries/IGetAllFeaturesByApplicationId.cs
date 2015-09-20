@@ -3,8 +3,8 @@ using Lemonade.Data.Entities;
 
 namespace Lemonade.Data.Queries
 {
-    public interface IGetAllFeaturesByApplication
+    public interface IGetAllFeaturesByApplicationId
     {
-        IList<Feature> Execute(string applicationName);
+        IList<Feature> Execute(int applicationId);
     }
 }
