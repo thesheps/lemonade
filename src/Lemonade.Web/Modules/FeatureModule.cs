@@ -14,40 +14,23 @@ namespace Lemonade.Web.Modules
     public class FeatureModule : NancyModule
     {
         public FeatureModule(IGetAllApplications getAllApplications, IGetAllFeaturesByApplicationId getAllFeaturesByApplicationId, 
-            IGetFeatureByNameAndApplication getFeatureByNameAndApplication, ISaveFeature saveFeature, ISaveApplication saveApplication)
+            IGetFeatureByNameAndApplication getFeatureByNameAndApplication, ISaveFeature saveFeature)
         {
             _getAllApplications = getAllApplications;
             _getAllFeaturesByApplicationId = getAllFeaturesByApplicationId;
             _getFeatureByNameAndApplication = getFeatureByNameAndApplication;
             _saveFeature = saveFeature;
-            _saveApplication = saveApplication;
 
             Get["/api/feature"] = p => GetFeature();
             Get["/feature"] = p => GetAllFeatures();
 
             Post["/api/feature"] = p => PostFeature();
             Post["/feature"] = p => PostFeatureFromFormData();
-            Post["/application"] = p => PostApplication();
         }
 
         private Negotiator GetAllFeatures()
         {
-            return View["Features", GetIndexModel()];
-        }
-
-        private dynamic PostApplication()
-        {
-            try
-            {
-                _saveApplication.Execute(this.Bind<ApplicationModel>().ToEntity());
-            }
-            catch (SaveApplicationException exception)
-            {
-                ModelValidationResult.Errors.Add("SaveException", exception.Message);
-                return View["/features", GetIndexModel()];
-            }
-
-            return Response.AsRedirect("/feature");
+            return View["Features", GetFeaturesModel()];
         }
 
         private HttpStatusCode PostFeature()
@@ -75,7 +58,7 @@ namespace Lemonade.Web.Modules
             catch (SaveFeatureException exception)
             {
                 ModelValidationResult.Errors.Add("SaveException", exception.Message);
-                return View["/features", GetIndexModel()];
+                return View["/features", GetFeaturesModel()];
             }
 
             return Response.AsRedirect($"/feature?applicationId={feature.ApplicationId}");
@@ -90,27 +73,20 @@ namespace Lemonade.Web.Modules
             return feature?.ToContract();
         }
 
-        private IndexModel GetIndexModel()
+        private FeaturesModel GetFeaturesModel()
         {
             int applicationId;
             int.TryParse(Request.Query["applicationId"].Value as string, out applicationId);
 
             var features = _getAllFeaturesByApplicationId.Execute(applicationId).Select(f => f.ToModel()).ToList();
             var applications = _getAllApplications.Execute().Select(a => a.ToModel()).ToList();
-            var indexModel = new IndexModel
-            {
-                Applications = applications,
-                Features = features,
-                ApplicationId = applicationId
-            };
 
-            return indexModel;
+            return new FeaturesModel(applicationId, applications, features);
         }
 
         private readonly IGetAllApplications _getAllApplications;
         private readonly IGetAllFeaturesByApplicationId _getAllFeaturesByApplicationId;
         private readonly IGetFeatureByNameAndApplication _getFeatureByNameAndApplication;
         private readonly ISaveFeature _saveFeature;
-        private readonly ISaveApplication _saveApplication;
     }
 }

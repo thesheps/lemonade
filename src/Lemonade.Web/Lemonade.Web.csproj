@@ -68,8 +68,9 @@
     <Compile Include="Mappers\ApplicationMapper.cs" />
     <Compile Include="Mappers\FeatureMapper.cs" />
     <Compile Include="Models\ApplicationModel.cs" />
-    <Compile Include="Models\IndexModel.cs" />
+    <Compile Include="Models\FeaturesModel.cs" />
     <Compile Include="Models\FeatureModel.cs" />
+    <Compile Include="Modules\ApplicationModule.cs" />
     <Compile Include="Modules\FeatureModule.cs" />
     <Compile Include="Modules\IndexModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
