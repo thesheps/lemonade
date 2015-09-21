@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Globalization;
 using System.Linq;
-using Lemonade.Data.Commands;
-using Lemonade.Data.Queries;
 using Lemonade.Resolvers;
 using Lemonade.Sql.Commands;
 using Lemonade.Sql.Migrations;
@@ -11,7 +9,6 @@ using Lemonade.Web.Contracts;
 using Lemonade.Web.Mappers;
 using Nancy;
 using Nancy.Testing;
-using Nancy.TinyIoc;
 using Newtonsoft.Json;
 using NUnit.Framework;
 using SelfishHttp;
@@ -156,15 +153,5 @@ namespace Lemonade.Web.Tests
         private SaveApplication _saveApplication;
         private GetApplicationByName _getApplication;
         private const string ConnectionString = "Lemonade";
-    }
-
-    public class FakeLemonadeBootstrapper : LemonadeBootstrapper
-    {
-        protected override void ConfigureDependencies(TinyIoCContainer container)
-        {
-            container.Register<IGetAllFeatures, GetAllFeatures>();
-            container.Register<IGetFeatureByNameAndApplication, GetFeatureByNameAndApplication>();
-            container.Register<ISaveFeature, SaveFeature>();
-        }
     }
 }

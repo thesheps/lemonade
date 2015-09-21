@@ -54,6 +54,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\DeleteApplication.cs" />
+    <Compile Include="Commands\DeleteFeature.cs" />
     <Compile Include="Commands\SaveApplication.cs" />
     <Compile Include="Commands\SaveFeature.cs" />
     <Compile Include="Errors.Designer.cs">

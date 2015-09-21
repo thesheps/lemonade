@@ -67,6 +67,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GivenDeleteFeature.cs" />
+    <Compile Include="GivenDeleteApplication.cs" />
+    <Compile Include="GivenSaveApplication.cs" />
     <Compile Include="GivenSaveFeature.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

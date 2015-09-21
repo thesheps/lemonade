@@ -40,6 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\IDeleteApplication.cs" />
+    <Compile Include="Commands\IDeleteFeature.cs" />
     <Compile Include="Commands\ISaveApplication.cs" />
     <Compile Include="Commands\ISaveFeature.cs" />
     <Compile Include="Entities\Feature.cs" />
@@ -48,6 +50,7 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Exceptions\DeleteApplicationException.cs" />
     <Compile Include="Exceptions\SaveApplicationException.cs" />
     <Compile Include="Exceptions\SaveFeatureException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

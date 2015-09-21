@@ -6,21 +6,47 @@ using Lemonade.Web.Mappers;
 using Lemonade.Web.Models;
 using Nancy;
 using Nancy.ModelBinding;
+using System.Collections.Generic;
 
 namespace Lemonade.Web.Modules
 {
     public class ApplicationModule : NancyModule
     {
-        public ApplicationModule(IGetAllApplications getAllApplications, IGetAllFeaturesByApplicationId getAllFeaturesByApplicationId, ISaveApplication saveApplication)
+        public ApplicationModule(IGetAllApplications getAllApplications, IGetAllFeaturesByApplicationId getAllFeaturesByApplicationId, ISaveApplication saveApplication, IDeleteApplication deleteApplication)
         {
             _getAllApplications = getAllApplications;
             _getAllFeaturesByApplicationId = getAllFeaturesByApplicationId;
             _saveApplication = saveApplication;
+            _deleteApplication = deleteApplication;
 
-            Post["/application"] = p => PostApplication();
+            Get["/api/application"] = p => GetApplications();
+
+            Post["/application"] = p => PostApplicationFromFormData();
+            Post["/api/application"] = p => PostApplication();
+
+            Delete["/api/application"] = p => DeleteApplication();
+        }
+
+        private IList<Contracts.Application> GetApplications()
+        {
+            return _getAllApplications.Execute().Select(a => a.ToContract()).ToList();
         }
 
         private dynamic PostApplication()
+        {
+            try
+            {
+                _saveApplication.Execute(this.Bind<ApplicationModel>().ToEntity());
+                return HttpStatusCode.OK;
+            }
+            catch (SaveApplicationException exception)
+            {
+                ModelValidationResult.Errors.Add("SaveException", exception.Message);
+                return HttpStatusCode.BadRequest;
+            }
+        }
+
+        private dynamic PostApplicationFromFormData()
         {
             try
             {
@@ -33,6 +59,23 @@ namespace Lemonade.Web.Modules
             }
 
             return Response.AsRedirect("/feature");
+        }
+
+        private dynamic DeleteApplication()
+        {
+            int applicationId;
+            int.TryParse(Request.Query["id"].Value as string, out applicationId);
+
+            try
+            {
+                _deleteApplication.Execute(applicationId);
+                return HttpStatusCode.OK;
+            }
+            catch (DeleteApplicationException exception)
+            {
+                ModelValidationResult.Errors.Add("DeleteException", exception.Message);
+                return HttpStatusCode.BadRequest;
+            }
         }
 
         private FeaturesModel GetFeaturesModel()
@@ -49,5 +92,6 @@ namespace Lemonade.Web.Modules
         private readonly IGetAllApplications _getAllApplications;
         private readonly IGetAllFeaturesByApplicationId _getAllFeaturesByApplicationId;
         private readonly ISaveApplication _saveApplication;
+        private readonly IDeleteApplication _deleteApplication;
     }
 }
