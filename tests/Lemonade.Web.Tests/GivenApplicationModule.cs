@@ -16,8 +16,8 @@ namespace Lemonade.Web.Tests
         public void SetUp()
         {
             _server = new Server(64978);
-            Runner.Sqlite(ConnectionString).Down();
-            Runner.Sqlite(ConnectionString).Up();
+            Runner.SqlCompact(ConnectionString).Down();
+            Runner.SqlCompact(ConnectionString).Up();
 
             _browser = new Browser(new FakeLemonadeBootstrapper());
         }

@@ -1,4 +1,6 @@
 ﻿using System.Configuration;
+using System.Data.SqlServerCe;
+using System.IO;
 using System.Reflection;
 using FluentMigrator;
 using FluentMigrator.Runner;
@@ -6,7 +8,6 @@ using FluentMigrator.Runner.Announcers;
 using FluentMigrator.Runner.Initialization;
 using FluentMigrator.Runner.Processors;
 using FluentMigrator.Runner.Processors.SqlServer;
-using FluentMigrator.Runner.Processors.SQLite;
 
 namespace Lemonade.Sql.Migrations
 {
@@ -18,10 +19,15 @@ namespace Lemonade.Sql.Migrations
             return new Runner(GetRunner(connectionString, new SqlServer2008ProcessorFactory()));
         }
 
-        public static Runner Sqlite(string connectionStringName)
+        public static Runner SqlCompact(string connectionStringName)
         {
             var connectionString = ConfigurationManager.ConnectionStrings[connectionStringName].ConnectionString;
-            return new Runner(GetRunner(connectionString, new SQLiteProcessorFactory()));
+            var cnn = new SqlCeConnectionStringBuilder(connectionString);
+
+            if (!File.Exists(cnn.DataSource))
+                new SqlCeEngine(connectionString).CreateDatabase();
+
+            return new Runner(GetRunner(connectionString, new SqlServerCeProcessorFactory()));
         }
 
         public void Up()

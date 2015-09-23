@@ -21,8 +21,8 @@ namespace Lemonade.AcceptanceTests
             var application = new ApplicationBuilder().WithName(AppDomain.CurrentDomain.FriendlyName).Build();
 
             Feature.Resolver = new HttpFeatureResolver("http://localhost:12345");
-            Runner.Sqlite("Lemonade").Down();
-            Runner.Sqlite("Lemonade").Up();
+            Runner.SqlCompact("Lemonade").Down();
+            Runner.SqlCompact("Lemonade").Up();
             _saveFeature = new SaveFeature();
             _saveApplication = new SaveApplication();
             _getApplicationByName = new GetApplicationByName();

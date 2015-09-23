@@ -23,8 +23,8 @@ namespace Lemonade.Web.Tests
             _saveApplication = new SaveApplication();
             _getApplication = new GetApplicationByName();
             _server = new Server(64978);
-            Runner.Sqlite(ConnectionString).Down();
-            Runner.Sqlite(ConnectionString).Up();
+            Runner.SqlCompact(ConnectionString).Down();
+            Runner.SqlCompact(ConnectionString).Up();
 
             _browser = new Browser(new FakeLemonadeBootstrapper());
         }
@@ -122,17 +122,21 @@ namespace Lemonade.Web.Tests
         [Test]
         public void WhenIPostANewFeature_ThenTheResponseIsRedirectToFeaturesPage()
         {
+            var application = new Data.Entities.Application { ApplicationId = 1, Name = "TestApplication1" };
+            _saveApplication.Execute(application);
+
             var postResponse = _browser.Post("/feature/", (with) =>
             {
                 with.HttpRequest();
-                with.FormValue("name", "TestApplication1");
-                with.FormValue("startDate", DateTime.Now.ToString(CultureInfo.InvariantCulture));
+                with.FormValue("applicationId", "1");
+                with.FormValue("name", "Feature1");
+                with.FormValue("startDate", DateTime.Now.ToShortDateString());
                 with.FormValue("expirationDays", "10");
                 with.FormValue("isEnabled", "true");
             });
 
             Assert.That(postResponse.StatusCode, Is.EqualTo(HttpStatusCode.SeeOther));
-            Assert.That(postResponse.Headers["Location"], Is.EqualTo("/feature?applicationId=0"));
+            Assert.That(postResponse.Headers["Location"], Is.EqualTo("/feature?applicationId=1"));
         }
 
         private static Contracts.Feature GetFeatureModel(string name, Application application)

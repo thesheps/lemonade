@@ -1,4 +1,5 @@
-﻿using Lemonade.Builders;
+﻿using System;
+using Lemonade.Builders;
 using Lemonade.Sql.Commands;
 using Lemonade.Sql.Migrations;
 using Lemonade.Sql.Queries;
@@ -16,8 +17,8 @@ namespace Lemonade.Sql.Tests
             _deleteFeature = new DeleteFeature();
             _getApplicationByName = new GetApplicationByName();
             _getFeatureByNameAndApplication = new GetFeatureByNameAndApplication();
-            Runner.Sqlite("Lemonade").Down();
-            Runner.Sqlite("Lemonade").Up();
+            Runner.SqlCompact("Lemonade").Down();
+            Runner.SqlCompact("Lemonade").Up();
         }
 
         [Test]
@@ -33,6 +34,7 @@ namespace Lemonade.Sql.Tests
             var feature = new FeatureBuilder()
                 .WithName("SuperFeature123")
                 .WithApplication(application)
+                .WithStartDate(DateTime.Now)
                 .Build();
 
             _saveFeature.Execute(feature);
