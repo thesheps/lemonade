@@ -10,7 +10,7 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Provides an SQL data layer for use with Lemonade.</description>
     <releaseNotes></releaseNotes>
-    <tags>featureswitch feature lemonade toggle featuretoggle configuration sql sqlite fluentmigrator</tags>
+    <tags>featureswitch feature lemonade toggle featuretoggle configuration sql sqlce fluentmigrator</tags>
 
     <dependencies>
       <dependency id="Dapper" version="1.42" />
