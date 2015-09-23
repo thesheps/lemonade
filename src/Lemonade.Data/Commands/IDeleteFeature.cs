@@ -1,4 +1,4 @@
-namespace Lemonade.Data.Commands
+namespace Lemonade.Core.Commands
 {
     public interface IDeleteFeature
     {

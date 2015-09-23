@@ -1,6 +1,6 @@
-﻿using Lemonade.Data.Entities;
+﻿using Lemonade.Core.Entities;
 
-namespace Lemonade.Data.Queries
+namespace Lemonade.Core.Queries
 {
     public interface IGetFeatureByNameAndApplication
     {

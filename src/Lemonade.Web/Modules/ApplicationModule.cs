@@ -1,12 +1,12 @@
 ﻿using System.Linq;
-using Lemonade.Data.Commands;
-using Lemonade.Data.Exceptions;
-using Lemonade.Data.Queries;
 using Lemonade.Web.Mappers;
 using Lemonade.Web.Models;
 using Nancy;
 using Nancy.ModelBinding;
 using System.Collections.Generic;
+using Lemonade.Core.Commands;
+using Lemonade.Core.Exceptions;
+using Lemonade.Core.Queries;
 
 namespace Lemonade.Web.Modules
 {

@@ -1,8 +1,8 @@
 ﻿using System;
 using Dapper;
-using Lemonade.Data.Commands;
-using Lemonade.Data.Entities;
-using Lemonade.Data.Exceptions;
+using Lemonade.Core.Commands;
+using Lemonade.Core.Entities;
+using Lemonade.Core.Exceptions;
 
 namespace Lemonade.Sql.Commands
 {

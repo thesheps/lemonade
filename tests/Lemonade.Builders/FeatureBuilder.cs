@@ -1,5 +1,5 @@
 ﻿using System;
-using Lemonade.Data.Entities;
+using Lemonade.Core.Entities;
 
 namespace Lemonade.Builders
 {

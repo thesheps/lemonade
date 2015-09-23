@@ -28,7 +28,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lemonade.Sql", "src\Lemonad
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lemonade.Web.Contracts", "src\Lemonade.Web.Contracts\Lemonade.Web.Contracts.csproj", "{DF4CCA5C-FF05-4471-BF04-C4E36C7101D8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lemonade.Data", "src\Lemonade.Data\Lemonade.Data.csproj", "{A9171A74-BFAD-4C2E-A8E2-54BC2BCE496C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lemonade.Core", "src\Lemonade.Data\Lemonade.Core.csproj", "{A9171A74-BFAD-4C2E-A8E2-54BC2BCE496C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lemonade.AcceptanceTests", "tests\Lemonade.AcceptanceTests\Lemonade.AcceptanceTests.csproj", "{512C5D36-27F0-4F72-9A19-3098BC8834BE}"
 EndProject

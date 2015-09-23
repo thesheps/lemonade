@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Lemonade.Data.Exceptions
+namespace Lemonade.Core.Exceptions
 {
     public class SaveFeatureException : Exception
     {

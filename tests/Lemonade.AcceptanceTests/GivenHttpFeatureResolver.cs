@@ -1,7 +1,7 @@
 ﻿using System;
 using Lemonade.Builders;
-using Lemonade.Data.Commands;
-using Lemonade.Data.Queries;
+using Lemonade.Core.Commands;
+using Lemonade.Core.Queries;
 using Lemonade.Resolvers;
 using Lemonade.Sql.Commands;
 using Lemonade.Sql.Migrations;

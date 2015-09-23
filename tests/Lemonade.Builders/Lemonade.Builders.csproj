@@ -45,9 +45,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Lemonade.Data\Lemonade.Data.csproj">
+    <ProjectReference Include="..\..\src\Lemonade.Data\Lemonade.Core.csproj">
       <Project>{A9171A74-BFAD-4C2E-A8E2-54BC2BCE496C}</Project>
-      <Name>Lemonade.Data</Name>
+      <Name>Lemonade.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

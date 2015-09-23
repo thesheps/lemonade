@@ -1,6 +1,6 @@
-﻿using Lemonade.Data.Entities;
+﻿using Lemonade.Core.Entities;
 
-namespace Lemonade.Data.Commands
+namespace Lemonade.Core.Commands
 {
     public interface ISaveFeature
     {

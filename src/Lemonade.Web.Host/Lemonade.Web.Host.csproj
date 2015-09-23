@@ -90,9 +90,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Lemonade.Data\Lemonade.Data.csproj">
+    <ProjectReference Include="..\Lemonade.Data\Lemonade.Core.csproj">
       <Project>{a9171a74-bfad-4c2e-a8e2-54bc2bce496c}</Project>
-      <Name>Lemonade.Data</Name>
+      <Name>Lemonade.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\Lemonade.Sql\Lemonade.Sql.csproj">
       <Project>{06665811-5ed9-4088-81b2-805e80119772}</Project>

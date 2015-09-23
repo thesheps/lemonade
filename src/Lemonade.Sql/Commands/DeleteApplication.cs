@@ -1,5 +1,5 @@
 using Dapper;
-using Lemonade.Data.Commands;
+using Lemonade.Core.Commands;
 
 namespace Lemonade.Sql.Commands
 {

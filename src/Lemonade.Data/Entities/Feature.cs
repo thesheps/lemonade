@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Lemonade.Data.Entities
+namespace Lemonade.Core.Entities
 {
     public class Feature
     {

@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Dapper;
-using Lemonade.Data.Entities;
-using Lemonade.Data.Queries;
+using Lemonade.Core.Entities;
+using Lemonade.Core.Queries;
 
 namespace Lemonade.Sql.Queries
 {

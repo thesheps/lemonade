@@ -1,8 +1,10 @@
-﻿namespace Lemonade.Web.Mappers
+﻿using Lemonade.Core.Entities;
+
+namespace Lemonade.Web.Mappers
 {
     public static class ApplicationMapper
     {
-        public static Models.ApplicationModel ToModel(this Data.Entities.Application application)
+        public static Models.ApplicationModel ToModel(this Application application)
         {
             return new Models.ApplicationModel
             {
@@ -11,7 +13,7 @@
             };
         }
 
-        public static Contracts.Application ToContract(this Data.Entities.Application application)
+        public static Contracts.Application ToContract(this Application application)
         {
             return new Contracts.Application
             {
@@ -20,18 +22,18 @@
             };
         }
 
-        public static Data.Entities.Application ToEntity(this Contracts.Application application)
+        public static Application ToEntity(this Contracts.Application application)
         {
-            return new Data.Entities.Application
+            return new Application
             {
                 ApplicationId = application.Id,
                 Name = application.Name
             };
         }
 
-        public static Data.Entities.Application ToEntity(this Models.ApplicationModel application)
+        public static Application ToEntity(this Models.ApplicationModel application)
         {
-            return new Data.Entities.Application
+            return new Application
             {
                 ApplicationId = application.Id,
                 Name = application.Name
