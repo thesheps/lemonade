@@ -3,7 +3,7 @@ using System.Linq;
 using Dapper;
 using Lemonade.Core.Commands;
 using Lemonade.Core.Domain;
-using Lemonade.Core.DomainEvents;
+using Lemonade.Core.Events;
 using Lemonade.Core.Exceptions;
 
 namespace Lemonade.Sql.Commands
@@ -27,7 +27,7 @@ namespace Lemonade.Sql.Commands
                     cnn.Execute("INSERT INTO Application (Name) VALUES (@Name)", new { application.Name });
                     application.ApplicationId = cnn.Query<int>("SELECT CAST(@@IDENTITY AS INT)").First();
 
-                    DomainEvent.Raise(new ApplicationHasBeenSaved(application.ApplicationId));
+                    DomainEvent.Raise(new ApplicationHasBeenSaved(application.ApplicationId, application.Name));
                 }
                 catch (DbException exception)
                 {

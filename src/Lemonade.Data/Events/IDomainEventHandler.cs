@@ -1,4 +1,4 @@
-﻿namespace Lemonade.Core.DomainEvents
+﻿namespace Lemonade.Core.Events
 {
     public interface IDomainEventHandler<in TEvent> where TEvent : IDomainEvent
     {

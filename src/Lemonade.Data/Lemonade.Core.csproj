@@ -44,20 +44,20 @@
     <Compile Include="Commands\IDeleteFeature.cs" />
     <Compile Include="Commands\ISaveApplication.cs" />
     <Compile Include="Commands\ISaveFeature.cs" />
-    <Compile Include="DomainEvents\DomainEvent.cs" />
-    <Compile Include="DomainEvents\IDomainEventHandler.cs" />
+    <Compile Include="Events\DomainEvent.cs" />
+    <Compile Include="Events\IDomainEventHandler.cs" />
     <Compile Include="Domain\Feature.cs" />
     <Compile Include="Errors.Designer.cs">
       <DependentUpon>Errors.resx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="DomainEvents\ApplicationHasBeenSaved.cs" />
+    <Compile Include="Events\ApplicationHasBeenSaved.cs" />
     <Compile Include="Exceptions\DeleteApplicationException.cs" />
     <Compile Include="Exceptions\SaveApplicationException.cs" />
     <Compile Include="Exceptions\SaveFeatureException.cs" />
-    <Compile Include="DomainEvents\IDomainEvent.cs" />
-    <Compile Include="DomainEvents\IDomainEventDispatcher.cs" />
+    <Compile Include="Events\IDomainEvent.cs" />
+    <Compile Include="Events\IDomainEventDispatcher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Domain\Application.cs" />
     <Compile Include="Queries\IGetAllApplications.cs" />

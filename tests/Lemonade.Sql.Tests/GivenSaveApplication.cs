@@ -1,5 +1,5 @@
 ﻿using Lemonade.Builders;
-using Lemonade.Core.DomainEvents;
+using Lemonade.Core.Events;
 using Lemonade.Core.Exceptions;
 using Lemonade.Sql.Commands;
 using Lemonade.Sql.Migrations;
@@ -38,7 +38,7 @@ namespace Lemonade.Sql.Tests
         }
 
         [Test]
-        public void WhenISaveAnApplication_ThenApplicationSavedEventIsRaisedWithCorrectApplicationId()
+        public void WhenISaveAnApplication_ThenApplicationSavedEventIsRaisedWithCorrectApplicationIdAndApplicationName()
         {
             var saveApplication = new SaveApplication();
             var getApplicationByName = new GetApplicationByName();
@@ -49,6 +49,7 @@ namespace Lemonade.Sql.Tests
             var application = getApplicationByName.Execute("Test12345");
 
             Assert.That(_savedApplication.ApplicationId, Is.EqualTo(application.ApplicationId));
+            Assert.That(_savedApplication.Name, Is.EqualTo(application.Name));
         }
 
         [Test]
