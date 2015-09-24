@@ -37,7 +37,7 @@ namespace Lemonade.Web.Modules
         {
             try
             {
-                _saveFeature.Execute(this.Bind<Feature>().ToEntity());
+                _saveFeature.Execute(this.Bind<Feature>().ToDomain());
             }
             catch (SaveFeatureException exception)
             {
@@ -49,7 +49,7 @@ namespace Lemonade.Web.Modules
 
         private dynamic PostFeatureFromFormData()
         {
-            var feature = this.Bind<FeatureModel>().ToEntity();
+            var feature = this.Bind<FeatureModel>().ToDomain();
 
             try
             {

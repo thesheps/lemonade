@@ -1,7 +1,7 @@
 ﻿using System;
 using Dapper;
 using Lemonade.Core.Commands;
-using Lemonade.Core.Entities;
+using Lemonade.Core.Domain;
 using Lemonade.Core.Exceptions;
 
 namespace Lemonade.Sql.Commands

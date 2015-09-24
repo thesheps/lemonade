@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using Dapper;
-using Lemonade.Core.Entities;
+using Lemonade.Core.Domain;
 using Lemonade.Core.Queries;
 
 namespace Lemonade.Sql.Queries

@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Lemonade.Core.Entities;
+using Lemonade.Core.Domain;
 
 namespace Lemonade.Core.Queries
 {

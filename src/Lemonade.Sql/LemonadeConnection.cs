@@ -25,6 +25,7 @@ namespace Lemonade.Sql
             if (cnn == null) return null;
 
             cnn.ConnectionString = ConnectionString;
+            cnn.Open();
             return cnn;
         }
 

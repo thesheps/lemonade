@@ -38,7 +38,7 @@ namespace Lemonade.Web.Tests
         [Test]
         public void WhenIPostMultipleFeatures_ThenTheFeaturesAreSavedAndTheSameNumberAreRendered()
         {
-            var application = new Core.Entities.Application { Name = "TestApplication1" };
+            var application = new Core.Domain.Application { Name = "TestApplication1" };
             _saveApplication.Execute(application);
             application = _getApplication.Execute("TestApplication1");
 
@@ -67,9 +67,9 @@ namespace Lemonade.Web.Tests
         public void WhenIHaveMultipleApplications_ThenAllApplicationsAreRendered()
         {
             var save = new SaveApplication();
-            save.Execute(new Core.Entities.Application { Name = "TestApplication1" });
-            save.Execute(new Core.Entities.Application { Name = "TestApplication2" });
-            save.Execute(new Core.Entities.Application { Name = "TestApplication3" });
+            save.Execute(new Core.Domain.Application { Name = "TestApplication1" });
+            save.Execute(new Core.Domain.Application { Name = "TestApplication2" });
+            save.Execute(new Core.Domain.Application { Name = "TestApplication3" });
 
             var response = _browser.Get("/feature", with =>
             {
@@ -83,7 +83,7 @@ namespace Lemonade.Web.Tests
         [Test]
         public void WhenIPostAFeature_ThenICanGetItViaHttp()
         {
-            var application = new Core.Entities.Application { ApplicationId = 1, Name = "TestApplication1" };
+            var application = new Core.Domain.Application { ApplicationId = 1, Name = "TestApplication1" };
             _saveApplication.Execute(application);
 
             _browser.Post("/api/feature", with =>
@@ -107,7 +107,7 @@ namespace Lemonade.Web.Tests
         [Test]
         public void WhenIHaveAnUnknownUrlAppConfigAndITryToResolveAFeatureUsingHttpFeatureResolver_ThenUnknownUrlExceptionIsThrown()
         {
-            var application = new Core.Entities.Application { ApplicationId = 1, Name = "TestApplication1" };
+            var application = new Core.Domain.Application { ApplicationId = 1, Name = "TestApplication1" };
             _saveApplication.Execute(application);
 
             _browser.Post("/api/feature", with =>
@@ -122,7 +122,7 @@ namespace Lemonade.Web.Tests
         [Test]
         public void WhenIPostANewFeature_ThenTheResponseIsRedirectToFeaturesPage()
         {
-            var application = new Core.Entities.Application { ApplicationId = 1, Name = "TestApplication1" };
+            var application = new Core.Domain.Application { ApplicationId = 1, Name = "TestApplication1" };
             _saveApplication.Execute(application);
 
             var postResponse = _browser.Post("/feature/", (with) =>

@@ -1,4 +1,4 @@
-﻿using Lemonade.Core.Entities;
+﻿using Lemonade.Core.Domain;
 
 namespace Lemonade.Web.Mappers
 {
@@ -22,7 +22,7 @@ namespace Lemonade.Web.Mappers
             };
         }
 
-        public static Application ToEntity(this Contracts.Application application)
+        public static Application ToDomain(this Contracts.Application application)
         {
             return new Application
             {
@@ -31,7 +31,7 @@ namespace Lemonade.Web.Mappers
             };
         }
 
-        public static Application ToEntity(this Models.ApplicationModel application)
+        public static Application ToDomain(this Models.ApplicationModel application)
         {
             return new Application
             {

@@ -36,7 +36,7 @@ namespace Lemonade.Web.Modules
         {
             try
             {
-                _saveApplication.Execute(this.Bind<ApplicationModel>().ToEntity());
+                _saveApplication.Execute(this.Bind<ApplicationModel>().ToDomain());
                 return HttpStatusCode.OK;
             }
             catch (SaveApplicationException exception)
@@ -50,7 +50,7 @@ namespace Lemonade.Web.Modules
         {
             try
             {
-                _saveApplication.Execute(this.Bind<ApplicationModel>().ToEntity());
+                _saveApplication.Execute(this.Bind<ApplicationModel>().ToDomain());
             }
             catch (SaveApplicationException exception)
             {

@@ -1,4 +1,4 @@
-﻿using Lemonade.Core.Entities;
+﻿using Lemonade.Core.Domain;
 using Lemonade.Web.Models;
 
 namespace Lemonade.Web.Mappers
@@ -31,13 +31,13 @@ namespace Lemonade.Web.Mappers
             };
         }
 
-        public static Feature ToEntity(this Contracts.Feature feature)
+        public static Feature ToDomain(this Contracts.Feature feature)
         {
             return new Feature
             {
                 FeatureId = feature.Id,
                 ApplicationId = feature.ApplicationId,
-                Application = feature.Application.ToEntity(),
+                Application = feature.Application.ToDomain(),
                 Name = feature.Name,
                 ExpirationDays = feature.ExpirationDays,
                 IsEnabled = feature.IsEnabled,
@@ -45,7 +45,7 @@ namespace Lemonade.Web.Mappers
             };
         }
 
-        public static Feature ToEntity(this FeatureModel feature)
+        public static Feature ToDomain(this FeatureModel feature)
         {
             return new Feature
             {
