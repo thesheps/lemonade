@@ -1,12 +1,21 @@
 ﻿using Lemonade.Core.Events;
+using Microsoft.AspNet.SignalR.Infrastructure;
 
 namespace Lemonade.Web.EventHandlers
 {
     public class ApplicationHasBeenSavedHandler : IDomainEventHandler<ApplicationHasBeenSaved>
     {
+        public ApplicationHasBeenSavedHandler(IConnectionManager connectionManager)
+        {
+            _connectionManager = connectionManager;
+        }
+
         public void Handle(ApplicationHasBeenSaved @event)
         {
-            throw new System.NotImplementedException();
+            var hubContext = _connectionManager.GetHubContext<LemonadeHub>();
+            hubContext.Clients.All.addApplication();
         }
+
+        private readonly IConnectionManager _connectionManager;
     }
 }

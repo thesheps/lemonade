@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Dynamic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Lemonade.Sql.Migrations;
 using Lemonade.Web.Contracts;
-using Microsoft.AspNet.SignalR.Hubs;
+using Microsoft.AspNet.SignalR;
+using Microsoft.AspNet.SignalR.Infrastructure;
 using Nancy;
 using Nancy.Testing;
 using Newtonsoft.Json;
@@ -79,26 +78,24 @@ namespace Lemonade.Web.Tests
         [Test]
         public void WhenIPostAnApplication_ThenSignalRClientsAreNotified()
         {
-            //_browser.Post("/application/", (with) =>
-            //{
-            //    with.HttpRequest();
-            //    with.FormValue("name", "Feature1");
-            //});
+            var hubContext = Substitute.For<IHubContext>();
+            var connectionManager = Substitute.For<IConnectionManager>();
+            connectionManager.GetHubContext<LemonadeHub>().Returns(hubContext);
 
-            //var sendCalled = false;
-            //var hub = new LemonadeHub();
-            //var mockClients = Substitute.For<IHubCallerConnectionContext<dynamic>>();
-            //hub.Clients = mockClients;
+            var mockClients = Substitute.For<IMockClient>();
+            SubstituteExtensions.Returns(hubContext.Clients.All, mockClients);
 
-            //dynamic all = new ExpandoObject();
+            var bootstrapper = new FakeLemonadeBootstrapper();
+            bootstrapper.ConfigureAdditionalDependencies(c => c.Register(connectionManager));
 
-            //all.broadcastMessage = new Action<string, string>((name, message) => {
-            //    sendCalled = true;
-            //});
+            var browser = new Browser(bootstrapper);
+            browser.Post("/application/", (with) =>
+            {
+                with.HttpRequest();
+                with.FormValue("name", "Feature1");
+            });
 
-            //mockClients.Setup(m => m.All).Returns((ExpandoObject)all);
-            //hub.Send("TestUser", "TestMessage");
-            //Assert.True(sendCalled);
+            mockClients.Received().addApplication();
         }
 
         [Test]
@@ -122,6 +119,11 @@ namespace Lemonade.Web.Tests
 
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
             Assert.That(result.Count, Is.EqualTo(0));
+        }
+
+        public interface IMockClient
+        {
+            void addApplication();
         }
 
         private Server _server;
