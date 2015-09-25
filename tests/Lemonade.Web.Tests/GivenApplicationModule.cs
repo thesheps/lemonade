@@ -1,10 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using Lemonade.Sql.Migrations;
 using Lemonade.Web.Contracts;
+using Microsoft.AspNet.SignalR.Hubs;
 using Nancy;
 using Nancy.Testing;
 using Newtonsoft.Json;
+using NSubstitute;
 using NUnit.Framework;
 using SelfishHttp;
 
@@ -69,6 +73,32 @@ namespace Lemonade.Web.Tests
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
             Assert.That(result.Count, Is.EqualTo(1));
             Assert.That(result[0].Name, Is.EqualTo("TestApplication1"));
+        }
+
+
+        [Test]
+        public void WhenIPostAnApplication_ThenSignalRClientsAreNotified()
+        {
+            //_browser.Post("/application/", (with) =>
+            //{
+            //    with.HttpRequest();
+            //    with.FormValue("name", "Feature1");
+            //});
+
+            //var sendCalled = false;
+            //var hub = new LemonadeHub();
+            //var mockClients = Substitute.For<IHubCallerConnectionContext<dynamic>>();
+            //hub.Clients = mockClients;
+
+            //dynamic all = new ExpandoObject();
+
+            //all.broadcastMessage = new Action<string, string>((name, message) => {
+            //    sendCalled = true;
+            //});
+
+            //mockClients.Setup(m => m.All).Returns((ExpandoObject)all);
+            //hub.Send("TestUser", "TestMessage");
+            //Assert.True(sendCalled);
         }
 
         [Test]

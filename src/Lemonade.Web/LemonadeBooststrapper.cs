@@ -18,7 +18,6 @@ namespace Lemonade.Web
             _container = container;
 
             base.ConfigureApplicationContainer(container);
-
             ResourceViewLocationProvider.RootNamespaces.Clear();
             ResourceViewLocationProvider.RootNamespaces.Add(typeof(FeatureModule).Assembly, "Lemonade.Web.Views");
             ConfigureDependencies(container);
