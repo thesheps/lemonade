@@ -7,6 +7,8 @@ using Lemonade.Sql.Commands;
 using Lemonade.Sql.Migrations;
 using Lemonade.Sql.Queries;
 using Lemonade.Web;
+using Microsoft.AspNet.SignalR;
+using Microsoft.AspNet.SignalR.Infrastructure;
 using Nancy.Hosting.Self;
 using Nancy.TinyIoc;
 using NUnit.Framework;
@@ -65,6 +67,7 @@ namespace Lemonade.AcceptanceTests
         {
             protected override void ConfigureDependencies(TinyIoCContainer container)
             {
+                container.Register(GlobalHost.ConnectionManager);
                 container.Register<IGetAllFeatures, GetAllFeatures>();
                 container.Register<IGetFeatureByNameAndApplication, GetFeatureByNameAndApplication>();
                 container.Register<ISaveFeature, SaveFeature>();

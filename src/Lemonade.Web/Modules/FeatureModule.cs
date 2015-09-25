@@ -21,11 +21,9 @@ namespace Lemonade.Web.Modules
             _getFeatureByNameAndApplication = getFeatureByNameAndApplication;
             _saveFeature = saveFeature;
 
+            Post["/api/feature"] = p => PostFeature();
             Get["/api/feature"] = p => GetFeature();
             Get["/feature"] = p => GetAllFeatures();
-
-            Post["/api/feature"] = p => PostFeature();
-            Post["/feature"] = p => PostFeatureFromFormData();
         }
 
         private Negotiator GetAllFeatures()
@@ -45,23 +43,6 @@ namespace Lemonade.Web.Modules
             }
 
             return HttpStatusCode.OK;
-        }
-
-        private dynamic PostFeatureFromFormData()
-        {
-            var feature = this.Bind<FeatureModel>().ToDomain();
-
-            try
-            {
-                _saveFeature.Execute(feature);
-            }
-            catch (SaveFeatureException exception)
-            {
-                ModelValidationResult.Errors.Add("SaveException", exception.Message);
-                return View["/features", GetFeaturesModel()];
-            }
-
-            return Response.AsRedirect($"/feature?applicationId={feature.ApplicationId}");
         }
 
         private Feature GetFeature()

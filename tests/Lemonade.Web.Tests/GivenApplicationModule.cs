@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Lemonade.Sql.Migrations;
 using Lemonade.Web.Contracts;
+using Lemonade.Web.Tests.Mocks;
 using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Infrastructure;
 using Nancy;
@@ -22,39 +22,23 @@ namespace Lemonade.Web.Tests
             Runner.SqlCompact(ConnectionString).Down();
             Runner.SqlCompact(ConnectionString).Up();
 
-            _browser = new Browser(new FakeLemonadeBootstrapper());
+            var hubContext = Substitute.For<IHubContext>();
+            var connectionManager = Substitute.For<IConnectionManager>();
+            connectionManager.GetHubContext<LemonadeHub>().Returns(hubContext);
+
+            _mockClient = Substitute.For<IMockClient>();
+            SubstituteExtensions.Returns(hubContext.Clients.All, _mockClient);
+
+            var bootstrapper = new TestLemonadeBootstrapper();
+            bootstrapper.ConfigureDependency(c => c.Register(connectionManager));
+
+            _browser = new Browser(bootstrapper);
         }
 
         [TearDown]
         public void Teardown()
         {
             _server.Dispose();
-        }
-
-        [Test]
-        public void WhenIPostANewApplication_ThenTheResponseIsRedirectToFeaturesPage()
-        {
-            var postResponse = _browser.Post("/application/", (with) =>
-            {
-                with.HttpRequest();
-                with.FormValue("name", "TestApplication1");
-            });
-
-            Assert.That(postResponse.StatusCode, Is.EqualTo(HttpStatusCode.SeeOther));
-            Assert.That(postResponse.Headers["Location"], Is.EqualTo("/feature"));
-        }
-
-        [Test]
-        public void WhenIPostANewApplication_ThenItIsRendered()
-        {
-            _browser.Post("/application/", (with) =>
-            {
-                with.HttpRequest();
-                with.FormValue("name", "TestApplication1");
-            });
-
-            var response = _browser.Get("/feature/");
-            Assert.That(response.Body[".application > a"].Any(a => a.InnerText.Contains("TestApplication1")));
         }
 
         [Test]
@@ -74,28 +58,16 @@ namespace Lemonade.Web.Tests
             Assert.That(result[0].Name, Is.EqualTo("TestApplication1"));
         }
 
-
         [Test]
         public void WhenIPostAnApplication_ThenSignalRClientsAreNotified()
         {
-            var hubContext = Substitute.For<IHubContext>();
-            var connectionManager = Substitute.For<IConnectionManager>();
-            connectionManager.GetHubContext<LemonadeHub>().Returns(hubContext);
-
-            var mockClients = Substitute.For<IMockClient>();
-            SubstituteExtensions.Returns(hubContext.Clients.All, mockClients);
-
-            var bootstrapper = new FakeLemonadeBootstrapper();
-            bootstrapper.ConfigureAdditionalDependencies(c => c.Register(connectionManager));
-
-            var browser = new Browser(bootstrapper);
-            browser.Post("/application/", (with) =>
+            _browser.Post("/api/application/", (with) =>
             {
-                with.HttpRequest();
-                with.FormValue("name", "Feature1");
+                with.Header("Content-Type", "application/json");
+                with.Body(JsonConvert.SerializeObject(new Application { Name = "TestApplication1" }));
             });
 
-            mockClients.Received().addApplication();
+            _mockClient.Received().addApplication();
         }
 
         [Test]
@@ -121,13 +93,9 @@ namespace Lemonade.Web.Tests
             Assert.That(result.Count, Is.EqualTo(0));
         }
 
-        public interface IMockClient
-        {
-            void addApplication();
-        }
-
         private Server _server;
         private Browser _browser;
+        private IMockClient _mockClient;
         private const string ConnectionString = "Lemonade";
     }
 }

@@ -85,6 +85,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <Compile Include="EventHandlers\ApplicationHasBeenSavedHandler.cs" />
+    <Compile Include="EventHandlers\FeatureHasBeenSavedHandler.cs" />
     <Compile Include="LemonadeBooststrapper.cs" />
     <Compile Include="LemonadeHub.cs" />
     <Compile Include="Mappers\ApplicationMapper.cs" />

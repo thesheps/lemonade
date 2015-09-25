@@ -19,6 +19,12 @@ namespace Lemonade.Web
             DomainEvent.Dispatcher = this;
         }
 
+        public void Dispatch<TEvent>(TEvent @event) where TEvent : IDomainEvent
+        {
+            var handler = _container.Resolve<IDomainEventHandler<TEvent>>();
+            handler.Handle(@event);
+        }
+
         protected override void ConfigureApplicationContainer(TinyIoCContainer container)
         {
             _container = container;
@@ -32,12 +38,6 @@ namespace Lemonade.Web
             ResourceViewLocationProvider.RootNamespaces.Add(typeof(FeatureModule).Assembly, "Lemonade.Web.Views");
         }
 
-        public void Dispatch<TEvent>(TEvent @event) where TEvent : IDomainEvent
-        {
-            var handler = _container.Resolve<IDomainEventHandler<TEvent>>();
-            handler.Handle(@event);
-        }
-
         protected override NancyInternalConfiguration InternalConfiguration
         {
             get { return NancyInternalConfiguration.WithOverrides(nic => nic.ViewLocationProvider = typeof(ResourceViewLocationProvider)); }
@@ -46,6 +46,7 @@ namespace Lemonade.Web
         private void ConfigureEventHandlers()
         {
             _container.Register<IDomainEventHandler<ApplicationHasBeenSaved>, ApplicationHasBeenSavedHandler>();
+            _container.Register<IDomainEventHandler<FeatureHasBeenSaved>, FeatureHasBeenSavedHandler>();
         }
 
         protected override IEnumerable<Type> ViewEngines { get { yield return typeof(RazorViewEngine); } }

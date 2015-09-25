@@ -8,16 +8,15 @@ using Nancy.TinyIoc;
 
 namespace Lemonade.Web.Tests
 {
-    public class FakeLemonadeBootstrapper : LemonadeBootstrapper
+    public class TestLemonadeBootstrapper : LemonadeBootstrapper
     {
-        public FakeLemonadeBootstrapper()
+        public void ConfigureDependency(Action<TinyIoCContainer> configuration)
         {
-            _additionalConfigurations = new List<Action<TinyIoCContainer>>();
+            _additionalConfigurations.Add(configuration);
         }
 
         protected override void ConfigureDependencies(TinyIoCContainer container)
         {
-            _container = container;
             container.Register<IGetAllFeatures, GetAllFeatures>();
             container.Register<IGetFeatureByNameAndApplication, GetFeatureByNameAndApplication>();
             container.Register<ISaveFeature, SaveFeature>();
@@ -29,13 +28,6 @@ namespace Lemonade.Web.Tests
             }
         }
 
-        public void ConfigureAdditionalDependencies(Action<TinyIoCContainer> configuration)
-        {
-            _additionalConfigurations.Add(configuration);
-        }
-
-
-        private TinyIoCContainer _container;
-        private List<Action<TinyIoCContainer>> _additionalConfigurations;
+        private readonly List<Action<TinyIoCContainer>> _additionalConfigurations = new List<Action<TinyIoCContainer>>();
     }
 }

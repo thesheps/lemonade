@@ -6,9 +6,13 @@ using Lemonade.Sql.Migrations;
 using Lemonade.Sql.Queries;
 using Lemonade.Web.Contracts;
 using Lemonade.Web.Mappers;
+using Lemonade.Web.Tests.Mocks;
+using Microsoft.AspNet.SignalR;
+using Microsoft.AspNet.SignalR.Infrastructure;
 using Nancy;
 using Nancy.Testing;
 using Newtonsoft.Json;
+using NSubstitute;
 using NUnit.Framework;
 using SelfishHttp;
 
@@ -25,7 +29,17 @@ namespace Lemonade.Web.Tests
             Runner.SqlCompact(ConnectionString).Down();
             Runner.SqlCompact(ConnectionString).Up();
 
-            _browser = new Browser(new FakeLemonadeBootstrapper());
+            var hubContext = Substitute.For<IHubContext>();
+            var connectionManager = Substitute.For<IConnectionManager>();
+            connectionManager.GetHubContext<LemonadeHub>().Returns(hubContext);
+
+            _mockClient = Substitute.For<IMockClient>();
+            SubstituteExtensions.Returns(hubContext.Clients.All, _mockClient);
+
+            var bootstrapper = new TestLemonadeBootstrapper();
+            bootstrapper.ConfigureDependency(c => c.Register(connectionManager));
+
+            _browser = new Browser(bootstrapper);
         }
 
         [TearDown]
@@ -118,26 +132,6 @@ namespace Lemonade.Web.Tests
             Assert.Throws<UriFormatException>(() => new HttpFeatureResolver("TestTestTest!!!"));
         }
 
-        [Test]
-        public void WhenIPostANewFeature_ThenTheResponseIsRedirectToFeaturesPage()
-        {
-            var application = new Core.Domain.Application { ApplicationId = 1, Name = "TestApplication1" };
-            _saveApplication.Execute(application);
-
-            var postResponse = _browser.Post("/feature/", (with) =>
-            {
-                with.HttpRequest();
-                with.FormValue("applicationId", "1");
-                with.FormValue("name", "Feature1");
-                with.FormValue("startDate", DateTime.Now.ToShortDateString());
-                with.FormValue("expirationDays", "10");
-                with.FormValue("isEnabled", "true");
-            });
-
-            Assert.That(postResponse.StatusCode, Is.EqualTo(HttpStatusCode.SeeOther));
-            Assert.That(postResponse.Headers["Location"], Is.EqualTo("/feature?applicationId=1"));
-        }
-
         private static Contracts.Feature GetFeatureModel(string name, Application application)
         {
             return new Contracts.Feature
@@ -155,6 +149,7 @@ namespace Lemonade.Web.Tests
         private Server _server;
         private SaveApplication _saveApplication;
         private GetApplicationByName _getApplication;
+        private IMockClient _mockClient;
         private const string ConnectionString = "Lemonade";
     }
 }
