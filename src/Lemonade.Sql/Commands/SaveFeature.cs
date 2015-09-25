@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Linq;
 using Dapper;
 using Lemonade.Core.Commands;
 using Lemonade.Core.Domain;
+using Lemonade.Core.Events;
 using Lemonade.Core.Exceptions;
 
 namespace Lemonade.Sql.Commands
@@ -32,6 +34,10 @@ namespace Lemonade.Sql.Commands
                             feature.Name,
                             feature.ApplicationId
                         });
+
+                    feature.FeatureId = cnn.Query<int>("SELECT CAST(@@IDENTITY AS INT)").First();
+
+                    DomainEvent.Raise(new FeatureHasBeenSaved(feature.FeatureId));
                 }
                 catch (Exception exception)
                 {

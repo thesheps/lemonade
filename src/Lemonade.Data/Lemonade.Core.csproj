@@ -44,7 +44,10 @@
     <Compile Include="Commands\IDeleteFeature.cs" />
     <Compile Include="Commands\ISaveApplication.cs" />
     <Compile Include="Commands\ISaveFeature.cs" />
+    <Compile Include="Events\FeatureHasBeenDeleted.cs" />
+    <Compile Include="Events\ApplicationHasBeenDeleted.cs" />
     <Compile Include="Events\DomainEvent.cs" />
+    <Compile Include="Events\FeatureHasBeenSaved.cs" />
     <Compile Include="Events\IDomainEventHandler.cs" />
     <Compile Include="Domain\Feature.cs" />
     <Compile Include="Errors.Designer.cs">

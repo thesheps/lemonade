@@ -4,7 +4,6 @@ using Lemonade.Core.Exceptions;
 using Lemonade.Sql.Commands;
 using Lemonade.Sql.Migrations;
 using Lemonade.Sql.Queries;
-using NSubstitute;
 using NUnit.Framework;
 
 namespace Lemonade.Sql.Tests
@@ -17,10 +16,6 @@ namespace Lemonade.Sql.Tests
             DomainEvent.Dispatcher = this;
             Runner.SqlCompact("Lemonade").Down();
             Runner.SqlCompact("Lemonade").Up();
-            _applicationHasBeenSavedHandler = Substitute.For<IDomainEventHandler<ApplicationHasBeenSaved>>();
-            _applicationHasBeenSavedHandler
-                .When(a => a.Handle(Arg.Any<ApplicationHasBeenSaved>()))
-                .Do(a => _savedApplication = a.Arg<ApplicationHasBeenSaved>());
         }
 
         [Test]
@@ -38,7 +33,7 @@ namespace Lemonade.Sql.Tests
         }
 
         [Test]
-        public void WhenISaveAnApplication_ThenApplicationSavedEventIsRaisedWithCorrectApplicationIdAndApplicationName()
+        public void WhenISaveAnApplication_ThenApplicationSavedEventIsRaisedWithCorrectDetails()
         {
             var saveApplication = new SaveApplication();
             var getApplicationByName = new GetApplicationByName();
@@ -67,10 +62,9 @@ namespace Lemonade.Sql.Tests
 
         public void Dispatch<TEvent>(TEvent @event) where TEvent : IDomainEvent
         {
-            if (@event is ApplicationHasBeenSaved) _applicationHasBeenSavedHandler.Handle(@event as ApplicationHasBeenSaved);
+            if (@event is ApplicationHasBeenSaved) _savedApplication = @event as ApplicationHasBeenSaved;
         }
 
-        private IDomainEventHandler<ApplicationHasBeenSaved> _applicationHasBeenSavedHandler;
         private ApplicationHasBeenSaved _savedApplication;
     }
 }
