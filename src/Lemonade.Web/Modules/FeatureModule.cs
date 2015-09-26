@@ -23,7 +23,7 @@ namespace Lemonade.Web.Modules
 
             Post["/api/feature"] = p => PostFeature();
             Get["/api/feature"] = p => GetFeature();
-            Get["/feature"] = p => GetAllFeatures();
+            Get["/features"] = p => GetAllFeatures();
         }
 
         private Negotiator GetAllFeatures()

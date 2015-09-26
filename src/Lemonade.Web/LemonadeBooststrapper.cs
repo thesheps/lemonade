@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Lemonade.Core.Events;
 using Lemonade.Web.EventHandlers;
 using Lemonade.Web.Modules;
+using Microsoft.AspNet.SignalR;
 using Nancy;
 using Nancy.Bootstrapper;
 using Nancy.Conventions;
@@ -28,12 +29,14 @@ namespace Lemonade.Web
 
         protected override void ConfigureApplicationContainer(TinyIoCContainer container)
         {
-            _container = container;
-
             base.ConfigureApplicationContainer(container);
 
-            ConfigureEventHandlers();
-            ConfigureDependencies(container);
+            _container = container;
+            _container.Register<IDomainEventHandler<ApplicationHasBeenSaved>, ApplicationHasBeenSavedHandler>();
+            _container.Register<IDomainEventHandler<FeatureHasBeenSaved>, FeatureHasBeenSavedHandler>();
+            _container.Register(GlobalHost.ConnectionManager);
+
+            ConfigureDependencies(_container);
 
             ResourceViewLocationProvider.RootNamespaces.Clear();
             ResourceViewLocationProvider.RootNamespaces.Add(typeof(FeatureModule).Assembly, "Lemonade.Web.Views");
@@ -51,12 +54,6 @@ namespace Lemonade.Web
             conventions.StaticContentsConventions.Add(StaticContentConventionBuilder.AddDirectory("scripts", "bin/scripts"));
             conventions.StaticContentsConventions.Add(StaticContentConventionBuilder.AddDirectory("styles", "bin/styles"));
             conventions.StaticContentsConventions.Add(StaticContentConventionBuilder.AddDirectory("fonts", "bin/fonts"));
-        }
-
-        private void ConfigureEventHandlers()
-        {
-            _container.Register<IDomainEventHandler<ApplicationHasBeenSaved>, ApplicationHasBeenSavedHandler>();
-            _container.Register<IDomainEventHandler<FeatureHasBeenSaved>, FeatureHasBeenSavedHandler>();
         }
 
         protected override IEnumerable<Type> ViewEngines { get { yield return typeof(RazorViewEngine); } }
