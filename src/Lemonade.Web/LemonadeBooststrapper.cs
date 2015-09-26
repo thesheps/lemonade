@@ -5,6 +5,7 @@ using Lemonade.Web.EventHandlers;
 using Lemonade.Web.Modules;
 using Nancy;
 using Nancy.Bootstrapper;
+using Nancy.Conventions;
 using Nancy.Hosting.Aspnet;
 using Nancy.TinyIoc;
 using Nancy.ViewEngines;
@@ -41,6 +42,15 @@ namespace Lemonade.Web
         protected override NancyInternalConfiguration InternalConfiguration
         {
             get { return NancyInternalConfiguration.WithOverrides(nic => nic.ViewLocationProvider = typeof(ResourceViewLocationProvider)); }
+        }
+
+        protected override void ConfigureConventions(NancyConventions conventions)
+        {
+            base.ConfigureConventions(conventions);
+
+            conventions.StaticContentsConventions.Add(
+                StaticContentConventionBuilder.AddDirectory("scripts", "bin/scripts")
+            );
         }
 
         private void ConfigureEventHandlers()

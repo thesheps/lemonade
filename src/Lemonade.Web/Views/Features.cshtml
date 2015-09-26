@@ -4,6 +4,10 @@
     Layout = "_Layout.cshtml";
 }
 
+@section headerScripts {
+    <script src="scripts/Application.js" type="text/javascript"></script>
+}
+
 @if (!RenderContext.Context.ModelValidationResult.IsValid)
 {
     <div class="panel panel-danger">
@@ -63,52 +67,58 @@
 
         <table class="table table-striped">
             <thead>
-                <tr>
-                    <th>Feature Name</th>
-                    <th>Start Date</th>
-                    <th>Expiration Days</th>
-                    <th>Enabled</th>
-                </tr>
+            <tr>
+                <th>Feature Name</th>
+                <th>Start Date</th>
+                <th>Expiration Days</th>
+                <th>Enabled</th>
+            </tr>
             </thead>
 
             <tbody>
-                @for (int i = 0; i < Model.Features.Count; i++)
-                {
-                    var feature = Model.Features[i];
+            @for (int i = 0; i < Model.Features.Count; i++)
+            {
+                var feature = Model.Features[i];
 
-                    <tr class="feature">
-                        <td>
-                            <div class="hide" name="applicationId">@feature.ApplicationId</div>
-                            @feature.Name
-                        </td>
-                        <td>@feature.StartDate</td>
-                        <td>@feature.ExpirationDays</td>
-                        <td>@feature.IsEnabled</td>
-                    </tr>
-                }
-
-                <tr>
+                <tr class="feature">
                     <td>
-                        <input name="applicationId" type="hidden" value="@Model.ApplicationId" form="addFeatureForm" /><input name="name" class="input-sm" form="addFeatureForm" />
+                        <div class="hide" name="applicationId">@feature.ApplicationId</div>
+                        @feature.Name
                     </td>
-                    <td><input name="startDate" class="input-sm" type="date" form="addFeatureForm" /></td>
-                    <td><input name="expirationDays" class="input-sm" form="addFeatureForm" /></td>
-                    <td><input name="isEnabled" type="checkbox" form="addFeatureForm" /></td>
+                    <td>@feature.StartDate</td>
+                    <td>@feature.ExpirationDays</td>
+                    <td>@feature.IsEnabled</td>
                 </tr>
+            }
 
-                <tr />
+            <tr>
+                <td>
+                    <input name="applicationId" type="hidden" value="@Model.ApplicationId" form="addFeatureForm"/><input name="name" class="input-sm" form="addFeatureForm"/>
+                </td>
+                <td><input name="startDate" class="input-sm" type="date" form="addFeatureForm"/></td>
+                <td><input name="expirationDays" class="input-sm" form="addFeatureForm"/></td>
+                <td><input name="isEnabled" type="checkbox" form="addFeatureForm"/></td>
+            </tr>
 
-                <tr>
-                    <td />
-                    <td />
-                    <td />
-                    <td colspan="4">
-                        <button type="submit" class="btn btn-primary" id="add-feature-button" form="addFeatureForm">
-                            <span><i class="glyphicon glyphicon-plus"></i> Add new feature</span>
-                        </button>
-                    </td>
-                </tr>
+            <tr/>
+
+            <tr>
+                <td/>
+                <td/>
+                <td/>
+                <td colspan="4">
+                    <button type="submit" class="btn btn-primary" id="add-feature-button" form="addFeatureForm">
+                        <span><i class="glyphicon glyphicon-plus"></i> Add new feature</span>
+                    </button>
+                </td>
+            </tr>
             </tbody>
         </table>
     }
 </div>
+
+@section bodyScripts {
+    <script type="text/javascript">
+        Application.hello();
+    </script>
+}
