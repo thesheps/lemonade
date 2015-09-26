@@ -7,6 +7,12 @@
         },
         removeApplication: function (application) {
             view.applications.remove(application);
+        },
+        addFeature: function (feature) {
+            view.features.add(feature);
+        },
+        removeFeature: function (feature) {
+            view.features.remove(feature);
         }
     }
 };

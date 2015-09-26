@@ -70,7 +70,7 @@
                 {
                     var feature = Model.Features[i];
 
-                    <tr class="feature">
+                    <tr class="feature" data-featureId="@feature.Id">
                         <td>
                             <div class="hide" name="applicationId">@feature.ApplicationId</div>
                             @feature.Name
@@ -122,15 +122,18 @@
             applications: {
                 add: function (application) {
                     $("#applicationName").val("");
-                    $("<li class='application list-group-item'>")
-                        .hide()
+                    $("<li class='application list-group-item'>").hide()
                         .append("<a href='/features?applicationId=" + application.ApplicationId + "'>" + application.Name + "</a>")
                         .append("<span data-applicationId='" + application.ApplicationId + "' class='delete-application-button glyphicon glyphicon-remove btn btn-xs pull-right btn-danger'></span>")
-                        .appendTo("#application-list")
-                        .slideDown();
+                        .appendTo("#application-list").slideDown();
                 },
                 remove: function (application) {
                     $(".delete-application-button[data-applicationId=" + application.ApplicationId + "]").parents("li").slideUp();
+                }
+            },
+            features : {
+                remove: function(feature) {
+                    $(".feature[data-featureId=" + feature.FeatureId + "]").fadeOut();
                 }
             }
         });

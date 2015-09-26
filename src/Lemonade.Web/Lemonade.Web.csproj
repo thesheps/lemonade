@@ -82,6 +82,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EventHandlers\ApplicationHasBeenDeletedHandler.cs" />
+    <Compile Include="EventHandlers\FeatureHasBeenDeletedHandler.cs" />
     <Compile Include="Startup.cs" />
     <None Include="Content\Bootstrapper.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

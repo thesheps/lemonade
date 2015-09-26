@@ -35,6 +35,7 @@ namespace Lemonade.Web
             _container.Register<IDomainEventHandler<ApplicationHasBeenSaved>, ApplicationHasBeenSavedHandler>();
             _container.Register<IDomainEventHandler<ApplicationHasBeenDeleted>, ApplicationHasBeenDeletedHandler>();
             _container.Register<IDomainEventHandler<FeatureHasBeenSaved>, FeatureHasBeenSavedHandler>();
+            _container.Register<IDomainEventHandler<FeatureHasBeenDeleted>, FeatureHasBeenDeletedHandler>();
             _container.Register(GlobalHost.ConnectionManager);
 
             ConfigureDependencies(_container);
