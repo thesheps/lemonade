@@ -48,9 +48,9 @@ namespace Lemonade.Web
         {
             base.ConfigureConventions(conventions);
 
-            conventions.StaticContentsConventions.Add(
-                StaticContentConventionBuilder.AddDirectory("scripts", "bin/scripts")
-            );
+            conventions.StaticContentsConventions.Add(StaticContentConventionBuilder.AddDirectory("scripts", "bin/scripts"));
+            conventions.StaticContentsConventions.Add(StaticContentConventionBuilder.AddDirectory("styles", "bin/styles"));
+            conventions.StaticContentsConventions.Add(StaticContentConventionBuilder.AddDirectory("fonts", "bin/fonts"));
         }
 
         private void ConfigureEventHandlers()
