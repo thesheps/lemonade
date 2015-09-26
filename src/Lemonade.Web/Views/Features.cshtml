@@ -34,13 +34,13 @@
         <h2>Applications</h2>
         <hr />
 
-        <ul class="list-group">
+        <ul class="list-group" id="application-list">
             @for (int i = 0; i < Model.Applications.Count; i++)
             {
                 var application = Model.Applications[i];
 
                 <li class="application list-group-item">
-                    <a href="@Url.Content(string.Format("/feature?applicationId={0}", application.Id))">@application.Name</a>
+                    <a href="@Url.Content(string.Format("/features?applicationId={0}", application.Id))">@application.Name</a>
                 </li>
             }
         </ul>
@@ -121,11 +121,20 @@
 
 @section bodyScripts {
     <script type="text/javascript">
-        var hub = $.connection.lemonadeHub;
-
-        hub.client.addApplication = function (application) {
-            console.log(application);
-        };
+        $.connection.lemonadeHub.client = new Lemonade({
+            applications: {
+                add: function (application) {
+                    $("<li class='application list-group-item'>")
+                        .hide()
+                        .append("<a href='/features?applicationId=" + application.ApplicationId + "'>" + application.Name + "</a>")
+                        .appendTo("#application-list")
+                        .slideDown();
+                },
+                remove: function(applicationId) {
+                    
+                }
+            }
+        });
 
         $.connection.hub.start();
     </script>

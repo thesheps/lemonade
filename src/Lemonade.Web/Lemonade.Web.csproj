@@ -81,6 +81,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EventHandlers\ApplicationHasBeenDeletedHandler.cs" />
     <Compile Include="Startup.cs" />
     <None Include="Content\Bootstrapper.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

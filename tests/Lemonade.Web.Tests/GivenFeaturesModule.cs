@@ -67,7 +67,7 @@ namespace Lemonade.Web.Tests
                 with.Body(JsonConvert.SerializeObject(GetFeatureModel("MySuperCoolFeature2", _getApplication.Execute(application.Name).ToContract())));
             });
 
-            var response = _browser.Get("/feature", with =>
+            var response = _browser.Get("/features", with =>
             {
                 with.Query("applicationId", application.ApplicationId.ToString());
             });
@@ -76,7 +76,6 @@ namespace Lemonade.Web.Tests
             Assert.That(response.Body[".feature"].Count(), Is.EqualTo(2));
         }
 
-        [Test]
         public void WhenIHaveMultipleApplications_ThenAllApplicationsAreRendered()
         {
             var save = new SaveApplication();
@@ -84,7 +83,7 @@ namespace Lemonade.Web.Tests
             save.Execute(new Core.Domain.Application { Name = "TestApplication2" });
             save.Execute(new Core.Domain.Application { Name = "TestApplication3" });
 
-            var response = _browser.Get("/feature", with =>
+            var response = _browser.Get("/features", with =>
             {
                 with.Query("application", "TestApplication");
             });

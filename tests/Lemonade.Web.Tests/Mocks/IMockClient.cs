@@ -2,7 +2,7 @@
 {
     public interface IMockClient
     {
-        void addApplication();
-        void addFeature();
+        void addApplication(dynamic application);
+        void addFeature(dynamic feature);
     }
 }

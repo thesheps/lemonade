@@ -67,7 +67,7 @@ namespace Lemonade.Web.Tests
                 with.Body(JsonConvert.SerializeObject(new Application { Name = "TestApplication1" }));
             });
 
-            _mockClient.Received().addApplication();
+            _mockClient.Received().addApplication(Arg.Any<dynamic>());
         }
 
         [Test]

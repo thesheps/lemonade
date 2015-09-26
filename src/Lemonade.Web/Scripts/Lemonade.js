@@ -5,8 +5,8 @@
         addApplication: function (application) {
             view.applications.add(application);
         },
-        removeApplication: function (applicationId) {
-            view.applications.remove(applicationId);
+        removeApplication: function (application) {
+            view.applications.remove(application);
         }
     }
 };

@@ -25,9 +25,9 @@ QUnit.test("WhenIRemoveAnApplication_ThenTheApplicationIsRemovedFromTheList", fu
             add: function(application) {
                 applications.push(application);
             },
-            remove: function (applicationId) {
+            remove: function (application) {
                 for (var i = 0; i < applications.length; i++) {
-                    if (applications[i].ApplicationId === applicationId) {
+                    if (applications[i].ApplicationId === application.ApplicationId) {
                         applications.splice(i, 1);
                         break;
                     }
@@ -38,7 +38,7 @@ QUnit.test("WhenIRemoveAnApplication_ThenTheApplicationIsRemovedFromTheList", fu
 
     var lemonade = new Lemonade(view);
     lemonade.addApplication({ ApplicationId: 1, Name: "MyTestApplication1" });
-    lemonade.removeApplication(1);
+    lemonade.removeApplication({ ApplicationId: 1, Name: "MyTestApplication1" });
 
     assert.ok(applications.length === 0, "Passed!");
 });
