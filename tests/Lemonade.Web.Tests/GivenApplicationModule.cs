@@ -44,13 +44,13 @@ namespace Lemonade.Web.Tests
         [Test]
         public void WhenIPostAnApplication_ThenICanGetItViaHttp()
         {
-            _browser.Post("/api/application", with =>
+            _browser.Post("/api/applications", with =>
             {
                 with.Header("Content-Type", "application/json");
                 with.Body(JsonConvert.SerializeObject(new Application { Name = "TestApplication1" }));
             });
 
-            var response = _browser.Get("/api/application", with => with.Header("Accept", "application/json"));
+            var response = _browser.Get("/api/applications", with => with.Header("Accept", "application/json"));
             var result = JsonConvert.DeserializeObject<List<Application>>(response.Body.AsString());
 
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
@@ -61,7 +61,7 @@ namespace Lemonade.Web.Tests
         [Test]
         public void WhenIPostAnApplication_ThenSignalRClientsAreNotified()
         {
-            _browser.Post("/api/application/", (with) =>
+            _browser.Post("/api/applications/", (with) =>
             {
                 with.Header("Content-Type", "application/json");
                 with.Body(JsonConvert.SerializeObject(new Application { Name = "TestApplication1" }));
@@ -73,20 +73,20 @@ namespace Lemonade.Web.Tests
         [Test]
         public void WhenIPostAnApplicationAndDeleteIt_ThenItIsNoLongerAvailable()
         {
-            _browser.Post("/api/application", with =>
+            _browser.Post("/api/applications", with =>
             {
                 with.Header("Content-Type", "application/json");
                 with.Body(JsonConvert.SerializeObject(new Application { Name = "TestApplication1" }));
             });
 
-            _browser.Delete("/api/application", with =>
+            _browser.Delete("/api/applications", with =>
             {
                 with.Query("id", "1");
                 with.Header("Content-Type", "application/json");
                 with.Body(JsonConvert.SerializeObject(new Application { Name = "TestApplication1" }));
             });
 
-            var response = _browser.Get("/api/application", with => with.Header("Accept", "application/json"));
+            var response = _browser.Get("/api/applications", with => with.Header("Accept", "application/json"));
             var result = JsonConvert.DeserializeObject<List<Application>>(response.Body.AsString());
 
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));

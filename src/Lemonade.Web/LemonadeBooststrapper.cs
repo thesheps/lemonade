@@ -41,7 +41,7 @@ namespace Lemonade.Web
             ConfigureDependencies(_container);
 
             ResourceViewLocationProvider.RootNamespaces.Clear();
-            ResourceViewLocationProvider.RootNamespaces.Add(typeof(FeatureModule).Assembly, "Lemonade.Web.Views");
+            ResourceViewLocationProvider.RootNamespaces.Add(typeof(FeaturesModule).Assembly, "Lemonade.Web.Views");
         }
 
         protected override NancyInternalConfiguration InternalConfiguration

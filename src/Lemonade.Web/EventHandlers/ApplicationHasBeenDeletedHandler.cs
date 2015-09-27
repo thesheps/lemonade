@@ -13,7 +13,7 @@ namespace Lemonade.Web.EventHandlers
         public void Handle(ApplicationHasBeenDeleted @event)
         {
             var hubContext = _connectionManager.GetHubContext<LemonadeHub>();
-            hubContext.Clients.All.removeApplication(@event);
+            hubContext.Clients.All.deleteApplication(@event);
         }
 
         private readonly IConnectionManager _connectionManager;

@@ -10,17 +10,17 @@ using Lemonade.Core.Queries;
 
 namespace Lemonade.Web.Modules
 {
-    public class ApplicationModule : NancyModule
+    public class ApplicationsModule : NancyModule
     {
-        public ApplicationModule(IGetAllApplications getAllApplications, ISaveApplication saveApplication, IDeleteApplication deleteApplication)
+        public ApplicationsModule(IGetAllApplications getAllApplications, ISaveApplication saveApplication, IDeleteApplication deleteApplication)
         {
             _getAllApplications = getAllApplications;
             _saveApplication = saveApplication;
             _deleteApplication = deleteApplication;
 
-            Get["/api/application"] = p => GetApplications();
-            Post["/api/application"] = p => PostApplication();
-            Delete["/api/application"] = p => DeleteApplication();
+            Get["/api/applications"] = p => GetApplications();
+            Post["/api/applications"] = p => PostApplication();
+            Delete["/api/applications"] = p => DeleteApplication();
         }
 
         private IList<Contracts.Application> GetApplications()

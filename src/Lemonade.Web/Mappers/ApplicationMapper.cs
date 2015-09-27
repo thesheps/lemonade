@@ -8,7 +8,7 @@ namespace Lemonade.Web.Mappers
         {
             return new Models.ApplicationModel
             {
-                Id = application.ApplicationId,
+                ApplicationId = application.ApplicationId,
                 Name = application.Name
             };
         }
@@ -17,7 +17,7 @@ namespace Lemonade.Web.Mappers
         {
             return new Contracts.Application
             {
-                Id = application.ApplicationId,
+                ApplicationId = application.ApplicationId,
                 Name = application.Name
             };
         }
@@ -26,7 +26,7 @@ namespace Lemonade.Web.Mappers
         {
             return new Application
             {
-                ApplicationId = application.Id,
+                ApplicationId = application.ApplicationId,
                 Name = application.Name
             };
         }
@@ -35,7 +35,7 @@ namespace Lemonade.Web.Mappers
         {
             return new Application
             {
-                ApplicationId = application.Id,
+                ApplicationId = application.ApplicationId,
                 Name = application.Name
             };
         }

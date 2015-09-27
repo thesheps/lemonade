@@ -5,56 +5,46 @@
 }
 
 @section headerScripts {
+    <script src="scripts/angular.min.js"></script>
     <script src="scripts/jquery.signalR-2.2.0.min.js"></script>
     <script src="/signalr/hubs"></script>
-    <script src="scripts/lemonade.js" type="text/javascript"></script>
+    <script src="scripts/lemonade/app.js" type="text/javascript"></script>
+    <script src="scripts/lemonade/controller.js" type="text/javascript"></script>
+    <script src="scripts/lemonade/lemonade.js" type="text/javascript"></script>
 }
+<div ng-controller="lemonadeController" ng-app="lemonade">
+    <div class="panel panel-danger hide">
+        <div class="panel-heading">
+            <h3 class="panel-title">Oops..!</h3>
+        </div>
 
-<div class="panel panel-danger hide">
-    <div class="panel-heading">
-        <h3 class="panel-title">Oops..!</h3>
+        <ul class="list-group">
+            <!-- <li class="panel-body list-group-item">Ooops</li>-->
+        </ul>
     </div>
 
-    <ul class="list-group">
-        <!-- <li class="panel-body list-group-item">Ooops</li>-->
-    </ul>
-</div>
+    <div class="col-md-4">
+        <div class="well">
+            <h2>Applications</h2>
+            <hr />
 
-<div class="col-md-4">
-    <div class="well">
-        <h2>Applications</h2>
-        <hr />
-
-        <ul class="list-group" id="application-list">
-            @for (int i = 0; i < Model.Applications.Count; i++)
-            {
-                var application = Model.Applications[i];
-
-                <li class="application list-group-item">
-                    <a href="@Url.Content(string.Format("/features?applicationId={0}", application.Id))">@application.Name</a>
-                    <span data-applicationId="@application.Id" class="delete-application-button glyphicon glyphicon-remove btn btn-xs pull-right btn-danger"></span>
+            <ul class="list-group" id="application-list">
+                <li class="application list-group-item" ng-repeat="application in applications">
+                    <a href="/features?applicationId={{application.applicationId}}">{{application.name}}</a>
+                    <span class="delete-application-button glyphicon glyphicon-remove btn btn-xs pull-right btn-danger" ng-click="deleteApplication(application.applicationId)"></span>
                 </li>
-            }
-        </ul>
+            </ul>
 
-        <hr />
+            <hr />
 
-        <div class="input-group">
-            <input type="text" name="name" id="applicationName" class="form-control" placeholder="Application name...">
-            <span class="input-group-btn"><button class="btn btn-default btn-md" id="add-application-button">Add</button></span>
+            <div class="input-group">
+                <input type="text" name="name" class="form-control" ng-model="applicationName" placeholder="Application name...">
+                <span class="input-group-btn"><button ng-click="addApplication(applicationName)" class="btn btn-default btn-md" id="add-application-button">Add</button></span>
+            </div>
         </div>
     </div>
-</div>
 
-<div class="col-md-8" id="application-form">
-    @if (Model.ApplicationId == 0)
-    {
-        <i>Nothing to see here - select a feature on the left</i>
-    }
-    else
-    {
-        <form action="/feature/" method="post" id="addFeatureForm"></form>
-
+    <div class="col-md-8" id="application-form">
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -66,20 +56,15 @@
             </thead>
 
             <tbody>
-                @for (int i = 0; i < Model.Features.Count; i++)
-                {
-                    var feature = Model.Features[i];
-
-                    <tr class="feature" data-featureId="@feature.Id">
-                        <td>
-                            <div class="hide" name="applicationId">@feature.ApplicationId</div>
-                            @feature.Name
-                        </td>
-                        <td>@feature.StartDate</td>
-                        <td>@feature.ExpirationDays</td>
-                        <td>@feature.IsEnabled</td>
-                    </tr>
-                }
+                <tr class="feature" ng-repeat="feature in features">
+                    <td>
+                        <div class="hide" name="applicationId">{{feature.ApplicationId}}</div>
+                        {{feature.Name}}
+                    </td>
+                    <td>{{feature.StartDate}}</td>
+                    <td>{{feature.ExpirationDays}}</td>
+                    <td>{{feature.IsEnabled}}</td>
+                </tr>
 
                 <tr>
                     <td>
@@ -104,40 +89,5 @@
                 </tr>
             </tbody>
         </table>
-    }
+    </div>
 </div>
-
-@section bodyScripts {
-    <script type="text/javascript">
-        $(document).on("click", ".delete-application-button", function () {
-            var id = $(this).attr("data-applicationId");
-            $.ajax({ url: 'api/application?id=' + id, type: 'DELETE' });
-        });
-
-        $(document).on("click", "#add-application-button", function () {
-            $.post("api/application", { Name: $("#applicationName").val() });
-        });
-
-        $.connection.lemonadeHub.client = new Lemonade({
-            applications: {
-                add: function (application) {
-                    $("#applicationName").val("");
-                    $("<li class='application list-group-item'>").hide()
-                        .append("<a href='/features?applicationId=" + application.ApplicationId + "'>" + application.Name + "</a>")
-                        .append("<span data-applicationId='" + application.ApplicationId + "' class='delete-application-button glyphicon glyphicon-remove btn btn-xs pull-right btn-danger'></span>")
-                        .appendTo("#application-list").slideDown();
-                },
-                remove: function (application) {
-                    $(".delete-application-button[data-applicationId=" + application.ApplicationId + "]").parents("li").slideUp();
-                }
-            },
-            features : {
-                remove: function(feature) {
-                    $(".feature[data-featureId=" + feature.FeatureId + "]").fadeOut();
-                }
-            }
-        });
-
-        $.connection.hub.start();
-    </script>
-}

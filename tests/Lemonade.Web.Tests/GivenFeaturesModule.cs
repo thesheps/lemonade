@@ -48,34 +48,6 @@ namespace Lemonade.Web.Tests
             _server.Dispose();
         }
 
-        [Test]
-        public void WhenIPostMultipleFeatures_ThenTheFeaturesAreSavedAndTheSameNumberAreRendered()
-        {
-            var application = new Core.Domain.Application { Name = "TestApplication1" };
-            _saveApplication.Execute(application);
-            application = _getApplication.Execute("TestApplication1");
-
-            _browser.Post("/api/feature", with =>
-            {
-                with.Header("Content-Type", "application/json");
-                with.Body(JsonConvert.SerializeObject(GetFeatureModel("MySuperCoolFeature1", _getApplication.Execute(application.Name).ToContract())));
-            });
-
-            _browser.Post("/api/feature", with =>
-            {
-                with.Header("Content-Type", "application/json");
-                with.Body(JsonConvert.SerializeObject(GetFeatureModel("MySuperCoolFeature2", _getApplication.Execute(application.Name).ToContract())));
-            });
-
-            var response = _browser.Get("/features", with =>
-            {
-                with.Query("applicationId", application.ApplicationId.ToString());
-            });
-
-            Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
-            Assert.That(response.Body[".feature"].Count(), Is.EqualTo(2));
-        }
-
         public void WhenIHaveMultipleApplications_ThenAllApplicationsAreRendered()
         {
             var save = new SaveApplication();
@@ -98,13 +70,13 @@ namespace Lemonade.Web.Tests
             var application = new Core.Domain.Application { ApplicationId = 1, Name = "TestApplication1" };
             _saveApplication.Execute(application);
 
-            _browser.Post("/api/feature", with =>
+            _browser.Post("/api/features", with =>
             {
                 with.Header("Content-Type", "application/json");
                 with.Body(JsonConvert.SerializeObject(GetFeatureModel("MySuperCoolFeature1", _getApplication.Execute(application.Name).ToContract())));
             });
 
-            var response = _browser.Get("/api/feature", with =>
+            var response = _browser.Get("/api/features", with =>
             {
                 with.Header("Accept", "application/json");
                 with.Query("application", application.Name);
@@ -122,7 +94,7 @@ namespace Lemonade.Web.Tests
             var application = new Core.Domain.Application { ApplicationId = 1, Name = "TestApplication1" };
             _saveApplication.Execute(application);
 
-            _browser.Post("/api/feature", with =>
+            _browser.Post("/api/features", with =>
             {
                 with.Header("Content-Type", "application/json");
                 with.Body(JsonConvert.SerializeObject(GetFeatureModel("MySuperCoolFeature1", _getApplication.Execute(application.Name).ToContract())));
@@ -140,7 +112,7 @@ namespace Lemonade.Web.Tests
                 StartDate = DateTime.Now,
                 Name = name,
                 Application = application,
-                ApplicationId = application.Id
+                ApplicationId = application.ApplicationId
             };
         }
 
