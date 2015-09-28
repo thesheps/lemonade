@@ -6,7 +6,7 @@
         addFeature: function(feature) {
             features.push(feature);
         },
-        deleteApplication: function (application) {
+        removeApplication: function (application) {
             for (var i = 0; i < applications.length; i++) {
                 if (applications[i].applicationId === application.applicationId) {
                     applications.splice(i, 1);

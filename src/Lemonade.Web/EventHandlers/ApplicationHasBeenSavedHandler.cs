@@ -13,7 +13,7 @@ namespace Lemonade.Web.EventHandlers
         public void Handle(ApplicationHasBeenSaved @event)
         {
             var hubContext = _connectionManager.GetHubContext<LemonadeHub>();
-            hubContext.Clients.All.addApplication(@event);
+            hubContext.Clients.All.addApplication(new { applicationId = @event.ApplicationId, name = @event.Name });
         }
 
         private readonly IConnectionManager _connectionManager;
