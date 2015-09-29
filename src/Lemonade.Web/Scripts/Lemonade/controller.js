@@ -5,7 +5,7 @@
         $http.get("/api/applications").then(function (res) {
             $scope.loading = false;
             $scope.applications = res.data;
-            $.connection.lemonadeHub.client = new Lemonade($scope.applications, $scope.features);
+            $.connection.lemonadeHub.client = new Lemonade($scope.applications, $scope.features, $scope);
             $.connection.hub.start();
         });
 
