@@ -1,4 +1,4 @@
-﻿@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<Lemonade.Web.Models.FeaturesModel>
+﻿@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase
 
 @{
     Layout = "_Layout.cshtml";
@@ -26,20 +26,20 @@
     <div class="col-md-4">
         <div class="well">
             <h2>Applications</h2>
-            <hr/>
+            <hr />
 
             <ul class="list-group" id="application-list">
                 <li class="application list-group-item" ng-repeat="application in applications">
-                    <a href="/features?applicationId={{application.applicationId}}">{{application.name}}</a>
+                    <a href="#" ng-click="selectApplication(application.applicationId)">{{application.name}}</a>
                     <span class="delete-application-button glyphicon glyphicon-remove btn btn-xs pull-right btn-danger" ng-click="deleteApplication(application.applicationId)"></span>
                 </li>
             </ul>
 
-            <hr/>
+            <hr />
 
             <div class="input-group">
                 <input type="text" name="name" class="form-control" ng-model="applicationName" placeholder="Application name...">
-                <span class="input-group-btn"><button ng-click="addApplication(applicationName)" class="btn btn-default btn-md" id="add-application-button">Add</button></span>
+                <span class="input-group-btn"><button ng-click="addApplication(applicationName)" class="btn btn-primary btn-md" id="add-application-button">Add</button></span>
             </div>
         </div>
     </div>
@@ -47,46 +47,47 @@
     <div class="col-md-8" id="application-form">
         <table class="table table-striped">
             <thead>
-            <tr>
-                <th>Feature Name</th>
-                <th>Start Date</th>
-                <th>Expiration Days</th>
-                <th>Enabled</th>
-            </tr>
+                <tr>
+                    <th>Feature Name</th>
+                    <th>Start Date</th>
+                    <th>Expiration Days</th>
+                    <th>Enabled</th>
+                </tr>
             </thead>
 
             <tbody>
-            <tr class="feature" ng-repeat="feature in features">
-                <td>
-                    <div class="hide" name="applicationId">{{feature.ApplicationId}}</div>
-                    {{feature.Name}}
-                </td>
-                <td>{{feature.StartDate}}</td>
-                <td>{{feature.ExpirationDays}}</td>
-                <td>{{feature.IsEnabled}}</td>
-            </tr>
+                <tr class="feature" ng-repeat="feature in features">
+                    <td>
+                        <div class="hide" name="applicationId">{{feature.applicationId}}</div>
+                        <div class="hide" name="featureId">{{feature.featureId}}</div>
+                        {{feature.name}}
+                    </td>
+                    <td>{{feature.startDate| date:'dd-MM-yyyy'}}</td>
+                    <td>{{feature.expirationDays}}</td>
+                    <td>{{feature.isEnabled}}</td>
+                </tr>
 
-            <tr>
-                <td>
-                    <input name="applicationId" type="hidden" value="@Model.ApplicationId" form="addFeatureForm"/><input name="name" class="input-sm" form="addFeatureForm"/>
-                </td>
-                <td><input name="startDate" class="input-sm" type="date" form="addFeatureForm"/></td>
-                <td><input name="expirationDays" class="input-sm" form="addFeatureForm"/></td>
-                <td><input name="isEnabled" type="checkbox" form="addFeatureForm"/></td>
-            </tr>
+                <tr>
+                    <td>
+                        <input name="applicationId" type="hidden" ng-model="newFeature.ApplicationId" /><input name="name" ng-model="newFeature.Name" class="input-sm" />
+                    </td>
+                    <td><input name="startDate" class="input-sm" type="date" ng-model="newFeature.StartDate" /></td>
+                    <td><input name="expirationDays" class="input-sm" ng-model="newFeature.ExpirationDays" /></td>
+                    <td><input name="isEnabled" type="checkbox" ng-model="newFeature.IsEnabled" /></td>
+                </tr>
 
-            <tr/>
+                <tr />
 
-            <tr>
-                <td/>
-                <td/>
-                <td/>
-                <td colspan="4">
-                    <button type="submit" class="btn btn-primary" id="add-feature-button" form="addFeatureForm">
-                        <span><i class="glyphicon glyphicon-plus"></i> Add new feature</span>
-                    </button>
-                </td>
-            </tr>
+                <tr>
+                    <td />
+                    <td />
+                    <td />
+                    <td colspan="4">
+                        <button class="btn btn-primary" ng-click="addFeature()">
+                            <span><i class="glyphicon glyphicon-plus"></i> Add</span>
+                        </button>
+                    </td>
+                </tr>
             </tbody>
         </table>
     </div>

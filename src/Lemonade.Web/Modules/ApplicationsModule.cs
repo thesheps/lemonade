@@ -1,12 +1,12 @@
 ﻿using System.Linq;
 using Lemonade.Web.Mappers;
-using Lemonade.Web.Models;
 using Nancy;
 using Nancy.ModelBinding;
 using System.Collections.Generic;
 using Lemonade.Core.Commands;
 using Lemonade.Core.Exceptions;
 using Lemonade.Core.Queries;
+using Lemonade.Web.Contracts;
 
 namespace Lemonade.Web.Modules
 {
@@ -32,7 +32,7 @@ namespace Lemonade.Web.Modules
         {
             try
             {
-                _saveApplication.Execute(this.Bind<ApplicationModel>().ToDomain());
+                _saveApplication.Execute(this.Bind<Application>().ToDomain());
                 return HttpStatusCode.OK;
             }
             catch (SaveApplicationException exception)

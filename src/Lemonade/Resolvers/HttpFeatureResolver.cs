@@ -23,7 +23,7 @@ namespace Lemonade.Resolvers
 
         public bool Get(string featureName)
         {
-            var restRequest = new RestRequest("/api/features") { OnBeforeDeserialization = resp => { resp.ContentType = "application/json"; } };
+            var restRequest = new RestRequest("/api/feature") { OnBeforeDeserialization = resp => { resp.ContentType = "application/json"; } };
             restRequest.AddQueryParameter("application", AppDomain.CurrentDomain.FriendlyName);
             restRequest.AddQueryParameter("feature", featureName);
 

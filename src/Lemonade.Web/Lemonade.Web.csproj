@@ -93,9 +93,6 @@
     <Compile Include="LemonadeHub.cs" />
     <Compile Include="Mappers\ApplicationMapper.cs" />
     <Compile Include="Mappers\FeatureMapper.cs" />
-    <Compile Include="Models\ApplicationModel.cs" />
-    <Compile Include="Models\FeaturesModel.cs" />
-    <Compile Include="Models\FeatureModel.cs" />
     <Compile Include="Modules\ApplicationsModule.cs" />
     <Compile Include="Modules\FeaturesModule.cs" />
     <Compile Include="Modules\IndexModule.cs" />

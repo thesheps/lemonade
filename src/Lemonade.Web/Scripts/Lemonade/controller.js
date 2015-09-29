@@ -1,19 +1,27 @@
 ﻿angular.module("lemonade")
     .controller("lemonadeController", ["$scope", "$http", function ($scope, $http) {
-        $scope.loading = true;
-
         $http.get("/api/applications").then(function (res) {
-            $scope.loading = false;
             $scope.applications = res.data;
             $.connection.lemonadeHub.client = new Lemonade($scope.applications, $scope.features, $scope);
             $.connection.hub.start();
         });
 
-        $scope.addApplication = function(applicationName) {
+        $scope.selectApplication = function (applicationId) {
+            $http.get("/api/features?applicationId=" + applicationId).then(function (res) {
+                $scope.newFeature = { ApplicationId: applicationId }
+                $scope.features = res.data;
+            });
+        }
+
+        $scope.addApplication = function (applicationName) {
             $.post("api/applications", { Name: applicationName });
         }
 
         $scope.deleteApplication = function (applicationId) {
             $.ajax({ url: 'api/applications?id=' + applicationId, type: 'DELETE' });
+        }
+
+        $scope.addFeature = function() {
+            $http.post("/api/features", $scope.newFeature);
         }
     }]);

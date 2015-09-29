@@ -76,7 +76,7 @@ namespace Lemonade.Web.Tests
                 with.Body(JsonConvert.SerializeObject(GetFeatureModel("MySuperCoolFeature1", _getApplication.Execute(application.Name).ToContract())));
             });
 
-            var response = _browser.Get("/api/features", with =>
+            var response = _browser.Get("/api/feature", with =>
             {
                 with.Header("Accept", "application/json");
                 with.Query("application", application.Name);
