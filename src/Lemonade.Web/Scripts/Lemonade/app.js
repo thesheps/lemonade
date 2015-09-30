@@ -1,4 +1,4 @@
-﻿var app = angular.module("lemonade", [], function ($locationProvider) {
+﻿var app = angular.module("lemonade", ["ngAnimate"], function ($locationProvider) {
     $locationProvider.html5Mode(true);
 });
 

@@ -5,6 +5,7 @@ using Lemonade.Sql.Commands;
 using Lemonade.Sql.Migrations;
 using Lemonade.Sql.Queries;
 using Lemonade.Web.Contracts;
+using Lemonade.Web.Infrastructure;
 using Lemonade.Web.Mappers;
 using Lemonade.Web.Tests.Mocks;
 using Microsoft.AspNet.SignalR;

@@ -8,14 +8,14 @@
 
         $scope.selectApplication = function (application) {
             $http.get("/api/features?applicationId=" + application.applicationId).then(function (res) {
-                $scope.newFeature = { applicationId: application }
-                $scope.features = res.data;
                 $scope.application = application;
+                $scope.newFeature = { applicationId: application.applicationId }
+                $scope.features = res.data;
             });
         }
 
         $scope.addApplication = function (applicationName) {
-            $.post("api/applications", { Name: applicationName });
+            $.post("api/applications", { name: applicationName });
         }
 
         $scope.deleteApplication = function (applicationId) {

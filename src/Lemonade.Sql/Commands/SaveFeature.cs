@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Data.Common;
 using System.Linq;
 using Dapper;
 using Lemonade.Core.Commands;
@@ -24,9 +24,8 @@ namespace Lemonade.Sql.Commands
             {
                 try
                 {
-                    cnn.Execute(
-                        @"INSERT INTO Feature (IsEnabled, ExpirationDays, StartDate, Name, ApplicationId)
-                          VALUES (@IsEnabled, @ExpirationDays, @StartDate, @Name, @ApplicationId)", new
+                    cnn.Execute(@"INSERT INTO Feature (IsEnabled, ExpirationDays, StartDate, Name, ApplicationId)
+                                  VALUES (@IsEnabled, @ExpirationDays, @StartDate, @Name, @ApplicationId)", new
                         {
                             feature.IsEnabled,
                             feature.ExpirationDays,
@@ -39,9 +38,9 @@ namespace Lemonade.Sql.Commands
 
                     DomainEvent.Raise(new FeatureHasBeenSaved(feature.FeatureId, feature.ApplicationId, feature.Name, feature.StartDate, feature.ExpirationDays, feature.IsEnabled));
                 }
-                catch (Exception exception)
+                catch (DbException exception)
                 {
-                    throw new SaveFeatureException(feature.Name, exception);
+                    throw new SaveFeatureException(exception);
                 }
             }
         }

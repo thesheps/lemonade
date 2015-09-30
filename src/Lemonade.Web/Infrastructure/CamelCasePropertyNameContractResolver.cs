@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Reflection;
 using Nancy.Extensions;
 using Newtonsoft.Json;
@@ -21,7 +20,7 @@ namespace Lemonade.Web.Infrastructure
             var jsonProperty = base.CreateProperty(member, memberSerialization);
             var declaringType = member.DeclaringType;
 
-            if (AssembliesToInclude.Contains(declaringType.Assembly)) jsonProperty.PropertyName = jsonProperty.PropertyName.ToCamelCase();
+            if (AssembliesToInclude.Contains(declaringType?.Assembly)) jsonProperty.PropertyName = jsonProperty.PropertyName.ToCamelCase();
 
             return jsonProperty;
         }

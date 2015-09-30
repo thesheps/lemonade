@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Lemonade.Sql.Migrations;
 using Lemonade.Web.Contracts;
+using Lemonade.Web.Infrastructure;
 using Lemonade.Web.Tests.Mocks;
 using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Infrastructure;

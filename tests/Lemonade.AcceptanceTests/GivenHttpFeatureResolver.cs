@@ -7,6 +7,7 @@ using Lemonade.Sql.Commands;
 using Lemonade.Sql.Migrations;
 using Lemonade.Sql.Queries;
 using Lemonade.Web;
+using Lemonade.Web.Infrastructure;
 using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Infrastructure;
 using Nancy.Hosting.Self;

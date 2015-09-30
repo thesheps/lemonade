@@ -91,8 +91,8 @@
     </None>
     <Compile Include="EventHandlers\ApplicationHasBeenSavedHandler.cs" />
     <Compile Include="EventHandlers\FeatureHasBeenSavedHandler.cs" />
-    <Compile Include="LemonadeBooststrapper.cs" />
-    <Compile Include="LemonadeHub.cs" />
+    <Compile Include="Infrastructure\LemonadeBooststrapper.cs" />
+    <Compile Include="Infrastructure\LemonadeHub.cs" />
     <Compile Include="Mappers\ApplicationMapper.cs" />
     <Compile Include="Mappers\FeatureMapper.cs" />
     <Compile Include="Modules\ApplicationsModule.cs" />
@@ -190,6 +190,16 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Scripts\bootstrap-growl.min.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Scripts\angular-animate.min.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Styles\animations.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>

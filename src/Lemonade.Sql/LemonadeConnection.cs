@@ -26,10 +26,11 @@ namespace Lemonade.Sql
 
             cnn.ConnectionString = ConnectionString;
             cnn.Open();
+
             return cnn;
         }
 
-        protected DbProviderFactory DbProviderFactory { get; private set; }
-        protected string ConnectionString { get; private set; }
+        protected DbProviderFactory DbProviderFactory { get; }
+        protected string ConnectionString { get; }
     }
 }

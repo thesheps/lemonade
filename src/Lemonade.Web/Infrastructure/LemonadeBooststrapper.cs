@@ -12,7 +12,7 @@ using Nancy.TinyIoc;
 using Nancy.ViewEngines;
 using Nancy.ViewEngines.Razor;
 
-namespace Lemonade.Web
+namespace Lemonade.Web.Infrastructure
 {
     public abstract class LemonadeBootstrapper : DefaultNancyBootstrapper, IDomainEventDispatcher
     {

@@ -1,4 +1,5 @@
 ﻿using Lemonade.Core.Events;
+using Lemonade.Web.Infrastructure;
 using Microsoft.AspNet.SignalR.Infrastructure;
 
 namespace Lemonade.Web.EventHandlers

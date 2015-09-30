@@ -61,7 +61,7 @@ namespace Lemonade.Core {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Could not delete the specified application &apos;{0}&apos; - {1}.
+        ///   Looks up a localized string similar to Could not delete the specified application.
         /// </summary>
         internal static string FailedToDeleteApplication {
             get {
@@ -70,7 +70,7 @@ namespace Lemonade.Core {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Could not delete the specified feature &apos;{0}&apos; - {1}.
+        ///   Looks up a localized string similar to Could not delete the specified feature.
         /// </summary>
         internal static string FailedToDeleteFeature {
             get {
@@ -79,7 +79,7 @@ namespace Lemonade.Core {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Could not save the specified application &apos;{0}&apos; - {1}.
+        ///   Looks up a localized string similar to Could not save the specified application.
         /// </summary>
         internal static string FailedToSaveApplication {
             get {
@@ -88,7 +88,7 @@ namespace Lemonade.Core {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Could not save the specified feature &apos;{0}&apos; for the specified application - {1}.
+        ///   Looks up a localized string similar to Could not save the specified feature.
         /// </summary>
         internal static string FailedToSaveFeature {
             get {

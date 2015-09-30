@@ -1,6 +1,8 @@
+using System.Data.Common;
 using Dapper;
 using Lemonade.Core.Commands;
 using Lemonade.Core.Events;
+using Lemonade.Core.Exceptions;
 
 namespace Lemonade.Sql.Commands
 {
@@ -18,8 +20,15 @@ namespace Lemonade.Sql.Commands
         {
             using (var cnn = CreateConnection())
             {
-                cnn.Query("DELETE FROM Application WHERE ApplicationId = @applicationId", new { applicationId });
-                DomainEvent.Raise(new ApplicationHasBeenDeleted(applicationId));
+                try
+                {
+                    cnn.Query("DELETE FROM Application WHERE ApplicationId = @applicationId", new {applicationId});
+                    DomainEvent.Raise(new ApplicationHasBeenDeleted(applicationId));
+                }
+                catch (DbException exception)
+                {
+                    throw new DeleteApplicationException(exception);
+                }
             }
         }
     }

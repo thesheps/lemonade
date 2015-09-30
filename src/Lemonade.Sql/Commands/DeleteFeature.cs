@@ -20,8 +20,15 @@ namespace Lemonade.Sql.Commands
         {
             using (var cnn = CreateConnection())
             {
-                cnn.Query("DELETE FROM Feature WHERE FeatureId = @featureId", new { featureId });
-                DomainEvent.Raise(new FeatureHasBeenDeleted(featureId));
+                try
+                {
+                    cnn.Query("DELETE FROM Feature WHERE FeatureId = @featureId", new { featureId });
+                    DomainEvent.Raise(new FeatureHasBeenDeleted(featureId));
+                }
+                catch (DbException exception)
+                {
+                    throw new DeleteFeatureException(exception);
+                }
             }
         }
     }

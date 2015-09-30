@@ -4,6 +4,7 @@ using Lemonade.Core.Commands;
 using Lemonade.Core.Queries;
 using Lemonade.Sql.Commands;
 using Lemonade.Sql.Queries;
+using Lemonade.Web.Infrastructure;
 using Nancy.TinyIoc;
 
 namespace Lemonade.Web.Tests

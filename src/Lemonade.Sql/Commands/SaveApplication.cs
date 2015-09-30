@@ -31,7 +31,7 @@ namespace Lemonade.Sql.Commands
                 }
                 catch (DbException exception)
                 {
-                    throw new SaveApplicationException(application.Name, exception);
+                    throw new SaveApplicationException(exception);
                 }
             }
         }
