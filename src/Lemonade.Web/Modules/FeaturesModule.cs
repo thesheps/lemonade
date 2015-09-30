@@ -12,16 +12,18 @@ namespace Lemonade.Web.Modules
 {
     public class FeaturesModule : NancyModule
     {
-        public FeaturesModule(IGetFeatureByNameAndApplication getFeatureByNameAndApplication, IGetAllFeaturesByApplicationId getAllFeaturesByApplicationId, ISaveFeature saveFeature)
+        public FeaturesModule(IGetFeatureByNameAndApplication getFeatureByNameAndApplication, IGetAllFeaturesByApplicationId getAllFeaturesByApplicationId, ISaveFeature saveFeature, IDeleteFeature deleteFeature)
         {
             _getFeatureByNameAndApplication = getFeatureByNameAndApplication;
             _getAllFeaturesByApplicationId = getAllFeaturesByApplicationId;
             _saveFeature = saveFeature;
+            _deleteFeature = deleteFeature;
 
             Post["/api/features"] = p => PostFeature();
             Get["/api/features"] = p => GetFeatures();
             Get["/api/feature"] = p => GetFeature();
             Get["/features"] = p => View["Features"];
+            Delete["/api/features"] = p => DeleteFeature();
         }
 
         private HttpStatusCode PostFeature()
@@ -57,8 +59,26 @@ namespace Lemonade.Web.Modules
             return feature.Select(f => f.ToContract()).ToList();
         }
 
+        private dynamic DeleteFeature()
+        {
+            int featureId;
+            int.TryParse(Request.Query["id"].Value as string, out featureId);
+
+            try
+            {
+                _deleteFeature.Execute(featureId);
+                return HttpStatusCode.OK;
+            }
+            catch (DeleteFeatureException exception)
+            {
+                ModelValidationResult.Errors.Add("DeleteException", exception.Message);
+                return HttpStatusCode.BadRequest;
+            }
+        }
+
         private readonly IGetFeatureByNameAndApplication _getFeatureByNameAndApplication;
         private readonly IGetAllFeaturesByApplicationId _getAllFeaturesByApplicationId;
         private readonly ISaveFeature _saveFeature;
+        private readonly IDeleteFeature _deleteFeature;
     }
 }

@@ -120,6 +120,9 @@
   <data name="FailedToDeleteApplication" xml:space="preserve">
     <value>Could not delete the specified application '{0}' - {1}</value>
   </data>
+  <data name="FailedToDeleteFeature" xml:space="preserve">
+    <value>Could not delete the specified feature '{0}' - {1}</value>
+  </data>
   <data name="FailedToSaveApplication" xml:space="preserve">
     <value>Could not save the specified application '{0}' - {1}</value>
   </data>

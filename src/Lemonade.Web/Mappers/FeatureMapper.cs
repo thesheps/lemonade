@@ -8,7 +8,7 @@ namespace Lemonade.Web.Mappers
         {
             return new Contracts.Feature
             {
-                Id = feature.FeatureId,
+                FeatureId = feature.FeatureId,
                 Name = feature.Name,
                 Application = feature.Application.ToContract(),
                 ExpirationDays = feature.ExpirationDays,
@@ -21,7 +21,7 @@ namespace Lemonade.Web.Mappers
         {
             return new Feature
             {
-                FeatureId = feature.Id,
+                FeatureId = feature.FeatureId,
                 ApplicationId = feature.ApplicationId,
                 Name = feature.Name,
                 ExpirationDays = feature.ExpirationDays,

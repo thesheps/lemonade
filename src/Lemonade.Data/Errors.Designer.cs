@@ -70,6 +70,15 @@ namespace Lemonade.Core {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Could not delete the specified feature &apos;{0}&apos; - {1}.
+        /// </summary>
+        internal static string FailedToDeleteFeature {
+            get {
+                return ResourceManager.GetString("FailedToDeleteFeature", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Could not save the specified application &apos;{0}&apos; - {1}.
         /// </summary>
         internal static string FailedToSaveApplication {

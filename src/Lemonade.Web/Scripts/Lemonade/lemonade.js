@@ -1,29 +1,29 @@
-﻿function Lemonade(applications, features, $scope) {
+﻿function Lemonade(view) {
     return {
         addApplication: function (application) {
-            $scope.$apply(function () {
-                applications.push(application);
+            view.$apply(function () {
+                view.applications.push(application);
             });
         },
         addFeature: function (feature) {
-            $scope.$apply(function () {
-                features.push(feature);
+            view.$apply(function () {
+                view.features.push(feature);
             });
         },
         removeApplication: function (application) {
-            $scope.$apply(function () {
-                for (var i = 0; i < applications.length; i++) {
-                    if (applications[i].applicationId === application.applicationId) {
-                        applications.splice(i, 1);
+            view.$apply(function () {
+                for (var i = 0; i < view.applications.length; i++) {
+                    if (view.applications[i].applicationId === application.applicationId) {
+                        view.applications.splice(i, 1);
                     }
                 }
             });
         },
         removeFeature: function (feature) {
-            $scope.$apply(function () {
-                for (var i = 0; i < features.length; i++) {
-                    if (features[i].featureId === feature.featureId) {
-                        features.splice(i, 1);
+            view.$apply(function () {
+                for (var i = 0; i < view.features.length; i++) {
+                    if (view.features[i].featureId === feature.featureId) {
+                        view.features.splice(i, 1);
                     }
                 }
             });

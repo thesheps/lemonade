@@ -37,7 +37,7 @@ namespace Lemonade.Sql.Commands
 
                     feature.FeatureId = cnn.Query<int>("SELECT CAST(@@IDENTITY AS INT)").First();
 
-                    DomainEvent.Raise(new FeatureHasBeenSaved(feature.FeatureId, feature.ApplicationId, feature.Name));
+                    DomainEvent.Raise(new FeatureHasBeenSaved(feature.FeatureId, feature.ApplicationId, feature.Name, feature.StartDate, feature.ExpirationDays, feature.IsEnabled));
                 }
                 catch (Exception exception)
                 {

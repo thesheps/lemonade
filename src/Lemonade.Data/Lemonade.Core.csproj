@@ -56,6 +56,7 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Events\ApplicationHasBeenSaved.cs" />
+    <Compile Include="Exceptions\DeleteFeatureException.cs" />
     <Compile Include="Exceptions\DeleteApplicationException.cs" />
     <Compile Include="Exceptions\SaveApplicationException.cs" />
     <Compile Include="Exceptions\SaveFeatureException.cs" />

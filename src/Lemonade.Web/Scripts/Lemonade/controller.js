@@ -2,7 +2,7 @@
     .controller("lemonadeController", ["$scope", "$http", function ($scope, $http) {
         $http.get("/api/applications").then(function (res) {
             $scope.applications = res.data;
-            $.connection.lemonadeHub.client = new Lemonade($scope.applications, $scope.features, $scope);
+            $.connection.lemonadeHub.client = new Lemonade($scope);
             $.connection.hub.start();
         });
 
@@ -23,5 +23,9 @@
 
         $scope.addFeature = function() {
             $http.post("/api/features", $scope.newFeature);
+        }
+
+        $scope.deleteFeature = function (featureId) {
+            $.ajax({ url: 'api/features?id=' + featureId, type: 'DELETE' });
         }
     }]);

@@ -52,6 +52,7 @@
                     <th>Start Date</th>
                     <th>Expiration Days</th>
                     <th>Enabled</th>
+                    <th></th>
                 </tr>
             </thead>
 
@@ -65,6 +66,7 @@
                     <td>{{feature.startDate| date:'dd-MM-yyyy'}}</td>
                     <td>{{feature.expirationDays}}</td>
                     <td>{{feature.isEnabled}}</td>
+                    <td><div class="btn btn-xs btn-danger glyphicon glyphicon-remove" ng-click="deleteFeature(feature.featureId)"></div></td>
                 </tr>
 
                 <tr>
@@ -73,7 +75,8 @@
                     </td>
                     <td><input name="startDate" class="input-sm" type="date" ng-model="newFeature.StartDate" /></td>
                     <td><input name="expirationDays" class="input-sm" ng-model="newFeature.ExpirationDays" /></td>
-                    <td><input name="isEnabled" type="checkbox" ng-model="newFeature.IsEnabled" /></td>
+                    <td><input name="isEnabled" type="checkbox" ng-model="newFeature.IsEnabled"/></td>
+                    <td></td>
                 </tr>
 
                 <tr />

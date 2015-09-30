@@ -23,7 +23,7 @@ namespace Lemonade.Web.Modules
             Delete["/api/applications"] = p => DeleteApplication();
         }
 
-        private IList<Contracts.Application> GetApplications()
+        private IList<Application> GetApplications()
         {
             return _getAllApplications.Execute().Select(a => a.ToContract()).ToList();
         }
