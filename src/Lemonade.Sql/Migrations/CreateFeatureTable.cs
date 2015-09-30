@@ -1,5 +1,4 @@
-﻿using System.Data;
-using FluentMigrator;
+﻿using FluentMigrator;
 
 namespace Lemonade.Sql.Migrations
 {
@@ -9,11 +8,8 @@ namespace Lemonade.Sql.Migrations
         public override void Up()
         {
             Create.Table("Feature")
-                .WithColumn("FeatureId")
-                    .AsInt32().PrimaryKey("PK_FeatureId").Identity()
-                .WithColumn("ApplicationId")
-                    .AsInt32().ForeignKey("FK_ApplicationId", "Application", "ApplicationId")
-                    .OnDelete(Rule.Cascade)
+                .WithColumn("FeatureId").AsInt32().PrimaryKey("PK_FeatureId").Identity()
+                .WithColumn("ApplicationId").AsInt32()
                 .WithColumn("Name").AsString()
                 .WithColumn("StartDate").AsDateTime()
                 .WithColumn("ExpirationDays").AsInt32().Nullable()
@@ -25,6 +21,11 @@ namespace Lemonade.Sql.Migrations
                 .OnColumn("Name").Ascending()
                 .WithOptions()
                 .Unique();
+
+            Create.ForeignKey("FK_Feature_ApplicationId")
+               .FromTable("Feature").ForeignColumn("ApplicationId")
+               .ToTable("Application").PrimaryColumn("ApplicationId")
+               .OnDeleteOrUpdate(System.Data.Rule.Cascade);
         }
 
         public override void Down()

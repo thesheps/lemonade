@@ -83,6 +83,7 @@
   <ItemGroup>
     <Compile Include="EventHandlers\ApplicationHasBeenDeletedHandler.cs" />
     <Compile Include="EventHandlers\FeatureHasBeenDeletedHandler.cs" />
+    <Compile Include="EventHandlers\ErrorHasOccurredHandler.cs" />
     <Compile Include="Infrastructure\CamelCasePropertyNameContractResolver.cs" />
     <Compile Include="Startup.cs" />
     <None Include="Content\Bootstrapper.cs">

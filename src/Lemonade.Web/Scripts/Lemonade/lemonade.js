@@ -8,6 +8,7 @@
         addFeature: function (feature) {
             view.$apply(function () {
                 view.features.push(feature);
+                view.newFeature = null;
             });
         },
         removeApplication: function (application) {
@@ -17,6 +18,9 @@
                         view.applications.splice(i, 1);
                     }
                 }
+
+                view.application = null;
+                view.features = [];
             });
         },
         removeFeature: function (feature) {
@@ -27,6 +31,9 @@
                     }
                 }
             });
+        },
+        logError: function(error) {
+            console.log(error.ErrorMessage);
         }
     }
 };

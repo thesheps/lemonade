@@ -6,10 +6,11 @@
             $.connection.hub.start();
         });
 
-        $scope.selectApplication = function (applicationId) {
-            $http.get("/api/features?applicationId=" + applicationId).then(function (res) {
-                $scope.newFeature = { ApplicationId: applicationId }
+        $scope.selectApplication = function (application) {
+            $http.get("/api/features?applicationId=" + application.applicationId).then(function (res) {
+                $scope.newFeature = { applicationId: application }
                 $scope.features = res.data;
+                $scope.application = application;
             });
         }
 
