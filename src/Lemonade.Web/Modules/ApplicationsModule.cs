@@ -4,6 +4,7 @@ using Nancy;
 using Nancy.ModelBinding;
 using System.Collections.Generic;
 using Lemonade.Core.Commands;
+using Lemonade.Core.Events;
 using Lemonade.Core.Exceptions;
 using Lemonade.Core.Queries;
 using Lemonade.Web.Contracts;
@@ -37,7 +38,7 @@ namespace Lemonade.Web.Modules
             }
             catch (SaveApplicationException exception)
             {
-                ModelValidationResult.Errors.Add("SaveException", exception.Message);
+                DomainEvent.Raise(new ErrorHasOccurred(exception.Message));
                 return HttpStatusCode.BadRequest;
             }
         }
@@ -54,7 +55,7 @@ namespace Lemonade.Web.Modules
             }
             catch (DeleteApplicationException exception)
             {
-                ModelValidationResult.Errors.Add("DeleteException", exception.Message);
+                DomainEvent.Raise(new ErrorHasOccurred(exception.Message));
                 return HttpStatusCode.BadRequest;
             }
         }

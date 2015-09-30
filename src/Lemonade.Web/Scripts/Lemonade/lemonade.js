@@ -32,8 +32,8 @@
                 }
             });
         },
-        logError: function(error) {
-            console.log(error.ErrorMessage);
+        logError: function (error) {
+            $.bootstrapGrowl(error.errorMessage, { type: "danger" });
         }
     }
 };

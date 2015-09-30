@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Lemonade.Core.Commands;
+using Lemonade.Core.Events;
 using Lemonade.Core.Exceptions;
 using Lemonade.Core.Queries;
 using Lemonade.Web.Contracts;
@@ -31,13 +32,13 @@ namespace Lemonade.Web.Modules
             try
             {
                 _saveFeature.Execute(this.Bind<Feature>().ToDomain());
+                return HttpStatusCode.OK;
             }
             catch (SaveFeatureException exception)
             {
-                ModelValidationResult.Errors.Add("SaveException", exception.Message);
+                DomainEvent.Raise(new ErrorHasOccurred(exception.Message));
+                return HttpStatusCode.BadRequest;
             }
-
-            return HttpStatusCode.OK;
         }
 
         private Feature GetFeature()
@@ -71,7 +72,7 @@ namespace Lemonade.Web.Modules
             }
             catch (DeleteFeatureException exception)
             {
-                ModelValidationResult.Errors.Add("DeleteException", exception.Message);
+                DomainEvent.Raise(new ErrorHasOccurred(exception.Message));
                 return HttpStatusCode.BadRequest;
             }
         }
