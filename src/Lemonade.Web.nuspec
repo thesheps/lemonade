@@ -21,6 +21,8 @@
       <dependency id="Nancy.Hosting.Self" version="1.2.0" />
       <dependency id="Nancy.Hosting.Aspnet" version="1.2.0" />
       <dependency id="Nancy.Viewengines.Razor" version="1.2.0" />
+      <dependency id="Microsoft.AspNet.SignalR.Core" version="2.2.0" />
+      <dependency id="Microsoft.Owin" version="3.0.1" />
     </dependencies>
   </metadata>
 
