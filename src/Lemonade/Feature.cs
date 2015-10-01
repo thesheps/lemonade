@@ -11,6 +11,12 @@ namespace Lemonade
     {
         public static Feature Switches { get; } = new Feature();
 
+        public static IFeatureResolver Resolver
+        {
+            get { return _featureResolver ?? (_featureResolver = GetFeatureResolver()); }
+            set { _featureResolver = value; }
+        }
+
         public bool this[Func<dynamic, dynamic> keyFunction] => this[keyFunction(_key)];
 
         public bool this[string key]
@@ -22,18 +28,12 @@ namespace Lemonade
             }
         }
 
-        public bool Get<T>(Expression<Func<T, dynamic>> expression)
+        public static bool Switch<T>(Expression<Func<T, dynamic>> expression)
         {
             var uExpression = expression.Body as UnaryExpression;
             var mExpression = uExpression?.Operand as MemberExpression;
 
-            return this[mExpression?.Member.Name];
-        }
-
-        public static IFeatureResolver Resolver
-        {
-            get { return Switches._featureResolver ?? (Switches._featureResolver = GetFeatureResolver()); }
-            set { Switches._featureResolver = value; }
+            return _featureResolver.Get(mExpression?.Member.Name);
         }
 
         public void Execute(string key, Action action)
@@ -72,7 +72,7 @@ namespace Lemonade
             }
         }
 
-        private IFeatureResolver _featureResolver;
+        private static IFeatureResolver _featureResolver;
         private readonly DynamicKey _key = new DynamicKey();
     }
 }
