@@ -1,4 +1,5 @@
 using System.Configuration;
+using Lemonade.Core;
 
 namespace Lemonade.Resolvers
 {

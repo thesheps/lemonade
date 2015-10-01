@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Configuration;
 using System.Dynamic;
+using System.Linq.Expressions;
+using Lemonade.Core;
 using Lemonade.Resolvers;
 
 namespace Lemonade
@@ -18,6 +20,14 @@ namespace Lemonade
                 if (_featureResolver == null) _featureResolver = GetFeatureResolver();
                 return _featureResolver.Get(key);
             }
+        }
+
+        public bool Get<T>(Expression<Func<T, dynamic>> expression)
+        {
+            var uExpression = expression.Body as UnaryExpression;
+            var mExpression = uExpression?.Operand as MemberExpression;
+
+            return this[mExpression?.Member.Name];
         }
 
         public static IFeatureResolver Resolver

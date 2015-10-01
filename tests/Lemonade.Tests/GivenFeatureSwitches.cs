@@ -22,6 +22,14 @@ namespace Lemonade.Tests
         }
 
         [Test]
+        public void WhenUsingTypedIndexAndMethodIsFeatureSwitchedOn_ThenItIsExecuted()
+        {
+            Feature.Resolver = new FakeResolver();
+            var executed = Feature.Switches.Get<TestFeatures>(t => t.UseTestFunctionality);
+            Assert.That(executed, Is.True);
+        }
+
+        [Test]
         public void WhenUsingFeatureWrapperwithIndexAndMethodIsFeatureSwitchedOn_ThenItIsExecuted()
         {
             var executed = false;
@@ -47,5 +55,10 @@ namespace Lemonade.Tests
             Feature.Switches.Execute(d => d.UseTestFunctionality, () => executed = true);
             Assert.That(executed, Is.True);
         }
+    }
+
+    public class TestFeatures
+    {
+        public bool UseTestFunctionality { get; set; }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Configuration;
 using System.Net;
+using Lemonade.Core;
 using Lemonade.Exceptions;
 using RestSharp;
 
@@ -18,13 +19,24 @@ namespace Lemonade.Resolvers
 
         public HttpFeatureResolver(Uri lemonadeServiceUri)
         {
+            _applicationName = AppDomain.CurrentDomain.FriendlyName;
             _restClient = new RestClient(lemonadeServiceUri);
         }
 
         public bool Get(string featureName)
         {
-            var restRequest = new RestRequest("/api/feature") { OnBeforeDeserialization = resp => { resp.ContentType = "application/json"; } };
-            restRequest.AddQueryParameter("application", AppDomain.CurrentDomain.FriendlyName);
+            var response = GetFeature(featureName);
+
+            return response != null && response.IsEnabled;
+        }
+
+        private Web.Contracts.Feature GetFeature(string featureName)
+        {
+            var restRequest = new RestRequest("/api/feature")
+            {
+                OnBeforeDeserialization = resp => { resp.ContentType = "application/json"; }
+            };
+            restRequest.AddQueryParameter("application", _applicationName);
             restRequest.AddQueryParameter("feature", featureName);
 
             var response = _restClient.Get<Web.Contracts.Feature>(restRequest);
@@ -35,9 +47,10 @@ namespace Lemonade.Resolvers
             if (response.StatusCode == HttpStatusCode.InternalServerError)
                 throw new ConnectionException(Errors.ServerError, response.ErrorException);
 
-            return response.Data != null && response.Data.IsEnabled;
+            return response.Data;
         }
 
         private readonly RestClient _restClient;
+        private readonly string _applicationName;
     }
 }
