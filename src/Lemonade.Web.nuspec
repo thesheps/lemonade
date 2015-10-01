@@ -23,7 +23,7 @@
       <dependency id="Nancy.Viewengines.Razor" version="1.2.0" />
       <dependency id="Microsoft.AspNet.SignalR.Core" version="2.2.0" />
       <dependency id="Microsoft.Owin" version="3.0.1" />
-      <dependency id="Microsoft.Owin.Host.SystemWeb" version="3.0.1" targetFramework="net45" />
+      <dependency id="Microsoft.Owin.Host.SystemWeb" version="3.0.1" />
     </dependencies>
   </metadata>
 
