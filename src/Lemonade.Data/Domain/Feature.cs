@@ -11,5 +11,10 @@ namespace Lemonade.Core.Domain
         public bool IsEnabled { get; set; }
         public int? ExpirationDays { get; set; }
         public DateTime StartDate { get; set; }
+
+        public Feature()
+        {
+            StartDate = DateTime.Now;
+        }
     }
 }

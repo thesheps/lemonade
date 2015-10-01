@@ -13,12 +13,15 @@ namespace Lemonade.Web.Modules
 {
     public class FeaturesModule : NancyModule
     {
-        public FeaturesModule(IGetFeatureByNameAndApplication getFeatureByNameAndApplication, IGetAllFeaturesByApplicationId getAllFeaturesByApplicationId, ISaveFeature saveFeature, IDeleteFeature deleteFeature)
+        public FeaturesModule(IGetFeatureByNameAndApplication getFeatureByNameAndApplication, IGetApplicationByName getApplicationByName, IGetAllFeaturesByApplicationId getAllFeaturesByApplicationId,
+            ISaveFeature saveFeature, IDeleteFeature deleteFeature, ISaveApplication saveApplication)
         {
             _getFeatureByNameAndApplication = getFeatureByNameAndApplication;
+            _getApplicationByName = getApplicationByName;
             _getAllFeaturesByApplicationId = getAllFeaturesByApplicationId;
             _saveFeature = saveFeature;
             _deleteFeature = deleteFeature;
+            _saveApplication = saveApplication;
 
             Post["/api/features"] = p => PostFeature();
             Get["/api/features"] = p => GetFeatures();
@@ -47,7 +50,24 @@ namespace Lemonade.Web.Modules
             var applicationName = Request.Query["application"].Value as string;
             var feature = _getFeatureByNameAndApplication.Execute(featureName, applicationName);
 
-            return feature?.ToContract();
+            if (feature != null) return feature.ToContract();
+
+            var application = GetApplication(applicationName);
+            feature = new Core.Domain.Feature { Name = featureName, ApplicationId = application.ApplicationId, Application = application };
+            _saveFeature.Execute(feature);
+
+            return feature.ToContract();
+        }
+
+        private Core.Domain.Application GetApplication(string applicationName)
+        {
+            var application = _getApplicationByName.Execute(applicationName);
+            if (application != null) return application;
+
+            application = new Core.Domain.Application { Name = applicationName };
+            _saveApplication.Execute(application);
+
+            return application;
         }
 
         private IList<Feature> GetFeatures()
@@ -78,8 +98,10 @@ namespace Lemonade.Web.Modules
         }
 
         private readonly IGetFeatureByNameAndApplication _getFeatureByNameAndApplication;
+        private readonly IGetApplicationByName _getApplicationByName;
         private readonly IGetAllFeaturesByApplicationId _getAllFeaturesByApplicationId;
         private readonly ISaveFeature _saveFeature;
         private readonly IDeleteFeature _deleteFeature;
+        private readonly ISaveApplication _saveApplication;
     }
 }

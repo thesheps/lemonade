@@ -27,15 +27,12 @@ namespace Lemonade.Resolvers
         {
             var response = GetFeature(featureName);
 
-            return response != null && response.IsEnabled;
+            return response.IsEnabled;
         }
 
         private Web.Contracts.Feature GetFeature(string featureName)
         {
-            var restRequest = new RestRequest("/api/feature")
-            {
-                OnBeforeDeserialization = resp => { resp.ContentType = "application/json"; }
-            };
+            var restRequest = new RestRequest("/api/feature") { OnBeforeDeserialization = resp => { resp.ContentType = "application/json"; } };
             restRequest.AddQueryParameter("application", _applicationName);
             restRequest.AddQueryParameter("feature", featureName);
 

@@ -6,10 +6,8 @@ using Lemonade.Resolvers;
 using Lemonade.Sql.Commands;
 using Lemonade.Sql.Migrations;
 using Lemonade.Sql.Queries;
-using Lemonade.Web;
 using Lemonade.Web.Infrastructure;
 using Microsoft.AspNet.SignalR;
-using Microsoft.AspNet.SignalR.Infrastructure;
 using Nancy.Hosting.Self;
 using Nancy.TinyIoc;
 using NUnit.Framework;
@@ -26,6 +24,7 @@ namespace Lemonade.AcceptanceTests
             Feature.Resolver = new HttpFeatureResolver("http://localhost:12345");
             Runner.SqlCompact("Lemonade").Down();
             Runner.SqlCompact("Lemonade").Up();
+            _getFeature = new GetFeatureByNameAndApplication();
             _saveFeature = new SaveFeature();
             _saveApplication = new SaveApplication();
             _getApplicationByName = new GetApplicationByName();
@@ -64,6 +63,14 @@ namespace Lemonade.AcceptanceTests
             Assert.That(enabled, Is.False);
         }
 
+        [Test]
+        public void WhenIHaveAnUnknownFeatureAndITryToRetrieveIt_ThenItIsInserted()
+        {
+            var enabled = Feature.Switches["Ponies"];
+            var feature = _getFeature.Execute("Ponies", AppDomain.CurrentDomain.FriendlyName);
+            Assert.That(feature.IsEnabled, Is.False);
+        }
+
         private class TestBootstrapper : LemonadeBootstrapper
         {
             protected override void ConfigureDependencies(TinyIoCContainer container)
@@ -79,5 +86,6 @@ namespace Lemonade.AcceptanceTests
         private NancyHost _nancyHost;
         private SaveApplication _saveApplication;
         private GetApplicationByName _getApplicationByName;
+        private GetFeatureByNameAndApplication _getFeature;
     }
 }
