@@ -23,7 +23,7 @@ namespace Lemonade.Resolvers
             _restClient = new RestClient(lemonadeServiceUri);
         }
 
-        public bool Get(string featureName)
+        public bool Resolve(string featureName)
         {
             var response = GetFeature(featureName);
 

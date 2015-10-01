@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Configuration;
 using System.Dynamic;
 using System.Linq.Expressions;
 using Lemonade.Core;
@@ -9,13 +8,19 @@ namespace Lemonade
 {
     public class Feature
     {
-        public static Feature Switches { get; } = new Feature();
-
         public static IFeatureResolver Resolver
         {
             get { return _featureResolver ?? (_featureResolver = GetFeatureResolver()); }
             set { _featureResolver = value; }
         }
+
+        public static string ApplicationName
+        {
+            get { return _applicationName ?? (_applicationName = GetApplicationName()); }
+            set { _applicationName = value; }
+        }
+
+        public static Feature Switches { get; } = new Feature();
 
         public bool this[Func<dynamic, dynamic> keyFunction] => this[keyFunction(_key)];
 
@@ -24,16 +29,16 @@ namespace Lemonade
             get
             {
                 if (_featureResolver == null) _featureResolver = GetFeatureResolver();
-                return _featureResolver.Get(key);
+                return _featureResolver.Resolve(key);
             }
         }
 
-        public static bool Switch<T>(Expression<Func<T, dynamic>> expression)
+        public bool Get<T>(Expression<Func<T, dynamic>> expression)
         {
             var uExpression = expression.Body as UnaryExpression;
             var mExpression = uExpression?.Operand as MemberExpression;
 
-            return _featureResolver.Get(mExpression?.Member.Name);
+            return _featureResolver.Resolve(mExpression?.Member.Name);
         }
 
         public void Execute(string key, Action action)
@@ -52,7 +57,7 @@ namespace Lemonade
 
         private static IFeatureResolver GetFeatureResolver()
         {
-            var featureConfiguration = ConfigurationManager.GetSection("FeatureConfiguration") as FeatureConfigurationSection;
+            var featureConfiguration = FeatureConfigurationSection.Current;
             if (featureConfiguration == null)
                 return new AppConfigFeatureResolver();
 
@@ -61,6 +66,11 @@ namespace Lemonade
                 return Activator.CreateInstance(type) as IFeatureResolver;
 
             return new AppConfigFeatureResolver();
+        }
+
+        private static string GetApplicationName()
+        {
+            return FeatureConfigurationSection.Current.ApplicationName ?? AppDomain.CurrentDomain.FriendlyName;
         }
 
         private class DynamicKey : DynamicObject
@@ -74,5 +84,6 @@ namespace Lemonade
 
         private static IFeatureResolver _featureResolver;
         private readonly DynamicKey _key = new DynamicKey();
+        private static string _applicationName;
     }
 }

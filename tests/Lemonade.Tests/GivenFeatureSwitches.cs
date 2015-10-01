@@ -25,7 +25,7 @@ namespace Lemonade.Tests
         public void WhenUsingTypedIndexAndMethodIsFeatureSwitchedOn_ThenItIsExecuted()
         {
             Feature.Resolver = new FakeResolver();
-            var executed = Feature.Switch<TestFeatures>(t => t.UseTestFunctionality);
+            var executed = Feature.Switches.Get<TestFeatures>(t => t.UseTestFunctionality);
             Assert.That(executed, Is.True);
         }
 

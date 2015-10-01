@@ -9,7 +9,7 @@ namespace Lemonade.Tests
         public void WhenIHaveAnEnabledKnownFeatureSwitch_ThenTheValueIsRetrievedAsTrue()
         {
             var resolver = new AppConfigFeatureResolver();
-            var enabled = resolver.Get("EnabledProperty");
+            var enabled = resolver.Resolve("EnabledProperty");
             Assert.That(enabled, Is.True);
         }
 
@@ -17,7 +17,7 @@ namespace Lemonade.Tests
         public void WhenIHaveADisabledKnownFeatureSwitch_ThenTheValueIsRetrievedAsFalse()
         {
             var resolver = new AppConfigFeatureResolver();
-            var enabled = resolver.Get("DisabledProperty");
+            var enabled = resolver.Resolve("DisabledProperty");
             Assert.That(enabled, Is.False);
         }
 
@@ -25,7 +25,7 @@ namespace Lemonade.Tests
         public void WhenIHaveAnUnknownFeatureSwitch_ThenTheValueIsRetrievedAsFalse()
         {
             var resolver = new AppConfigFeatureResolver();
-            var enabled = resolver.Get("NullProperty");
+            var enabled = resolver.Resolve("NullProperty");
             Assert.That(enabled, Is.False);
         }
 

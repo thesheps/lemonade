@@ -1,4 +1,4 @@
-﻿/// <reference path="../../../src/Lemonade.Web/Scripts/Lemonade/Lemonade.js"/>
+﻿/// <reference path="../../../src/Lemonade.Web/Content/Scripts/Lemonade/Lemonade.js"/>
 
 
 QUnit.test("WhenIAddAnApplication_ThenTheApplicationIsAddedToTheList", function (assert) {
