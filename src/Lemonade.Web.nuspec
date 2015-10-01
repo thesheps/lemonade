@@ -30,5 +30,6 @@
     <file src="Lemonade.Web\bin\$configuration$\Lemonade.Web.dll" target="lib" />
     <file src="Lemonade.Web\bin\$configuration$\Lemonade.Web.Contracts.dll" target="lib" />
     <file src="Lemonade.Web\bin\$configuration$\Content\*.*" target="content" />
+    <file src="Lemonade.Web\bin\$configuration$\Content\**\*.*" target="content" />
   </files>
 </package>
