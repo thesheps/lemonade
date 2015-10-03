@@ -10,6 +10,6 @@ namespace Lemonade
         public string FeatureResolver => this["FeatureResolver"] as string;
 
         [ConfigurationProperty("ApplicationName", IsRequired = false)]
-        public string ApplicationName { get; set; }
+        public string ApplicationName => this["ApplicationName"] as string;
     }
 }

@@ -70,7 +70,7 @@ namespace Lemonade
 
         private static string GetApplicationName()
         {
-            return FeatureConfigurationSection.Current.ApplicationName ?? AppDomain.CurrentDomain.FriendlyName;
+            return FeatureConfigurationSection.Current.ApplicationName ?? AppDomain.CurrentDomain.FriendlyName.Replace(".exe", string.Empty);
         }
 
         private class DynamicKey : DynamicObject

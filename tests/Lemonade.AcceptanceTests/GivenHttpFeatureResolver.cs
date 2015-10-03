@@ -71,6 +71,12 @@ namespace Lemonade.AcceptanceTests
             Assert.That(feature.IsEnabled, Is.False);
         }
 
+        [Test]
+        public void WhenIHaveConfiguredAnApplicationName_ThenItIsUsed()
+        {
+            Assert.That(Feature.ApplicationName, Is.EqualTo("Test Application"));
+        }
+
         private class TestBootstrapper : LemonadeBootstrapper
         {
             protected override void ConfigureDependencies(TinyIoCContainer container)
