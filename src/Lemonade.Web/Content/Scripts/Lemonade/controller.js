@@ -23,7 +23,11 @@
         }
 
         $scope.addFeature = function() {
-            $http.post("/api/features", $scope.newFeature);
+            $.post("/api/features", $scope.newFeature);
+        }
+
+        $scope.updateFeature = function (feature) {
+            $.put("/api/features", feature);
         }
 
         $scope.deleteFeature = function (featureId) {

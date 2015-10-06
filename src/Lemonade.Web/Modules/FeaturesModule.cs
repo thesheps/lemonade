@@ -23,14 +23,20 @@ namespace Lemonade.Web.Modules
             _deleteFeature = deleteFeature;
             _saveApplication = saveApplication;
 
-            Post["/api/features"] = p => PostFeature();
+            Post["/api/features"] = p => CreateFeature();
+            Put["/api/features"] = p => UpdateFeature();
             Get["/api/features"] = p => GetFeatures();
             Get["/api/feature"] = p => GetFeature();
             Get["/features"] = p => View["Features"];
             Delete["/api/features"] = p => DeleteFeature();
         }
 
-        private HttpStatusCode PostFeature()
+        private dynamic UpdateFeature()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        private HttpStatusCode CreateFeature()
         {
             try
             {
