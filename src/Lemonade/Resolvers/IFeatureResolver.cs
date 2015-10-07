@@ -2,6 +2,6 @@
 {
     public interface IFeatureResolver
     {
-        bool Resolve(string featureName);
+        bool Resolve(string featureName, string applicationName);
     }
 }

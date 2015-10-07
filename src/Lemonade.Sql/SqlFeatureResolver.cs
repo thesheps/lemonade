@@ -18,9 +18,8 @@ namespace Lemonade.Sql
             _getFeatureByNameAndApplication = getFeatureByNameAndApplication;
         }
 
-        public bool Resolve(string featureName)
+        public bool Resolve(string featureName, string applicationName)
         {
-            var applicationName = AppDomain.CurrentDomain.FriendlyName;
             var feature = _getFeatureByNameAndApplication.Execute(featureName, applicationName);
 
             if (feature == null) return false;

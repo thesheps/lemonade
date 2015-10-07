@@ -14,7 +14,7 @@ namespace Lemonade.AcceptanceTests
         [SetUp]
         public void SetUp()
         {
-            var application = new ApplicationBuilder().WithName(AppDomain.CurrentDomain.FriendlyName).Build();
+            var application = new ApplicationBuilder().WithName("Test Application").Build();
 
             Feature.Resolver = new HttpFeatureResolver("http://localhost:12345");
             Runner.SqlCompact("Lemonade").Down();
@@ -62,7 +62,7 @@ namespace Lemonade.AcceptanceTests
         public void WhenIHaveAnUnknownFeatureAndITryToRetrieveIt_ThenItIsInserted()
         {
             var enabled = Feature.Switches["Ponies"];
-            var feature = _getFeature.Execute("Ponies", AppDomain.CurrentDomain.FriendlyName);
+            var feature = _getFeature.Execute("Ponies", "Test Application");
             Assert.That(feature.IsEnabled, Is.False);
         }
 

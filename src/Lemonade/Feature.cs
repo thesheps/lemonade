@@ -28,7 +28,7 @@ namespace Lemonade
             get
             {
                 if (_featureResolver == null) _featureResolver = GetFeatureResolver();
-                return _featureResolver.Resolve(key);
+                return _featureResolver.Resolve(key, ApplicationName);
             }
         }
 
@@ -37,7 +37,7 @@ namespace Lemonade
             var uExpression = expression.Body as UnaryExpression;
             var mExpression = uExpression?.Operand as MemberExpression;
 
-            return _featureResolver.Resolve(mExpression?.Member.Name);
+            return _featureResolver.Resolve(mExpression?.Member.Name, ApplicationName);
         }
 
         public void Execute(string key, Action action)

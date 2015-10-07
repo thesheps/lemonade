@@ -18,21 +18,20 @@ namespace Lemonade.Resolvers
 
         public HttpFeatureResolver(Uri lemonadeServiceUri)
         {
-            _applicationName = AppDomain.CurrentDomain.FriendlyName;
             _restClient = new RestClient(lemonadeServiceUri);
         }
 
-        public bool Resolve(string featureName)
+        public bool Resolve(string featureName, string applicationName)
         {
-            var response = GetFeature(featureName);
+            var response = GetFeature(featureName, applicationName);
             return response.IsEnabled;
         }
 
-        private Web.Contracts.Feature GetFeature(string featureName)
+        private Web.Contracts.Feature GetFeature(string featureName, string applicationName)
         {
             var restRequest = new RestRequest("/api/feature") { OnBeforeDeserialization = resp => { resp.ContentType = "application/json"; } };
-            restRequest.AddQueryParameter("application", _applicationName);
             restRequest.AddQueryParameter("feature", featureName);
+            restRequest.AddQueryParameter("application", applicationName);
 
             var response = _restClient.Get<Web.Contracts.Feature>(restRequest);
 
@@ -46,6 +45,5 @@ namespace Lemonade.Resolvers
         }
 
         private readonly RestClient _restClient;
-        private readonly string _applicationName;
     }
 }
