@@ -63,10 +63,24 @@ namespace Lemonade.Web.Tests
         }
 
         [Test]
+        public void WhenIPutAnApplication_ThenTheApplicationIsUpdated()
+        {
+            Post(new Application { Name = "TestApplication1" });
+            Put(new Application { Name = "PONIES", ApplicationId = 1 });
+
+            var response = _browser.Get("/api/applications", with => with.Header("Accept", "application/json"));
+            var result = JsonConvert.DeserializeObject<List<Application>>(response.Body.AsString());
+
+            Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
+            Assert.That(result.Count, Is.EqualTo(1));
+            Assert.That(result[0].Name, Is.EqualTo("PONIES"));
+        }
+
+        [Test]
         public void WhenIDeleteAnApplication_ThenItIsNoLongerAvailable()
         {
             Post(new Application { Name = "TestApplication1" });
-            Delete(new Application {Name = "TestApplication1"});
+            Delete(new Application { Name = "TestApplication1" });
 
             var response = _browser.Get("/api/applications", with => with.Header("Accept", "application/json"));
             var result = JsonConvert.DeserializeObject<List<Application>>(response.Body.AsString());
@@ -86,6 +100,15 @@ namespace Lemonade.Web.Tests
         private void Post(Application application)
         {
             _browser.Post("/api/applications", with =>
+            {
+                with.Header("Content-Type", "application/json");
+                with.Body(JsonConvert.SerializeObject(application));
+            });
+        }
+
+        private void Put(Application application)
+        {
+            _browser.Put("/api/applications", with =>
             {
                 with.Header("Content-Type", "application/json");
                 with.Body(JsonConvert.SerializeObject(application));

@@ -95,6 +95,7 @@
     <Compile Include="Events\IDomainEventDispatcher.cs" />
     <Compile Include="Events\IDomainEventHandler.cs" />
     <Compile Include="Infrastructure\CamelCasePropertyNameContractResolver.cs" />
+    <Compile Include="Events\ApplicationHasBeenUpdated.cs" />
     <Compile Include="Startup.cs" />
     <None Include="Content\Bootstrapper.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

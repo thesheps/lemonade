@@ -26,7 +26,6 @@ namespace Lemonade.Resolvers
         public bool Resolve(string featureName)
         {
             var response = GetFeature(featureName);
-
             return response.IsEnabled;
         }
 

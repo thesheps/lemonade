@@ -13,14 +13,16 @@ namespace Lemonade.Web.Modules
 {
     public class ApplicationsModule : NancyModule
     {
-        public ApplicationsModule(IGetAllApplications getAllApplications, ICreateApplication createApplication, IDeleteApplication deleteApplication)
+        public ApplicationsModule(IGetAllApplications getAllApplications, ICreateApplication createApplication, IUpdateApplication updateApplication, IDeleteApplication deleteApplication)
         {
             _getAllApplications = getAllApplications;
             _createApplication = createApplication;
+            _updateApplication = updateApplication;
             _deleteApplication = deleteApplication;
 
             Get["/api/applications"] = p => GetApplications();
             Post["/api/applications"] = p => PostApplication();
+            Put["/api/applications"] = p => PutApplication();
             Delete["/api/applications"] = p => DeleteApplication();
         }
 
@@ -29,7 +31,7 @@ namespace Lemonade.Web.Modules
             return _getAllApplications.Execute().Select(a => a.ToContract()).ToList();
         }
 
-        private dynamic PostApplication()
+        private HttpStatusCode PostApplication()
         {
             try
             {
@@ -46,7 +48,24 @@ namespace Lemonade.Web.Modules
             }
         }
 
-        private dynamic DeleteApplication()
+        private HttpStatusCode PutApplication()
+        {
+            try
+            {
+                var application = this.Bind<Application>();
+                _updateApplication.Execute(application.ToDomain());
+                DomainEvent.Raise(new ApplicationHasBeenUpdated(application.ApplicationId, application.Name));
+
+                return HttpStatusCode.OK;
+            }
+            catch (UpdateApplicationException exception)
+            {
+                DomainEvent.Raise(new ErrorHasOccurred(exception.Message));
+                return HttpStatusCode.BadRequest;
+            }
+        }
+
+        private HttpStatusCode DeleteApplication()
         {
             int applicationId;
             int.TryParse(Request.Query["id"].Value as string, out applicationId);
@@ -66,6 +85,7 @@ namespace Lemonade.Web.Modules
 
         private readonly IGetAllApplications _getAllApplications;
         private readonly ICreateApplication _createApplication;
+        private readonly IUpdateApplication _updateApplication;
         private readonly IDeleteApplication _deleteApplication;
     }
 }

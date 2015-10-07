@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using Lemonade.Resolvers;
 using Lemonade.Sql.Commands;
 using Lemonade.Sql.Migrations;
@@ -26,6 +25,7 @@ namespace Lemonade.Web.Tests
         {
             _createApplication = new CreateApplication();
             _getApplication = new GetApplicationByName();
+            _getFeature = new GetFeatureByNameAndApplication();
             _server = new Server(64978);
             Runner.SqlCompact(ConnectionString).Down();
             Runner.SqlCompact(ConnectionString).Up();
@@ -55,11 +55,9 @@ namespace Lemonade.Web.Tests
             var application = new Core.Domain.Application { ApplicationId = 1, Name = "TestApplication1" };
             _createApplication.Execute(application);
 
-            _browser.Post("/api/features", with =>
-            {
-                with.Header("Content-Type", "application/json");
-                with.Body(JsonConvert.SerializeObject(GetFeatureModel("MySuperCoolFeature1", _getApplication.Execute(application.Name).ToContract())));
-            });
+            var feature = GetFeatureModel("MySuperCoolFeature1", _getApplication.Execute(application.Name).ToContract());
+
+            Post(feature);
 
             var response = _browser.Get("/api/feature", with =>
             {
@@ -71,6 +69,18 @@ namespace Lemonade.Web.Tests
             var result = JsonConvert.DeserializeObject<Contracts.Feature>(response.Body.AsString());
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
             Assert.That(result.IsEnabled, Is.True);
+        }
+
+        [Test]
+        public void WhenIPostAFeature_SignalRClientsAreNotified()
+        {
+            var application = new Core.Domain.Application { ApplicationId = 1, Name = "TestApplication1" };
+            _createApplication.Execute(application);
+
+            var feature = GetFeatureModel("MySuperCoolFeature1", _getApplication.Execute(application.Name).ToContract());
+
+            Post(feature);
+            _mockClient.Received().addFeature(Arg.Any<dynamic>());
         }
 
         [Test]
@@ -86,6 +96,58 @@ namespace Lemonade.Web.Tests
             });
 
             Assert.Throws<UriFormatException>(() => new HttpFeatureResolver("TestTestTest!!!"));
+        }
+
+        [Test]
+        public void WhenIDeleteAFeature_ThenTheFeatureIsRemoved()
+        {
+            var application = new Core.Domain.Application { ApplicationId = 1, Name = "TestApplication1" };
+            _createApplication.Execute(application);
+
+            var featureModel = GetFeatureModel("MySuperCoolFeature1", _getApplication.Execute(application.Name).ToContract());
+            Post(featureModel);
+
+            _browser.Delete("/api/features", with => { with.Query("id", "1"); });
+
+            var feature = _getFeature.Execute(featureModel.Name, application.Name);
+            Assert.That(feature, Is.Null);
+        }
+
+        [Test]
+        public void WhenIPutAFeature_ThenTheFeatureIsUpdated()
+        {
+            var application = new Core.Domain.Application { ApplicationId = 1, Name = "TestApplication1" };
+            _createApplication.Execute(application);
+
+            var featureModel = GetFeatureModel("MySuperCoolFeature1", _getApplication.Execute(application.Name).ToContract());
+            Post(featureModel);
+
+            var feature = _getFeature.Execute("MySuperCoolFeature1", application.Name);
+            featureModel = feature.ToContract();
+            featureModel.Name = "Ponies";
+
+            Put(featureModel);
+
+            feature = _getFeature.Execute("MySuperCoolFeature1", application.Name);
+            Assert.That(feature, Is.Null);
+        }
+
+        private void Post(Contracts.Feature feature)
+        {
+            _browser.Post("/api/features", with =>
+            {
+                with.Header("Content-Type", "application/json");
+                with.Body(JsonConvert.SerializeObject(feature));
+            });
+        }
+
+        private void Put(Contracts.Feature feature)
+        {
+            _browser.Put("/api/features", with =>
+            {
+                with.Header("Content-Type", "application/json");
+                with.Body(JsonConvert.SerializeObject(feature));
+            });
         }
 
         private static Contracts.Feature GetFeatureModel(string name, Application application)
@@ -105,6 +167,7 @@ namespace Lemonade.Web.Tests
         private Server _server;
         private CreateApplication _createApplication;
         private GetApplicationByName _getApplication;
+        private GetFeatureByNameAndApplication _getFeature;
         private IMockClient _mockClient;
         private const string ConnectionString = "Lemonade";
     }

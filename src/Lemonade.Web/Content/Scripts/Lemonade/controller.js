@@ -18,12 +18,16 @@
             $.post("api/applications", { name: applicationName });
         }
 
+        $scope.updateApplication = function (application) {
+            $http.put("/api/applications", application);
+        }
+
         $scope.deleteApplication = function (applicationId) {
             $.ajax({ url: 'api/applications?id=' + applicationId, type: 'DELETE' });
         }
 
-        $scope.addFeature = function () {
-            $http.post("/api/features", $scope.newFeature);
+        $scope.addFeature = function (feature) {
+            $http.post("/api/features", feature);
         }
 
         $scope.updateFeature = function (feature) {

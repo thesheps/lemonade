@@ -32,37 +32,6 @@ namespace Lemonade.Web.Modules
             Delete["/api/features"] = p => DeleteFeature();
         }
 
-        private HttpStatusCode UpdateFeature()
-        {
-            try
-            {
-                _updateFeature.Execute(this.Bind<Feature>().ToDomain());
-                return HttpStatusCode.OK;
-            }
-            catch (CreateFeatureException exception)
-            {
-                DomainEvent.Raise(new ErrorHasOccurred(exception.Message));
-                return HttpStatusCode.BadRequest;
-            }
-        }
-
-        private HttpStatusCode CreateFeature()
-        {
-            try
-            {
-                var feature = this.Bind<Feature>();
-                _createFeature.Execute(feature.ToDomain());
-                DomainEvent.Raise(new FeatureHasBeenCreated(feature.FeatureId, feature.ApplicationId, feature.Name, feature.StartDate, feature.ExpirationDays, feature.IsEnabled));
-
-                return HttpStatusCode.OK;
-            }
-            catch (CreateFeatureException exception)
-            {
-                DomainEvent.Raise(new ErrorHasOccurred(exception.Message));
-                return HttpStatusCode.BadRequest;
-            }
-        }
-
         private Feature GetFeature()
         {
             var featureName = Request.Query["feature"].Value as string;
@@ -88,7 +57,38 @@ namespace Lemonade.Web.Modules
             return feature.Select(f => f.ToContract()).ToList();
         }
 
-        private dynamic DeleteFeature()
+        private HttpStatusCode CreateFeature()
+        {
+            try
+            {
+                var feature = this.Bind<Feature>();
+                _createFeature.Execute(feature.ToDomain());
+                DomainEvent.Raise(new FeatureHasBeenCreated(feature.FeatureId, feature.ApplicationId, feature.Name, feature.StartDate, feature.ExpirationDays, feature.IsEnabled));
+
+                return HttpStatusCode.OK;
+            }
+            catch (CreateFeatureException exception)
+            {
+                DomainEvent.Raise(new ErrorHasOccurred(exception.Message));
+                return HttpStatusCode.BadRequest;
+            }
+        }
+
+        private HttpStatusCode UpdateFeature()
+        {
+            try
+            {
+                _updateFeature.Execute(this.Bind<Feature>().ToDomain());
+                return HttpStatusCode.OK;
+            }
+            catch (CreateFeatureException exception)
+            {
+                DomainEvent.Raise(new ErrorHasOccurred(exception.Message));
+                return HttpStatusCode.BadRequest;
+            }
+        }
+
+        private HttpStatusCode DeleteFeature()
         {
             int featureId;
             int.TryParse(Request.Query["id"].Value as string, out featureId);
