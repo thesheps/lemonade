@@ -35,8 +35,8 @@ namespace Lemonade.Web.Modules
         {
             try
             {
-                var application = this.Bind<Application>();
-                _createApplication.Execute(application.ToDomain());
+                var application = this.Bind<Application>().ToDomain();
+                _createApplication.Execute(application);
                 DomainEvent.Raise(new ApplicationHasBeenCreated(application.ApplicationId, application.Name));
 
                 return HttpStatusCode.OK;

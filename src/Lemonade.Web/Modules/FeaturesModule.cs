@@ -61,8 +61,8 @@ namespace Lemonade.Web.Modules
         {
             try
             {
-                var feature = this.Bind<Feature>();
-                _createFeature.Execute(feature.ToDomain());
+                var feature = this.Bind<Feature>().ToDomain();
+                _createFeature.Execute(feature);
                 DomainEvent.Raise(new FeatureHasBeenCreated(feature.FeatureId, feature.ApplicationId, feature.Name, feature.StartDate, feature.ExpirationDays, feature.IsEnabled));
 
                 return HttpStatusCode.OK;

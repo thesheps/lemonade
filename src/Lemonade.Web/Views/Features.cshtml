@@ -12,8 +12,12 @@
 
             <ul class="list-group" id="application-list">
                 <li class="application list-group-item animate" ng-repeat="application in applications">
-                    <a href="#" editable-text="application.name" onaftersave="updateApplication(application)" ng-click="selectApplication(application)">{{application.name}}</a>
-                    <span class="delete-application-button glyphicon glyphicon-remove btn btn-xs pull-right btn-danger" ng-click="deleteApplication(application.applicationId)"></span>
+                    <a href="#" editable-text="application.name" onaftersave="updateApplication(application)" ng-click="selectApplication(application)" e-form="editFeatureForm">{{application.name}}</a>
+
+                    <div class="pull-right">
+                        <span class="glyphicon glyphicon-pencil btn btn-xs btn-success" ng-click="editFeatureForm.$show()" ng-hide="editFeatureForm.$visible"></span>
+                        <span class="glyphicon glyphicon-remove btn btn-xs btn-danger" ng-click="deleteApplication(application.applicationId)"></span>    
+                    </div>
                 </li>
             </ul>
 
