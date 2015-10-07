@@ -4,10 +4,10 @@ using Nancy;
 using Nancy.ModelBinding;
 using System.Collections.Generic;
 using Lemonade.Core.Commands;
-using Lemonade.Core.Events;
 using Lemonade.Core.Exceptions;
 using Lemonade.Core.Queries;
 using Lemonade.Web.Contracts;
+using Lemonade.Web.Events;
 
 namespace Lemonade.Web.Modules
 {
@@ -33,7 +33,10 @@ namespace Lemonade.Web.Modules
         {
             try
             {
-                _createApplication.Execute(this.Bind<Application>().ToDomain());
+                var application = this.Bind<Application>();
+                _createApplication.Execute(application.ToDomain());
+                DomainEvent.Raise(new ApplicationHasBeenCreated(application.ApplicationId, application.Name));
+
                 return HttpStatusCode.OK;
             }
             catch (CreateApplicationException exception)
@@ -51,6 +54,7 @@ namespace Lemonade.Web.Modules
             try
             {
                 _deleteApplication.Execute(applicationId);
+                DomainEvent.Raise(new ApplicationHasBeenDeleted(applicationId));
                 return HttpStatusCode.OK;
             }
             catch (DeleteApplicationException exception)

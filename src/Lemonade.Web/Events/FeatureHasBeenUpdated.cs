@@ -1,8 +1,8 @@
-﻿using System;
+using System;
 
-namespace Lemonade.Core.Events
+namespace Lemonade.Web.Events
 {
-    public class FeatureHasBeenCreated : IDomainEvent
+    public class FeatureHasBeenUpdated : IDomainEvent
     {
         public int FeatureId { get; }
         public int ApplicationId { get; }
@@ -11,7 +11,7 @@ namespace Lemonade.Core.Events
         public int? ExpirationDays { get; }
         public bool IsEnabled { get; }
 
-        public FeatureHasBeenCreated(int featureId, int applicationId, string name, DateTime startDate, int? expirationDays, bool isEnabled)
+        public FeatureHasBeenUpdated(int featureId, int applicationId, string name, DateTime startDate, int? expirationDays, bool isEnabled)
         {
             FeatureId = featureId;
             ApplicationId = applicationId;

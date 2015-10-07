@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Lemonade.Core.Commands;
-using Lemonade.Core.Events;
 using Lemonade.Core.Exceptions;
 using Lemonade.Core.Queries;
 using Lemonade.Web.Contracts;
+using Lemonade.Web.Events;
 using Lemonade.Web.Mappers;
 using Nancy;
 using Nancy.ModelBinding;
@@ -50,7 +50,10 @@ namespace Lemonade.Web.Modules
         {
             try
             {
-                _createFeature.Execute(this.Bind<Feature>().ToDomain());
+                var feature = this.Bind<Feature>();
+                _createFeature.Execute(feature.ToDomain());
+                DomainEvent.Raise(new FeatureHasBeenCreated(feature.FeatureId, feature.ApplicationId, feature.Name, feature.StartDate, feature.ExpirationDays, feature.IsEnabled));
+
                 return HttpStatusCode.OK;
             }
             catch (CreateFeatureException exception)

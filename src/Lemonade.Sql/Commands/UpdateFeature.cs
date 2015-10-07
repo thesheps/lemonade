@@ -2,7 +2,6 @@
 using Dapper;
 using Lemonade.Core.Commands;
 using Lemonade.Core.Domain;
-using Lemonade.Core.Events;
 using Lemonade.Core.Exceptions;
 
 namespace Lemonade.Sql.Commands
@@ -33,8 +32,6 @@ namespace Lemonade.Sql.Commands
                         feature.Name,
                         feature.FeatureId
                     });
-
-                    DomainEvent.Raise(new FeatureHasBeenUpdated(feature.FeatureId, feature.ApplicationId, feature.Name, feature.StartDate, feature.ExpirationDays, feature.IsEnabled));
                 }
                 catch (DbException exception)
                 {

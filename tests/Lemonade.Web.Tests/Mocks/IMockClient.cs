@@ -4,5 +4,7 @@
     {
         void addApplication(dynamic application);
         void addFeature(dynamic feature);
+        void removeApplication(dynamic application);
+        void removeFeature(dynamic feature);
     }
 }

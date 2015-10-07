@@ -106,7 +106,7 @@
   <ItemGroup>
     <Compile Include="Mocks\IMockClient.cs" />
     <Compile Include="TestLemonadeBootstrapper.cs" />
-    <Compile Include="GivenApplicationModule.cs" />
+    <Compile Include="GivenApplicationsModule.cs" />
     <Compile Include="GivenFeaturesModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

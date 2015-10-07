@@ -84,6 +84,16 @@
     <Compile Include="EventHandlers\ApplicationHasBeenDeletedHandler.cs" />
     <Compile Include="EventHandlers\FeatureHasBeenDeletedHandler.cs" />
     <Compile Include="EventHandlers\ErrorHasOccurredHandler.cs" />
+    <Compile Include="Events\ApplicationHasBeenCreated.cs" />
+    <Compile Include="Events\ApplicationHasBeenDeleted.cs" />
+    <Compile Include="Events\DomainEvent.cs" />
+    <Compile Include="Events\ErrorHasOccurred.cs" />
+    <Compile Include="Events\FeatureHasBeenCreated.cs" />
+    <Compile Include="Events\FeatureHasBeenDeleted.cs" />
+    <Compile Include="Events\FeatureHasBeenUpdated.cs" />
+    <Compile Include="Events\IDomainEvent.cs" />
+    <Compile Include="Events\IDomainEventDispatcher.cs" />
+    <Compile Include="Events\IDomainEventHandler.cs" />
     <Compile Include="Infrastructure\CamelCasePropertyNameContractResolver.cs" />
     <Compile Include="Startup.cs" />
     <None Include="Content\Bootstrapper.cs">

@@ -14,7 +14,7 @@ using SelfishHttp;
 
 namespace Lemonade.Web.Tests
 {
-    public class GivenApplicationModule
+    public class GivenApplicationsModule
     {
         [SetUp]
         public void SetUp()
@@ -45,11 +45,7 @@ namespace Lemonade.Web.Tests
         [Test]
         public void WhenIPostAnApplication_ThenICanGetItViaHttp()
         {
-            _browser.Post("/api/applications", with =>
-            {
-                with.Header("Content-Type", "application/json");
-                with.Body(JsonConvert.SerializeObject(new Application { Name = "TestApplication1" }));
-            });
+            Post(new Application { Name = "TestApplication1" });
 
             var response = _browser.Get("/api/applications", with => with.Header("Accept", "application/json"));
             var result = JsonConvert.DeserializeObject<List<Application>>(response.Body.AsString());
@@ -62,30 +58,15 @@ namespace Lemonade.Web.Tests
         [Test]
         public void WhenIPostAnApplication_ThenSignalRClientsAreNotified()
         {
-            _browser.Post("/api/applications/", (with) =>
-            {
-                with.Header("Content-Type", "application/json");
-                with.Body(JsonConvert.SerializeObject(new Application { Name = "TestApplication1" }));
-            });
-
+            Post(new Application { Name = "TestApplication1" });
             _mockClient.Received().addApplication(Arg.Any<dynamic>());
         }
 
         [Test]
-        public void WhenIPostAnApplicationAndDeleteIt_ThenItIsNoLongerAvailable()
+        public void WhenIDeleteAnApplication_ThenItIsNoLongerAvailable()
         {
-            _browser.Post("/api/applications", with =>
-            {
-                with.Header("Content-Type", "application/json");
-                with.Body(JsonConvert.SerializeObject(new Application { Name = "TestApplication1" }));
-            });
-
-            _browser.Delete("/api/applications", with =>
-            {
-                with.Query("id", "1");
-                with.Header("Content-Type", "application/json");
-                with.Body(JsonConvert.SerializeObject(new Application { Name = "TestApplication1" }));
-            });
+            Post(new Application { Name = "TestApplication1" });
+            Delete(new Application {Name = "TestApplication1"});
 
             var response = _browser.Get("/api/applications", with => with.Header("Accept", "application/json"));
             var result = JsonConvert.DeserializeObject<List<Application>>(response.Body.AsString());
@@ -94,9 +75,36 @@ namespace Lemonade.Web.Tests
             Assert.That(result.Count, Is.EqualTo(0));
         }
 
+        [Test]
+        public void WhenIDeleteAnApplication_ThenSignalRClientsAreNotified()
+        {
+            Post(new Application { Name = "TestApplication1" });
+            Delete(new Application { Name = "TestApplication1" });
+            _mockClient.Received().removeApplication(Arg.Any<dynamic>());
+        }
+
+        private void Post(Application application)
+        {
+            _browser.Post("/api/applications", with =>
+            {
+                with.Header("Content-Type", "application/json");
+                with.Body(JsonConvert.SerializeObject(application));
+            });
+        }
+
+        private void Delete(Application application)
+        {
+            _browser.Delete("/api/applications", with =>
+            {
+                with.Query("id", "1");
+                with.Header("Content-Type", "application/json");
+                with.Body(JsonConvert.SerializeObject(application));
+            });
+        }
+
+        private IMockClient _mockClient;
         private Server _server;
         private Browser _browser;
-        private IMockClient _mockClient;
         private const string ConnectionString = "Lemonade";
     }
 }

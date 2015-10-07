@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using Lemonade.Core.Events;
 using Lemonade.Web.EventHandlers;
+using Lemonade.Web.Events;
 using Lemonade.Web.Modules;
 using Microsoft.AspNet.SignalR;
 using Nancy;

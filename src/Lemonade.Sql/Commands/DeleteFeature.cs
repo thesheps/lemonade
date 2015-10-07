@@ -1,7 +1,6 @@
 using System.Data.Common;
 using Dapper;
 using Lemonade.Core.Commands;
-using Lemonade.Core.Events;
 using Lemonade.Core.Exceptions;
 
 namespace Lemonade.Sql.Commands
@@ -23,7 +22,6 @@ namespace Lemonade.Sql.Commands
                 try
                 {
                     cnn.Query("DELETE FROM Feature WHERE FeatureId = @featureId", new { featureId });
-                    DomainEvent.Raise(new FeatureHasBeenDeleted(featureId));
                 }
                 catch (DbException exception)
                 {

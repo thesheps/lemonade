@@ -46,26 +46,17 @@
     <Compile Include="Commands\IDeleteFeature.cs" />
     <Compile Include="Commands\ICreateApplication.cs" />
     <Compile Include="Commands\ICreateFeature.cs" />
-    <Compile Include="Events\ErrorHasOccurred.cs" />
-    <Compile Include="Events\FeatureHasBeenDeleted.cs" />
-    <Compile Include="Events\ApplicationHasBeenDeleted.cs" />
-    <Compile Include="Events\DomainEvent.cs" />
-    <Compile Include="Events\FeatureHasBeenCreated.cs" />
-    <Compile Include="Events\FeatureHasBeenUpdated.cs" />
-    <Compile Include="Events\IDomainEventHandler.cs" />
     <Compile Include="Domain\Feature.cs" />
     <Compile Include="Errors.Designer.cs">
       <DependentUpon>Errors.resx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Events\ApplicationHasBeenCreated.cs" />
     <Compile Include="Exceptions\DeleteFeatureException.cs" />
     <Compile Include="Exceptions\DeleteApplicationException.cs" />
     <Compile Include="Exceptions\CreateApplicationException.cs" />
     <Compile Include="Exceptions\CreateFeatureException.cs" />
-    <Compile Include="Events\IDomainEvent.cs" />
-    <Compile Include="Events\IDomainEventDispatcher.cs" />
+    <Compile Include="Exceptions\UpdateApplicationException.cs" />
     <Compile Include="Exceptions\UpdateFeatureException.cs" />
     <Compile Include="FeatureResolver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

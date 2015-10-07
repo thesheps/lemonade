@@ -49,22 +49,6 @@ namespace Lemonade.Web.Tests
             _server.Dispose();
         }
 
-        public void WhenIHaveMultipleApplications_ThenAllApplicationsAreRendered()
-        {
-            var save = new CreateApplication();
-            save.Execute(new Core.Domain.Application { Name = "TestApplication1" });
-            save.Execute(new Core.Domain.Application { Name = "TestApplication2" });
-            save.Execute(new Core.Domain.Application { Name = "TestApplication3" });
-
-            var response = _browser.Get("/features", with =>
-            {
-                with.Query("application", "TestApplication");
-            });
-
-            Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
-            Assert.That(response.Body[".application"].Count(), Is.EqualTo(3));
-        }
-
         [Test]
         public void WhenIPostAFeature_ThenICanGetItViaHttp()
         {
