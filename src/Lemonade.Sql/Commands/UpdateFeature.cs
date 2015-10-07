@@ -24,14 +24,13 @@ namespace Lemonade.Sql.Commands
                 try
                 {
                     cnn.Execute(@"UPDATE Feature
-                                  SET IsEnabled = @IsEnabled, ExpirationDays = @ExpirationDays, StartDate = @StartDate, Name = @Name, ApplicationId = @ApplicationId
+                                  SET IsEnabled = @IsEnabled, ExpirationDays = @ExpirationDays, StartDate = @StartDate, Name = @Name
                                   WHERE FeatureId = @FeatureId", new
                     {
                         feature.IsEnabled,
                         feature.ExpirationDays,
                         feature.StartDate,
                         feature.Name,
-                        feature.ApplicationId,
                         feature.FeatureId
                     });
 
