@@ -25,10 +25,10 @@ namespace Lemonade.AcceptanceTests
             Runner.SqlCompact("Lemonade").Down();
             Runner.SqlCompact("Lemonade").Up();
             _getFeature = new GetFeatureByNameAndApplication();
-            _saveFeature = new SaveFeature();
-            _saveApplication = new SaveApplication();
+            _createFeature = new CreateFeature();
+            _createApplication = new CreateApplication();
             _getApplicationByName = new GetApplicationByName();
-            _saveApplication.Execute(application);
+            _createApplication.Execute(application);
             application = _getApplicationByName.Execute(application.Name);
 
             var feature = new FeatureBuilder().WithName("MySuperDuperFeature")
@@ -37,7 +37,7 @@ namespace Lemonade.AcceptanceTests
                 .WithStartDate(DateTime.Now)
                 .Build();
 
-            _saveFeature.Execute(feature);
+            _createFeature.Execute(feature);
             _nancyHost = new NancyHost(new Uri("http://localhost:12345"), new TestBootstrapper());
             _nancyHost.Start();
         }
@@ -84,13 +84,13 @@ namespace Lemonade.AcceptanceTests
                 container.Register(GlobalHost.ConnectionManager);
                 container.Register<IGetAllFeatures, GetAllFeatures>();
                 container.Register<IGetFeatureByNameAndApplication, GetFeatureByNameAndApplication>();
-                container.Register<ISaveFeature, SaveFeature>();
+                container.Register<ICreateFeature, CreateFeature>();
             }
         }
 
-        private SaveFeature _saveFeature;
+        private CreateFeature _createFeature;
         private NancyHost _nancyHost;
-        private SaveApplication _saveApplication;
+        private CreateApplication _createApplication;
         private GetApplicationByName _getApplicationByName;
         private GetFeatureByNameAndApplication _getFeature;
     }

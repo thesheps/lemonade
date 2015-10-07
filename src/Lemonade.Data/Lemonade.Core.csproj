@@ -40,15 +40,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\IUpdateFeature.cs" />
+    <Compile Include="Commands\IUpdateApplication.cs" />
     <Compile Include="Commands\IDeleteApplication.cs" />
     <Compile Include="Commands\IDeleteFeature.cs" />
-    <Compile Include="Commands\ISaveApplication.cs" />
-    <Compile Include="Commands\ISaveFeature.cs" />
+    <Compile Include="Commands\ICreateApplication.cs" />
+    <Compile Include="Commands\ICreateFeature.cs" />
     <Compile Include="Events\ErrorHasOccurred.cs" />
     <Compile Include="Events\FeatureHasBeenDeleted.cs" />
     <Compile Include="Events\ApplicationHasBeenDeleted.cs" />
     <Compile Include="Events\DomainEvent.cs" />
-    <Compile Include="Events\FeatureHasBeenSaved.cs" />
+    <Compile Include="Events\FeatureHasBeenCreated.cs" />
+    <Compile Include="Events\FeatureHasBeenUpdated.cs" />
     <Compile Include="Events\IDomainEventHandler.cs" />
     <Compile Include="Domain\Feature.cs" />
     <Compile Include="Errors.Designer.cs">
@@ -56,13 +59,14 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Events\ApplicationHasBeenSaved.cs" />
+    <Compile Include="Events\ApplicationHasBeenCreated.cs" />
     <Compile Include="Exceptions\DeleteFeatureException.cs" />
     <Compile Include="Exceptions\DeleteApplicationException.cs" />
-    <Compile Include="Exceptions\SaveApplicationException.cs" />
-    <Compile Include="Exceptions\SaveFeatureException.cs" />
+    <Compile Include="Exceptions\CreateApplicationException.cs" />
+    <Compile Include="Exceptions\CreateFeatureException.cs" />
     <Compile Include="Events\IDomainEvent.cs" />
     <Compile Include="Events\IDomainEventDispatcher.cs" />
+    <Compile Include="Exceptions\UpdateFeatureException.cs" />
     <Compile Include="FeatureResolver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Domain\Application.cs" />

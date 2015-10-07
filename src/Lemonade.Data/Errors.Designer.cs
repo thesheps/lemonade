@@ -61,6 +61,24 @@ namespace Lemonade.Core {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Could not create the specified application.
+        /// </summary>
+        internal static string FailedToCreatedApplication {
+            get {
+                return ResourceManager.GetString("FailedToCreatedApplication", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not create the specified feature.
+        /// </summary>
+        internal static string FailedToCreateFeature {
+            get {
+                return ResourceManager.GetString("FailedToCreateFeature", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Could not delete the specified application.
         /// </summary>
         internal static string FailedToDeleteApplication {
@@ -79,20 +97,20 @@ namespace Lemonade.Core {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Could not save the specified application.
+        ///   Looks up a localized string similar to Could not update the specified application.
         /// </summary>
-        internal static string FailedToSaveApplication {
+        internal static string FailedToUpdateApplication {
             get {
-                return ResourceManager.GetString("FailedToSaveApplication", resourceCulture);
+                return ResourceManager.GetString("FailedToUpdateApplication", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Could not save the specified feature.
+        ///   Looks up a localized string similar to Could not update the specified feature.
         /// </summary>
-        internal static string FailedToSaveFeature {
+        internal static string FailedToUpdateFeature {
             get {
-                return ResourceManager.GetString("FailedToSaveFeature", resourceCulture);
+                return ResourceManager.GetString("FailedToUpdateFeature", resourceCulture);
             }
         }
     }

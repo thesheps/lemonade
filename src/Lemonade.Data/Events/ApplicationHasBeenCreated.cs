@@ -1,11 +1,11 @@
 ﻿namespace Lemonade.Core.Events
 {
-    public class ApplicationHasBeenSaved : IDomainEvent
+    public class ApplicationHasBeenCreated : IDomainEvent
     {
         public int ApplicationId { get; }
         public string Name { get; }
 
-        public ApplicationHasBeenSaved(int applicationId, string name)
+        public ApplicationHasBeenCreated(int applicationId, string name)
         {
             ApplicationId = applicationId;
             Name = name;

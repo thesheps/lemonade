@@ -13,10 +13,10 @@ namespace Lemonade.Web.Modules
 {
     public class ApplicationsModule : NancyModule
     {
-        public ApplicationsModule(IGetAllApplications getAllApplications, ISaveApplication saveApplication, IDeleteApplication deleteApplication)
+        public ApplicationsModule(IGetAllApplications getAllApplications, ICreateApplication createApplication, IDeleteApplication deleteApplication)
         {
             _getAllApplications = getAllApplications;
-            _saveApplication = saveApplication;
+            _createApplication = createApplication;
             _deleteApplication = deleteApplication;
 
             Get["/api/applications"] = p => GetApplications();
@@ -33,10 +33,10 @@ namespace Lemonade.Web.Modules
         {
             try
             {
-                _saveApplication.Execute(this.Bind<Application>().ToDomain());
+                _createApplication.Execute(this.Bind<Application>().ToDomain());
                 return HttpStatusCode.OK;
             }
-            catch (SaveApplicationException exception)
+            catch (CreateApplicationException exception)
             {
                 DomainEvent.Raise(new ErrorHasOccurred(exception.Message));
                 return HttpStatusCode.BadRequest;
@@ -61,7 +61,7 @@ namespace Lemonade.Web.Modules
         }
 
         private readonly IGetAllApplications _getAllApplications;
-        private readonly ISaveApplication _saveApplication;
+        private readonly ICreateApplication _createApplication;
         private readonly IDeleteApplication _deleteApplication;
     }
 }

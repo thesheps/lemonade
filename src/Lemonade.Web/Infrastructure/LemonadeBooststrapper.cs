@@ -32,9 +32,9 @@ namespace Lemonade.Web.Infrastructure
             base.ConfigureApplicationContainer(container);
 
             _container = container;
-            _container.Register<IDomainEventHandler<ApplicationHasBeenSaved>, ApplicationHasBeenSavedHandler>();
+            _container.Register<IDomainEventHandler<ApplicationHasBeenCreated>, ApplicationHasBeenCreatedHandler>();
             _container.Register<IDomainEventHandler<ApplicationHasBeenDeleted>, ApplicationHasBeenDeletedHandler>();
-            _container.Register<IDomainEventHandler<FeatureHasBeenSaved>, FeatureHasBeenSavedHandler>();
+            _container.Register<IDomainEventHandler<FeatureHasBeenCreated>, FeatureHasBeenCreatedHandler>();
             _container.Register<IDomainEventHandler<FeatureHasBeenDeleted>, FeatureHasBeenDeletedHandler>();
             _container.Register<IDomainEventHandler<ErrorHasOccurred>, ErrorHasOccurredHandler>();
             _container.Register(GlobalHost.ConnectionManager);

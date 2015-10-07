@@ -58,11 +58,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\UpdateFeature.cs" />
     <Compile Include="SqlFeatureResolver.cs" />
     <Compile Include="Commands\DeleteApplication.cs" />
     <Compile Include="Commands\DeleteFeature.cs" />
-    <Compile Include="Commands\SaveApplication.cs" />
-    <Compile Include="Commands\SaveFeature.cs" />
+    <Compile Include="Commands\CreateApplication.cs" />
+    <Compile Include="Commands\CreateFeature.cs" />
     <Compile Include="Errors.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

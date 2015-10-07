@@ -8,13 +8,13 @@ using Lemonade.Core.Exceptions;
 
 namespace Lemonade.Sql.Commands
 {
-    public class SaveApplication : LemonadeConnection, ISaveApplication
+    public class CreateApplication : LemonadeConnection, ICreateApplication
     {
-        public SaveApplication()
+        public CreateApplication()
         {
         }
 
-        public SaveApplication(string connectionStringName) : base(connectionStringName)
+        public CreateApplication(string connectionStringName) : base(connectionStringName)
         {
         }
 
@@ -27,11 +27,11 @@ namespace Lemonade.Sql.Commands
                     cnn.Execute("INSERT INTO Application (Name) VALUES (@Name)", new { application.Name });
                     application.ApplicationId = cnn.Query<int>("SELECT CAST(@@IDENTITY AS INT)").First();
 
-                    DomainEvent.Raise(new ApplicationHasBeenSaved(application.ApplicationId, application.Name));
+                    DomainEvent.Raise(new ApplicationHasBeenCreated(application.ApplicationId, application.Name));
                 }
                 catch (DbException exception)
                 {
-                    throw new SaveApplicationException(exception);
+                    throw new CreateApplicationException(exception);
                 }
             }
         }

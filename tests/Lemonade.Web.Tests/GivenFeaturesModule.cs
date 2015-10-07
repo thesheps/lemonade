@@ -24,7 +24,7 @@ namespace Lemonade.Web.Tests
         [SetUp]
         public void SetUp()
         {
-            _saveApplication = new SaveApplication();
+            _createApplication = new CreateApplication();
             _getApplication = new GetApplicationByName();
             _server = new Server(64978);
             Runner.SqlCompact(ConnectionString).Down();
@@ -51,7 +51,7 @@ namespace Lemonade.Web.Tests
 
         public void WhenIHaveMultipleApplications_ThenAllApplicationsAreRendered()
         {
-            var save = new SaveApplication();
+            var save = new CreateApplication();
             save.Execute(new Core.Domain.Application { Name = "TestApplication1" });
             save.Execute(new Core.Domain.Application { Name = "TestApplication2" });
             save.Execute(new Core.Domain.Application { Name = "TestApplication3" });
@@ -69,7 +69,7 @@ namespace Lemonade.Web.Tests
         public void WhenIPostAFeature_ThenICanGetItViaHttp()
         {
             var application = new Core.Domain.Application { ApplicationId = 1, Name = "TestApplication1" };
-            _saveApplication.Execute(application);
+            _createApplication.Execute(application);
 
             _browser.Post("/api/features", with =>
             {
@@ -93,7 +93,7 @@ namespace Lemonade.Web.Tests
         public void WhenIHaveAnUnknownUrlAppConfigAndITryToResolveAFeatureUsingHttpFeatureResolver_ThenUnknownUrlExceptionIsThrown()
         {
             var application = new Core.Domain.Application { ApplicationId = 1, Name = "TestApplication1" };
-            _saveApplication.Execute(application);
+            _createApplication.Execute(application);
 
             _browser.Post("/api/features", with =>
             {
@@ -119,7 +119,7 @@ namespace Lemonade.Web.Tests
 
         private Browser _browser;
         private Server _server;
-        private SaveApplication _saveApplication;
+        private CreateApplication _createApplication;
         private GetApplicationByName _getApplication;
         private IMockClient _mockClient;
         private const string ConnectionString = "Lemonade";

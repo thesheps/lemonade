@@ -89,8 +89,8 @@
     <None Include="Content\Bootstrapper.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <Compile Include="EventHandlers\ApplicationHasBeenSavedHandler.cs" />
-    <Compile Include="EventHandlers\FeatureHasBeenSavedHandler.cs" />
+    <Compile Include="EventHandlers\ApplicationHasBeenCreatedHandler.cs" />
+    <Compile Include="EventHandlers\FeatureHasBeenCreatedHandler.cs" />
     <Compile Include="Infrastructure\LemonadeBooststrapper.cs" />
     <Compile Include="Infrastructure\LemonadeHub.cs" />
     <Compile Include="Mappers\ApplicationMapper.cs" />

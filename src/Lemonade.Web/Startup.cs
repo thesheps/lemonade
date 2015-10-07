@@ -16,7 +16,7 @@ namespace Lemonade.Web
             app.MapSignalR();
             GlobalHost.DependencyResolver.Register(typeof(JsonSerializer), () => new JsonSerializer
             {
-                ContractResolver = new CamelCasePropertyNameContractResolver { AssembliesToInclude = { typeof(ApplicationHasBeenSaved).Assembly } }
+                ContractResolver = new CamelCasePropertyNameContractResolver { AssembliesToInclude = { typeof(ApplicationHasBeenCreated).Assembly } }
             });
         }
     }

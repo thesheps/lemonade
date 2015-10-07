@@ -20,7 +20,7 @@ namespace Lemonade.Web.Tests
         {
             container.Register<IGetAllFeatures, GetAllFeatures>();
             container.Register<IGetFeatureByNameAndApplication, GetFeatureByNameAndApplication>();
-            container.Register<ISaveFeature, SaveFeature>();
+            container.Register<ICreateFeature, CreateFeature>();
             container.Register<IDeleteApplication, DeleteApplication>();
 
             foreach (var additionalConfiguration in _additionalConfigurations)

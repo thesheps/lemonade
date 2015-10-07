@@ -14,8 +14,8 @@ namespace Lemonade.Sql.Tests
         public void SetUp()
         {
             DomainEvent.Dispatcher = this;
-            _saveFeature = new SaveFeature();
-            _saveApplication = new SaveApplication();
+            _createFeature = new CreateFeature();
+            _createApplication = new CreateApplication();
             _deleteApplication = new DeleteApplication();
             _getApplicationByName = new GetApplicationByName();
             Runner.SqlCompact("Lemonade").Down();
@@ -29,7 +29,7 @@ namespace Lemonade.Sql.Tests
                 .WithName("Test12345")
                 .Build();
 
-            _saveApplication.Execute(application);
+            _createApplication.Execute(application);
             application = _getApplicationByName.Execute(application.Name);
             _deleteApplication.Execute(application.ApplicationId);
 
@@ -43,7 +43,7 @@ namespace Lemonade.Sql.Tests
                 .WithName("Test12345")
                 .Build();
 
-            _saveApplication.Execute(application);
+            _createApplication.Execute(application);
             application = _getApplicationByName.Execute(application.Name);
             _deleteApplication.Execute(application.ApplicationId);
             application = _getApplicationByName.Execute(application.Name);
@@ -58,7 +58,7 @@ namespace Lemonade.Sql.Tests
                 .WithName("Test12345")
                 .Build();
 
-            _saveApplication.Execute(application);
+            _createApplication.Execute(application);
             application = _getApplicationByName.Execute(application.Name);
 
             var feature = new FeatureBuilder()
@@ -67,7 +67,7 @@ namespace Lemonade.Sql.Tests
                 .WithStartDate(DateTime.Now)
                 .Build();
 
-            _saveFeature.Execute(feature);
+            _createFeature.Execute(feature);
             _deleteApplication.Execute(application.ApplicationId);
             application = _getApplicationByName.Execute(application.Name);
 
@@ -80,9 +80,9 @@ namespace Lemonade.Sql.Tests
         }
 
         private GetApplicationByName _getApplicationByName;
-        private SaveApplication _saveApplication;
+        private CreateApplication _createApplication;
         private DeleteApplication _deleteApplication;
-        private SaveFeature _saveFeature;
+        private CreateFeature _createFeature;
         private ApplicationHasBeenDeleted _deletedApplication;
     }
 }

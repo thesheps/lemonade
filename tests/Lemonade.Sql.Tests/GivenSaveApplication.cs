@@ -21,7 +21,7 @@ namespace Lemonade.Sql.Tests
         [Test]
         public void WhenISaveAnApplication_ThenICanRetrieveIt()
         {
-            var saveApplication = new SaveApplication();
+            var saveApplication = new CreateApplication();
             var getApplicationByName = new GetApplicationByName();
             saveApplication.Execute(new ApplicationBuilder()
                 .WithName("Test12345")
@@ -35,7 +35,7 @@ namespace Lemonade.Sql.Tests
         [Test]
         public void WhenISaveAnApplication_ThenApplicationSavedEventIsRaisedWithCorrectDetails()
         {
-            var saveApplication = new SaveApplication();
+            var saveApplication = new CreateApplication();
             var getApplicationByName = new GetApplicationByName();
             saveApplication.Execute(new ApplicationBuilder()
                 .WithName("Test12345")
@@ -43,28 +43,28 @@ namespace Lemonade.Sql.Tests
 
             var application = getApplicationByName.Execute("Test12345");
 
-            Assert.That(_savedApplication.ApplicationId, Is.EqualTo(application.ApplicationId));
-            Assert.That(_savedApplication.Name, Is.EqualTo(application.Name));
+            Assert.That(_createdApplication.ApplicationId, Is.EqualTo(application.ApplicationId));
+            Assert.That(_createdApplication.Name, Is.EqualTo(application.Name));
         }
 
         [Test]
         public void WhenITryToSaveADuplicateApplication_ThenSaveApplicationExceptionIsThrown()
         {
-            var saveApplication = new SaveApplication();
+            var saveApplication = new CreateApplication();
             var application = new ApplicationBuilder()
                 .WithName("Test12345")
                 .Build();
 
             saveApplication.Execute(application);
 
-            Assert.Throws<SaveApplicationException>(() => saveApplication.Execute(application));
+            Assert.Throws<CreateApplicationException>(() => saveApplication.Execute(application));
         }
 
         public void Dispatch<TEvent>(TEvent @event) where TEvent : IDomainEvent
         {
-            if (@event is ApplicationHasBeenSaved) _savedApplication = @event as ApplicationHasBeenSaved;
+            if (@event is ApplicationHasBeenCreated) _createdApplication = @event as ApplicationHasBeenCreated;
         }
 
-        private ApplicationHasBeenSaved _savedApplication;
+        private ApplicationHasBeenCreated _createdApplication;
     }
 }

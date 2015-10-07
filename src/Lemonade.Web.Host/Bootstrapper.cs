@@ -19,7 +19,7 @@ namespace Lemonade.Web.Host
         {
             container.Register<IGetAllFeatures, GetAllFeatures>();
             container.Register<IGetFeatureByNameAndApplication, GetFeatureByNameAndApplication>();
-            container.Register<ISaveFeature, SaveFeature>();
+            container.Register<ICreateFeature, CreateFeature>();
         }
     }
 }

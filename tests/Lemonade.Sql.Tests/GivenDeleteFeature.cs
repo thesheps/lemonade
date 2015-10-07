@@ -14,8 +14,8 @@ namespace Lemonade.Sql.Tests
         public void SetUp()
         {
             DomainEvent.Dispatcher = this;
-            _saveFeature = new SaveFeature();
-            _saveApplication = new SaveApplication();
+            _createFeature = new CreateFeature();
+            _createApplication = new CreateApplication();
             _deleteFeature = new DeleteFeature();
             _getApplicationByName = new GetApplicationByName();
             _getFeatureByNameAndApplication = new GetFeatureByNameAndApplication();
@@ -30,7 +30,7 @@ namespace Lemonade.Sql.Tests
                 .WithName("Test12345")
                 .Build();
 
-            _saveApplication.Execute(application);
+            _createApplication.Execute(application);
             application = _getApplicationByName.Execute(application.Name);
 
             var feature = new FeatureBuilder()
@@ -39,7 +39,7 @@ namespace Lemonade.Sql.Tests
                 .WithStartDate(DateTime.Now)
                 .Build();
 
-            _saveFeature.Execute(feature);
+            _createFeature.Execute(feature);
             feature = _getFeatureByNameAndApplication.Execute(feature.Name, application.Name);
 
             _deleteFeature.Execute(feature.FeatureId);
@@ -54,7 +54,7 @@ namespace Lemonade.Sql.Tests
                 .WithName("Test12345")
                 .Build();
 
-            _saveApplication.Execute(application);
+            _createApplication.Execute(application);
             application = _getApplicationByName.Execute(application.Name);
 
             var feature = new FeatureBuilder()
@@ -63,7 +63,7 @@ namespace Lemonade.Sql.Tests
                 .WithStartDate(DateTime.Now)
                 .Build();
 
-            _saveFeature.Execute(feature);
+            _createFeature.Execute(feature);
             feature = _getFeatureByNameAndApplication.Execute(feature.Name, application.Name);
 
             _deleteFeature.Execute(feature.FeatureId);
@@ -79,8 +79,8 @@ namespace Lemonade.Sql.Tests
 
         private FeatureHasBeenDeleted _deletedFeature;
         private GetFeatureByNameAndApplication _getFeatureByNameAndApplication;
-        private SaveApplication _saveApplication;
-        private SaveFeature _saveFeature;
+        private CreateApplication _createApplication;
+        private CreateFeature _createFeature;
         private DeleteFeature _deleteFeature;
         private GetApplicationByName _getApplicationByName;
     }

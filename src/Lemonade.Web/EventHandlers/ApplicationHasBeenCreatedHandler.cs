@@ -4,14 +4,14 @@ using Microsoft.AspNet.SignalR.Infrastructure;
 
 namespace Lemonade.Web.EventHandlers
 {
-    public class ApplicationHasBeenSavedHandler : IDomainEventHandler<ApplicationHasBeenSaved>
+    public class ApplicationHasBeenCreatedHandler : IDomainEventHandler<ApplicationHasBeenCreated>
     {
-        public ApplicationHasBeenSavedHandler(IConnectionManager connectionManager)
+        public ApplicationHasBeenCreatedHandler(IConnectionManager connectionManager)
         {
             _connectionManager = connectionManager;
         }
 
-        public void Handle(ApplicationHasBeenSaved @event)
+        public void Handle(ApplicationHasBeenCreated @event)
         {
             var hubContext = _connectionManager.GetHubContext<LemonadeHub>();
             hubContext.Clients.All.addApplication(@event);

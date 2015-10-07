@@ -2,7 +2,7 @@
 
 namespace Lemonade.Core.Commands
 {
-    public interface ISaveFeature
+    public interface ICreateFeature
     {
         void Execute(Feature feature);
     }

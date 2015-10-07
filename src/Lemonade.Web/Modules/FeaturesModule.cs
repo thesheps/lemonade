@@ -14,14 +14,15 @@ namespace Lemonade.Web.Modules
     public class FeaturesModule : NancyModule
     {
         public FeaturesModule(IGetFeatureByNameAndApplication getFeatureByNameAndApplication, IGetApplicationByName getApplicationByName, IGetAllFeaturesByApplicationId getAllFeaturesByApplicationId,
-            ISaveFeature saveFeature, IDeleteFeature deleteFeature, ISaveApplication saveApplication)
+            ICreateFeature createFeature, IUpdateFeature updateFeature, IDeleteFeature deleteFeature, ICreateApplication createApplication)
         {
             _getFeatureByNameAndApplication = getFeatureByNameAndApplication;
             _getApplicationByName = getApplicationByName;
             _getAllFeaturesByApplicationId = getAllFeaturesByApplicationId;
-            _saveFeature = saveFeature;
+            _createFeature = createFeature;
+            _updateFeature = updateFeature;
             _deleteFeature = deleteFeature;
-            _saveApplication = saveApplication;
+            _createApplication = createApplication;
 
             Post["/api/features"] = p => CreateFeature();
             Put["/api/features"] = p => UpdateFeature();
@@ -31,19 +32,28 @@ namespace Lemonade.Web.Modules
             Delete["/api/features"] = p => DeleteFeature();
         }
 
-        private dynamic UpdateFeature()
+        private HttpStatusCode UpdateFeature()
         {
-            throw new System.NotImplementedException();
+            try
+            {
+                _updateFeature.Execute(this.Bind<Feature>().ToDomain());
+                return HttpStatusCode.OK;
+            }
+            catch (CreateFeatureException exception)
+            {
+                DomainEvent.Raise(new ErrorHasOccurred(exception.Message));
+                return HttpStatusCode.BadRequest;
+            }
         }
 
         private HttpStatusCode CreateFeature()
         {
             try
             {
-                _saveFeature.Execute(this.Bind<Feature>().ToDomain());
+                _createFeature.Execute(this.Bind<Feature>().ToDomain());
                 return HttpStatusCode.OK;
             }
-            catch (SaveFeatureException exception)
+            catch (CreateFeatureException exception)
             {
                 DomainEvent.Raise(new ErrorHasOccurred(exception.Message));
                 return HttpStatusCode.BadRequest;
@@ -60,20 +70,9 @@ namespace Lemonade.Web.Modules
 
             var application = GetApplication(applicationName);
             feature = new Core.Domain.Feature { Name = featureName, ApplicationId = application.ApplicationId, Application = application };
-            _saveFeature.Execute(feature);
+            _createFeature.Execute(feature);
 
             return feature.ToContract();
-        }
-
-        private Core.Domain.Application GetApplication(string applicationName)
-        {
-            var application = _getApplicationByName.Execute(applicationName);
-            if (application != null) return application;
-
-            application = new Core.Domain.Application { Name = applicationName };
-            _saveApplication.Execute(application);
-
-            return application;
         }
 
         private IList<Feature> GetFeatures()
@@ -103,11 +102,23 @@ namespace Lemonade.Web.Modules
             }
         }
 
+        private Core.Domain.Application GetApplication(string applicationName)
+        {
+            var application = _getApplicationByName.Execute(applicationName);
+            if (application != null) return application;
+
+            application = new Core.Domain.Application { Name = applicationName };
+            _createApplication.Execute(application);
+
+            return application;
+        }
+
         private readonly IGetFeatureByNameAndApplication _getFeatureByNameAndApplication;
         private readonly IGetApplicationByName _getApplicationByName;
         private readonly IGetAllFeaturesByApplicationId _getAllFeaturesByApplicationId;
-        private readonly ISaveFeature _saveFeature;
+        private readonly ICreateFeature _createFeature;
+        private readonly IUpdateFeature _updateFeature;
         private readonly IDeleteFeature _deleteFeature;
-        private readonly ISaveApplication _saveApplication;
+        private readonly ICreateApplication _createApplication;
     }
 }

@@ -22,12 +22,12 @@
             $.ajax({ url: 'api/applications?id=' + applicationId, type: 'DELETE' });
         }
 
-        $scope.addFeature = function() {
-            $.post("/api/features", $scope.newFeature);
+        $scope.addFeature = function () {
+            $http.post("/api/features", $scope.newFeature);
         }
 
         $scope.updateFeature = function (feature) {
-            $.put("/api/features", feature);
+            $http.put("/api/features", feature);
         }
 
         $scope.deleteFeature = function (featureId) {
