@@ -1,15 +1,10 @@
 ﻿using System;
 using Lemonade.Builders;
-using Lemonade.Core.Commands;
-using Lemonade.Core.Queries;
 using Lemonade.Resolvers;
 using Lemonade.Sql.Commands;
 using Lemonade.Sql.Migrations;
 using Lemonade.Sql.Queries;
-using Lemonade.Web.Infrastructure;
-using Microsoft.AspNet.SignalR;
 using Nancy.Hosting.Self;
-using Nancy.TinyIoc;
 using NUnit.Framework;
 
 namespace Lemonade.AcceptanceTests
@@ -38,7 +33,7 @@ namespace Lemonade.AcceptanceTests
                 .Build();
 
             _createFeature.Execute(feature);
-            _nancyHost = new NancyHost(new Uri("http://localhost:12345"), new TestBootstrapper());
+            _nancyHost = new NancyHost(new Uri("http://localhost:12345"), new TestLemonadeBootstrapper());
             _nancyHost.Start();
         }
 
@@ -75,17 +70,6 @@ namespace Lemonade.AcceptanceTests
         public void WhenIHaveConfiguredAnApplicationName_ThenItIsUsed()
         {
             Assert.That(Feature.ApplicationName, Is.EqualTo("Test Application"));
-        }
-
-        private class TestBootstrapper : LemonadeBootstrapper
-        {
-            protected override void ConfigureDependencies(TinyIoCContainer container)
-            {
-                container.Register(GlobalHost.ConnectionManager);
-                container.Register<IGetAllFeatures, GetAllFeatures>();
-                container.Register<IGetFeatureByNameAndApplication, GetFeatureByNameAndApplication>();
-                container.Register<ICreateFeature, CreateFeature>();
-            }
         }
 
         private CreateFeature _createFeature;

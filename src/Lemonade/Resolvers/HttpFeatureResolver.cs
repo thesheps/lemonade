@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Configuration;
 using System.Net;
-using Lemonade.Core;
 using Lemonade.Exceptions;
 using RestSharp;
 
@@ -38,10 +37,10 @@ namespace Lemonade.Resolvers
             var response = _restClient.Get<Web.Contracts.Feature>(restRequest);
 
             if (response.ErrorMessage == "Unable to connect to the remote server")
-                throw new ConnectionException(string.Format(Errors.UnableToConnect, _restClient.BaseUrl), response.ErrorException);
+                throw new HttpConnectionException(string.Format(Errors.UnableToConnect, _restClient.BaseUrl), response.ErrorException);
 
             if (response.StatusCode == HttpStatusCode.InternalServerError)
-                throw new ConnectionException(Errors.ServerError, response.ErrorException);
+                throw new HttpConnectionException(Errors.ServerError, response.ErrorException);
 
             return response.Data;
         }

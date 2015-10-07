@@ -1,10 +1,9 @@
 ﻿using System;
-using Lemonade.Core;
 using Lemonade.Sql.Queries;
 
 namespace Lemonade.Sql
 {
-    public class SqlFeatureResolver : IFeatureResolver
+    public class SqlFeatureResolver : Resolvers.IFeatureResolver
     {
         public SqlFeatureResolver() : this(new GetFeatureByNameAndApplication())
         {

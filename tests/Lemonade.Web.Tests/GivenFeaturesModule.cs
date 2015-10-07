@@ -1,4 +1,5 @@
 ﻿using System;
+using Lemonade.AcceptanceTests;
 using Lemonade.Resolvers;
 using Lemonade.Sql.Commands;
 using Lemonade.Sql.Migrations;
@@ -38,7 +39,7 @@ namespace Lemonade.Web.Tests
             SubstituteExtensions.Returns(hubContext.Clients.All, _mockClient);
 
             var bootstrapper = new TestLemonadeBootstrapper();
-            bootstrapper.ConfigureDependency(c => c.Register(connectionManager));
+            bootstrapper.AddDependency(c => c.Register(connectionManager));
 
             _browser = new Browser(bootstrapper);
         }

@@ -1,4 +1,4 @@
-﻿namespace Lemonade.Core
+﻿namespace Lemonade.Resolvers
 {
     public interface IFeatureResolver
     {

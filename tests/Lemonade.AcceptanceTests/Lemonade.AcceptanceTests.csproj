@@ -89,6 +89,7 @@
   <ItemGroup>
     <Compile Include="GivenHttpFeatureResolver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestLemonadeBootstrapper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">

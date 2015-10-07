@@ -14,9 +14,9 @@ using Nancy.ViewEngines.Razor;
 
 namespace Lemonade.Web.Infrastructure
 {
-    public abstract class LemonadeBootstrapper : DefaultNancyBootstrapper, IDomainEventDispatcher
+    public class LemonadeBootstrapper : DefaultNancyBootstrapper, IDomainEventDispatcher
     {
-        protected LemonadeBootstrapper()
+        public LemonadeBootstrapper()
         {
             DomainEvent.Dispatcher = this;
         }
@@ -41,6 +41,9 @@ namespace Lemonade.Web.Infrastructure
 
             ConfigureDependencies(_container);
 
+            foreach (var dependency in _dependencies)
+                dependency(_container);
+
             ResourceViewLocationProvider.RootNamespaces.Clear();
             ResourceViewLocationProvider.RootNamespaces.Add(typeof(FeaturesModule).Assembly, "Lemonade.Web.Views");
         }
@@ -63,10 +66,18 @@ namespace Lemonade.Web.Infrastructure
             conventions.StaticContentsConventions.Add(StaticContentConventionBuilder.AddDirectory("fonts", "bin/fonts"));
         }
 
+        protected virtual void ConfigureDependencies(TinyIoCContainer container)
+        {
+        }
+
+        public void AddDependency(Action<TinyIoCContainer> dependency)
+        {
+            _dependencies.Add(dependency);
+        }
+
         protected override IEnumerable<Type> ViewEngines { get { yield return typeof(RazorViewEngine); } }
         protected override IRootPathProvider RootPathProvider => new AspNetRootPathProvider();
-        protected abstract void ConfigureDependencies(TinyIoCContainer container);
-
         private TinyIoCContainer _container;
+        private readonly IList<Action<TinyIoCContainer>> _dependencies = new List<Action<TinyIoCContainer>>();
     }
 }

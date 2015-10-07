@@ -105,7 +105,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Mocks\IMockClient.cs" />
-    <Compile Include="TestLemonadeBootstrapper.cs" />
     <Compile Include="GivenApplicationsModule.cs" />
     <Compile Include="GivenFeaturesModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -134,6 +133,10 @@
     <ProjectReference Include="..\..\src\Lemonade\Lemonade.csproj">
       <Project>{A5518007-A595-4C05-91C8-077FFCB17FC2}</Project>
       <Name>Lemonade</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Lemonade.AcceptanceTests\Lemonade.AcceptanceTests.csproj">
+      <Project>{512C5D36-27F0-4F72-9A19-3098BC8834BE}</Project>
+      <Name>Lemonade.AcceptanceTests</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -15,11 +15,11 @@ namespace Lemonade.Sql.Queries
         {
         }
 
-        public Feature Execute(string featureName, string applicationName)
+        public Core.Domain.Feature Execute(string featureName, string applicationName)
         {
             using (var cnn = CreateConnection())
             {
-                var results = cnn.Query<Feature, Application, Feature>(
+                var results = cnn.Query<Core.Domain.Feature, Application, Core.Domain.Feature>(
                     @"SELECT * FROM Feature f INNER JOIN Application a ON f.ApplicationId = a.ApplicationId
                       WHERE f.Name = @featureName AND a.Name = @applicationName",
                     (f, a) => { f.Application = a; return f; },

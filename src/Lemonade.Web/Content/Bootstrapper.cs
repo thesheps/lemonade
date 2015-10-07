@@ -19,7 +19,7 @@ namespace Lemonade.Web.Content
             //ToDo: Configure implementations for the following three interfaces.
             //container.Register<IGetAllFeatures, GetAllFeatures>();
             //container.Register<IGetFeatureByNameAndApplication, GetFeatureByNameAndApplication>();
-            //container.Register<ISaveFeature, SaveFeature>();
+            //container.Register<ICreateFeature, CreateFeature>();
         }
     }
 }

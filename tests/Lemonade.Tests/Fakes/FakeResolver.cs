@@ -1,4 +1,5 @@
 ﻿using Lemonade.Core;
+using Lemonade.Resolvers;
 
 namespace Lemonade.Tests.Fakes
 {

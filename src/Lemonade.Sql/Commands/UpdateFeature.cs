@@ -1,7 +1,6 @@
 ﻿using System.Data.Common;
 using Dapper;
 using Lemonade.Core.Commands;
-using Lemonade.Core.Domain;
 using Lemonade.Core.Exceptions;
 
 namespace Lemonade.Sql.Commands
@@ -16,7 +15,7 @@ namespace Lemonade.Sql.Commands
         {
         }
 
-        public void Execute(Feature feature)
+        public void Execute(Core.Domain.Feature feature)
         {
             using (var cnn = CreateConnection())
             {
