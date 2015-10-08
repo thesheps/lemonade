@@ -52,18 +52,12 @@ namespace Lemonade.AcceptanceTests
         }
 
         [Test]
-        public void WhenIHaveAnUnknownFeatureAndITryToRetrieveIt_ThenItIsFalse()
-        {
-            var enabled = Feature.Switches["Ponies"];
-            Assert.That(enabled, Is.False);
-        }
-
-        [Test]
         public void WhenIHaveAnUnknownFeatureAndITryToRetrieveIt_ThenItIsInserted()
         {
             var enabled = Feature.Switches["Ponies"];
             var feature = _getFeature.Execute("Ponies", "Test Application");
             Assert.That(feature.IsEnabled, Is.False);
+            Assert.That(enabled, Is.False);
         }
 
         [Test]

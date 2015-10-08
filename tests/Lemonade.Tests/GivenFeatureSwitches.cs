@@ -1,10 +1,15 @@
-﻿using Lemonade.Tests.Fakes;
+﻿using System;
+using System.Threading;
+using Lemonade.Resolvers;
+using Lemonade.Tests.Fakes;
 using NUnit.Framework;
 
 namespace Lemonade.Tests
 {
-    public class GivenFeatureSwitches
+    public class GivenFeatureSwitches : IFeatureResolver
     {
+        private int _attempts;
+
         [Test]
         public void WhenUsingFeatureIndexAndMethodIsFeatureSwitchedOn_ThenItIsExecuted()
         {
@@ -54,6 +59,25 @@ namespace Lemonade.Tests
             Feature.Resolver = new FakeResolver();
             Feature.Switches.Execute(d => d.UseTestFunctionality, () => executed = true);
             Assert.That(executed, Is.True);
+        }
+
+        [Test]
+        public void WhenUsingCacheExpiration_ThenCacheIsRefreshedAfterAMinute()
+        {
+            bool enabled;
+            Feature.Resolver = this;
+            enabled = Feature.Switches["Test"];
+            enabled = Feature.Switches["Test"];
+            Thread.Sleep(TimeSpan.FromMinutes(1));
+            enabled = Feature.Switches["Test"];
+
+            Assert.That(_attempts == 2);
+        }
+
+        public bool Resolve(string featureName, string applicationName)
+        {
+            _attempts++;
+            return false;
         }
     }
 

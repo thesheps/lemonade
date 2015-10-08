@@ -11,5 +11,8 @@ namespace Lemonade
 
         [ConfigurationProperty("ApplicationName", IsRequired = false)]
         public string ApplicationName => this["ApplicationName"] as string;
+
+        [ConfigurationProperty("CacheExpiration", IsRequired = false)]
+        public double? CacheExpiration => this["CacheExpiration"] as double?;
     }
 }
