@@ -64,10 +64,6 @@ namespace Lemonade.Web.Infrastructure
             conventions.StaticContentsConventions.Add(StaticContentConventionBuilder.AddDirectory("scripts", "bin/content/scripts"));
             conventions.StaticContentsConventions.Add(StaticContentConventionBuilder.AddDirectory("styles", "bin/content/styles"));
             conventions.StaticContentsConventions.Add(StaticContentConventionBuilder.AddDirectory("fonts", "bin/content/fonts"));
-
-            conventions.StaticContentsConventions.Add(StaticContentConventionBuilder.AddDirectory("scripts", "bin/scripts"));
-            conventions.StaticContentsConventions.Add(StaticContentConventionBuilder.AddDirectory("styles", "bin/styles"));
-            conventions.StaticContentsConventions.Add(StaticContentConventionBuilder.AddDirectory("fonts", "bin/fonts"));
         }
 
         protected virtual void ConfigureDependencies(TinyIoCContainer container)

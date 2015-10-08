@@ -86,7 +86,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Lemonade.Data\Lemonade.Core.csproj">
+    <ProjectReference Include="..\Lemonade.Core\Lemonade.Core.csproj">
       <Project>{A9171A74-BFAD-4C2E-A8E2-54BC2BCE496C}</Project>
       <Name>Lemonade.Core</Name>
     </ProjectReference>
