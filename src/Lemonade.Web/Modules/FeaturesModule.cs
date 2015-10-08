@@ -43,6 +43,7 @@ namespace Lemonade.Web.Modules
             var application = GetApplication(applicationName);
             feature = new Core.Domain.Feature { Name = featureName, ApplicationId = application.ApplicationId, Application = application };
             _createFeature.Execute(feature);
+            DomainEvent.Raise(new FeatureHasBeenCreated(feature.FeatureId, feature.ApplicationId, feature.Name, feature.StartDate, feature.ExpirationDays, feature.IsEnabled));
 
             return feature.ToContract();
         }

@@ -23,8 +23,12 @@ namespace Lemonade.Web.Infrastructure
 
         public void Dispatch<TEvent>(TEvent @event) where TEvent : IDomainEvent
         {
-            IDomainEventHandler<TEvent> handler;
-            if (_container.TryResolve(out handler)) handler.Handle(@event);
+            var handlers = _container.ResolveAll<IDomainEventHandler<TEvent>>();
+
+            foreach (var domainEventHandler in handlers)
+            {
+                domainEventHandler.Handle(@event);
+            }
         }
 
         protected override void ConfigureApplicationContainer(TinyIoCContainer container)
