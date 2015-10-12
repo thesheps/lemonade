@@ -134,9 +134,9 @@
     <EmbeddedResource Include="Views\Features.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Lemonade.Core\Lemonade.Core.csproj">
+    <ProjectReference Include="..\Lemonade.Data\Lemonade.Data.csproj">
       <Project>{A9171A74-BFAD-4C2E-A8E2-54BC2BCE496C}</Project>
-      <Name>Lemonade.Core</Name>
+      <Name>Lemonade.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\Lemonade.Sql\Lemonade.Sql.csproj">
       <Project>{06665811-5ED9-4088-81B2-805E80119772}</Project>

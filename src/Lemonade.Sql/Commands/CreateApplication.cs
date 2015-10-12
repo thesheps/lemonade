@@ -1,9 +1,9 @@
 using System.Data.Common;
 using System.Linq;
 using Dapper;
-using Lemonade.Core.Commands;
-using Lemonade.Core.Domain;
-using Lemonade.Core.Exceptions;
+using Lemonade.Data.Commands;
+using Lemonade.Data.Entities;
+using Lemonade.Data.Exceptions;
 
 namespace Lemonade.Sql.Commands
 {

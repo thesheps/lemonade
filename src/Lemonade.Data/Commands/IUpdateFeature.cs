@@ -1,6 +1,6 @@
-﻿using Lemonade.Core.Domain;
+﻿using Lemonade.Data.Entities;
 
-namespace Lemonade.Core.Commands
+namespace Lemonade.Data.Commands
 {
     public interface IUpdateFeature
     {

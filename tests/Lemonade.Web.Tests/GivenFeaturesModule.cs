@@ -53,7 +53,7 @@ namespace Lemonade.Web.Tests
         [Test]
         public void WhenIPostAFeature_ThenICanGetItViaHttp()
         {
-            var application = new Core.Domain.Application { ApplicationId = 1, Name = "TestApplication1" };
+            var application = new Data.Entities.Application { ApplicationId = 1, Name = "TestApplication1" };
             _createApplication.Execute(application);
 
             var feature = GetFeatureModel("MySuperCoolFeature1", _getApplication.Execute(application.Name).ToContract());
@@ -75,7 +75,7 @@ namespace Lemonade.Web.Tests
         [Test]
         public void WhenIPostAFeature_SignalRClientsAreNotified()
         {
-            var application = new Core.Domain.Application { ApplicationId = 1, Name = "TestApplication1" };
+            var application = new Data.Entities.Application { ApplicationId = 1, Name = "TestApplication1" };
             _createApplication.Execute(application);
 
             var feature = GetFeatureModel("MySuperCoolFeature1", _getApplication.Execute(application.Name).ToContract());
@@ -87,7 +87,7 @@ namespace Lemonade.Web.Tests
         [Test]
         public void WhenIHaveAnUnknownUrlAppConfigAndITryToResolveAFeatureUsingHttpFeatureResolver_ThenUnknownUrlExceptionIsThrown()
         {
-            var application = new Core.Domain.Application { ApplicationId = 1, Name = "TestApplication1" };
+            var application = new Data.Entities.Application { ApplicationId = 1, Name = "TestApplication1" };
             _createApplication.Execute(application);
 
             _browser.Post("/api/features", with =>
@@ -102,7 +102,7 @@ namespace Lemonade.Web.Tests
         [Test]
         public void WhenIDeleteAFeature_ThenTheFeatureIsRemoved()
         {
-            var application = new Core.Domain.Application { ApplicationId = 1, Name = "TestApplication1" };
+            var application = new Data.Entities.Application { ApplicationId = 1, Name = "TestApplication1" };
             _createApplication.Execute(application);
 
             var featureModel = GetFeatureModel("MySuperCoolFeature1", _getApplication.Execute(application.Name).ToContract());
@@ -117,7 +117,7 @@ namespace Lemonade.Web.Tests
         [Test]
         public void WhenIPutAFeature_ThenTheFeatureIsUpdated()
         {
-            var application = new Core.Domain.Application { ApplicationId = 1, Name = "TestApplication1" };
+            var application = new Data.Entities.Application { ApplicationId = 1, Name = "TestApplication1" };
             _createApplication.Execute(application);
 
             var featureModel = GetFeatureModel("MySuperCoolFeature1", _getApplication.Execute(application.Name).ToContract());

@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Lemonade.Core.Domain
+namespace Lemonade.Data.Entities
 {
     public class Application
     {

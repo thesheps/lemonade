@@ -1,4 +1,4 @@
-﻿namespace Lemonade.Core.Commands
+﻿namespace Lemonade.Data.Commands
 {
     public interface IDeleteApplication
     {

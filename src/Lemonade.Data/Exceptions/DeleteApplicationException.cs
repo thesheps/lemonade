@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Lemonade.Core.Exceptions
+namespace Lemonade.Data.Exceptions
 {
     public class DeleteApplicationException : Exception
     {

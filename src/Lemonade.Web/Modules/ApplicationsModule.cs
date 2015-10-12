@@ -3,9 +3,9 @@ using Lemonade.Web.Mappers;
 using Nancy;
 using Nancy.ModelBinding;
 using System.Collections.Generic;
-using Lemonade.Core.Commands;
-using Lemonade.Core.Exceptions;
-using Lemonade.Core.Queries;
+using Lemonade.Data.Commands;
+using Lemonade.Data.Exceptions;
+using Lemonade.Data.Queries;
 using Lemonade.Web.Contracts;
 using Lemonade.Web.Events;
 

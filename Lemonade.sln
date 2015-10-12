@@ -36,7 +36,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lemonade.Builders", "tests\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lemonade.Web.Host", "src\Lemonade.Web.Host\Lemonade.Web.Host.csproj", "{BBFBD9FF-4E2D-41E4-A8BD-AB482E0D7139}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lemonade.Core", "src\Lemonade.Core\Lemonade.Core.csproj", "{A9171A74-BFAD-4C2E-A8E2-54BC2BCE496C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lemonade.Data", "src\Lemonade.Data\Lemonade.Data.csproj", "{A9171A74-BFAD-4C2E-A8E2-54BC2BCE496C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

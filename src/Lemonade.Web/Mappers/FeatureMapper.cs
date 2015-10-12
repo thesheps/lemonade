@@ -1,12 +1,12 @@
-﻿using Lemonade.Core.Domain;
+﻿using Lemonade.Web.Contracts;
 
 namespace Lemonade.Web.Mappers
 {
     public static class FeatureMapper
     {
-        public static Contracts.Feature ToContract(this Feature feature)
+        public static Feature ToContract(this Data.Entities.Feature feature)
         {
-            return new Contracts.Feature
+            return new Feature
             {
                 FeatureId = feature.FeatureId,
                 Name = feature.Name,
@@ -17,9 +17,9 @@ namespace Lemonade.Web.Mappers
             };
         }
 
-        public static Feature ToDomain(this Contracts.Feature feature)
+        public static Data.Entities.Feature ToDomain(this Feature feature)
         {
-            return new Feature
+            return new Data.Entities.Feature
             {
                 FeatureId = feature.FeatureId,
                 ApplicationId = feature.ApplicationId,

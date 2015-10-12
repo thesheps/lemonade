@@ -1,4 +1,4 @@
-﻿using Lemonade.Core.Domain;
+﻿using Lemonade.Data.Entities;
 
 namespace Lemonade.Builders
 {

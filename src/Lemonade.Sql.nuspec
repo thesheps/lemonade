@@ -21,6 +21,6 @@
 
   <files>
     <file src="Lemonade.Sql\bin\$configuration$\Lemonade.Sql.dll" target="lib" />
-    <file src="Lemonade.Sql\bin\$configuration$\Lemonade.Core.dll" target="lib" />
+    <file src="Lemonade.Sql\bin\$configuration$\Lemonade.Data.dll" target="lib" />
   </files>
 </package>

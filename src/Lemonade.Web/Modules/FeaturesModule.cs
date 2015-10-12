@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Lemonade.Core.Commands;
-using Lemonade.Core.Exceptions;
-using Lemonade.Core.Queries;
+using Lemonade.Data.Commands;
+using Lemonade.Data.Exceptions;
+using Lemonade.Data.Queries;
 using Lemonade.Web.Contracts;
 using Lemonade.Web.Events;
 using Lemonade.Web.Mappers;
@@ -41,7 +41,7 @@ namespace Lemonade.Web.Modules
             if (feature != null) return feature.ToContract();
 
             var application = GetApplication(applicationName);
-            feature = new Core.Domain.Feature { Name = featureName, ApplicationId = application.ApplicationId, Application = application };
+            feature = new Data.Entities.Feature { Name = featureName, ApplicationId = application.ApplicationId, Application = application };
             _createFeature.Execute(feature);
             DomainEvent.Raise(new FeatureHasBeenCreated(feature.FeatureId, feature.ApplicationId, feature.Name, feature.StartDate, feature.ExpirationDays, feature.IsEnabled));
 
@@ -106,12 +106,12 @@ namespace Lemonade.Web.Modules
             }
         }
 
-        private Core.Domain.Application GetApplication(string applicationName)
+        private Data.Entities.Application GetApplication(string applicationName)
         {
             var application = _getApplicationByName.Execute(applicationName);
             if (application != null) return application;
 
-            application = new Core.Domain.Application { Name = applicationName };
+            application = new Data.Entities.Application { Name = applicationName };
             _createApplication.Execute(application);
 
             return application;

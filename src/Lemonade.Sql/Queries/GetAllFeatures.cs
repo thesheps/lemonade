@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Dapper;
-using Lemonade.Core.Domain;
-using Lemonade.Core.Queries;
+using Lemonade.Data.Entities;
+using Lemonade.Data.Queries;
 
 namespace Lemonade.Sql.Queries
 {
@@ -16,11 +16,11 @@ namespace Lemonade.Sql.Queries
         {
         }
 
-        public IList<Core.Domain.Feature> Execute()
+        public IList<Data.Entities.Feature> Execute()
         {
             using (var cnn = CreateConnection())
             {
-                var results = cnn.Query<Core.Domain.Feature, Application, Core.Domain.Feature>(
+                var results = cnn.Query<Data.Entities.Feature, Application, Data.Entities.Feature>(
                     @"SELECT * FROM Feature f INNER JOIN Application a ON f.ApplicationId = a.ApplicationId
                       WHERE a.Name = @applicationName",
                     (f, a) => 

@@ -1,6 +1,6 @@
-﻿using Lemonade.Core.Domain;
+﻿using Lemonade.Data.Entities;
 
-namespace Lemonade.Core.Queries
+namespace Lemonade.Data.Queries
 {
     public interface IGetApplicationByName
     {
