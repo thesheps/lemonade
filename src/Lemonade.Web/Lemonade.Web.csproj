@@ -144,12 +144,12 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Content\Content\lemonade.js">
+    <EmbeddedResource Include="Content\Assets\lemonade.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Content\Content\lemonade.css">
+    <EmbeddedResource Include="Content\Assets\lemonade.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>
