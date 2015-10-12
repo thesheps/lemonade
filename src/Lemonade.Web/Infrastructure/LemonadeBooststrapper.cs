@@ -60,10 +60,7 @@ namespace Lemonade.Web.Infrastructure
         protected override void ConfigureConventions(NancyConventions conventions)
         {
             base.ConfigureConventions(conventions);
-
-            conventions.StaticContentsConventions.Add(StaticContentConventionBuilder.AddDirectory("scripts", "bin/content/scripts"));
-            conventions.StaticContentsConventions.Add(StaticContentConventionBuilder.AddDirectory("styles", "bin/content/styles"));
-            conventions.StaticContentsConventions.Add(StaticContentConventionBuilder.AddDirectory("fonts", "bin/content/fonts"));
+            conventions.StaticContentsConventions.Add(StaticContentConventionBuilder.AddDirectory("scripts", "bin/content"));
         }
 
         protected virtual void ConfigureDependencies(TinyIoCContainer container)
