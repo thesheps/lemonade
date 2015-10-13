@@ -22,9 +22,8 @@ namespace Lemonade.Sql.Migrations
         public static Runner SqlCompact(string connectionStringName)
         {
             var connectionString = ConfigurationManager.ConnectionStrings[connectionStringName].ConnectionString;
-            var cnn = new SqlCeConnectionStringBuilder(connectionString);
 
-            if (!File.Exists(cnn.DataSource))
+            if (!File.Exists(new SqlCeConnectionStringBuilder(connectionString).DataSource))
                 new SqlCeEngine(connectionString).CreateDatabase();
 
             return new Runner(GetRunner(connectionString, new SqlServerCeProcessorFactory()));

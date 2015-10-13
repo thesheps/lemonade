@@ -57,15 +57,15 @@ namespace Lemonade
         {
             var key = ApplicationName + featureName;
 
-            Tuple<DateTime, bool> featureTuple;
-            if (!_features.TryGetValue(key, out featureTuple))
-                featureTuple = new Tuple<DateTime, bool>(DateTime.Now, Resolver.Resolve(featureName, ApplicationName));
-            else if (featureTuple.Item1.AddMinutes(GetCacheExpiration().GetValueOrDefault()) > DateTime.Now)
-                featureTuple = new Tuple<DateTime, bool>(DateTime.Now, Resolver.Resolve(featureName, ApplicationName));
+            Tuple<DateTime, bool> feature;
+            if (!Features.TryGetValue(key, out feature))
+                feature = new Tuple<DateTime, bool>(DateTime.Now, Resolver.Resolve(featureName, ApplicationName));
+            else if (feature.Item1.AddMinutes(CacheExpiration.GetValueOrDefault()) <= DateTime.Now)
+                feature = new Tuple<DateTime, bool>(DateTime.Now, Resolver.Resolve(featureName, ApplicationName));
 
-            _features[key] = featureTuple;
+            Features[key] = feature;
 
-            return featureTuple.Item2;
+            return feature.Item2;
         }
 
         private static IFeatureResolver GetFeatureResolver()
@@ -101,7 +101,7 @@ namespace Lemonade
         private static IFeatureResolver _featureResolver;
         private static double? _cacheExpiration;
         private static string _applicationName;
+        private static readonly Dictionary<string, Tuple<DateTime, bool>> Features = new Dictionary<string, Tuple<DateTime, bool>>();
         private readonly DynamicKey _key = new DynamicKey();
-        private static readonly Dictionary<string, Tuple<DateTime, bool>> _features = new Dictionary<string, Tuple<DateTime, bool>>();
     }
 }

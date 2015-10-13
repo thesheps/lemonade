@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading;
-using Lemonade.Resolvers;
 using Lemonade.Tests.Fakes;
 using NUnit.Framework;
 
@@ -65,13 +64,37 @@ namespace Lemonade.Tests
         public void WhenUsingCacheExpiration_ThenCacheIsRefreshedAfterAMinute()
         {
             bool enabled;
+            _attempts = 0;
+            Feature.CacheExpiration = 1;
             Feature.Resolver = this;
             enabled = Feature.Switches["Test"];
             enabled = Feature.Switches["Test"];
-            Thread.Sleep(TimeSpan.FromMinutes(1));
+            enabled = Feature.Switches["Test"];
+            enabled = Feature.Switches["Test"];
+            enabled = Feature.Switches["Test"];
+            enabled = Feature.Switches["Test"];
+            Thread.Sleep(TimeSpan.FromSeconds(61));
             enabled = Feature.Switches["Test"];
 
-            Assert.That(_attempts == 2);
+            Assert.That(_attempts, Is.EqualTo(2));
+        }
+
+        [Test]
+        public void WhenUsingNoCacheExpiration_ThenCacheIsRefreshedAways()
+        {
+            bool enabled;
+            _attempts = 0;
+            Feature.CacheExpiration = 0;
+            Feature.Resolver = this;
+            enabled = Feature.Switches["Test"];
+            enabled = Feature.Switches["Test"];
+            enabled = Feature.Switches["Test"];
+            enabled = Feature.Switches["Test"];
+            enabled = Feature.Switches["Test"];
+            enabled = Feature.Switches["Test"];
+            enabled = Feature.Switches["Test"];
+
+            Assert.That(_attempts, Is.EqualTo(7));
         }
 
         public bool Resolve(string featureName, string applicationName)

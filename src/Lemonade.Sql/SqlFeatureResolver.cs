@@ -3,7 +3,7 @@ using Lemonade.Sql.Queries;
 
 namespace Lemonade.Sql
 {
-    public class SqlFeatureResolver : Resolvers.IFeatureResolver
+    public class SqlFeatureResolver : IFeatureResolver
     {
         public SqlFeatureResolver() : this(new GetFeatureByNameAndApplication())
         {

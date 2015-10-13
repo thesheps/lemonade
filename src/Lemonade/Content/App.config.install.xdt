@@ -6,7 +6,7 @@
   </configSections>
   <configSections xdt:Transform="RemoveAll" xdt:Locator="Condition(count(*)=0)" />
 
-  <FeatureConfiguration xdt:Transform="InsertAfter(/configuration/configSections)" FeatureResolver="Lemonade.Resolvers.HttpFeatureResolver" ApplicationName="Hello World" />
+  <FeatureConfiguration xdt:Transform="InsertAfter(/configuration/configSections)" FeatureResolver="Lemonade.Resolvers.HttpFeatureResolver" ApplicationName="Hello World" CacheExpiration="0" />
 
   <appSettings xdt:Transform="InsertIfMissing">
     <add xdt:Transform="InsertIfMissing" key="LemonadeServiceUrl" value="" xdt:Locator="Match(key)" />
