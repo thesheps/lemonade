@@ -36,16 +36,31 @@ namespace Lemonade.Web.Modules
         {
             var featureName = Request.Query["feature"].Value as string;
             var applicationName = Request.Query["application"].Value as string;
+            var hostName = System.Net.Dns.GetHostEntry(Request.UserHostAddress).HostName;
             var feature = _getFeatureByNameAndApplication.Execute(featureName, applicationName);
 
-            if (feature != null) return feature.ToContract();
+            return (feature ?? CreateFeature(featureName, applicationName)).ToContract();
+        }
 
-            var application = GetApplication(applicationName);
-            feature = new Data.Entities.Feature { Name = featureName, ApplicationId = application.ApplicationId, Application = application };
+        private Data.Entities.Feature CreateFeature(string featureName, string applicationName)
+        {
+            var application = GetApplication(applicationName) ?? CreateApplication(applicationName);
+            var feature = new Data.Entities.Feature { Name = featureName, ApplicationId = application.ApplicationId, Application = application };
             _createFeature.Execute(feature);
+
             DomainEvent.Raise(new FeatureHasBeenCreated(feature.FeatureId, feature.ApplicationId, feature.Name, feature.StartDate, feature.ExpirationDays, feature.IsEnabled));
 
-            return feature.ToContract();
+            return feature;
+        }
+
+        private Data.Entities.Application CreateApplication(string applicationName)
+        {
+            var application = new Data.Entities.Application { Name = applicationName };
+            _createApplication.Execute(application);
+
+            DomainEvent.Raise(new ApplicationHasBeenCreated(application.ApplicationId, applicationName));
+
+            return application;
         }
 
         private IList<Feature> GetFeatures()
@@ -109,11 +124,6 @@ namespace Lemonade.Web.Modules
         private Data.Entities.Application GetApplication(string applicationName)
         {
             var application = _getApplicationByName.Execute(applicationName);
-            if (application != null) return application;
-
-            application = new Data.Entities.Application { Name = applicationName };
-            _createApplication.Execute(application);
-
             return application;
         }
 

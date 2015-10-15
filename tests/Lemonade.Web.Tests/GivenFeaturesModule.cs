@@ -41,7 +41,7 @@ namespace Lemonade.Web.Tests
             var bootstrapper = new TestLemonadeBootstrapper();
             bootstrapper.AddDependency(c => c.Register(connectionManager));
 
-            _browser = new Browser(bootstrapper);
+            _browser = new Browser(bootstrapper, context => context.UserHostAddress("TEST"));
         }
 
         [TearDown]
