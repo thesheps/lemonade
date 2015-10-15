@@ -13,10 +13,11 @@ namespace Lemonade.Web.Modules
 {
     public class FeaturesModule : NancyModule
     {
-        public FeaturesModule(IGetFeatureByNameAndApplication getFeatureByNameAndApplication, IGetApplicationByName getApplicationByName, IGetAllFeaturesByApplicationId getAllFeaturesByApplicationId,
+        public FeaturesModule(IGetAllFeaturesByApplicationId getAllFeaturesByApplicationId, IGetFeatureByNameAndApplication getFeatureByNameAndApplication, IGetFeatureOverride getFeatureOverride, IGetApplicationByName getApplicationByName,
             ICreateFeature createFeature, IUpdateFeature updateFeature, IDeleteFeature deleteFeature, ICreateApplication createApplication)
         {
             _getFeatureByNameAndApplication = getFeatureByNameAndApplication;
+            _getFeatureOverride = getFeatureOverride;
             _getApplicationByName = getApplicationByName;
             _getAllFeaturesByApplicationId = getAllFeaturesByApplicationId;
             _createFeature = createFeature;
@@ -36,10 +37,15 @@ namespace Lemonade.Web.Modules
         {
             var featureName = Request.Query["feature"].Value as string;
             var applicationName = Request.Query["application"].Value as string;
-            var hostName = System.Net.Dns.GetHostEntry(Request.UserHostAddress).HostName;
-            var feature = _getFeatureByNameAndApplication.Execute(featureName, applicationName);
+            var feature = _getFeatureByNameAndApplication.Execute(featureName, applicationName) ?? CreateFeature(featureName, applicationName);
 
-            return (feature ?? CreateFeature(featureName, applicationName)).ToContract();
+            if (feature.IsEnabled) return feature.ToContract();
+
+            var hostname = System.Net.Dns.GetHostEntry(Request.UserHostAddress).HostName;
+            var featureOverride = _getFeatureOverride.Execute(feature.FeatureId, hostname);
+            feature.IsEnabled = featureOverride != null && featureOverride.IsEnabled;
+
+            return feature.ToContract();
         }
 
         private Data.Entities.Feature CreateFeature(string featureName, string applicationName)
@@ -129,6 +135,7 @@ namespace Lemonade.Web.Modules
         }
 
         private readonly IGetFeatureByNameAndApplication _getFeatureByNameAndApplication;
+        private readonly IGetFeatureOverride _getFeatureOverride;
         private readonly IGetApplicationByName _getApplicationByName;
         private readonly IGetAllFeaturesByApplicationId _getAllFeaturesByApplicationId;
         private readonly ICreateFeature _createFeature;

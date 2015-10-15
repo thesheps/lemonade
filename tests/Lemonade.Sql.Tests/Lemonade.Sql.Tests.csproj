@@ -66,6 +66,7 @@
     <Compile Include="GivenDeleteApplication.cs" />
     <Compile Include="GivenSaveApplication.cs" />
     <Compile Include="GivenSaveFeature.cs" />
+    <Compile Include="GivenSaveFeatureOverride.cs" />
     <Compile Include="GivenUpdateFeature.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

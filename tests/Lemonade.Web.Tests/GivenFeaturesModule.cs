@@ -1,21 +1,22 @@
 ﻿using System;
+using System.Net;
 using Lemonade.AcceptanceTests;
 using Lemonade.Resolvers;
 using Lemonade.Sql.Commands;
 using Lemonade.Sql.Migrations;
 using Lemonade.Sql.Queries;
-using Lemonade.Web.Contracts;
 using Lemonade.Web.Infrastructure;
 using Lemonade.Web.Mappers;
 using Lemonade.Web.Tests.Mocks;
 using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Infrastructure;
-using Nancy;
 using Nancy.Testing;
 using Newtonsoft.Json;
 using NSubstitute;
 using NUnit.Framework;
 using SelfishHttp;
+using Application = Lemonade.Web.Contracts.Application;
+using HttpStatusCode = Nancy.HttpStatusCode;
 
 namespace Lemonade.Web.Tests
 {
@@ -41,7 +42,7 @@ namespace Lemonade.Web.Tests
             var bootstrapper = new TestLemonadeBootstrapper();
             bootstrapper.AddDependency(c => c.Register(connectionManager));
 
-            _browser = new Browser(bootstrapper, context => context.UserHostAddress("TEST"));
+            _browser = new Browser(bootstrapper, context => context.UserHostAddress("localhost"));
         }
 
         [TearDown]
@@ -131,6 +132,28 @@ namespace Lemonade.Web.Tests
 
             feature = _getFeature.Execute("MySuperCoolFeature1", application.Name);
             Assert.That(feature, Is.Null);
+        }
+
+        [Test]
+        public void WhenIGetAFeatureWithAHostnameOveride_ThenTheFeatureIsRetrieved()
+        {
+            var application = new Data.Entities.Application { Name = "TestApplication" };
+            new CreateApplication().Execute(application);
+            var feature = new Data.Entities.Feature { ApplicationId = application.ApplicationId, Name = "MyTestFeature" };
+            new CreateFeature().Execute(feature);
+
+            new CreateFeatureOverride().Execute(new Data.Entities.FeatureOverride { FeatureId = feature.FeatureId, Hostname = Dns.GetHostName(), IsEnabled = true });
+
+            var response = _browser.Get("/api/feature", with =>
+            {
+                with.Header("Accept", "application/json");
+                with.Query("application", application.Name);
+                with.Query("feature", feature.Name);
+            });
+
+            var result = JsonConvert.DeserializeObject<Contracts.Feature>(response.Body.AsString());
+            Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
+            Assert.That(result.IsEnabled, Is.True);
         }
 
         private void Post(Contracts.Feature feature)

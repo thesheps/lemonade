@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\ICreateFeatureOverride.cs" />
     <Compile Include="Commands\IUpdateFeature.cs" />
     <Compile Include="Commands\IUpdateApplication.cs" />
     <Compile Include="Commands\IDeleteApplication.cs" />
@@ -47,6 +48,7 @@
     <Compile Include="Commands\ICreateApplication.cs" />
     <Compile Include="Commands\ICreateFeature.cs" />
     <Compile Include="Entities\Feature.cs" />
+    <Compile Include="Entities\FeatureOverride.cs" />
     <Compile Include="Errors.Designer.cs">
       <DependentUpon>Errors.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -65,6 +67,7 @@
     <Compile Include="Queries\IGetAllFeaturesByApplicationId.cs" />
     <Compile Include="Queries\IGetApplicationByName.cs" />
     <Compile Include="Queries\IGetFeatureByNameAndApplication.cs" />
+    <Compile Include="Queries\IGetFeatureOverride.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Errors.resx">
