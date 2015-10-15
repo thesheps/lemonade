@@ -20,19 +20,25 @@ namespace Lemonade.Sql.Queries
         {
             using (var cnn = CreateConnection())
             {
-                var results = cnn.Query<Data.Entities.Feature, Application, Data.Entities.Feature>(
+                var features = cnn.Query<Data.Entities.Feature, Application, Data.Entities.Feature>(
                     @"SELECT * FROM Feature f 
                       INNER JOIN Application a ON f.ApplicationId = a.ApplicationId
                       WHERE a.ApplicationId = @applicationId",
                     (f, a) =>
                     {
                         f.Application = a;
-                        return f; 
+                        return f;
                     },
                     new { applicationId },
-                    splitOn: "ApplicationId");
+                    splitOn: "ApplicationId").ToList();
 
-                return results.ToList();
+                features.ForEach(f =>
+                {
+                    f.FeatureOverrides = cnn.Query<FeatureOverride>(@"SELECT * FROM FeatureOverride f
+                                                                      WHERE f.FeatureId = @featureId", new { f.FeatureId }).ToList();
+                });
+
+                return features.ToList();
             }
         }
     }

@@ -59,16 +59,6 @@ namespace Lemonade.Web.Modules
             return feature;
         }
 
-        private Data.Entities.Application CreateApplication(string applicationName)
-        {
-            var application = new Data.Entities.Application { Name = applicationName };
-            _createApplication.Execute(application);
-
-            DomainEvent.Raise(new ApplicationHasBeenCreated(application.ApplicationId, applicationName));
-
-            return application;
-        }
-
         private IList<Feature> GetFeatures()
         {
             int applicationId;
@@ -126,6 +116,16 @@ namespace Lemonade.Web.Modules
                 DomainEvent.Raise(new ErrorHasOccurred(exception.Message));
                 return HttpStatusCode.BadRequest;
             }
+        }
+
+        private Data.Entities.Application CreateApplication(string applicationName)
+        {
+            var application = new Data.Entities.Application { Name = applicationName };
+            _createApplication.Execute(application);
+
+            DomainEvent.Raise(new ApplicationHasBeenCreated(application.ApplicationId, applicationName));
+
+            return application;
         }
 
         private Data.Entities.Application GetApplication(string applicationName)

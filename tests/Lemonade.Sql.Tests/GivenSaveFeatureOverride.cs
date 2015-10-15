@@ -27,9 +27,10 @@ namespace Lemonade.Sql.Tests
             var featureOverride = new FeatureOverride { IsEnabled = true, FeatureId = feature.FeatureId, Hostname = "Test" };
             new CreateFeatureOverride().Execute(featureOverride);
 
-            featureOverride = new GetFeatureOverride().Execute(feature.FeatureId, "Test");
+            var features = new GetAllFeaturesByApplicationId().Execute(application.ApplicationId);
 
-            Assert.That(featureOverride, Is.Not.Null);
+            Assert.That(features[0].FeatureOverrides[0].Hostname, Is.EqualTo("Test"));
+            Assert.That(features[0].FeatureOverrides[0].IsEnabled, Is.True);
         }
     }
 }
