@@ -155,9 +155,7 @@ namespace Lemonade.Web.Tests
         {
             return new Contracts.Feature
             {
-                ExpirationDays = 1,
                 IsEnabled = true,
-                StartDate = DateTime.Now,
                 Name = name,
                 Application = application,
                 ApplicationId = application.ApplicationId

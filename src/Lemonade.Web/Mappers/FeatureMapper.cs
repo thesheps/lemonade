@@ -11,9 +11,7 @@ namespace Lemonade.Web.Mappers
                 FeatureId = feature.FeatureId,
                 Name = feature.Name,
                 Application = feature.Application.ToContract(),
-                ExpirationDays = feature.ExpirationDays,
                 IsEnabled = feature.IsEnabled,
-                StartDate = feature.StartDate
             };
         }
 
@@ -24,9 +22,7 @@ namespace Lemonade.Web.Mappers
                 FeatureId = feature.FeatureId,
                 ApplicationId = feature.ApplicationId,
                 Name = feature.Name,
-                ExpirationDays = feature.ExpirationDays,
                 IsEnabled = feature.IsEnabled,
-                StartDate = feature.StartDate
             };
         }
     }

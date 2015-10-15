@@ -1,5 +1,4 @@
-﻿using System;
-using Lemonade.Sql.Queries;
+﻿using Lemonade.Sql.Queries;
 
 namespace Lemonade.Sql
 {
@@ -22,9 +21,7 @@ namespace Lemonade.Sql
         {
             var feature = _getFeatureByNameAndApplication.Execute(featureName, applicationName);
 
-            if (feature == null) return false;
-
-            return feature.IsEnabled && feature.ExpirationDays.HasValue && DateTime.Now <= feature.StartDate.AddDays(feature.ExpirationDays.Value);
+            return feature != null && feature.IsEnabled;
         }
 
         private readonly GetFeatureByNameAndApplication _getFeatureByNameAndApplication;

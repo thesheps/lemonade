@@ -48,7 +48,7 @@ namespace Lemonade.Web.Modules
             var feature = new Data.Entities.Feature { Name = featureName, ApplicationId = application.ApplicationId, Application = application };
             _createFeature.Execute(feature);
 
-            DomainEvent.Raise(new FeatureHasBeenCreated(feature.FeatureId, feature.ApplicationId, feature.Name, feature.StartDate, feature.ExpirationDays, feature.IsEnabled));
+            DomainEvent.Raise(new FeatureHasBeenCreated(feature.FeatureId, feature.ApplicationId, feature.Name, feature.IsEnabled));
 
             return feature;
         }
@@ -79,7 +79,7 @@ namespace Lemonade.Web.Modules
             {
                 var feature = this.Bind<Feature>().ToDomain();
                 _createFeature.Execute(feature);
-                DomainEvent.Raise(new FeatureHasBeenCreated(feature.FeatureId, feature.ApplicationId, feature.Name, feature.StartDate, feature.ExpirationDays, feature.IsEnabled));
+                DomainEvent.Raise(new FeatureHasBeenCreated(feature.FeatureId, feature.ApplicationId, feature.Name, feature.IsEnabled));
 
                 return HttpStatusCode.OK;
             }
@@ -112,6 +112,7 @@ namespace Lemonade.Web.Modules
             try
             {
                 _deleteFeature.Execute(featureId);
+                DomainEvent.Raise(new FeatureHasBeenDeleted(featureId));
                 return HttpStatusCode.OK;
             }
             catch (DeleteFeatureException exception)

@@ -22,12 +22,10 @@ namespace Lemonade.Sql.Commands
             {
                 try
                 {
-                    cnn.Execute(@"INSERT INTO Feature (IsEnabled, ExpirationDays, StartDate, Name, ApplicationId)
-                                  VALUES (@IsEnabled, @ExpirationDays, @StartDate, @Name, @ApplicationId)", new
+                    cnn.Execute(@"INSERT INTO Feature (IsEnabled, Name, ApplicationId)
+                                  VALUES (@IsEnabled, @Name, @ApplicationId)", new
                         {
                             feature.IsEnabled,
-                            feature.ExpirationDays,
-                            feature.StartDate,
                             feature.Name,
                             feature.ApplicationId
                         });

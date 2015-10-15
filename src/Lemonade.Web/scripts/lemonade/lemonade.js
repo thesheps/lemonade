@@ -8,7 +8,6 @@
         addFeature: function (feature) {
             view.$apply(function () {
                 view.features.push(feature);
-                view.newFeature = null;
             });
         },
         removeApplication: function (application) {

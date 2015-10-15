@@ -1,5 +1,4 @@
-﻿using System;
-using Lemonade.Data.Entities;
+﻿using Lemonade.Data.Entities;
 
 namespace Lemonade.Builders
 {
@@ -13,12 +12,6 @@ namespace Lemonade.Builders
         public FeatureBuilder WithName(string name)
         {
             _feature.Name = name;
-            return this;
-        }
-
-        public FeatureBuilder WithStartDate(DateTime startDate)
-        {
-            _feature.StartDate = startDate;
             return this;
         }
 
@@ -37,7 +30,7 @@ namespace Lemonade.Builders
 
         public Feature Build()
         {
-            return _feature;;
+            return _feature;
         }
 
         private readonly Feature _feature;

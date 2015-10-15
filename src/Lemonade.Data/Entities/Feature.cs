@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Lemonade.Data.Entities
+﻿namespace Lemonade.Data.Entities
 {
     public class Feature
     {
@@ -9,12 +7,5 @@ namespace Lemonade.Data.Entities
         public Application Application { get; set; }
         public string Name { get; set; }
         public bool IsEnabled { get; set; }
-        public int? ExpirationDays { get; set; }
-        public DateTime StartDate { get; set; }
-
-        public Feature()
-        {
-            StartDate = DateTime.Now;
-        }
     }
 }

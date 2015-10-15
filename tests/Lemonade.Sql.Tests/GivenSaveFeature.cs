@@ -1,5 +1,4 @@
-﻿using System;
-using Lemonade.Builders;
+﻿using Lemonade.Builders;
 using Lemonade.Data.Exceptions;
 using Lemonade.Sql.Commands;
 using Lemonade.Sql.Migrations;
@@ -33,7 +32,6 @@ namespace Lemonade.Sql.Tests
 
             var feature = new FeatureBuilder()
                 .WithName("MyTestFeature")
-                .WithStartDate(DateTime.Now)
                 .WithApplication(application).Build();
 
             saveFeature.Execute(feature);

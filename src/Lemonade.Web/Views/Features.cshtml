@@ -35,53 +35,40 @@
 
         <table class="table table-striped">
             <thead>
-                <tr>
-                    <th>Feature Name</th>
-                    <th>Start Date</th>
-                    <th>Expiration Days</th>
-                    <th>Enabled</th>
-                    <th></th>
-                </tr>
+            <tr>
+                <th>Feature Name</th>
+                <th>Enabled</th>
+                <th></th>
+            </tr>
             </thead>
 
             <tbody>
-                <tr class="feature animate" ng-repeat="feature in features">
-                    <td>
-                        <div class="hide" name="applicationId">{{feature.applicationId}}</div>
-                        <div class="hide" name="featureId">{{feature.featureId}}</div>
-                        <a href="#" editable-text="feature.name" onaftersave="updateFeature(feature)">{{feature.name}}</a>
-                    </td>
-                    <td><a href="#" editable-date="feature.startDate" onaftersave="updateFeature(feature)">{{feature.startDate| date:'dd-MM-yyyy'}}</a></td>
-                    <td><a href="#" editable-text="feature.expirationDays" onaftersave="updateFeature(feature)">{{feature.expirationDays}}</a></td>
-                    <td><a href="#" editable-checkbox="feature.isEnabled" onaftersave="updateFeature(feature)">{{feature.isEnabled}}</a></td>
-                    <td>
-                        <div class="btn btn-xs btn-danger glyphicon glyphicon-remove" ng-click="deleteFeature(feature.featureId)"></div>
-                    </td>
-                </tr>
+            <tr class="feature animate" ng-repeat="feature in features">
+                <td>
+                    <div class="hide" name="applicationId">{{feature.applicationId}}</div>
+                    <div class="hide" name="featureId">{{feature.featureId}}</div>
+                    <a href="#" editable-text="feature.name" onaftersave="updateFeature(feature)">{{feature.name}}</a>
+                </td>
+                <td><a href="#" editable-checkbox="feature.isEnabled" onaftersave="updateFeature(feature)">{{feature.isEnabled}}</a></td>
+                <td>
+                    <div class="btn btn-xs btn-danger glyphicon glyphicon-remove" ng-click="deleteFeature(feature.featureId)"></div>
+                </td>
+            </tr>
 
-                <tr>
-                    <td>
-                        <input name="applicationId" type="hidden" ng-model="newFeature.applicationId"/><input name="name" ng-model="newFeature.Name" class="input-sm"/>
-                    </td>
-                    <td><input name="startDate" class="input-sm" type="date" ng-model="newFeature.startDate"/></td>
-                    <td><input name="expirationDays" class="input-sm" ng-model="newFeature.expirationDays"/></td>
-                    <td><input name="isEnabled" type="checkbox" ng-model="newFeature.isEnabled"/></td>
-                    <td></td>
-                </tr>
+            <tr>
+                <td>
+                    <input name="applicationId" type="hidden" ng-model="newFeature.ApplicationId"/><input name="name" ng-model="newFeature.Name" class="input-sm"/>
+                </td>
+                <td><input name="isEnabled" type="checkbox" ng-model="newFeature.IsEnabled"/></td>
+                <td></td>
+            </tr>
 
-                <tr/>
-
-                <tr>
-                    <td/>
-                    <td/>
-                    <td/>
-                    <td colspan="4">
-                        <button class="btn btn-primary" ng-click="addFeature(newFeature)">
-                            <span><i class="glyphicon glyphicon-plus"></i> Add</span>
-                        </button>
-                    </td>
-                </tr>
+            <tr/>
             </tbody>
         </table>
+
+        <button class="btn btn-primary pull-right" ng-click="addFeature(newFeature)">
+            <span><i class="glyphicon glyphicon-plus"></i> Add</span>
+        </button>
     </div>
 </div>

@@ -29,7 +29,6 @@ namespace Lemonade.AcceptanceTests
             var feature = new FeatureBuilder().WithName("MySuperDuperFeature")
                 .WithApplication(application)
                 .WithIsEnabled(true)
-                .WithStartDate(DateTime.Now)
                 .Build();
 
             _createFeature.Execute(feature);
