@@ -1,4 +1,6 @@
-﻿namespace Lemonade.Web.Contracts
+﻿using System.Collections.Generic;
+
+namespace Lemonade.Web.Contracts
 {
     public class Feature
     {
@@ -7,5 +9,6 @@
         public Application Application { get; set; }
         public string Name { get; set; }
         public bool IsEnabled { get; set; }
+        public List<FeatureOverride> FeatureOverrides { get; set; }
     }
 }

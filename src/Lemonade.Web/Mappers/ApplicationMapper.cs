@@ -13,7 +13,7 @@ namespace Lemonade.Web.Mappers
             };
         }
 
-        public static Data.Entities.Application ToDomain(this Application application)
+        public static Data.Entities.Application ToEntity(this Application application)
         {
             return new Data.Entities.Application
             {

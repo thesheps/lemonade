@@ -35,7 +35,7 @@ namespace Lemonade.Web.Modules
         {
             try
             {
-                var application = this.Bind<Application>().ToDomain();
+                var application = this.Bind<Application>().ToEntity();
                 _createApplication.Execute(application);
                 DomainEvent.Raise(new ApplicationHasBeenCreated(application.ApplicationId, application.Name));
 
@@ -53,7 +53,7 @@ namespace Lemonade.Web.Modules
             try
             {
                 var application = this.Bind<Application>();
-                _updateApplication.Execute(application.ToDomain());
+                _updateApplication.Execute(application.ToEntity());
                 DomainEvent.Raise(new ApplicationHasBeenUpdated(application.ApplicationId, application.Name));
 
                 return HttpStatusCode.OK;

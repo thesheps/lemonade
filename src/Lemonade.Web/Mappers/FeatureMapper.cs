@@ -1,4 +1,5 @@
-﻿using Lemonade.Web.Contracts;
+﻿using System.Linq;
+using Lemonade.Web.Contracts;
 
 namespace Lemonade.Web.Mappers
 {
@@ -12,10 +13,11 @@ namespace Lemonade.Web.Mappers
                 Name = feature.Name,
                 Application = feature.Application.ToContract(),
                 IsEnabled = feature.IsEnabled,
+                FeatureOverrides = feature.FeatureOverrides?.Select(f => f.ToContract()).ToList()
             };
         }
 
-        public static Data.Entities.Feature ToDomain(this Feature feature)
+        public static Data.Entities.Feature ToEntity(this Feature feature)
         {
             return new Data.Entities.Feature
             {

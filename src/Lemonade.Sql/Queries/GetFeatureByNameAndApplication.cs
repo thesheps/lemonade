@@ -19,14 +19,19 @@ namespace Lemonade.Sql.Queries
         {
             using (var cnn = CreateConnection())
             {
-                var results = cnn.Query<Data.Entities.Feature, Application, Data.Entities.Feature>(
+                var feature = cnn.Query<Data.Entities.Feature, Application, Data.Entities.Feature>(
                     @"SELECT * FROM Feature f INNER JOIN Application a ON f.ApplicationId = a.ApplicationId
                       WHERE f.Name = @featureName AND a.Name = @applicationName",
                     (f, a) => { f.Application = a; return f; },
                     new { featureName, applicationName },
                     splitOn: "ApplicationId").FirstOrDefault();
 
-                return results;
+                if (feature != null)
+                    feature.FeatureOverrides = cnn.Query<FeatureOverride>(@"SELECT * FROM FeatureOverride f
+                                                                            WHERE f.FeatureId = @featureId", 
+                                                                            new { feature.FeatureId }).ToList();
+
+                return feature;
             }
         }
     }

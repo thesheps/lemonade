@@ -39,24 +39,7 @@ namespace Lemonade.Web.Modules
             var applicationName = Request.Query["application"].Value as string;
             var feature = _getFeatureByNameAndApplication.Execute(featureName, applicationName) ?? CreateFeature(featureName, applicationName);
 
-            if (feature.IsEnabled) return feature.ToContract();
-
-            var hostname = System.Net.Dns.GetHostEntry(Request.UserHostAddress).HostName;
-            var featureOverride = _getFeatureOverride.Execute(feature.FeatureId, hostname);
-            feature.IsEnabled = featureOverride != null && featureOverride.IsEnabled;
-
             return feature.ToContract();
-        }
-
-        private Data.Entities.Feature CreateFeature(string featureName, string applicationName)
-        {
-            var application = GetApplication(applicationName) ?? CreateApplication(applicationName);
-            var feature = new Data.Entities.Feature { Name = featureName, ApplicationId = application.ApplicationId, Application = application };
-            _createFeature.Execute(feature);
-
-            DomainEvent.Raise(new FeatureHasBeenCreated(feature.FeatureId, feature.ApplicationId, feature.Name, feature.IsEnabled));
-
-            return feature;
         }
 
         private IList<Feature> GetFeatures()
@@ -73,7 +56,7 @@ namespace Lemonade.Web.Modules
         {
             try
             {
-                var feature = this.Bind<Feature>().ToDomain();
+                var feature = this.Bind<Feature>().ToEntity();
                 _createFeature.Execute(feature);
                 DomainEvent.Raise(new FeatureHasBeenCreated(feature.FeatureId, feature.ApplicationId, feature.Name, feature.IsEnabled));
 
@@ -90,7 +73,7 @@ namespace Lemonade.Web.Modules
         {
             try
             {
-                _updateFeature.Execute(this.Bind<Feature>().ToDomain());
+                _updateFeature.Execute(this.Bind<Feature>().ToEntity());
                 return HttpStatusCode.OK;
             }
             catch (CreateFeatureException exception)
@@ -116,6 +99,17 @@ namespace Lemonade.Web.Modules
                 DomainEvent.Raise(new ErrorHasOccurred(exception.Message));
                 return HttpStatusCode.BadRequest;
             }
+        }
+
+        private Data.Entities.Feature CreateFeature(string featureName, string applicationName)
+        {
+            var application = GetApplication(applicationName) ?? CreateApplication(applicationName);
+            var feature = new Data.Entities.Feature { Name = featureName, ApplicationId = application.ApplicationId, Application = application };
+            _createFeature.Execute(feature);
+
+            DomainEvent.Raise(new FeatureHasBeenCreated(feature.FeatureId, feature.ApplicationId, feature.Name, feature.IsEnabled));
+
+            return feature;
         }
 
         private Data.Entities.Application CreateApplication(string applicationName)

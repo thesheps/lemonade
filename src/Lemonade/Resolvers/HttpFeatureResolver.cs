@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Configuration;
+using System.Linq;
 using System.Net;
 using Lemonade.Exceptions;
 using RestSharp;
@@ -23,8 +24,10 @@ namespace Lemonade.Resolvers
 
         public bool Resolve(string featureName, string applicationName)
         {
-            var response = GetFeature(featureName, applicationName);
-            return response.IsEnabled;
+            var feature = GetFeature(featureName, applicationName);
+            var featureOverride = feature.FeatureOverrides?.FirstOrDefault(f => f.Hostname == Dns.GetHostName());
+
+            return featureOverride?.IsEnabled ?? feature.IsEnabled;
         }
 
         private Web.Contracts.Feature GetFeature(string featureName, string applicationName)

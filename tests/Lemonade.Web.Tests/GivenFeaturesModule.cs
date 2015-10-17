@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Net;
 using Lemonade.AcceptanceTests;
 using Lemonade.Resolvers;
@@ -153,7 +154,7 @@ namespace Lemonade.Web.Tests
 
             var result = JsonConvert.DeserializeObject<Contracts.Feature>(response.Body.AsString());
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
-            Assert.That(result.IsEnabled, Is.True);
+            Assert.That(result.FeatureOverrides.Any(f => f.FeatureId == feature.FeatureId && f.IsEnabled), Is.True);
         }
 
         private void Post(Contracts.Feature feature)

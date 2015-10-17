@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 using Lemonade.Builders;
 using Lemonade.Resolvers;
 using Lemonade.Sql.Commands;
@@ -26,12 +27,20 @@ namespace Lemonade.AcceptanceTests
             _createApplication.Execute(application);
             application = _getApplicationByName.Execute(application.Name);
 
-            var feature = new FeatureBuilder().WithName("MySuperDuperFeature")
+            var feature1 = new FeatureBuilder().WithName("MySuperDuperFeature")
                 .WithApplication(application)
                 .WithIsEnabled(true)
                 .Build();
 
-            _createFeature.Execute(feature);
+            var feature2 = new FeatureBuilder().WithName("Ponies")
+                .WithApplication(application)
+                .WithIsEnabled(true)
+                .Build();
+
+            _createFeature.Execute(feature1);
+            _createFeature.Execute(feature2);
+
+            new CreateFeatureOverride().Execute(new Data.Entities.FeatureOverride { FeatureId = feature2.FeatureId, Hostname = Dns.GetHostName(), IsEnabled = true });
             _nancyHost = new NancyHost(new Uri("http://localhost:12345"), new TestLemonadeBootstrapper());
             _nancyHost.Start();
         }
@@ -53,10 +62,18 @@ namespace Lemonade.AcceptanceTests
         [Test]
         public void WhenIHaveAnUnknownFeatureAndITryToRetrieveIt_ThenItIsInserted()
         {
-            var enabled = Feature.Switches["Ponies"];
-            var feature = _getFeature.Execute("Ponies", "Test Application");
+            var enabled = Feature.Switches["Sheep"];
+            var feature = _getFeature.Execute("Sheep", "Test Application");
             Assert.That(feature.IsEnabled, Is.False);
             Assert.That(enabled, Is.False);
+        }
+
+        [Test]
+        public void WhenIGetAFeatureWithAHostnameOveride_ThenTheFeatureIsRetrieved()
+        {
+            Feature.ApplicationName = "Test Application";
+            var enabled = Feature.Switches["Ponies"];
+            Assert.That(enabled, Is.True);
         }
 
         [Test]

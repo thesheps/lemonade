@@ -97,6 +97,7 @@
     <Compile Include="Infrastructure\CamelCasePropertyNameContractResolver.cs" />
     <Compile Include="Events\ApplicationHasBeenUpdated.cs" />
     <Compile Include="Infrastructure\LemonadeBooststrapper.cs" />
+    <Compile Include="Mappers\FeatureOverrideMapper.cs" />
     <Compile Include="Startup.cs" />
     <None Include="Content\Bootstrapper.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
