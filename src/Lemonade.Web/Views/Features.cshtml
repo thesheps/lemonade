@@ -16,7 +16,7 @@
 
                     <div class="pull-right">
                         <span class="glyphicon glyphicon-pencil btn btn-xs btn-success" ng-click="editFeatureForm.$show()" ng-hide="editFeatureForm.$visible"></span>
-                        <span class="glyphicon glyphicon-remove btn btn-xs btn-danger" ng-click="deleteApplication(application.applicationId)"></span>    
+                        <span class="glyphicon glyphicon-remove btn btn-xs btn-danger" ng-click="deleteApplication(application.applicationId)"></span>
                     </div>
                 </li>
             </ul>
@@ -35,35 +35,44 @@
 
         <table class="table table-striped">
             <thead>
-            <tr>
-                <th>Feature Name</th>
-                <th>Enabled</th>
-                <th></th>
-            </tr>
+                <tr>
+                    <th>Feature Name</th>
+                    <th>Enabled</th>
+                    <th></th>
+                </tr>
             </thead>
 
+            <tbody ng-repeat="feature in features">
+                <tr class="feature animate accordion-toggle" data-toggle="collapse" data-target="#feature-{{feature.featureId}}">
+                    <td>
+                        <div class="hide" name="applicationId">{{feature.applicationId}}</div>
+                        <div class="hide" name="featureId">{{feature.featureId}}</div>
+                        <a href="#" editable-text="feature.name" onaftersave="updateFeature(feature)">{{feature.name}}</a>
+                    </td>
+                    <td><a href="#" editable-checkbox="feature.isEnabled" onaftersave="updateFeature(feature)">{{feature.isEnabled}}</a></td>
+                    <td>
+                        <div class="pull-right">
+                            <div class="btn btn-xs btn-primary glyphicon glyphicon-list-alt" ng-click="viewOverrides(feature)"></div>
+                            <div class="btn btn-xs btn-danger glyphicon glyphicon-remove" ng-click="deleteFeature(feature.featureId)"></div>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr id="feature-{{feature.featureId}}" ng-repeat="override in feature.FeatureOverrides">
+                    <td>Test</td>
+                </tr>
+            </tbody>
+
             <tbody>
-            <tr class="feature animate" ng-repeat="feature in features">
-                <td>
-                    <div class="hide" name="applicationId">{{feature.applicationId}}</div>
-                    <div class="hide" name="featureId">{{feature.featureId}}</div>
-                    <a href="#" editable-text="feature.name" onaftersave="updateFeature(feature)">{{feature.name}}</a>
-                </td>
-                <td><a href="#" editable-checkbox="feature.isEnabled" onaftersave="updateFeature(feature)">{{feature.isEnabled}}</a></td>
-                <td>
-                    <div class="btn btn-xs btn-danger glyphicon glyphicon-remove" ng-click="deleteFeature(feature.featureId)"></div>
-                </td>
-            </tr>
+                <tr>
+                    <td>
+                        <input name="applicationId" type="hidden" ng-model="newFeature.ApplicationId" /><input name="name" ng-model="newFeature.Name" class="input-sm" />
+                    </td>
+                    <td><input name="isEnabled" type="checkbox" ng-model="newFeature.IsEnabled" /></td>
+                    <td></td>
+                </tr>
 
-            <tr>
-                <td>
-                    <input name="applicationId" type="hidden" ng-model="newFeature.ApplicationId"/><input name="name" ng-model="newFeature.Name" class="input-sm"/>
-                </td>
-                <td><input name="isEnabled" type="checkbox" ng-model="newFeature.IsEnabled"/></td>
-                <td></td>
-            </tr>
-
-            <tr/>
+                <tr />
             </tbody>
         </table>
 
