@@ -109,7 +109,6 @@
     <Compile Include="Mappers\FeatureMapper.cs" />
     <Compile Include="Modules\ApplicationsModule.cs" />
     <Compile Include="Modules\FeaturesModule.cs" />
-    <Compile Include="Modules\IndexModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="fonts\glyphicons-halflings-regular.eot" />
     <EmbeddedResource Include="fonts\glyphicons-halflings-regular.ttf" />
@@ -129,7 +128,7 @@
     </None>
     <None Include="packages.config" />
     <EmbeddedResource Include="Views\_Layout.cshtml" />
-    <EmbeddedResource Include="Views\Index.cshtml" />
+    <EmbeddedResource Include="Views\About.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\Features.cshtml" />
