@@ -43,7 +43,7 @@
             </thead>
 
             <tbody ng-repeat="feature in features">
-                <tr class="feature animate accordion-toggle" data-toggle="collapse" data-target="#feature-{{feature.featureId}}">
+                <tr class="feature animate">
                     <td>
                         <div class="hide" name="applicationId">{{feature.applicationId}}</div>
                         <div class="hide" name="featureId">{{feature.featureId}}</div>
@@ -52,28 +52,29 @@
                     <td><a href="#" editable-checkbox="feature.isEnabled" onaftersave="updateFeature(feature)">{{feature.isEnabled}}</a></td>
                     <td>
                         <div class="pull-right">
-                            <div class="btn btn-xs btn-primary glyphicon glyphicon-list-alt" ng-click="viewOverrides(feature)"></div>
+                            <div class="btn btn-xs btn-primary glyphicon glyphicon-list-alt accordion-toggle" data-toggle="collapse" data-target="#feature-{{feature.featureId}}" ng-click="viewOverrides(feature)"></div>
                             <div class="btn btn-xs btn-danger glyphicon glyphicon-remove" ng-click="deleteFeature(feature.featureId)"></div>
                         </div>
                     </td>
                 </tr>
 
-                <tr class="accordion-body collapsed" id="feature-{{feature.featureId}}">
+                <tr class="accordion-body collapse" id="feature-{{feature.featureId}}">
                     <td>
-                        <table style="width:100%">
+                        <h3>Overrides</h3>
+                        <table style="width: 100%">
                             <thead>
-                                <tr>
-                                    <th>Hostname</th>
-                                    <th>Enabled</th>
-                                    <th></th>
-                                </tr>
+                            <tr>
+                                <th>Hostname</th>
+                                <th>Enabled</th>
+                                <th></th>
+                            </tr>
                             </thead>
 
                             <tbody>
-                                <tr ng-repeat="override in feature.featureOverrides">
-                                    <td>{{override.hostname}}</td>
-                                    <td>{{override.isEnabled}}</td>
-                                </tr>
+                            <tr ng-repeat="override in feature.featureOverrides">
+                                <td>{{override.hostname}}</td>
+                                <td>{{override.isEnabled}}</td>
+                            </tr>
                             </tbody>
                         </table>
                     </td>
