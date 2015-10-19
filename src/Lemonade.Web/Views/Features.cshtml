@@ -58,8 +58,25 @@
                     </td>
                 </tr>
 
-                <tr id="feature-{{feature.featureId}}" ng-repeat="override in feature.FeatureOverrides">
-                    <td>Test</td>
+                <tr class="accordion-body collapsed" id="feature-{{feature.featureId}}">
+                    <td>
+                        <table style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>Hostname</th>
+                                    <th>Enabled</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr ng-repeat="override in feature.featureOverrides">
+                                    <td>{{override.hostname}}</td>
+                                    <td>{{override.isEnabled}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
                 </tr>
             </tbody>
 
