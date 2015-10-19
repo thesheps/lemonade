@@ -42,7 +42,7 @@
                 </tr>
             </thead>
 
-            <tbody ng-repeat="feature in features">
+            <tbody ng-repeat="feature in features" class="table table-striped">
                 <tr class="feature animate">
                     <td>
                         <div class="hide" name="applicationId">{{feature.applicationId}}</div>
@@ -58,44 +58,50 @@
                     </td>
                 </tr>
 
-                <tr class="accordion-body collapse" id="feature-{{feature.featureId}}">
-                    <td>
-                        <h3>Overrides</h3>
-                        <table style="width: 100%">
-                            <thead>
-                            <tr>
-                                <th>Hostname</th>
-                                <th>Enabled</th>
-                                <th></th>
-                            </tr>
-                            </thead>
+                <tr>
+                    <td colspan="4">
+                        <div class="accordion-body collapse" id="feature-{{feature.featureId}}">
+                            <h4>Overrides</h4>
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Hostname</th>
+                                        <th>Enabled</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
 
-                            <tbody>
-                            <tr ng-repeat="override in feature.featureOverrides">
-                                <td>{{override.hostname}}</td>
-                                <td>{{override.isEnabled}}</td>
-                            </tr>
-                            </tbody>
-                        </table>
+                                <tbody>
+                                    <tr ng-repeat="override in feature.featureOverrides">
+                                        <td>{{override.hostname}}</td>
+                                        <td>{{override.isEnabled}}</td>
+                                        <td>
+                                            <div class="pull-right">
+                                                <div class="btn btn-xs btn-danger glyphicon glyphicon-remove" ng-click="deleteOverride(override.featureOverrideId)"></div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </td>
                 </tr>
             </tbody>
 
             <tbody>
+                <tr />
                 <tr>
                     <td>
                         <input name="applicationId" type="hidden" ng-model="newFeature.ApplicationId" /><input name="name" ng-model="newFeature.Name" class="input-sm" />
                     </td>
                     <td><input name="isEnabled" type="checkbox" ng-model="newFeature.IsEnabled" /></td>
-                    <td></td>
+                    <td>
+                        <button class="btn btn-primary pull-right" ng-click="addFeature(newFeature)">
+                            <span><i class="glyphicon glyphicon-plus"></i> Add</span>
+                        </button>
+                    </td>
                 </tr>
-
-                <tr />
             </tbody>
         </table>
-
-        <button class="btn btn-primary pull-right" ng-click="addFeature(newFeature)">
-            <span><i class="glyphicon glyphicon-plus"></i> Add</span>
-        </button>
     </div>
 </div>
