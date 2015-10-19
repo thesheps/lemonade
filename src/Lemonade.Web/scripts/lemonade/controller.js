@@ -23,7 +23,7 @@
         }
 
         $scope.deleteApplication = function (applicationId) {
-            $.ajax({ url: "api/applications?id=" + applicationId, type: "DELETE" });
+            $.ajax({ url: "api/applications?featureOverrideId=" + applicationId, type: "DELETE" });
         }
 
         $scope.addFeature = function (feature) {
@@ -35,7 +35,7 @@
         }
 
         $scope.deleteFeature = function (featureId) {
-            $.ajax({ url: "api/features?id=" + featureId, type: "DELETE" });
+            $.ajax({ url: "api/features?featureOverrideId=" + featureId, type: "DELETE" });
         }
 
         $scope.deleteOverride = function(overrideId) {

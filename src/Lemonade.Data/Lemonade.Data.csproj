@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\ICreateFeatureOverride.cs" />
+    <Compile Include="Commands\IDeleteFeatureOverride.cs" />
     <Compile Include="Commands\IUpdateFeature.cs" />
     <Compile Include="Commands\IUpdateApplication.cs" />
     <Compile Include="Commands\IDeleteApplication.cs" />
@@ -54,11 +55,14 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Exceptions\CreateFeatureOverrideException.cs" />
     <Compile Include="Exceptions\DeleteFeatureException.cs" />
     <Compile Include="Exceptions\DeleteApplicationException.cs" />
     <Compile Include="Exceptions\CreateApplicationException.cs" />
     <Compile Include="Exceptions\CreateFeatureException.cs" />
+    <Compile Include="Exceptions\DeleteFeatureOverrideException.cs" />
     <Compile Include="Exceptions\UpdateApplicationException.cs" />
+    <Compile Include="Exceptions\UpdateFeatureOverrideException.cs" />
     <Compile Include="Exceptions\UpdateFeatureException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Entities\Application.cs" />
@@ -68,6 +72,7 @@
     <Compile Include="Queries\IGetApplicationByName.cs" />
     <Compile Include="Queries\IGetFeatureByNameAndApplication.cs" />
     <Compile Include="Queries\IGetFeatureOverride.cs" />
+    <Compile Include="Queries\IUpdateFeatureOverride.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Errors.resx">

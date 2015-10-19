@@ -15,7 +15,7 @@
                     <a href="#" editable-text="application.name" onaftersave="updateApplication(application)" ng-click="selectApplication(application)" e-form="editFeatureForm">{{application.name}}</a>
 
                     <div class="pull-right">
-                        <span class="glyphicon glyphicon-pencil btn btn-xs btn-success" ng-click="editFeatureForm.$show()" ng-hide="editFeatureForm.$visible"></span>
+                        <span class="glyphicon glyphicon-pencil btn btn-xs btn-success" ng-click="editFeatureForm.$show()" ng-hfeatureOverrideOverrideIde="editFeatureForm.$visible"></span>
                         <span class="glyphicon glyphicon-remove btn btn-xs btn-danger" ng-click="deleteApplication(application.applicationId)"></span>
                     </div>
                 </li>
@@ -42,18 +42,18 @@
                 </tr>
             </thead>
 
-            <tbody ng-repeat="feature in features" class="table table-striped">
+            <tbody ng-repeat="featureOverride in featureOverrides" class="table table-striped">
                 <tr class="feature animate">
                     <td>
-                        <div class="hide" name="applicationId">{{feature.applicationId}}</div>
-                        <div class="hide" name="featureId">{{feature.featureId}}</div>
-                        <a href="#" editable-text="feature.name" onaftersave="updateFeature(feature)">{{feature.name}}</a>
+                        <div class="hide" name="applicationId">{{featureOverride.applicationId}}</div>
+                        <div class="hide" name="featureOverrideOverrfeatureOverrideOverrideIdeId">{{featureOverride.featureOverrideOverrfeatureOverrideOverrideIdeId}}</div>
+                        <a href="#" editable-text="featureOverride.name" onaftersave="updateFeature(featureOverride)">{{featureOverride.name}}</a>
                     </td>
-                    <td><a href="#" editable-checkbox="feature.isEnabled" onaftersave="updateFeature(feature)">{{feature.isEnabled}}</a></td>
+                    <td><a href="#" editable-checkbox="featureOverride.isEnabled" onaftersave="updateFeature(featureOverride)">{{featureOverride.isEnabled}}</a></td>
                     <td>
                         <div class="pull-right">
-                            <div class="btn btn-xs btn-primary glyphicon glyphicon-list-alt accordion-toggle" data-toggle="collapse" data-target="#feature-{{feature.featureId}}" title="View client overrides"></div>
-                            <div class="btn btn-xs btn-danger glyphicon glyphicon-remove" ng-click="deleteFeature(feature.featureId)"></div>
+                            <div class="btn btn-xs btn-primary glyphicon glyphicon-list-alt accordion-toggle" data-toggle="collapse" data-target="#featureOverride-{{featureOverride.featureOverrideOverrfeatureOverrideOverrideIdeId}}" title="View client overrfeatureOverrideOverrideIdes"></div>
+                            <div class="btn btn-xs btn-danger glyphicon glyphicon-remove" ng-click="deleteFeature(featureOverride.featureOverrideOverrfeatureOverrideOverrideIdeId)"></div>
                         </div>
                     </td>
                 </tr>
@@ -61,7 +61,7 @@
                 <tr>
                     <td colspan="4">
                         <div class="accordion-body collapse" id="feature-{{feature.featureId}}">
-                            <h4>Client Overrides</h4>
+                            <h4>Client OverrfeatureOverrideOverrideIdes</h4>
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
@@ -72,12 +72,12 @@
                                 </thead>
 
                                 <tbody>
-                                    <tr ng-repeat="override in feature.featureOverrides">
-                                        <td>{{override.hostname}}</td>
-                                        <td>{{override.isEnabled}}</td>
+                                    <tr ng-repeat="overrfeatureOverrideOverrideIde in featureOverride.featureOverrideOverrfeatureOverrideOverrideIdes">
+                                        <td>{{overrfeatureOverrideOverrideIde.hostname}}</td>
+                                        <td>{{overrfeatureOverrideOverrideIde.isEnabled}}</td>
                                         <td>
                                             <div class="pull-right">
-                                                <div class="btn btn-xs btn-danger glyphicon glyphicon-remove" ng-click="deleteOverride(override.featureOverrideId)"></div>
+                                                <div class="btn btn-xs btn-danger glyphicon glyphicon-remove" ng-click="deleteOverrfeatureOverrideOverrideIde(overrfeatureOverrideOverrideIde.featureOverrideOverrfeatureOverrideOverrideIdeId)"></div>
                                             </div>
                                         </td>
                                     </tr>

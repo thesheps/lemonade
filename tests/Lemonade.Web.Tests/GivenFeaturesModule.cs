@@ -75,7 +75,7 @@ namespace Lemonade.Web.Tests
         }
 
         [Test]
-        public void WhenIPostAFeature_SignalRClientsAreNotified()
+        public void WhenIPostAFeature_ThenSignalRClientsAreNotified()
         {
             var application = new Data.Entities.Application { ApplicationId = 1, Name = "TestApplication1" };
             _createApplication.Execute(application);

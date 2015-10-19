@@ -104,6 +104,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GivenFeatureOverridesModule.cs" />
     <Compile Include="Mocks\IMockClient.cs" />
     <Compile Include="GivenApplicationsModule.cs" />
     <Compile Include="GivenFeaturesModule.cs" />

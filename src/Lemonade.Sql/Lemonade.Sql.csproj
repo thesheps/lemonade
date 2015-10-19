@@ -59,7 +59,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\CreateFeatureOverride.cs" />
+    <Compile Include="Commands\DeleteFeatureOverride.cs" />
     <Compile Include="Commands\UpdateApplication.cs" />
+    <Compile Include="Commands\UpdateFeatureOverride.cs" />
     <Compile Include="Commands\UpdateFeature.cs" />
     <Compile Include="Migrations\CreateFeatureOverrideTable.cs" />
     <Compile Include="Migrations\RemoveUnusedColumns.cs" />

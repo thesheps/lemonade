@@ -77,7 +77,7 @@ namespace Lemonade.Web.Modules
                 _updateFeature.Execute(this.Bind<Feature>().ToEntity());
                 return HttpStatusCode.OK;
             }
-            catch (CreateFeatureException exception)
+            catch (UpdateFeatureException exception)
             {
                 DomainEvent.Raise(new ErrorHasOccurred(exception.Message));
                 return HttpStatusCode.BadRequest;

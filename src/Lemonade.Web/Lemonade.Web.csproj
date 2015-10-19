@@ -82,6 +82,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EventHandlers\ApplicationHasBeenDeletedHandler.cs" />
+    <Compile Include="EventHandlers\FeatureOverrideHasBeenCreatedHandler.cs" />
+    <Compile Include="EventHandlers\FeatureOverrideHasBeenDeletedHandler.cs" />
     <Compile Include="EventHandlers\FeatureHasBeenDeletedHandler.cs" />
     <Compile Include="EventHandlers\ErrorHasOccurredHandler.cs" />
     <Compile Include="Events\ApplicationHasBeenCreated.cs" />
@@ -98,6 +100,9 @@
     <Compile Include="Events\ApplicationHasBeenUpdated.cs" />
     <Compile Include="Infrastructure\LemonadeBooststrapper.cs" />
     <Compile Include="Mappers\FeatureOverrideMapper.cs" />
+    <Compile Include="Events\FeatureOverrideHasBeenDeleted.cs" />
+    <Compile Include="Events\FeatureOverrideHasBeenCreated.cs" />
+    <Compile Include="Modules\FeatureOverridesModule.cs" />
     <Compile Include="Startup.cs" />
     <None Include="Content\Bootstrapper.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -128,7 +133,6 @@
     </None>
     <None Include="packages.config" />
     <EmbeddedResource Include="Views\_Layout.cshtml" />
-    <EmbeddedResource Include="Views\About.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\Features.cshtml" />

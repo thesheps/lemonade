@@ -135,4 +135,13 @@
   <data name="FailedToUpdateFeature" xml:space="preserve">
     <value>Could not update the specified feature</value>
   </data>
+  <data name="FailedToUpdateFeatureOverride" xml:space="preserve">
+    <value>Could not update the specified feature override</value>
+  </data>
+  <data name="FailedToDeleteFeatureOverride" xml:space="preserve">
+    <value>Could not delete the specified feature override</value>
+  </data>
+  <data name="FailedToCreateFeatureOverride" xml:space="preserve">
+    <value>Could not create the specified feature override</value>
+  </data>
 </root>

@@ -79,6 +79,15 @@ namespace Lemonade.Data {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Could not create the specified feature override.
+        /// </summary>
+        internal static string FailedToCreateFeatureOverride {
+            get {
+                return ResourceManager.GetString("FailedToCreateFeatureOverride", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Could not delete the specified application.
         /// </summary>
         internal static string FailedToDeleteApplication {
@@ -97,6 +106,15 @@ namespace Lemonade.Data {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Could not delete the specified feature override.
+        /// </summary>
+        internal static string FailedToDeleteFeatureOverride {
+            get {
+                return ResourceManager.GetString("FailedToDeleteFeatureOverride", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Could not update the specified application.
         /// </summary>
         internal static string FailedToUpdateApplication {
@@ -111,6 +129,15 @@ namespace Lemonade.Data {
         internal static string FailedToUpdateFeature {
             get {
                 return ResourceManager.GetString("FailedToUpdateFeature", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not update the specified feature override.
+        /// </summary>
+        internal static string FailedToUpdateFeatureOverride {
+            get {
+                return ResourceManager.GetString("FailedToUpdateFeatureOverride", resourceCulture);
             }
         }
     }
