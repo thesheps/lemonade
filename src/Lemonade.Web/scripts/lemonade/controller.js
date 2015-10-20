@@ -38,7 +38,7 @@
             $.ajax({ url: "api/features?id=" + featureId, type: "DELETE" });
         }
 
-        $scope.deleteFeatureOverride = function(featuerOverrideId) {
-            alert(featuerOverrideId);
+        $scope.deleteFeatureOverride = function(featureOverrideId) {
+            $.ajax({ url: "api/featureoverrides?id=" + featureOverrideId, type: "DELETE" });
         }
     }]);

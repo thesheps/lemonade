@@ -31,6 +31,9 @@
                 }
             });
         },
+        removeFeatureOverride: function (featureOverride) {
+            alert(featureOverride.featureOverrideId);
+        },
         logError: function (error) {
             $.bootstrapGrowl(error.errorMessage, { type: "danger" });
         }
