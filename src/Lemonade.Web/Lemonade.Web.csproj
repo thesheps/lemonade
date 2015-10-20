@@ -154,6 +154,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="fonts\glyphicons-halflings-regular.svg" />
+    <EmbeddedResource Include="styles\animations.css" />
+    <EmbeddedResource Include="styles\bootstrap.min.css" />
+    <EmbeddedResource Include="styles\flatly.min.css" />
+    <EmbeddedResource Include="styles\xeditable.css" />
+  </ItemGroup>
+  <ItemGroup>
     <EmbeddedResource Include="scripts\angular-animate.min.js" />
     <EmbeddedResource Include="scripts\angular.min.js" />
     <EmbeddedResource Include="scripts\bootstrap-growl.min.js" />
@@ -164,10 +170,6 @@
     <EmbeddedResource Include="scripts\lemonade\controller.js" />
     <EmbeddedResource Include="scripts\lemonade\lemonade.js" />
     <EmbeddedResource Include="scripts\xeditable.min.js" />
-    <EmbeddedResource Include="styles\animations.css" />
-    <EmbeddedResource Include="styles\bootstrap.min.css" />
-    <EmbeddedResource Include="styles\flatly.min.css" />
-    <EmbeddedResource Include="styles\xeditable.css" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
