@@ -44,8 +44,8 @@
                 </tr>
             </thead>
 
-            <tbody ng-repeat="feature in features" class="table table-striped">
-                <tr class="feature animate">
+            <tbody ng-repeat="feature in features" class="table table-striped animate">
+                <tr class="feature">
                     <td>
                         <div class="hide" name="applicationId">{{feature.applicationId}}</div>
                         <div class="hide" name="featureId">{{feature.featureId}}</div>
@@ -61,7 +61,7 @@
                 </tr>
 
                 <tr>
-                    <td colspan="4">
+                    <td colspan="3">
                         <div class="accordion-body collapse" id="feature-{{feature.featureId}}">
                             <h4>Client Overrides</h4>
                             <table class="table table-striped">
@@ -74,7 +74,7 @@
                                 </thead>
 
                                 <tbody>
-                                    <tr ng-repeat="featureOverride in feature.featureOverrides">
+                                    <tr class="animate" ng-repeat="featureOverride in feature.featureOverrides">
                                         <td>{{featureOverride.hostname}}</td>
                                         <td>{{featureOverride.isEnabled}}</td>
                                         <td>
