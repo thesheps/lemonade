@@ -96,6 +96,7 @@
     <Compile Include="Events\IDomainEvent.cs" />
     <Compile Include="Events\IDomainEventDispatcher.cs" />
     <Compile Include="Events\IDomainEventHandler.cs" />
+    <Compile Include="Globals.cs" />
     <Compile Include="Infrastructure\CamelCasePropertyNameContractResolver.cs" />
     <Compile Include="Events\ApplicationHasBeenUpdated.cs" />
     <Compile Include="Infrastructure\LemonadeBooststrapper.cs" />

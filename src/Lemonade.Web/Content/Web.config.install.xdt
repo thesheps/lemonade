@@ -3,4 +3,8 @@
   <connectionStrings xdt:Transform="InsertIfMissing">
     <add xdt:Transform="InsertIfMissing" name="Lemonade" providerName="System.Data.SqlClient" connectionString="" xdt:Locator="Match(name)" />
   </connectionStrings>
+
+  <appSettings xdt:Transform="InsertIfMissing">
+    <add xdt:Transform="InsertIfMissing" key="ApplicationTitle" value="Lemonade" />
+  </appSettings>
 </configuration>
