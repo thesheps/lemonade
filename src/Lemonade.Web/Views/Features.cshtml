@@ -25,7 +25,9 @@
 
             <div class="input-group">
                 <input type="text" name="name" class="form-control" ng-model="applicationName" placeholder="Application name...">
-                <span class="input-group-btn"><button ng-click="addApplication(applicationName)" class="btn btn-primary btn-md" id="add-application-button">Add</button></span>
+                <span class="input-group-btn">
+                    <span class="btn btn-primary btn-md" ng-click="addApplication(applicationName)"><i class="glyphicon glyphicon-plus"></i> Add</span>
+                </span>
             </div>
         </div>
     </div>

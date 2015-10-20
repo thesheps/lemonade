@@ -119,7 +119,7 @@
     <EmbeddedResource Include="fonts\glyphicons-halflings-regular.ttf" />
     <EmbeddedResource Include="fonts\glyphicons-halflings-regular.woff" />
     <EmbeddedResource Include="fonts\glyphicons-halflings-regular.woff2" />
-    <None Include="Views\About.cshtml" />
+    <EmbeddedResource Include="Views\About.cshtml" />
     <None Include="web.config" />
   </ItemGroup>
   <ItemGroup>
