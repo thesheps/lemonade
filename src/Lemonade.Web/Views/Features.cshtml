@@ -35,7 +35,7 @@
     <div class="col-md-8 animate" ng-show="application != null">
         <h2>{{application.name}} - Features</h2>
 
-        <table class="table table-striped">
+        <table class="table">
             <thead>
                 <tr>
                     <th>Feature Name</th>
@@ -44,7 +44,7 @@
                 </tr>
             </thead>
 
-            <tbody ng-repeat="feature in features" class="table table-striped animate">
+            <tbody ng-repeat="feature in features" class="table animate">
                 <tr class="feature">
                     <td>
                         <div class="hide" name="applicationId">{{feature.applicationId}}</div>
@@ -62,7 +62,7 @@
 
                 <tr>
                     <td colspan="3">
-                        <div class="accordion-body collapse" id="feature-{{feature.featureId}}">
+                        <div class="accordion-body collapse well" id="feature-{{feature.featureId}}">
                             <h4>Client Overrides</h4>
                             <table class="table table-striped">
                                 <thead>
@@ -73,21 +73,25 @@
                                     </tr>
                                 </thead>
 
-                                <tbody>
-                                <tr class="animate" ng-repeat="featureOverride in feature.featureOverrides">
-                                    <td><a href="#" editable-text="featureOverride.hostname" onaftersave="updateFeatureOverride(featureOverride)">{{featureOverride.hostname}}</a></td>
-                                    <td><a href="#" editable-checkbox="featureOverride.isEnabled" onaftersave="updateFeatureOverride(featureOverride)">{{featureOverride.isEnabled}}</a></td>
-                                    <td>
-                                        <div class="pull-right">
-                                            <div class="btn btn-xs btn-danger glyphicon glyphicon-remove" ng-click="deleteFeatureOverride(featureOverride.featureOverrideId)"></div>
-                                        </div>
-                                    </td>
-                                </tr>
+                                <tbody class="table table-striped">
+                                    <tr class="animate" ng-repeat="featureOverride in feature.featureOverrides">
+                                        <td><a href="#" editable-text="featureOverride.hostname" onaftersave="updateFeatureOverride(featureOverride)">{{featureOverride.hostname}}</a></td>
+                                        <td><a href="#" editable-checkbox="featureOverride.isEnabled" onaftersave="updateFeatureOverride(featureOverride)">{{featureOverride.isEnabled}}</a></td>
+                                        <td>
+                                            <div class="pull-right">
+                                                <div class="btn btn-xs btn-danger glyphicon glyphicon-remove" ng-click="deleteFeatureOverride(featureOverride.featureOverrideId)"></div>
+                                            </div>
+                                        </td>
+                                    </tr>
 
                                     <tr />
+                                </tbody>
+
+                                <tbody>
                                     <tr>
                                         <td>
-                                            <input name="featureId" type="hidden" ng-model="feature.newOverride.FeatureId" ng-init="feature.newOverride.FeatureId = feature.featureId"/><input name="name" ng-model="feature.newOverride.Hostname" class="input-sm" />
+                                            <input name="featureId" type="hidden" ng-model="feature.newOverride.FeatureId" ng-init="feature.newOverride.FeatureId = feature.featureId" />
+                                            <input name="name" ng-model="feature.newOverride.Hostname" class="input-sm" placeholder="Hostname" />
                                         </td>
                                         <td><input name="isEnabled" type="checkbox" ng-model="feature.newOverride.IsEnabled" /></td>
                                         <td>
@@ -107,7 +111,8 @@
                 <tr />
                 <tr>
                     <td>
-                        <input name="applicationId" type="hidden" ng-model="newFeature.ApplicationId" /><input name="name" ng-model="newFeature.Name" class="input-sm" />
+                        <input name="applicationId" type="hidden" ng-model="newFeature.ApplicationId" />
+                        <input name="name" ng-model="newFeature.Name" class="input-sm" placeholder="Feature name" />
                     </td>
                     <td><input name="isEnabled" type="checkbox" ng-model="newFeature.IsEnabled" /></td>
                     <td>

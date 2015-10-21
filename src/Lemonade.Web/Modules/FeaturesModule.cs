@@ -17,7 +17,6 @@ namespace Lemonade.Web.Modules
             ICreateFeature createFeature, IUpdateFeature updateFeature, IDeleteFeature deleteFeature, ICreateApplication createApplication)
         {
             _getFeatureByNameAndApplication = getFeatureByNameAndApplication;
-            _getFeatureOverride = getFeatureOverride;
             _getApplicationByName = getApplicationByName;
             _getAllFeaturesByApplicationId = getAllFeaturesByApplicationId;
             _createFeature = createFeature;
@@ -130,7 +129,6 @@ namespace Lemonade.Web.Modules
         }
 
         private readonly IGetFeatureByNameAndApplication _getFeatureByNameAndApplication;
-        private readonly IGetFeatureOverride _getFeatureOverride;
         private readonly IGetApplicationByName _getApplicationByName;
         private readonly IGetAllFeaturesByApplicationId _getAllFeaturesByApplicationId;
         private readonly ICreateFeature _createFeature;
