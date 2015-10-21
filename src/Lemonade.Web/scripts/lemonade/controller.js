@@ -42,7 +42,7 @@
             $http.post("/api/featureoverrides", featureOverride);
         }
 
-        $scope.updateFeature = function (featureOverride) {
+        $scope.updateFeatureOverride = function (featureOverride) {
             $http.put("/api/featureoverrides", featureOverride);
         }
 

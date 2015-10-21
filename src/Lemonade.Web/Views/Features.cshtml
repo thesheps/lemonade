@@ -74,15 +74,15 @@
                                 </thead>
 
                                 <tbody>
-                                    <tr class="animate" ng-repeat="featureOverride in feature.featureOverrides">
-                                        <td>{{featureOverride.hostname}}</td>
-                                        <td>{{featureOverride.isEnabled}}</td>
-                                        <td>
-                                            <div class="pull-right">
-                                                <div class="btn btn-xs btn-danger glyphicon glyphicon-remove" ng-click="deleteFeatureOverride(featureOverride.featureOverrideId)"></div>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                <tr class="animate" ng-repeat="featureOverride in feature.featureOverrides">
+                                    <td><a href="#" editable-text="featureOverride.hostname" onaftersave="updateFeatureOverride(featureOverride)">{{featureOverride.hostname}}</a></td>
+                                    <td><a href="#" editable-checkbox="featureOverride.isEnabled" onaftersave="updateFeatureOverride(featureOverride)">{{featureOverride.isEnabled}}</a></td>
+                                    <td>
+                                        <div class="pull-right">
+                                            <div class="btn btn-xs btn-danger glyphicon glyphicon-remove" ng-click="deleteFeatureOverride(featureOverride.featureOverrideId)"></div>
+                                        </div>
+                                    </td>
+                                </tr>
 
                                     <tr />
                                     <tr>
