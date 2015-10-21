@@ -83,6 +83,19 @@
                                             </div>
                                         </td>
                                     </tr>
+
+                                    <tr />
+                                    <tr>
+                                        <td>
+                                            <input name="featureId" type="hidden" ng-model="feature.newOverride.FeatureId" ng-init="feature.newOverride.FeatureId = feature.featureId"/><input name="name" ng-model="feature.newOverride.Hostname" class="input-sm" />
+                                        </td>
+                                        <td><input name="isEnabled" type="checkbox" ng-model="feature.newOverride.IsEnabled" /></td>
+                                        <td>
+                                            <button class="btn btn-primary pull-right" ng-click="addFeatureOverride(feature.newOverride)">
+                                                <span><i class="glyphicon glyphicon-plus"></i> Add</span>
+                                            </button>
+                                        </td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>

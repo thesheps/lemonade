@@ -15,7 +15,7 @@
         }
 
         $scope.addApplication = function (applicationName) {
-            $.post("api/applications", { name: applicationName });
+            $.post("/api/applications", { name: applicationName });
         }
 
         $scope.updateApplication = function (application) {
@@ -23,7 +23,7 @@
         }
 
         $scope.deleteApplication = function (applicationId) {
-            $.ajax({ url: "api/applications?id=" + applicationId, type: "DELETE" });
+            $.ajax({ url: "/api/applications?id=" + applicationId, type: "DELETE" });
         }
 
         $scope.addFeature = function (feature) {
@@ -35,10 +35,18 @@
         }
 
         $scope.deleteFeature = function (featureId) {
-            $.ajax({ url: "api/features?id=" + featureId, type: "DELETE" });
+            $.ajax({ url: "/api/features?id=" + featureId, type: "DELETE" });
         }
 
-        $scope.deleteOverride = function(overrideId) {
-            alert(overrideId);
+        $scope.addFeatureOverride = function (featureOverride) {
+            $http.post("/api/featureoverrides", featureOverride);
+        }
+
+        $scope.updateFeature = function (featureOverride) {
+            $http.put("/api/featureoverrides", featureOverride);
+        }
+
+        $scope.deleteFeatureOverride = function (featureOverrideId) {
+            $.ajax({ url: "/api/featureoverrides?id=" + featureOverrideId, type: "DELETE" });
         }
     }]);

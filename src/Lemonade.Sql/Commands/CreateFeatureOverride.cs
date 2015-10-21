@@ -35,7 +35,7 @@ namespace Lemonade.Sql.Commands
                 }
                 catch (DbException exception)
                 {
-                    throw new CreateFeatureException(exception);
+                    throw new CreateFeatureOverrideException(exception);
                 }
             }
         }
