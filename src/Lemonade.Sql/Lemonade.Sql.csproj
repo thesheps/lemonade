@@ -89,6 +89,12 @@
     <Compile Include="Queries\GetAllFeatures.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Content\App.config.install.xdt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Web.config.install.xdt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
