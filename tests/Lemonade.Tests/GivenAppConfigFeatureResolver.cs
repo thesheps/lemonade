@@ -1,7 +1,7 @@
 ﻿using Lemonade.Resolvers;
 using NUnit.Framework;
 
-namespace Lemonade.Tests
+namespace Lemonade.Resolvers
 {
     public class GivenAppConfigFeatureResolver
     {
@@ -32,7 +32,7 @@ namespace Lemonade.Tests
         [Test]
         public void WhenIHaveAnEnabledKnownAppConfigSettingAndUseFeatureWrapper_ThenTheValueIsRetrievedAsTrue()
         {
-            Feature.Resolver = new AppConfigFeatureResolver();
+            Lemonade.FeatureResolver = new AppConfigFeatureResolver();
             Assert.That(Feature.Switches["EnabledProperty"], Is.True);
             Assert.That(Feature.Switches[d => d.EnabledProperty], Is.True);
         }

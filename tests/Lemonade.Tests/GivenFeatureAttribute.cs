@@ -5,14 +5,14 @@ using Lemonade.Resolvers;
 using NSubstitute;
 using NUnit.Framework;
 
-namespace Lemonade.Tests
+namespace Lemonade.Resolvers
 {
     public class GivenFeatureAttribute
     {
         [Test]
         public void WhenFeatureSwitchedOff_ThenEmptyResults()
         {
-            Feature.Resolver = new AppConfigFeatureResolver();
+            Lemonade.FeatureResolver = new AppConfigFeatureResolver();
             var filterAttribute = new FeatureAttribute("DisabledProperty");
             var request = Substitute.For<HttpRequestBase>();
             request.ContentType.Returns("application/json");

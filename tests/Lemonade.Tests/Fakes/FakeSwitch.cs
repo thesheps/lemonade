@@ -1,4 +1,4 @@
-﻿namespace Lemonade.Tests.Fakes
+﻿namespace Lemonade.Resolvers.Fakes
 {
     public class FakeSwitch : FeatureWrapper
     {

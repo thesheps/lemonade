@@ -2,11 +2,15 @@
 <configuration xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
   <configSections xdt:Transform="InsertBefore(/configuration/*[1])" />
   <configSections xdt:Locator="XPath(/configuration/configSections[last()])">
-    <section name="FeatureConfiguration" type="Lemonade.FeatureConfigurationSection, Lemonade" xdt:Transform="InsertIfMissing"/>
+    <section name="Lemonade" type="Lemonade.LemonadeConfigurationSection, Lemonade" xdt:Transform="InsertIfMissing"/>
   </configSections>
   <configSections xdt:Transform="RemoveAll" xdt:Locator="Condition(count(*)=0)" />
 
-  <FeatureConfiguration xdt:Transform="InsertAfter(/configuration/configSections)" FeatureResolver="Lemonade.Resolvers.HttpFeatureResolver" ApplicationName="Hello World" CacheExpiration="0" />
+  <Lemonade xdt:Transform="InsertAfter(/configuration/configSections)" 
+            FeatureResolver="Lemonade.Resolvers.HttpFeatureResolver"
+            ConfigurationResolver="Lemonade.Resolvers.HttpFeatureResolver" 
+            ApplicationName="Hello World" 
+            CacheExpiration="0" />
 
   <appSettings xdt:Transform="InsertIfMissing">
     <add xdt:Transform="InsertIfMissing" key="LemonadeServiceUrl" value="" xdt:Locator="Match(key)" />
