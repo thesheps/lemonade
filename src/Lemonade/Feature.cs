@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq.Expressions;
 
@@ -36,17 +35,11 @@ namespace Lemonade
 
         private static bool GetFeatureSwitch(string featureName)
         {
-            var key = Lemonade.ApplicationName + featureName;
+            var key = "Feature" + Lemonade.ApplicationName + featureName;
+            var value = Lemonade.CacheProvider
+                .GetValue(key, () => Lemonade.FeatureResolver.Resolve(featureName, Lemonade.ApplicationName));
 
-            Tuple<DateTime, bool> feature;
-            if (!Features.TryGetValue(key, out feature))
-                feature = new Tuple<DateTime, bool>(DateTime.Now, Lemonade.FeatureResolver.Resolve(featureName, Lemonade.ApplicationName));
-            else if (feature.Item1.AddMinutes(Lemonade.CacheExpiration.GetValueOrDefault()) <= DateTime.Now)
-                feature = new Tuple<DateTime, bool>(DateTime.Now, Lemonade.FeatureResolver.Resolve(featureName, Lemonade.ApplicationName));
-
-            Features[key] = feature;
-
-            return feature.Item2;
+            return value;
         }
 
         private class DynamicKey : DynamicObject
@@ -58,7 +51,6 @@ namespace Lemonade
             }
         }
 
-        private static readonly Dictionary<string, Tuple<DateTime, bool>> Features = new Dictionary<string, Tuple<DateTime, bool>>();
-        private readonly DynamicKey _key = new Feature.DynamicKey();
+        private readonly DynamicKey _key = new DynamicKey();
     }
 }

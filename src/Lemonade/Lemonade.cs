@@ -17,6 +17,12 @@ namespace Lemonade
             set { _configurationResolver = value; }
         }
 
+        public static ICacheProvider CacheProvider
+        {
+            get { return _cacheProvider ?? (_cacheProvider = new CacheProvider(_cacheExpiration)); }
+            set { _cacheProvider = value; }
+        }
+
         public static string ApplicationName
         {
             get { return _applicationName ?? LemonadeConfigurationSection.Current.ApplicationName; }
@@ -51,6 +57,7 @@ namespace Lemonade
             return new AppConfigConfigurationResolver();
         }
 
+        private static ICacheProvider _cacheProvider;
         private static IConfigurationResolver _configurationResolver;
         private static IFeatureResolver _featureResolver;
         private static string _applicationName;

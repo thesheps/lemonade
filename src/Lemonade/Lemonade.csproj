@@ -86,6 +86,7 @@
     </Compile>
     <Compile Include="Feature.cs" />
     <Compile Include="FeatureAttribute.cs" />
+    <Compile Include="ICacheProvider.cs" />
     <Compile Include="LemonadeConfigurationSection.cs" />
     <Compile Include="FeatureWrapper.cs" />
     <Compile Include="IConfigurationResolver.cs" />
