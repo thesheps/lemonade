@@ -9,11 +9,9 @@ using Microsoft.AspNet.SignalR;
 using Nancy;
 using Nancy.Bootstrapper;
 using Nancy.Conventions;
-using Nancy.Hosting.Aspnet;
 using Nancy.Responses;
 using Nancy.TinyIoc;
 using Nancy.ViewEngines;
-using Nancy.ViewEngines.Razor;
 
 namespace Lemonade.Web.Infrastructure
 {
@@ -83,8 +81,6 @@ namespace Lemonade.Web.Infrastructure
             get { return NancyInternalConfiguration.WithOverrides(nic => nic.ViewLocationProvider = typeof(ResourceViewLocationProvider)); }
         }
 
-        protected override IEnumerable<Type> ViewEngines { get { yield return typeof(RazorViewEngine); } }
-        protected override IRootPathProvider RootPathProvider => new AspNetRootPathProvider();
         private readonly List<Action<TinyIoCContainer>> _dependencies = new List<Action<TinyIoCContainer>>();
         private TinyIoCContainer _container;
     }
