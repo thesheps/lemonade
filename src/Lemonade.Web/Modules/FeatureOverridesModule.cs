@@ -42,7 +42,10 @@ namespace Lemonade.Web.Modules
         {
             try
             {
-                _updateFeatureOverride.Execute(this.Bind<FeatureOverride>().ToEntity());
+                var featureOverride = this.Bind<FeatureOverride>();
+                _updateFeatureOverride.Execute(featureOverride.ToEntity());
+                DomainEvent.Raise(new FeatureOverrideHasBeenUpdated(featureOverride.FeatureOverrideId, featureOverride.FeatureId, featureOverride.Hostname, featureOverride.IsEnabled));
+
                 return HttpStatusCode.OK;
             }
             catch (UpdateFeatureOverrideException exception)

@@ -106,6 +106,7 @@
     <Compile Include="Mappers\FeatureOverrideMapper.cs" />
     <Compile Include="Events\FeatureOverrideHasBeenDeleted.cs" />
     <Compile Include="Events\FeatureOverrideHasBeenCreated.cs" />
+    <Compile Include="Events\FeatureOverrideHasBeenUpdated.cs" />
     <Compile Include="Modules\FeatureOverridesModule.cs" />
     <Compile Include="Startup.cs" />
     <None Include="Content\Bootstrapper.cs">
@@ -164,16 +165,16 @@
     <EmbeddedResource Include="styles\xeditable.css" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="scripts\angular-animate.min.js" />
-    <EmbeddedResource Include="scripts\angular.min.js" />
-    <EmbeddedResource Include="scripts\bootstrap-growl.min.js" />
-    <EmbeddedResource Include="scripts\bootstrap.min.js" />
-    <EmbeddedResource Include="scripts\jquery-1.9.1.min.js" />
-    <EmbeddedResource Include="scripts\jquery.signalR-2.2.0.min.js" />
-    <EmbeddedResource Include="scripts\lemonade\app.js" />
-    <EmbeddedResource Include="scripts\lemonade\controller.js" />
-    <EmbeddedResource Include="scripts\lemonade\lemonade.js" />
-    <EmbeddedResource Include="scripts\xeditable.min.js" />
+    <EmbeddedResource Include="Scripts\angular-animate.min.js" />
+    <EmbeddedResource Include="Scripts\angular.min.js" />
+    <EmbeddedResource Include="Scripts\bootstrap-growl.min.js" />
+    <EmbeddedResource Include="Scripts\bootstrap.min.js" />
+    <EmbeddedResource Include="Scripts\jquery-1.9.1.min.js" />
+    <EmbeddedResource Include="Scripts\jquery.signalR-2.2.0.min.js" />
+    <EmbeddedResource Include="Scripts\lemonade\app.js" />
+    <EmbeddedResource Include="Scripts\lemonade\controller.js" />
+    <EmbeddedResource Include="Scripts\lemonade\lemonade.js" />
+    <EmbeddedResource Include="Scripts\xeditable.min.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
