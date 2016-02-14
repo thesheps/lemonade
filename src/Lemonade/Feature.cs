@@ -2,7 +2,7 @@
 
 namespace Lemonade
 {
-    public class Feature : Value<bool>
+    public class Feature : ValueProvider<bool>
     {
         public static Feature Switches { get; } = new Feature();
 

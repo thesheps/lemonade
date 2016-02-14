@@ -4,7 +4,7 @@ namespace Lemonade
     {
         public static T Settings<T>(string key) => new ConfigValue<T>()[key];
 
-        private class ConfigValue<T> : Value<T>
+        private class ConfigValue<T> : ValueProvider<T>
         {
             protected override T GetValue(string key, string applicationName)
             {

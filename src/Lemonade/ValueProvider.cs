@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Dynamic;
 using System.Linq.Expressions;
 
 namespace Lemonade
 {
-    public abstract class Value<T>
+    public abstract class ValueProvider<T>
     {
         public T this[Func<dynamic, dynamic> keyFunction] => GetValue(keyFunction(_key));
 
@@ -25,8 +26,17 @@ namespace Lemonade
             return value;
         }
 
-        protected Value()
+        protected ValueProvider()
         {
+        }
+
+        private class DynamicKey : DynamicObject
+        {
+            public override bool TryGetMember(GetMemberBinder binder, out object result)
+            {
+                result = binder.Name;
+                return true;
+            }
         }
 
         protected abstract T GetValue(string key, string applicationName);
