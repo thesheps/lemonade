@@ -1,7 +1,7 @@
 ﻿using Lemonade.Resolvers;
 using NUnit.Framework;
 
-namespace Lemonade.Resolvers
+namespace Lemonade.Tests
 {
     public class GivenAppConfigFeatureResolver
     {

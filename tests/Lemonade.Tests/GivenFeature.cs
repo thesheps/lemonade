@@ -3,7 +3,7 @@ using System.Threading;
 using Lemonade.Resolvers.Fakes;
 using NUnit.Framework;
 
-namespace Lemonade.Resolvers
+namespace Lemonade.Tests
 {
     public class GivenFeature : IFeatureResolver
     {

@@ -39,6 +39,7 @@ namespace Lemonade.Web.Tests
         [TearDown]
         public void Teardown()
         {
+            _server.Stop();
             _server.Dispose();
         }
 

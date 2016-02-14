@@ -1,4 +1,5 @@
 using System;
+using System.Configuration;
 
 namespace Lemonade.Resolvers
 {
@@ -6,7 +7,11 @@ namespace Lemonade.Resolvers
     {
         public T Resolve<T>(string key, string applicationName)
         {
-            throw new NotImplementedException();
+            var value = ConfigurationManager.AppSettings[key];
+            if (typeof(T) == typeof(Uri))
+                return ((T)(object)new Uri(value));
+
+            return (T)Convert.ChangeType(value, typeof(T));
         }
     }
 }
