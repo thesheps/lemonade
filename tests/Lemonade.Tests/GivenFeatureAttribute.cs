@@ -5,7 +5,7 @@ using Lemonade.Resolvers;
 using NSubstitute;
 using NUnit.Framework;
 
-namespace Lemonade.Resolvers
+namespace Lemonade.Tests
 {
     public class GivenFeatureAttribute
     {

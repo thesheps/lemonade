@@ -5,9 +5,9 @@ namespace Lemonade.Resolvers
 {
     public class AppConfigConfigurationResolver : IConfigurationResolver
     {
-        public T Resolve<T>(string key, string applicationName)
+        public T Resolve<T>(string configurationName, string applicationName)
         {
-            var value = ConfigurationManager.AppSettings[key];
+            var value = ConfigurationManager.AppSettings[configurationName];
             if (typeof(T) == typeof(Uri))
                 return ((T)(object)new Uri(value));
 

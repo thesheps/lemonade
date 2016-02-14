@@ -27,9 +27,9 @@ namespace Lemonade.Tests
             Assert.That(Lemonade.ConfigurationResolver, Is.TypeOf<AppConfigConfigurationResolver>());
         }
 
-        public T Resolve<T>(string key, string applicationName)
+        public T Resolve<T>(string configurationName, string applicationName)
         {
-            if (key == "TestString") return (T)Convert.ChangeType("Test String", TypeCode.String);
+            if (configurationName == "TestString") return (T)Convert.ChangeType("Test String", TypeCode.String);
 
             return (T)Convert.ChangeType(true, TypeCode.Boolean);
         }

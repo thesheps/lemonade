@@ -2,6 +2,6 @@ namespace Lemonade
 {
     public interface IConfigurationResolver
     {
-        T Resolve<T>(string key, string applicationName);
+        T Resolve<T>(string configurationName, string applicationName);
     }
 }
