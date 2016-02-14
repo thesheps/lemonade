@@ -79,11 +79,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Config.cs" />
+    <Compile Include="DynamicKey.cs" />
     <Compile Include="Errors.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Errors.resx</DependentUpon>
     </Compile>
+    <Compile Include="Value.cs" />
     <Compile Include="Feature.cs" />
     <Compile Include="FeatureAttribute.cs" />
     <Compile Include="ICacheProvider.cs" />

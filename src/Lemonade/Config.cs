@@ -1,14 +1,17 @@
 namespace Lemonade
 {
-    public class Config
+    public static class Config
     {
-        public static T Settings<T>(string configurationName)
-        {
-            var key = "Config" + Lemonade.ApplicationName + configurationName;
-            var value = Lemonade.CacheProvider
-                .GetValue(key, () => Lemonade.ConfigurationResolver.Resolve<T>(configurationName, Lemonade.ApplicationName));
+        public static T Settings<T>(string key) => new ConfigValue<T>()[key];
 
-            return value;
+        private class ConfigValue<T> : Value<T>
+        {
+            protected override T GetValue(string key, string applicationName)
+            {
+                return Lemonade.ConfigurationResolver.Resolve<T>(key, applicationName);
+            }
+
+            protected override string ValueType => "Configuration";
         }
     }
 }
