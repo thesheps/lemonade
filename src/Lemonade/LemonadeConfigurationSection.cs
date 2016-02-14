@@ -5,7 +5,7 @@ namespace Lemonade
 {
     public class LemonadeConfigurationSection : ConfigurationSection
     {
-        public static readonly LemonadeConfigurationSection Current = (LemonadeConfigurationSection)ConfigurationManager.GetSection("Lemonade");
+        public static readonly LemonadeConfigurationSection Current = GetSection();
 
         [ConfigurationProperty("FeatureResolver", IsRequired = false)]
         public string FeatureResolver => this["FeatureResolver"] as string;
@@ -17,6 +17,12 @@ namespace Lemonade
         public string ApplicationName => this["ApplicationName"] as string ?? AppDomain.CurrentDomain.FriendlyName.Replace(".exe", string.Empty);
 
         [ConfigurationProperty("CacheExpiration", IsRequired = false)]
-        public double? CacheExpiration => this["CacheExpiration"] as double?;
+        public double? CacheExpiration => this["CacheExpiration"] as double? ?? 0;
+
+        private static LemonadeConfigurationSection GetSection()
+        {
+            var section = (LemonadeConfigurationSection)ConfigurationManager.GetSection("Lemonade");
+            return section ?? new LemonadeConfigurationSection();
+        }
     }
 }

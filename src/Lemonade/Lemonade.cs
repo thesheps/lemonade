@@ -19,7 +19,7 @@ namespace Lemonade
 
         public static ICacheProvider CacheProvider
         {
-            get { return _cacheProvider ?? (_cacheProvider = new CacheProvider(_cacheExpiration)); }
+            get { return _cacheProvider ?? (_cacheProvider = new CacheProvider(CacheExpiration)); }
             set { _cacheProvider = value; }
         }
 

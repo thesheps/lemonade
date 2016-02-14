@@ -44,7 +44,7 @@ QUnit.test("WhenIAddAFeatureOverride_ThenTheFeatureOverrideIsAddedToTheList", fu
 });
 
 QUnit.test("WhenIAddAFeatureOverrideForANewFeature_ThenTheFeatureOverrideIsAddedToTheList", function (assert) {
-    var scope = { applications: [], features: [{ featureId: 1, applicationId: 1, name: "MyTestFeature" }], $apply: function (func) { func(); } }
+    var scope = { applications: [], features: [{ featureId: 1, applicationId: 1, name: "MyTestFeature", featureOverrides: [] }], $apply: function (func) { func(); } }
     var lemonade = new Lemonade(scope);
 
     lemonade.addFeatureOverride({ featureId: 1, featureOverrideId: 1, hostname: "TestHostname" });

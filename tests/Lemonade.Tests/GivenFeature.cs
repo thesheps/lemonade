@@ -9,6 +9,12 @@ namespace Lemonade.Resolvers
     {
         private int _attempts;
 
+        [SetUp]
+        public void Setup()
+        {
+            _attempts = 0;
+        }
+
         [Test]
         public void WhenUsingFeatureIndexAndMethodIsFeatureSwitchedOn_ThenItIsExecuted()
         {
@@ -61,11 +67,10 @@ namespace Lemonade.Resolvers
         }
 
         [Test]
-        public void WhenUsingCacheExpiration_ThenCacheIsRefreshedAfterAMinute()
+        public void WhenUsingCacheExpiration_ThenCacheIsRefreshedAfterSpecifiedTime()
         {
-            bool enabled;
-            _attempts = 0;
-            Lemonade.CacheExpiration = 1;
+            var enabled = false;
+            Lemonade.CacheProvider = new CacheProvider(0.1);
             Lemonade.FeatureResolver = this;
             enabled = Feature.Switches["Test"];
             enabled = Feature.Switches["Test"];
@@ -73,7 +78,7 @@ namespace Lemonade.Resolvers
             enabled = Feature.Switches["Test"];
             enabled = Feature.Switches["Test"];
             enabled = Feature.Switches["Test"];
-            Thread.Sleep(TimeSpan.FromSeconds(61));
+            Thread.Sleep(TimeSpan.FromSeconds(10));
             enabled = Feature.Switches["Test"];
 
             Assert.That(_attempts, Is.EqualTo(2));
@@ -83,8 +88,7 @@ namespace Lemonade.Resolvers
         public void WhenUsingNoCacheExpiration_ThenCacheIsRefreshedAways()
         {
             bool enabled;
-            _attempts = 0;
-            Lemonade.CacheExpiration = 0;
+            Lemonade.CacheProvider = new CacheProvider(0);
             Lemonade.FeatureResolver = this;
             enabled = Feature.Switches["Test"];
             enabled = Feature.Switches["Test"];
