@@ -2,7 +2,7 @@
 
 namespace Lemonade.Web.Infrastructure
 {
-    public class LemonadeHub : Hub
+    public class FeatureHub : Hub
     {
     }
 }

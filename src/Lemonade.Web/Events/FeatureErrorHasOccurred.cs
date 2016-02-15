@@ -1,10 +1,10 @@
 ﻿namespace Lemonade.Web.Events
 {
-    public class ErrorHasOccurred : IDomainEvent
+    public class FeatureErrorHasOccurred : IDomainEvent
     {
         public string ErrorMessage { get; }
 
-        public ErrorHasOccurred(string errorMessage)
+        public FeatureErrorHasOccurred(string errorMessage)
         {
             ErrorMessage = errorMessage;
         }

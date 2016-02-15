@@ -4,16 +4,16 @@ using Microsoft.AspNet.SignalR.Infrastructure;
 
 namespace Lemonade.Web.EventHandlers
 {
-    public class ErrorHasOccurredHandler : IDomainEventHandler<ErrorHasOccurred>
+    public class ApplicationErrorHasOccurredHandler : IDomainEventHandler<ApplicationErrorHasOccurred>
     {
-        public ErrorHasOccurredHandler(IConnectionManager connectionManager)
+        public ApplicationErrorHasOccurredHandler(IConnectionManager connectionManager)
         {
             _connectionManager = connectionManager;
         }
 
-        public void Handle(ErrorHasOccurred @event)
+        public void Handle(ApplicationErrorHasOccurred @event)
         {
-            var hubContext = _connectionManager.GetHubContext<LemonadeHub>();
+            var hubContext = _connectionManager.GetHubContext<ApplicationHub>();
             hubContext.Clients.All.logError(@event);
         }
 

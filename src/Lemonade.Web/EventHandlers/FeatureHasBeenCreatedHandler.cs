@@ -13,7 +13,7 @@ namespace Lemonade.Web.EventHandlers
 
         public void Handle(FeatureHasBeenCreated @event)
         {
-            var hubContext = _connectionManager.GetHubContext<LemonadeHub>();
+            var hubContext = _connectionManager.GetHubContext<FeatureHub>();
             hubContext.Clients.All.addFeature(@event);
         }
 

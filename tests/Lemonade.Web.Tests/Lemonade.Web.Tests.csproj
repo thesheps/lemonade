@@ -137,7 +137,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Javascript\GivenLemonade.js" />
+    <Content Include="Javascript\GivenApplication.js" />
+    <Content Include="Javascript\GivenFeature.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

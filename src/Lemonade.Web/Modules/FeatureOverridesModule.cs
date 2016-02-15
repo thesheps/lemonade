@@ -33,7 +33,7 @@ namespace Lemonade.Web.Modules
             }
             catch (CreateFeatureOverrideException exception)
             {
-                DomainEvent.Raise(new ErrorHasOccurred(exception.Message));
+                DomainEvent.Raise(new FeatureErrorHasOccurred(exception.Message));
                 return HttpStatusCode.BadRequest;
             }
         }
@@ -50,7 +50,7 @@ namespace Lemonade.Web.Modules
             }
             catch (UpdateFeatureOverrideException exception)
             {
-                DomainEvent.Raise(new ErrorHasOccurred(exception.Message));
+                DomainEvent.Raise(new FeatureErrorHasOccurred(exception.Message));
                 return HttpStatusCode.BadRequest;
             }
         }
@@ -68,7 +68,7 @@ namespace Lemonade.Web.Modules
             }
             catch (DeleteFeatureOverrideException exception)
             {
-                DomainEvent.Raise(new ErrorHasOccurred(exception.Message));
+                DomainEvent.Raise(new FeatureErrorHasOccurred(exception.Message));
                 return HttpStatusCode.BadRequest;
             }
         }

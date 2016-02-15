@@ -10,6 +10,10 @@ app.run(function(editableOptions, editableThemes) {
 
 app.config(function($routeProvider) {
     $routeProvider
+        .when("/Applications", {
+            templateUrl: "/Views/Applications.html",
+            controller: "applicationController"
+        })
         .when("/Features", {
             templateUrl: "/Views/Features.html",
             controller: "featureController"

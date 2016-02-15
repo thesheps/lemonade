@@ -43,7 +43,7 @@ namespace Lemonade.Web.Modules
             }
             catch (CreateApplicationException exception)
             {
-                DomainEvent.Raise(new ErrorHasOccurred(exception.Message));
+                DomainEvent.Raise(new ApplicationErrorHasOccurred(exception.Message));
                 return HttpStatusCode.BadRequest;
             }
         }
@@ -60,7 +60,7 @@ namespace Lemonade.Web.Modules
             }
             catch (UpdateApplicationException exception)
             {
-                DomainEvent.Raise(new ErrorHasOccurred(exception.Message));
+                DomainEvent.Raise(new ApplicationErrorHasOccurred(exception.Message));
                 return HttpStatusCode.BadRequest;
             }
         }
@@ -78,7 +78,7 @@ namespace Lemonade.Web.Modules
             }
             catch (DeleteApplicationException exception)
             {
-                DomainEvent.Raise(new ErrorHasOccurred(exception.Message));
+                DomainEvent.Raise(new ApplicationErrorHasOccurred(exception.Message));
                 return HttpStatusCode.BadRequest;
             }
         }

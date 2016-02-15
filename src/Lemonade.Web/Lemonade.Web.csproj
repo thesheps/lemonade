@@ -76,14 +76,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EventHandlers\ApplicationHasBeenDeletedHandler.cs" />
+    <Compile Include="EventHandlers\ApplicationErrorHasOccurredHandler.cs" />
     <Compile Include="EventHandlers\FeatureOverrideHasBeenCreatedHandler.cs" />
     <Compile Include="EventHandlers\FeatureOverrideHasBeenDeletedHandler.cs" />
     <Compile Include="EventHandlers\FeatureHasBeenDeletedHandler.cs" />
-    <Compile Include="EventHandlers\ErrorHasOccurredHandler.cs" />
+    <Compile Include="EventHandlers\FeatureErrorHasOccurredHandler.cs" />
     <Compile Include="Events\ApplicationHasBeenCreated.cs" />
     <Compile Include="Events\ApplicationHasBeenDeleted.cs" />
     <Compile Include="Events\DomainEvent.cs" />
-    <Compile Include="Events\ErrorHasOccurred.cs" />
+    <Compile Include="Events\ApplicationErrorHasOccurred.cs" />
+    <Compile Include="Events\FeatureErrorHasOccurred.cs" />
     <Compile Include="Events\FeatureHasBeenCreated.cs" />
     <Compile Include="Events\FeatureHasBeenDeleted.cs" />
     <Compile Include="Events\FeatureHasBeenUpdated.cs" />
@@ -92,6 +94,7 @@
     <Compile Include="Events\IDomainEventHandler.cs" />
     <Compile Include="Infrastructure\CamelCasePropertyNameContractResolver.cs" />
     <Compile Include="Events\ApplicationHasBeenUpdated.cs" />
+    <Compile Include="Infrastructure\ApplicationHub.cs" />
     <Compile Include="Infrastructure\LemonadeBooststrapper.cs" />
     <Compile Include="Mappers\FeatureOverrideMapper.cs" />
     <Compile Include="Events\FeatureOverrideHasBeenDeleted.cs" />
@@ -105,7 +108,7 @@
     </None>
     <Compile Include="EventHandlers\ApplicationHasBeenCreatedHandler.cs" />
     <Compile Include="EventHandlers\FeatureHasBeenCreatedHandler.cs" />
-    <Compile Include="Infrastructure\LemonadeHub.cs" />
+    <Compile Include="Infrastructure\FeatureHub.cs" />
     <Compile Include="Mappers\ApplicationMapper.cs" />
     <Compile Include="Mappers\FeatureMapper.cs" />
     <Compile Include="Modules\ApplicationsModule.cs" />
@@ -184,6 +187,15 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="scripts\lemonade\controllers\index.controller.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="scripts\lemonade\controllers\application.controller.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="scripts\lemonade\application.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\Applications.html" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

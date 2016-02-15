@@ -4,17 +4,17 @@ using Microsoft.AspNet.SignalR.Infrastructure;
 
 namespace Lemonade.Web.EventHandlers
 {
-    public class FeatureOverrideHasBeenCreatedHandler : IDomainEventHandler<FeatureOverrideHasBeenCreated>
+    public class FeatureErrorHasOccurredHandler : IDomainEventHandler<FeatureErrorHasOccurred>
     {
-        public FeatureOverrideHasBeenCreatedHandler(IConnectionManager connectionManager)
+        public FeatureErrorHasOccurredHandler(IConnectionManager connectionManager)
         {
             _connectionManager = connectionManager;
         }
 
-        public void Handle(FeatureOverrideHasBeenCreated @event)
+        public void Handle(FeatureErrorHasOccurred @event)
         {
             var hubContext = _connectionManager.GetHubContext<FeatureHub>();
-            hubContext.Clients.All.addFeatureOverride(@event);
+            hubContext.Clients.All.logError(@event);
         }
 
         private readonly IConnectionManager _connectionManager;
