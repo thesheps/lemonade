@@ -1,4 +1,4 @@
-﻿function Lemonade(view) {
+﻿function Feature(view) {
     return {
         addApplication: function (application) {
             view.$apply(function () {

@@ -1,8 +1,10 @@
 ﻿angular.module("lemonade")
-    .controller("lemonadeController", ["$scope", "$http", function ($scope, $http) {
+    .controller("featureController", ["$scope", "$http", featureController]);
+
+    function featureController($scope, $http) {
         $http.get("/api/applications").then(function (res) {
             $scope.applications = res.data;
-            $.connection.lemonadeHub.client = new Lemonade($scope);
+            $.connection.lemonadeHub.client = new Feature($scope);
             $.connection.hub.start();
         });
 
@@ -49,4 +51,4 @@
         $scope.deleteFeatureOverride = function (featureOverrideId) {
             $.ajax({ url: "/api/featureoverrides?id=" + featureOverrideId, type: "DELETE" });
         }
-    }]);
+    }

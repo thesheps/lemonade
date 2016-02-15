@@ -26,8 +26,6 @@ namespace Lemonade.Web.Modules
 
             Post["/api/features"] = p => CreateFeature();
             Put["/api/features"] = p => UpdateFeature();
-            Get["/"] = p => View["Features"];
-            Get["/About"] = p => View["About"];
             Get["/api/features"] = p => GetFeatures();
             Get["/api/feature"] = p => GetFeature();
             Delete["/api/features"] = p => DeleteFeature();

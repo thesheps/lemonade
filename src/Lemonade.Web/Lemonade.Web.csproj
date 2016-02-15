@@ -98,6 +98,7 @@
     <Compile Include="Events\FeatureOverrideHasBeenCreated.cs" />
     <Compile Include="Events\FeatureOverrideHasBeenUpdated.cs" />
     <Compile Include="Modules\FeatureOverridesModule.cs" />
+    <Compile Include="Modules\IndexModule.cs" />
     <Compile Include="Startup.cs" />
     <None Include="Content\Bootstrapper.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -114,6 +115,8 @@
     <EmbeddedResource Include="fonts\glyphicons-halflings-regular.ttf" />
     <EmbeddedResource Include="fonts\glyphicons-halflings-regular.woff" />
     <EmbeddedResource Include="fonts\glyphicons-halflings-regular.woff2" />
+    <EmbeddedResource Include="scripts\angular-route.min.js.map" />
+    <None Include="scripts\angular.min.js.map" />
     <None Include="web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -160,9 +163,27 @@
     <EmbeddedResource Include="scripts\jquery-1.9.1.min.js" />
     <EmbeddedResource Include="scripts\jquery.signalR-2.2.0.min.js" />
     <EmbeddedResource Include="scripts\lemonade\app.js" />
-    <EmbeddedResource Include="scripts\lemonade\controller.js" />
-    <EmbeddedResource Include="scripts\lemonade\lemonade.js" />
+    <EmbeddedResource Include="scripts\lemonade\controllers\feature.controller.js" />
+    <EmbeddedResource Include="scripts\lemonade\feature.js" />
     <EmbeddedResource Include="scripts\xeditable.min.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="scripts\angular-mocks.js" />
+    <EmbeddedResource Include="scripts\angular-route.js" />
+    <EmbeddedResource Include="scripts\angular-route.min.js" />
+    <EmbeddedResource Include="scripts\angular.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\About.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\Index.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="scripts\lemonade\controllers\about.controller.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="scripts\lemonade\controllers\index.controller.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
