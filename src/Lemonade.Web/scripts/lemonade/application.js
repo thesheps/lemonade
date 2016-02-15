@@ -1,20 +1,20 @@
-﻿function Application(view) {
+﻿function Application($scope) {
     return {
         addApplication: function (application) {
-            view.$apply(function () {
-                view.applications.push(application);
+            $scope.$apply(function () {
+                $scope.applications.push(application);
             });
         },
         removeApplication: function (application) {
-            view.$apply(function () {
-                for (var i = 0; i < view.applications.length; i++) {
-                    if (view.applications[i].applicationId === application.applicationId) {
-                        view.applications.splice(i, 1);
+            $scope.$apply(function () {
+                for (var i = 0; i < $scope.applications.length; i++) {
+                    if ($scope.applications[i].applicationId === application.applicationId) {
+                        $scope.applications.splice(i, 1);
                     }
                 }
 
-                view.application = null;
-                view.features = [];
+                $scope.application = null;
+                $scope.features = [];
             });
         },
         logError: function (error) {

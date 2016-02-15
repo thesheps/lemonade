@@ -13,7 +13,7 @@ namespace Lemonade.Web.EventHandlers
 
         public void Handle(FeatureHasBeenDeleted @event)
         {
-            var hubContext = _connectionManager.GetHubContext<FeatureHub>();
+            var hubContext = _connectionManager.GetHubContext<LemonadeHub>();
             hubContext.Clients.All.removeFeature(@event);
         }
 

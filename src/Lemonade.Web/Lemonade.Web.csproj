@@ -94,7 +94,6 @@
     <Compile Include="Events\IDomainEventHandler.cs" />
     <Compile Include="Infrastructure\CamelCasePropertyNameContractResolver.cs" />
     <Compile Include="Events\ApplicationHasBeenUpdated.cs" />
-    <Compile Include="Infrastructure\ApplicationHub.cs" />
     <Compile Include="Infrastructure\LemonadeBooststrapper.cs" />
     <Compile Include="Mappers\FeatureOverrideMapper.cs" />
     <Compile Include="Events\FeatureOverrideHasBeenDeleted.cs" />
@@ -108,7 +107,7 @@
     </None>
     <Compile Include="EventHandlers\ApplicationHasBeenCreatedHandler.cs" />
     <Compile Include="EventHandlers\FeatureHasBeenCreatedHandler.cs" />
-    <Compile Include="Infrastructure\FeatureHub.cs" />
+    <Compile Include="Infrastructure\LemonadeHub.cs" />
     <Compile Include="Mappers\ApplicationMapper.cs" />
     <Compile Include="Mappers\FeatureMapper.cs" />
     <Compile Include="Modules\ApplicationsModule.cs" />

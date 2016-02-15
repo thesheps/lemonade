@@ -1,34 +1,34 @@
-﻿function Feature(view) {
+﻿function Feature($scope) {
     return {
         addFeature: function (feature) {
-            view.$apply(function () {
-                view.features.push(feature);
+            $scope.$apply(function () {
+                $scope.features.push(feature);
             });
         },
         removeFeature: function (feature) {
-            view.$apply(function () {
-                for (var i = 0; i < view.features.length; i++) {
-                    if (view.features[i].featureId === feature.featureId) {
-                        view.features.splice(i, 1);
+            $scope.$apply(function () {
+                for (var i = 0; i < $scope.features.length; i++) {
+                    if ($scope.features[i].featureId === feature.featureId) {
+                        $scope.features.splice(i, 1);
                         return;
                     }
                 }
             });
         },
         addFeatureOverride: function (featureOverride) {
-            view.$apply(function () {
-                for (var i = 0; i < view.features.length; i++) {
-                    if (view.features[i].featureId === featureOverride.featureId) {
-                        view.features[i].featureOverrides.push(featureOverride);
+            $scope.$apply(function () {
+                for (var i = 0; i < $scope.features.length; i++) {
+                    if ($scope.features[i].featureId === featureOverride.featureId) {
+                        $scope.features[i].featureOverrides.push(featureOverride);
                         return;
                     }
                 }
             });
         },
         removeFeatureOverride: function (featureOverride) {
-            view.$apply(function () {
-                for (var x = 0; x < view.features.length; x++) {
-                    var feature = view.features[x];
+            $scope.$apply(function () {
+                for (var x = 0; x < $scope.features.length; x++) {
+                    var feature = $scope.features[x];
 
                     for (var y = 0; y < feature.featureOverrides.length; y++) {
                         if (feature.featureOverrides[y].featureOverrideId === featureOverride.featureOverrideId) {

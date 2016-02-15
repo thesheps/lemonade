@@ -13,7 +13,7 @@ namespace Lemonade.Web.EventHandlers
 
         public void Handle(ApplicationErrorHasOccurred @event)
         {
-            var hubContext = _connectionManager.GetHubContext<ApplicationHub>();
+            var hubContext = _connectionManager.GetHubContext<LemonadeHub>();
             hubContext.Clients.All.logError(@event);
         }
 

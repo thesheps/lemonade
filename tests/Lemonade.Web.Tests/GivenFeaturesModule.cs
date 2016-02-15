@@ -35,7 +35,7 @@ namespace Lemonade.Web.Tests
 
             var hubContext = Substitute.For<IHubContext>();
             var connectionManager = Substitute.For<IConnectionManager>();
-            connectionManager.GetHubContext<FeatureHub>().Returns(hubContext);
+            connectionManager.GetHubContext<LemonadeHub>().Returns(hubContext);
 
             _mockClient = Substitute.For<IMockClient>();
             SubstituteExtensions.Returns(hubContext.Clients.All, _mockClient);
