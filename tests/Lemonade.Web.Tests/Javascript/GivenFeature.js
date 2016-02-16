@@ -1,10 +1,10 @@
-﻿/// <reference path="../../../src/Lemonade.Web/scripts/lemonade/domain/feature.js"/>
+﻿/// <reference path="../../../src/Lemonade.Web/scripts/lemonade/handlers/feature.js"/>
 
 QUnit.test("WhenIAddAFeature_ThenTheFeatureIsAddedToTheList", function (assert) {
     var scope = { applications: [], features: [], $apply: function (func) { func(); } }
     var feature = new Feature(scope);
 
-    feature.addFeature({ featureId: 1, applicationId: 1, name: "MyTestFeature" });
+    feature.addFeature({ feature: { featureId: 1, applicationId: 1, name: "MyTestFeature" } });
     assert.ok(scope.features[0].name === "MyTestFeature", "Passed!");
 });
 
@@ -12,8 +12,8 @@ QUnit.test("WhenIRemoveAFeature_ThenTheFeatureIsRemovedFromTheList", function (a
     var scope = { applications: [], features: [], $apply: function (func) { func(); } }
     var feature = new Feature(scope);
 
-    feature.addFeature({ featureId: 1, applicationId: 1, name: "MyTestFeature" });
-    feature.removeFeature({ featureId: 1, applicationId: 1, name: "MyTestFeature" });
+    feature.addFeature({ feature: { featureId: 1, applicationId: 1, name: "MyTestFeature" } });
+    feature.removeFeature({ feature: { featureId: 1, applicationId: 1, name: "MyTestFeature" } });
     assert.ok(scope.features.length === 0, "Passed!");
 });
 
@@ -21,7 +21,7 @@ QUnit.test("WhenIAddAFeatureOverride_ThenTheFeatureOverrideIsAddedToTheList", fu
     var scope = { applications: [], features: [{ featureId: 1, applicationId: 1, name: "MyTestFeature", featureOverrides: [] }], $apply: function (func) { func(); } }
     var feature = new Feature(scope);
 
-    feature.addFeatureOverride({ feature: { featureId: 1, featureOverrideId: 1, hostname: "TestHostname" } });
+    feature.addFeatureOverride({ featureOverride: { featureId: 1, featureOverrideId: 1, hostname: "TestHostname" } });
     assert.ok(scope.features[0].featureOverrides[0].hostname === "TestHostname", "Passed!");
 });
 
