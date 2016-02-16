@@ -166,7 +166,6 @@
     <EmbeddedResource Include="scripts\jquery.signalR-2.2.0.min.js" />
     <EmbeddedResource Include="scripts\lemonade\app.js" />
     <EmbeddedResource Include="scripts\lemonade\controllers\feature.controller.js" />
-    <EmbeddedResource Include="scripts\lemonade\feature.js" />
     <EmbeddedResource Include="scripts\xeditable.min.js" />
   </ItemGroup>
   <ItemGroup>
@@ -191,10 +190,10 @@
     <EmbeddedResource Include="scripts\lemonade\controllers\application.controller.js" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="scripts\lemonade\application.js" />
+    <EmbeddedResource Include="Views\Applications.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Views\Applications.html" />
+    <EmbeddedResource Include="scripts\lemonade\services\event.service.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

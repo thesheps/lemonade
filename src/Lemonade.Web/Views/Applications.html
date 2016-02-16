@@ -4,7 +4,7 @@
 
     <ul class="list-group" id="application-list">
         <li class="application list-group-item animate" ng-repeat="application in applications">
-            <a href="" editable-text="application.name" onaftersave="updateApplication(application)" ng-click="selectApplication(application)" e-form="editFeatureForm">{{application.name}}</a>
+            <label editable-text="application.name" onaftersave="updateApplication(application)" ng-click="selectApplication(application)" e-form="editFeatureForm">{{application.name}}</label>
 
             <div class="pull-right">
                 <span class="glyphicon glyphicon-pencil btn btn-xs btn-success" ng-click="editFeatureForm.$show()" ng-hide="editFeatureForm.$visible"></span>
