@@ -18,7 +18,7 @@ namespace Lemonade
 
         protected override bool GetValue(string key, string applicationName)
         {
-            return Lemonade.FeatureResolver.Resolve(key, applicationName);
+            return Configuration.FeatureResolver.Resolve(key, applicationName);
         }
 
         protected override string ValueType => "Feature";

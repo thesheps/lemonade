@@ -1,24 +1,29 @@
 ﻿using System;
 using System.Threading;
-using Lemonade.Resolvers.Fakes;
+using NSubstitute;
 using NUnit.Framework;
 
 namespace Lemonade.Tests
 {
-    public class GivenFeature : IFeatureResolver
+    public class GivenFeature
     {
-        private int _attempts;
+        private IFeatureResolver _featureResolver;
 
         [SetUp]
         public void Setup()
         {
-            _attempts = 0;
+            _featureResolver = Substitute.For<IFeatureResolver>();
+            _featureResolver.Resolve("UseTestFunctionality", Arg.Any<string>()).Returns(true);
+            _featureResolver.Resolve("Test1", Arg.Any<string>()).Returns(false);
+            _featureResolver.Resolve("Test2", Arg.Any<string>()).Returns(false);
+
+            Configuration.FeatureResolver = _featureResolver;
+            Configuration.CacheProvider = new CacheProvider(0.0);
         }
 
         [Test]
         public void WhenUsingFeatureIndexAndMethodIsFeatureSwitchedOn_ThenItIsExecuted()
         {
-            Lemonade.FeatureResolver = new FakeResolver();
             var executed = Feature.Switches["UseTestFunctionality"];
             Assert.That(executed, Is.True);
         }
@@ -26,7 +31,6 @@ namespace Lemonade.Tests
         [Test]
         public void WhenUsingDynamicIndexAndMethodIsFeatureSwitchedOn_ThenItIsExecuted()
         {
-            Lemonade.FeatureResolver = new FakeResolver();
             var executed = Feature.Switches[d => d.UseTestFunctionality];
             Assert.That(executed, Is.True);
         }
@@ -34,7 +38,6 @@ namespace Lemonade.Tests
         [Test]
         public void WhenUsingTypedIndexAndMethodIsFeatureSwitchedOn_ThenItIsExecuted()
         {
-            Lemonade.FeatureResolver = new FakeResolver();
             var executed = Feature.Switches.Get<TestFeatures>(t => t.UseTestFunctionality);
             Assert.That(executed, Is.True);
         }
@@ -43,7 +46,6 @@ namespace Lemonade.Tests
         public void WhenUsingFeatureWrapperwithIndexAndMethodIsFeatureSwitchedOn_ThenItIsExecuted()
         {
             var executed = false;
-            Lemonade.FeatureResolver = new FakeResolver();
             Feature.Switches.Execute("UseTestFunctionality", () => executed = true);
             Assert.That(executed, Is.True);
         }
@@ -52,7 +54,6 @@ namespace Lemonade.Tests
         public void WhenUsingFeatureWrapperwithDynamicIndexAndMethodIsFeatureSwitchedOn_ThenItIsExecuted()
         {
             var executed = false;
-            Lemonade.FeatureResolver = new FakeResolver();
             Feature.Switches.Execute(d => d.UseTestFunctionality, () => executed = true);
             Assert.That(executed, Is.True);
         }
@@ -61,7 +62,6 @@ namespace Lemonade.Tests
         public void WhenUsingDynamicFeatureWrapperAndMethodIsFeatureSwitchedOn_ThenItIsExecuted()
         {
             var executed = false;
-            Lemonade.FeatureResolver = new FakeResolver();
             Feature.Switches.Execute(d => d.UseTestFunctionality, () => executed = true);
             Assert.That(executed, Is.True);
         }
@@ -70,41 +70,33 @@ namespace Lemonade.Tests
         public void WhenUsingCacheExpiration_ThenCacheIsRefreshedAfterSpecifiedTime()
         {
             var enabled = false;
-            Lemonade.CacheProvider = new CacheProvider(0.1);
-            Lemonade.FeatureResolver = this;
-            enabled = Feature.Switches["Test"];
-            enabled = Feature.Switches["Test"];
-            enabled = Feature.Switches["Test"];
-            enabled = Feature.Switches["Test"];
-            enabled = Feature.Switches["Test"];
-            enabled = Feature.Switches["Test"];
+            Configuration.CacheProvider = new CacheProvider(0.1);
+            enabled = Feature.Switches["Test1"];
+            enabled = Feature.Switches["Test1"];
+            enabled = Feature.Switches["Test1"];
+            enabled = Feature.Switches["Test1"];
+            enabled = Feature.Switches["Test1"];
+            enabled = Feature.Switches["Test1"];
             Thread.Sleep(TimeSpan.FromSeconds(10));
-            enabled = Feature.Switches["Test"];
+            enabled = Feature.Switches["Test1"];
 
-            Assert.That(_attempts, Is.EqualTo(2));
+            _featureResolver.Received(2).Resolve("Test1", Arg.Any<string>());
         }
 
         [Test]
         public void WhenUsingNoCacheExpiration_ThenCacheIsRefreshedAways()
         {
             bool enabled;
-            Lemonade.CacheProvider = new CacheProvider(0);
-            Lemonade.FeatureResolver = this;
-            enabled = Feature.Switches["Test"];
-            enabled = Feature.Switches["Test"];
-            enabled = Feature.Switches["Test"];
-            enabled = Feature.Switches["Test"];
-            enabled = Feature.Switches["Test"];
-            enabled = Feature.Switches["Test"];
-            enabled = Feature.Switches["Test"];
+            Configuration.CacheProvider = new CacheProvider(0);
+            enabled = Feature.Switches["Test2"];
+            enabled = Feature.Switches["Test2"];
+            enabled = Feature.Switches["Test2"];
+            enabled = Feature.Switches["Test2"];
+            enabled = Feature.Switches["Test2"];
+            enabled = Feature.Switches["Test2"];
+            enabled = Feature.Switches["Test2"];
 
-            Assert.That(_attempts, Is.EqualTo(7));
-        }
-
-        public bool Resolve(string featureName, string applicationName)
-        {
-            _attempts++;
-            return false;
+            _featureResolver.Received(7).Resolve("Test2", Arg.Any<string>());
         }
     }
 

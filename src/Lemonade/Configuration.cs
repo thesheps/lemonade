@@ -3,7 +3,7 @@ using Lemonade.Resolvers;
 
 namespace Lemonade
 {
-    public class Lemonade
+    public class Configuration
     {
         public static IFeatureResolver FeatureResolver
         {

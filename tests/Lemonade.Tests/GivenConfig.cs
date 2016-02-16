@@ -9,22 +9,22 @@ namespace Lemonade.Tests
         [Test]
         public void WhenIGetAKnownConfigurationString_ThenTheValueIsRetrieved()
         {
-            Lemonade.ConfigurationResolver = this;
+            Configuration.ConfigurationResolver = this;
             Assert.That(Config.Settings<string>("TestString"), Is.EqualTo("Test String"));
         }
 
         [Test]
         public void WhenIGetAKnownConfigurationBoolean_ThenTheValueIsRetrieved()
         {
-            Lemonade.ConfigurationResolver = this;
+            Configuration.ConfigurationResolver = this;
             Assert.That(Config.Settings<bool>("TestBoolean"), Is.EqualTo(true));
         }
 
         [Test]
         public void WhenNoConfigurationResolverIsSet_ThenAppConfigConfigurationResolverIsUsed()
         {
-            Lemonade.ConfigurationResolver = null;
-            Assert.That(Lemonade.ConfigurationResolver, Is.TypeOf<AppConfigConfigurationResolver>());
+            Configuration.ConfigurationResolver = null;
+            Assert.That(Configuration.ConfigurationResolver, Is.TypeOf<AppConfigConfigurationResolver>());
         }
 
         public T Resolve<T>(string configurationName, string applicationName)

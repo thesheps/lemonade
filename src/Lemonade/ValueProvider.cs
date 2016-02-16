@@ -19,9 +19,9 @@ namespace Lemonade
 
         protected T GetValue(string keyName)
         {
-            var key = ValueType + Lemonade.ApplicationName + keyName;
-            var value = Lemonade.CacheProvider
-                .GetValue(key, () => GetValue(keyName, Lemonade.ApplicationName));
+            var key = ValueType + Configuration.ApplicationName + keyName;
+            var value = Configuration.CacheProvider
+                .GetValue(key, () => GetValue(keyName, Configuration.ApplicationName));
 
             return value;
         }

@@ -17,7 +17,7 @@ namespace Lemonade.AcceptanceTests
         {
             var application = new ApplicationBuilder().WithName("Test Application").Build();
 
-            Lemonade.FeatureResolver = new HttpFeatureResolver("http://localhost:12345");
+            Configuration.FeatureResolver = new HttpFeatureResolver("http://localhost:12345");
             Runner.SqlCompact("Lemonade").Down();
             Runner.SqlCompact("Lemonade").Up();
             _getFeature = new GetFeatureByNameAndApplication();
@@ -71,7 +71,7 @@ namespace Lemonade.AcceptanceTests
         [Test]
         public void WhenIGetAFeatureWithAHostnameOveride_ThenTheFeatureIsRetrieved()
         {
-            Lemonade.ApplicationName = "Test Application";
+            Configuration.ApplicationName = "Test Application";
             var enabled = Feature.Switches["Ponies"];
             Assert.That(enabled, Is.True);
         }
@@ -79,7 +79,7 @@ namespace Lemonade.AcceptanceTests
         [Test]
         public void WhenIHaveConfiguredAnApplicationName_ThenItIsUsed()
         {
-            Assert.That(Lemonade.ApplicationName, Is.EqualTo("Test Application"));
+            Assert.That(Configuration.ApplicationName, Is.EqualTo("Test Application"));
         }
 
         private CreateFeature _createFeature;

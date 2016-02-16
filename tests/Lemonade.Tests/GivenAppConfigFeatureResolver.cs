@@ -32,7 +32,7 @@ namespace Lemonade.Tests
         [Test]
         public void WhenIHaveAnEnabledKnownAppConfigSettingAndUseFeatureWrapper_ThenTheValueIsRetrievedAsTrue()
         {
-            Lemonade.FeatureResolver = new AppConfigFeatureResolver();
+            Configuration.FeatureResolver = new AppConfigFeatureResolver();
             Assert.That(Feature.Switches["EnabledProperty"], Is.True);
             Assert.That(Feature.Switches[d => d.EnabledProperty], Is.True);
         }

@@ -1,4 +1,5 @@
 ﻿using Lemonade.Resolvers.Fakes;
+using Lemonade.Tests.Fakes;
 using NUnit.Framework;
 
 namespace Lemonade.Tests
@@ -8,7 +9,7 @@ namespace Lemonade.Tests
         [Test]
         public void WhenFeatureSwitchedOn_ThenFeatureIsExecuted()
         {
-            Lemonade.FeatureResolver = new FakeResolver();
+            Configuration.FeatureResolver = new FakeResolver();
             var featureSwitch = new FakeSwitch();
             featureSwitch.Execute();
 

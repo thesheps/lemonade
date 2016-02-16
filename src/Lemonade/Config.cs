@@ -8,7 +8,7 @@ namespace Lemonade
         {
             protected override T GetValue(string key, string applicationName)
             {
-                return Lemonade.ConfigurationResolver.Resolve<T>(key, applicationName);
+                return Configuration.ConfigurationResolver.Resolve<T>(key, applicationName);
             }
 
             protected override string ValueType => "Configuration";
