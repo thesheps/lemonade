@@ -195,6 +195,10 @@
   <ItemGroup>
     <EmbeddedResource Include="scripts\lemonade\services\event.service.js" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="scripts\lemonade\domain\application.js" />
+    <EmbeddedResource Include="scripts\lemonade\domain\feature.js" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>

@@ -2,6 +2,8 @@
     .controller("applicationController", ["$scope", "$http", "eventService", applicationController]);
 
 function applicationController($scope, $http, eventService) {
+    var application = new Application($scope);
+
     $http.get("/api/applications").then(function(res) {
         $scope.applications = res.data;
     });
@@ -18,30 +20,7 @@ function applicationController($scope, $http, eventService) {
         $.ajax({ url: "/api/applications?id=" + applicationId, type: "DELETE" });
     }
 
-    var handleAddApplication = function (message) {
-        $scope.$apply(function () {
-            $scope.applications.push(message.application);
-        });
-    }
-
-    var handleRemoveApplication = function (message) {
-        $scope.$apply(function () {
-            for (var i = 0; i < $scope.applications.length; i++) {
-                if ($scope.applications[i].applicationId === message.application.applicationId) {
-                    $scope.applications.splice(i, 1);
-                }
-            }
-
-            $scope.application = null;
-            $scope.features = [];
-        });
-    }
-
-    var handleErrorEncountered = function (message) {
-        $.bootstrapGrowl(message.error.errorMessage, { type: "danger" });
-    }
-
-    eventService.onApplicationAdded($scope, handleAddApplication);
-    eventService.onApplicationRemoved($scope, handleRemoveApplication);
-    eventService.onErrorEncountered($scope, handleErrorEncountered);
+    eventService.onApplicationAdded($scope, application.addApplication);
+    eventService.onApplicationRemoved($scope, application.removeApplication);
+    eventService.onErrorEncountered($scope, application.logError);
 }

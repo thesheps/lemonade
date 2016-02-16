@@ -2,6 +2,8 @@
     .controller("featureController", ["$scope", "$http", "eventService", featureController]);
 
 function featureController($scope, $http, eventService) {
+    var feature = new Feature($scope);
+
     $http.get("/api/applications").then(function (res) {
         $scope.applications = res.data;
     });
@@ -38,56 +40,9 @@ function featureController($scope, $http, eventService) {
         $.ajax({ url: "/api/featureoverrides?id=" + featureOverrideId, type: "DELETE" });
     }
 
-    var handleAddFeature = function (message) {
-        $scope.$apply(function () {
-            $scope.features.push(message.feature);
-        });
-    }
-    
-    var handleRemoveFeature = function (message) {
-        $scope.$apply(function () {
-            for (var i = 0; i < $scope.features.length; i++) {
-                if ($scope.features[i].featureId === message.feature.featureId) {
-                    $scope.features.splice(i, 1);
-                    return;
-                }
-            }
-        });
-    }
-
-    var handleAddFeatureOverride = function (message) {
-        $scope.$apply(function () {
-            for (var i = 0; i < $scope.features.length; i++) {
-                if ($scope.features[i].featureId === message.featureOverride.featureId) {
-                    $scope.features[i].featureOverrides.push(message.featureOverride);
-                    return;
-                }
-            }
-        });
-    }
-
-    var handleRemoveFeatureOverride = function (message) {
-        $scope.$apply(function () {
-            for (var x = 0; x < $scope.features.length; x++) {
-                var feature = $scope.features[x];
-
-                for (var y = 0; y < feature.featureOverrides.length; y++) {
-                    if (feature.featureOverrides[y].featureOverrideId === message.featureOverride.featureOverrideId) {
-                        feature.featureOverrides.splice(y, 1);
-                        return;
-                    }
-                }
-            }
-        });
-    }
-
-    var handleErrorEncountered = function (message) {
-        $.bootstrapGrowl(message.error.errorMessage, { type: "danger" });
-    }
-
-    eventService.onFeatureAdded($scope, handleAddFeature);
-    eventService.onFeatureRemoved($scope, handleRemoveFeature);
-    eventService.onFeatureOverrideAdded($scope, handleAddFeatureOverride);
-    eventService.onFeatureOverrideRemoved($scope, handleRemoveFeatureOverride);
-    eventService.onErrorEncountered($scope, handleErrorEncountered);
+    eventService.onFeatureAdded($scope, feature.addFeature);
+    eventService.onFeatureRemoved($scope, feature.removeFeature);
+    eventService.onFeatureOverrideAdded($scope, feature.addFeatureOverride);
+    eventService.onFeatureOverrideRemoved($scope, feature.removeFeatureOverride);
+    eventService.onErrorEncountered($scope, feature.logError);
 }
