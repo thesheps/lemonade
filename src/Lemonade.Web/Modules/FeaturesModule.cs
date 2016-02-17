@@ -13,8 +13,8 @@ namespace Lemonade.Web.Modules
 {
     public class FeaturesModule : NancyModule
     {
-        public FeaturesModule(IGetAllFeaturesByApplicationId getAllFeaturesByApplicationId, IGetFeatureByNameAndApplication getFeatureByNameAndApplication, IGetFeatureOverride getFeatureOverride, IGetApplicationByName getApplicationByName,
-            ICreateFeature createFeature, IUpdateFeature updateFeature, IDeleteFeature deleteFeature, ICreateApplication createApplication)
+        public FeaturesModule(IGetAllFeaturesByApplicationId getAllFeaturesByApplicationId, IGetFeatureByNameAndApplication getFeatureByNameAndApplication, 
+            IGetApplicationByName getApplicationByName, ICreateFeature createFeature, IUpdateFeature updateFeature, IDeleteFeature deleteFeature, ICreateApplication createApplication)
         {
             _getFeatureByNameAndApplication = getFeatureByNameAndApplication;
             _getApplicationByName = getApplicationByName;

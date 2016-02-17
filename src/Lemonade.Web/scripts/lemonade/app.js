@@ -22,4 +22,6 @@ app.config(function($routeProvider) {
             templateUrl: "/Views/About.html",
             controller: "aboutController"
         });
-})
+});
+
+$("head").append($("<link rel=\"stylesheet\" type=\"text/css\" />").attr("href", "styles/Lemonade.css"));

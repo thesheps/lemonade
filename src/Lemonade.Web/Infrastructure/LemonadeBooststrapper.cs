@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using Lemonade.Web.EventHandlers;
 using Lemonade.Web.Events;
-using Lemonade.Web.Modules;
 using Microsoft.AspNet.SignalR;
 using Nancy;
 using Nancy.Bootstrapper;
@@ -40,18 +40,10 @@ namespace Lemonade.Web.Infrastructure
         {
             base.ConfigureConventions(conventions);
 
-            var assembly = typeof(LemonadeBootstrapper).Assembly;
-            var resourceNames = assembly.GetManifestResourceNames();
-
-            conventions.StaticContentsConventions.Add((ctx, p) =>
+            foreach (var assembly in AppDomainAssemblyTypeScanner.Assemblies)
             {
-                var directoryName = Path.GetDirectoryName(ctx.Request.Path);
-                var path = assembly.GetName().Name + directoryName?.Replace(Path.DirectorySeparatorChar, '.').Replace("-", "_");
-                var file = Path.GetFileName(ctx.Request.Path);
-                var name = string.Concat(path, ".", file);
-
-                return resourceNames.Any(r => r.Equals(name, StringComparison.InvariantCultureIgnoreCase)) ? new EmbeddedFileResponse(assembly, path, file) : null;
-            });
+                MapResourcesFromAssembly(conventions, assembly);
+            }
         }
 
         protected override void ConfigureApplicationContainer(TinyIoCContainer container)
@@ -72,14 +64,28 @@ namespace Lemonade.Web.Infrastructure
             ConfigureDependencies(_container);
 
             _dependencies.ForEach(d => d(_container));
-
-            ResourceViewLocationProvider.RootNamespaces.Clear();
-            ResourceViewLocationProvider.RootNamespaces.Add(typeof(FeaturesModule).Assembly, "Lemonade.Web.Views");
         }
 
         protected override NancyInternalConfiguration InternalConfiguration
         {
             get { return NancyInternalConfiguration.WithOverrides(nic => nic.ViewLocationProvider = typeof(ResourceViewLocationProvider)); }
+        }
+
+        private static void MapResourcesFromAssembly(NancyConventions conventions, Assembly assembly)
+        {
+            var resourceNames = assembly.GetManifestResourceNames();
+
+            conventions.StaticContentsConventions.Add((ctx, p) =>
+            {
+                var directoryName = Path.GetDirectoryName(ctx.Request.Path);
+                var path = assembly.GetName().Name + directoryName?.Replace(Path.DirectorySeparatorChar, '.').Replace("-", "_");
+                var file = Path.GetFileName(ctx.Request.Path);
+                var name = string.Concat(path, ".", file);
+
+                return resourceNames.Any(r => r.Equals(name, StringComparison.InvariantCultureIgnoreCase))
+                    ? new EmbeddedFileResponse(assembly, path, file)
+                    : null;
+            });
         }
 
         private readonly List<Action<TinyIoCContainer>> _dependencies = new List<Action<TinyIoCContainer>>();
