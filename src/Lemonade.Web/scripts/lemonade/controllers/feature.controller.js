@@ -44,5 +44,5 @@ function featureController($scope, $http, eventService) {
     eventService.onFeatureRemoved($scope, feature.removeFeature);
     eventService.onFeatureOverrideAdded($scope, feature.addFeatureOverride);
     eventService.onFeatureOverrideRemoved($scope, feature.removeFeatureOverride);
-    eventService.onErrorEncountered($scope, feature.logError);
+    eventService.onFeatureErrorEncountered($scope, feature.logFeatureError);
 }

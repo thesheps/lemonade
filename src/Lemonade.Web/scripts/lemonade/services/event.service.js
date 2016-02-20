@@ -66,6 +66,32 @@ function eventService($rootScope) {
         });
     }
 
+    var CONFIGURATION_REMOVED = "configurationRemoved";
+    var configurationRemoved = function (configuration) {
+        $rootScope.$broadcast(CONFIGURATION_REMOVED, {
+            configuration: configuration
+        });
+    }
+
+    var onConfigurationRemoved = function ($scope, handler) {
+        $scope.$on(CONFIGURATION_REMOVED, function (event, configuration) {
+            handler(configuration);
+        });
+    }
+
+    var CONFIGURATION_ADDED = "configurationAdded";
+    var configurationAdded = function (configuration) {
+        $rootScope.$broadcast(CONFIGURATION_ADDED, {
+            configuration: configuration
+        });
+    }
+
+    var onConfigurationAdded = function ($scope, handler) {
+        $scope.$on(CONFIGURATION_ADDED, function (event, configuration) {
+            handler(configuration);
+        });
+    }
+
     var FEATURE_OVERRIDE_REMOVED = "featureOverrideRemoved";
     var featureOverrideRemoved = function(featureOverride) {
         $rootScope.$broadcast(FEATURE_OVERRIDE_REMOVED, {
@@ -127,6 +153,10 @@ function eventService($rootScope) {
         onFeatureAdded: onFeatureAdded,
         featureRemoved: featureRemoved,
         onFeatureRemoved: onFeatureRemoved,
+        configurationAdded: configurationAdded,
+        onConfigurationAdded: onConfigurationAdded,
+        configurationRemoved: configurationRemoved,
+        onConfigurationRemoved: onConfigurationRemoved,
         featureOverrideAdded: featureOverrideAdded,
         onFeatureOverrideAdded: onFeatureOverrideAdded,
         featureOverrideRemoved: featureOverrideRemoved,

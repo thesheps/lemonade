@@ -18,6 +18,10 @@ app.config(function($routeProvider) {
             templateUrl: "/Views/Features.html",
             controller: "featureController"
         })
+        .when("/Configurations", {
+            templateUrl: "/Views/Configurations.html",
+            controller: "configurationController"
+        })
         .when("/About", {
             templateUrl: "/Views/About.html",
             controller: "aboutController"

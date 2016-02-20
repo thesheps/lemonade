@@ -212,6 +212,12 @@
   <ItemGroup>
     <EmbeddedResource Include="scripts\lemonade\handlers\configuration.js" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\Configurations.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="scripts\lemonade\controllers\configuration.controller.js" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>

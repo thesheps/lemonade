@@ -22,5 +22,5 @@ function applicationController($scope, $http, eventService) {
 
     eventService.onApplicationAdded($scope, application.addApplication);
     eventService.onApplicationRemoved($scope, application.removeApplication);
-    eventService.onErrorEncountered($scope, application.logError);
+    eventService.onApplicationErrorEncountered($scope, application.logApplicationError);
 }
