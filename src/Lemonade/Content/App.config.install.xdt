@@ -7,8 +7,8 @@
   <configSections xdt:Transform="RemoveAll" xdt:Locator="Condition(count(*)=0)" />
 
   <Lemonade xdt:Transform="InsertAfter(/configuration/configSections)" 
-            FeatureResolver="Lemonade.Resolvers.HttpFeatureResolver"
-            ConfigurationResolver="Lemonade.Resolvers.HttpFeatureResolver" 
+            FeatureResolver="Lemonade.Services.HttpFeatureResolver"
+            ConfigurationResolver="Lemonade.Services.HttpConfigurationResolver" 
             ApplicationName="Hello World" 
             CacheExpiration="0" />
 
