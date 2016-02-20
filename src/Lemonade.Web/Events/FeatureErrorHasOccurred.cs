@@ -2,11 +2,11 @@
 {
     public class FeatureErrorHasOccurred : IDomainEvent
     {
-        public string ErrorMessage { get; }
+        public string Message { get; }
 
-        public FeatureErrorHasOccurred(string errorMessage)
+        public FeatureErrorHasOccurred(string message)
         {
-            ErrorMessage = errorMessage;
+            Message = message;
         }
     }
 }

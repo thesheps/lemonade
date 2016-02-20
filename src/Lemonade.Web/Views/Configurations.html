@@ -34,7 +34,6 @@
                     <td><a href="" editable-text="configuration.value" onaftersave="updateConfiguration(configuration)">{{configuration.value}}</a></td>
                     <td>
                         <div class="pull-right">
-                            <div class="btn btn-xs btn-primary glyphicon glyphicon-list-alt accordion-toggle" data-toggle="collapse" data-target="#configuration-{{configuration.configurationId}}" title="View client overrides"></div>
                             <div class="btn btn-xs btn-danger glyphicon glyphicon-remove" ng-click="deleteConfiguration(configuration.configurationId)"></div>
                         </div>
                     </td>
@@ -49,7 +48,7 @@
                         <input name="applicationId" type="hidden" ng-model="newConfiguration.ApplicationId" />
                         <input name="name" ng-model="newConfiguration.Name" class="input-sm" placeholder="Configuration name" />
                     </td>
-                    <td><input name="value" type="text" ng-model="newConfiguration.Value" /></td>
+                    <td><input name="value" class="input-sm" type="text" ng-model="newConfiguration.Value" /></td>
                     <td>
                         <button class="btn btn-primary pull-right" ng-click="addConfiguration(newConfiguration)">
                             <span><i class="glyphicon glyphicon-plus"></i> Add</span>

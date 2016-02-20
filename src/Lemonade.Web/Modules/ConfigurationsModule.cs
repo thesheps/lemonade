@@ -53,7 +53,7 @@ namespace Lemonade.Web.Modules
             {
                 var configuration = this.Bind<Configuration>().ToEntity();
                 _createConfiguration.Execute(configuration);
-                DomainEvents.Raise(new ConfigurationHasBeenCreated(configuration.ApplicationId, configuration.Name));
+                DomainEvents.Raise(new ConfigurationHasBeenCreated(configuration.ApplicationId, configuration.Name, configuration.Value));
 
                 return HttpStatusCode.OK;
             }

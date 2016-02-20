@@ -2,11 +2,11 @@
 {
     public class ApplicationErrorHasOccurred : IDomainEvent
     {
-        public string ErrorMessage { get; }
+        public string Message { get; }
 
-        public ApplicationErrorHasOccurred(string errorMessage)
+        public ApplicationErrorHasOccurred(string message)
         {
-            ErrorMessage = errorMessage;
+            Message = message;
         }
     }
 }

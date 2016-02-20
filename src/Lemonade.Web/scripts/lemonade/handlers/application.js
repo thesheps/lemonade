@@ -1,14 +1,14 @@
 ﻿function Application($scope) {
     return {
-        addApplication: function (message) {
+        addApplication: function (application) {
             $scope.$apply(function () {
-                $scope.applications.push(message.application);
+                $scope.applications.push(application);
             });
         },
-        removeApplication: function (message) {
+        removeApplication: function (application) {
             $scope.$apply(function () {
                 for (var i = 0; i < $scope.applications.length; i++) {
-                    if ($scope.applications[i].applicationId === message.application.applicationId) {
+                    if ($scope.applications[i].applicationId === application.applicationId) {
                         $scope.applications.splice(i, 1);
                     }
                 }
@@ -17,8 +17,8 @@
                 $scope.features = [];
             });
         },
-        logError: function (message) {
-            $.bootstrapGrowl(message.error.errorMessage, { type: "danger" });
+        logApplicationError: function (error) {
+            $.bootstrapGrowl(error.message, { type: "danger" });
         }
     }
 };

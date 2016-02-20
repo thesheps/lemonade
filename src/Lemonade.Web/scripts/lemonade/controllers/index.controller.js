@@ -12,12 +12,20 @@ function indexController($scope, $http, eventService) {
         eventService.applicationRemoved(application);
     }
 
+    hubProxy.client.logApplicationError = function (error) {
+        eventService.applicationErrorEncountered(error);
+    }
+
     hubProxy.client.addFeature = function(feature) {
         eventService.featureAdded(feature);
     }
 
     hubProxy.client.removeFeature = function(feature) {
         eventService.featureRemoved(feature);
+    }
+
+    hubProxy.client.logFeatureError = function (error) {
+        eventService.featureErrorEncountered(error);
     }
 
     hubProxy.client.addFeatureOverride = function(featureOverride) {
@@ -28,16 +36,16 @@ function indexController($scope, $http, eventService) {
         eventService.featureOverrideRemoved(featureOverride);
     }
 
-    hubProxy.client.logApplicationError = function(error) {
-        eventService.applicationErrorEncountered(error);
+    hubProxy.client.addConfiguration= function (configuration) {
+        eventService.configurationAdded(configuration);
+    }
+
+    hubProxy.client.removeConfiguration = function (configuration) {
+        eventService.configurationRemoved(configuration);
     }
 
     hubProxy.client.logConfigurationError = function (error) {
         eventService.configurationErrorEncountered(error);
-    }
-
-    hubProxy.client.logFeatureError = function (error) {
-        eventService.featureErrorEncountered(error);
     }
 
     $.connection.hub.start();

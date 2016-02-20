@@ -1,37 +1,37 @@
 ﻿function Feature($scope) {
     return {
-        addFeature: function (message) {
+        addFeature: function (feature) {
             $scope.$apply(function () {
-                $scope.features.push(message.feature);
+                $scope.features.push(feature);
             });
         },
-        removeFeature: function (message) {
+        removeFeature: function (feature) {
             $scope.$apply(function () {
                 for (var i = 0; i < $scope.features.length; i++) {
-                    if ($scope.features[i].featureId === message.feature.featureId) {
+                    if ($scope.features[i].featureId === feature.featureId) {
                         $scope.features.splice(i, 1);
                         return;
                     }
                 }
             });
         },
-        addFeatureOverride: function (message) {
+        addFeatureOverride: function (featureOverride) {
             $scope.$apply(function () {
                 for (var i = 0; i < $scope.features.length; i++) {
-                    if ($scope.features[i].featureId === message.featureOverride.featureId) {
-                        $scope.features[i].featureOverrides.push(message.featureOverride);
+                    if ($scope.features[i].featureId === featureOverride.featureId) {
+                        $scope.features[i].featureOverrides.push(featureOverride);
                         return;
                     }
                 }
             });
         },
-        removeFeatureOverride: function (message) {
+        removeFeatureOverride: function (featureOverride) {
             $scope.$apply(function () {
                 for (var x = 0; x < $scope.features.length; x++) {
                     var feature = $scope.features[x];
 
                     for (var y = 0; y < feature.featureOverrides.length; y++) {
-                        if (feature.featureOverrides[y].featureOverrideId === message.featureOverride.featureOverrideId) {
+                        if (feature.featureOverrides[y].featureOverrideId === featureOverride.featureOverrideId) {
                             feature.featureOverrides.splice(y, 1);
                             return;
                         }
@@ -39,8 +39,8 @@
                 }
             });
         },
-        logError: function (message) {
-            $.bootstrapGrowl(message.error.errorMessage, { type: "danger" });
+        logFeatureError: function (error) {
+            $.bootstrapGrowl(error.message, { type: "danger" });
         }
     }
 };
