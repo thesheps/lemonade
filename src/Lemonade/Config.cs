@@ -1,17 +1,11 @@
+﻿using Lemonade.Collections;
+using Lemonade.Core.Collections;
+
 namespace Lemonade
 {
-    public static class Config
+    public class Config
     {
-        public static T Settings<T>(string key) => new ConfigValue<T>()[key];
-
-        private class ConfigValue<T> : ValueProvider<T>
-        {
-            protected override T GetValue(string key, string applicationName)
-            {
-                return Configuration.ConfigurationResolver.Resolve<T>(key, applicationName);
-            }
-
-            protected override string ValueType => "Configuration";
-        }
+        public static T Settings<T>(string key) => Settings<T>()[key];
+        public static IConfigurationValueCollection<T> Settings<T>() => new ConfigurationValueCollection<T>(Configuration.CacheProvider, Configuration.ConfigurationResolver, Configuration.ApplicationName);
     }
 }

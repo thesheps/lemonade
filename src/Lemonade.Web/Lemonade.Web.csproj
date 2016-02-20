@@ -199,6 +199,11 @@
     <EmbeddedResource Include="scripts\lemonade\handlers\application.js" />
     <EmbeddedResource Include="scripts\lemonade\handlers\feature.js" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Content\styles\lemonade.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>

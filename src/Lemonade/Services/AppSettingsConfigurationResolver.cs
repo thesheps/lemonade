@@ -1,9 +1,10 @@
 using System;
 using System.Configuration;
+using Lemonade.Core.Services;
 
-namespace Lemonade.Resolvers
+namespace Lemonade.Services
 {
-    public class AppConfigConfigurationResolver : IConfigurationResolver
+    public class AppSettingsConfigurationResolver : IConfigurationResolver
     {
         public T Resolve<T>(string configurationName, string applicationName)
         {

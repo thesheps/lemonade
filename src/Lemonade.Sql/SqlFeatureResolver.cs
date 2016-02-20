@@ -1,4 +1,5 @@
-﻿using Lemonade.Sql.Queries;
+﻿using Lemonade.Core.Services;
+using Lemonade.Sql.Queries;
 
 namespace Lemonade.Sql
 {

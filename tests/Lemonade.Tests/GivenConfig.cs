@@ -1,5 +1,7 @@
 ﻿using System;
+using Lemonade.Core.Services;
 using Lemonade.Resolvers;
+using Lemonade.Services;
 using NUnit.Framework;
 
 namespace Lemonade.Tests
@@ -10,21 +12,21 @@ namespace Lemonade.Tests
         public void WhenIGetAKnownConfigurationString_ThenTheValueIsRetrieved()
         {
             Configuration.ConfigurationResolver = this;
-            Assert.That(Config.Settings<string>("TestString"), Is.EqualTo("Test String"));
+            Assert.That(Config.Settings<string>()["TestString"], Is.EqualTo("Test String"));
         }
 
         [Test]
         public void WhenIGetAKnownConfigurationBoolean_ThenTheValueIsRetrieved()
         {
             Configuration.ConfigurationResolver = this;
-            Assert.That(Config.Settings<bool>("TestBoolean"), Is.EqualTo(true));
+            Assert.That(Config.Settings<bool>()["TestBoolean"], Is.EqualTo(true));
         }
 
         [Test]
         public void WhenNoConfigurationResolverIsSet_ThenAppConfigConfigurationResolverIsUsed()
         {
             Configuration.ConfigurationResolver = null;
-            Assert.That(Configuration.ConfigurationResolver, Is.TypeOf<AppConfigConfigurationResolver>());
+            Assert.That(Configuration.ConfigurationResolver, Is.TypeOf<AppSettingsConfigurationResolver>());
         }
 
         public T Resolve<T>(string configurationName, string applicationName)

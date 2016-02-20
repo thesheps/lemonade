@@ -13,6 +13,9 @@ namespace Lemonade
         [ConfigurationProperty("ConfigurationResolver", IsRequired = false)]
         public string ConfigurationResolver => this["ConfigurationResolver"] as string;
 
+        [ConfigurationProperty("CacheProvider", IsRequired = false)]
+        public string CacheProvider => this["CacheProvider"] as string;
+
         [ConfigurationProperty("ApplicationName", IsRequired = false)]
         public string ApplicationName => this["ApplicationName"] as string ?? AppDomain.CurrentDomain.FriendlyName.Replace(".exe", string.Empty);
 

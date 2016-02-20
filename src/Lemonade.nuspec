@@ -22,6 +22,7 @@
   </metadata>
 
   <files>
+    <file src="Lemonade\bin\$configuration$\Lemonade.Core.dll" target="lib" />
     <file src="Lemonade\bin\$configuration$\Lemonade.dll" target="lib" />
     <file src="Lemonade\bin\$configuration$\Lemonade.Web.Contracts.dll" target="lib" />
     <file src="Lemonade\bin\$configuration$\Content\App.config.install.xdt" target="content" />

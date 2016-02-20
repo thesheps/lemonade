@@ -1,26 +1,10 @@
-﻿using System;
+﻿using Lemonade.Collections;
+using Lemonade.Core.Collections;
 
 namespace Lemonade
 {
-    public class Feature : ValueProvider<bool>
+    public class Feature
     {
-        public static Feature Switches { get; } = new Feature();
-
-        public void Execute(string key, Action action)
-        {
-            if (this[key]) action.Invoke();
-        }
-
-        public void Execute(Func<dynamic, dynamic> keyFunction, Action action)
-        {
-            if (this[keyFunction]) action.Invoke();
-        }
-
-        protected override bool GetValue(string key, string applicationName)
-        {
-            return Configuration.FeatureResolver.Resolve(key, applicationName);
-        }
-
-        protected override string ValueType => "Feature";
+        public static IFeatureValueCollection Switches => new FeatureValueCollection(Configuration.CacheProvider, Configuration.FeatureResolver, Configuration.ApplicationName);
     }
 }

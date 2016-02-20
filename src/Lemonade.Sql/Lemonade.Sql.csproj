@@ -100,6 +100,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Lemonade.Core\Lemonade.Core.csproj">
+      <Project>{EE4CB55F-6CFF-47E0-82B1-A2A6E0D9EECF}</Project>
+      <Name>Lemonade.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Lemonade.Data\Lemonade.Data.csproj">
       <Project>{A9171A74-BFAD-4C2E-A8E2-54BC2BCE496C}</Project>
       <Name>Lemonade.Data</Name>

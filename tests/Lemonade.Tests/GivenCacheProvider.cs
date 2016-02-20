@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+using Lemonade.Services;
 using NUnit.Framework;
 
 namespace Lemonade.Tests

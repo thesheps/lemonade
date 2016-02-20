@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Net;
 using Lemonade.AcceptanceTests;
-using Lemonade.Resolvers;
+using Lemonade.Services;
 using Lemonade.Sql.Commands;
 using Lemonade.Sql.Migrations;
 using Lemonade.Sql.Queries;

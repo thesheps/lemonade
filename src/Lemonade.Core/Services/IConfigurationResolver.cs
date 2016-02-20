@@ -1,4 +1,4 @@
-namespace Lemonade
+namespace Lemonade.Core.Services
 {
     public interface IConfigurationResolver
     {

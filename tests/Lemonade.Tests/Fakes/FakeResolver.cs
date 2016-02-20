@@ -1,4 +1,6 @@
-﻿namespace Lemonade.Tests.Fakes
+﻿using Lemonade.Core.Services;
+
+namespace Lemonade.Tests.Fakes
 {
     public class FakeResolver : IFeatureResolver
     {

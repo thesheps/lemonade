@@ -80,7 +80,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="styles\Lemonade.css" />
+    <EmbeddedResource Include="styles\lemonade.css" />
     <Content Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

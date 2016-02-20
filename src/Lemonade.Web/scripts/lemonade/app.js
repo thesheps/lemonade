@@ -23,5 +23,3 @@ app.config(function($routeProvider) {
             controller: "aboutController"
         });
 });
-
-$("head").append($("<link rel=\"stylesheet\" type=\"text/css\" />").attr("href", "styles/Lemonade.css"));

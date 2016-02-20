@@ -1,15 +1,16 @@
 ﻿using System;
 using Lemonade.Resolvers;
+using Lemonade.Services;
 using NUnit.Framework;
 
 namespace Lemonade.Tests
 {
-    public class GivenAppConfigConfigurationResolver
+    public class GivenAppSettingsConfigurationResolver
     {
         [Test]
         public void WhenIHaveAKnownStringValue_ThenItIsRetrievedCorrectly()
         {
-            var resolver = new AppConfigConfigurationResolver();
+            var resolver = new AppSettingsConfigurationResolver();
             var value = resolver.Resolve<string>("TestString", null);
             Assert.That(value, Is.EqualTo("Test String"));
         }
@@ -17,7 +18,7 @@ namespace Lemonade.Tests
         [Test]
         public void WhenIHaveAKnownBooleanValue_ThenItIsRetrievedCorrectly()
         {
-            var resolver = new AppConfigConfigurationResolver();
+            var resolver = new AppSettingsConfigurationResolver();
             var value = resolver.Resolve<bool>("TestBoolean", null);
             Assert.That(value, Is.True);
         }
@@ -25,7 +26,7 @@ namespace Lemonade.Tests
         [Test]
         public void WhenIHaveAKnownDateValue_ThenItIsRetrievedCorrectly()
         {
-            var resolver = new AppConfigConfigurationResolver();
+            var resolver = new AppSettingsConfigurationResolver();
             var value = resolver.Resolve<DateTime>("TestDate", null);
             Assert.That(value, Is.EqualTo(new DateTime(1985, 9, 11, 11, 0, 0)));
         }
@@ -33,7 +34,7 @@ namespace Lemonade.Tests
         [Test]
         public void WhenIHaveAKnownIntegerValue_ThenItIsRetrievedCorrectly()
         {
-            var resolver = new AppConfigConfigurationResolver();
+            var resolver = new AppSettingsConfigurationResolver();
             var value = resolver.Resolve<int>("TestInteger", null);
             Assert.That(value, Is.EqualTo(42));
         }
@@ -41,7 +42,7 @@ namespace Lemonade.Tests
         [Test]
         public void WhenIHaveAKnownDoubleValue_ThenItIsRetrievedCorrectly()
         {
-            var resolver = new AppConfigConfigurationResolver();
+            var resolver = new AppSettingsConfigurationResolver();
             var value = resolver.Resolve<double>("TestDouble", null);
             Assert.That(value, Is.EqualTo(3.142));
         }
@@ -49,7 +50,7 @@ namespace Lemonade.Tests
         [Test]
         public void WhenIHaveAKnownDecimalValue_ThenItIsRetrievedCorrectly()
         {
-            var resolver = new AppConfigConfigurationResolver();
+            var resolver = new AppSettingsConfigurationResolver();
             var value = resolver.Resolve<decimal>("TestDecimal", null);
             Assert.That(value, Is.EqualTo(10.27));
         }
@@ -57,7 +58,7 @@ namespace Lemonade.Tests
         [Test]
         public void WhenIHaveAKnownUriValue_ThenItIsRetrievedCorrectly()
         {
-            var resolver = new AppConfigConfigurationResolver();
+            var resolver = new AppSettingsConfigurationResolver();
             var value = resolver.Resolve<Uri>("TestUri", null);
             Assert.That(value.AbsoluteUri, Is.EqualTo("http://localhost:10547/"));
         }

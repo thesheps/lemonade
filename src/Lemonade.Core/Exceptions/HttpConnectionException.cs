@@ -1,6 +1,6 @@
 using System;
 
-namespace Lemonade.Exceptions
+namespace Lemonade.Core.Exceptions
 {
     public class HttpConnectionException : Exception
     {

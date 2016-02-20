@@ -84,8 +84,8 @@
   <ItemGroup>
     <Compile Include="Fakes\FakeResolver.cs" />
     <Compile Include="Fakes\FakeSwitch.cs" />
-    <Compile Include="GivenAppConfigConfigurationResolver.cs" />
-    <Compile Include="GivenAppConfigFeatureResolver.cs" />
+    <Compile Include="GivenAppSettingsConfigurationResolver.cs" />
+    <Compile Include="GivenAppSettingsFeatureResolver.cs" />
     <Compile Include="GivenCacheProvider.cs" />
     <Compile Include="GivenConfig.cs" />
     <Compile Include="GivenFeatureAttribute.cs" />
@@ -98,6 +98,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\src\Lemonade.Core\Lemonade.Core.csproj">
+      <Project>{EE4CB55F-6CFF-47E0-82B1-A2A6E0D9EECF}</Project>
+      <Name>Lemonade.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\src\Lemonade\Lemonade.csproj">
       <Project>{A5518007-A595-4C05-91C8-077FFCB17FC2}</Project>
       <Name>Lemonade</Name>

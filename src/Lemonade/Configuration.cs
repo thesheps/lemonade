@@ -1,5 +1,6 @@
 using System;
-using Lemonade.Resolvers;
+using Lemonade.Core.Services;
+using Lemonade.Services;
 
 namespace Lemonade
 {
@@ -19,7 +20,7 @@ namespace Lemonade
 
         public static ICacheProvider CacheProvider
         {
-            get { return _cacheProvider ?? (_cacheProvider = new CacheProvider(CacheExpiration)); }
+            get { return _cacheProvider ?? (_cacheProvider = GetCacheProvider()); }
             set { _cacheProvider = value; }
         }
 
@@ -38,23 +39,34 @@ namespace Lemonade
         private static IFeatureResolver GetFeatureResolver()
         {
             var featureConfiguration = LemonadeConfigurationSection.Current;
-            if (featureConfiguration == null) return new AppConfigFeatureResolver();
+            if (featureConfiguration == null) return new AppSettingsFeatureResolver();
 
             var type = Type.GetType(featureConfiguration.FeatureResolver);
             if (type != null) return Activator.CreateInstance(type) as IFeatureResolver;
 
-            return new AppConfigFeatureResolver();
+            return new AppSettingsFeatureResolver();
         }
 
         private static IConfigurationResolver GetConfigurationResolver()
         {
             var featureConfiguration = LemonadeConfigurationSection.Current;
-            if (featureConfiguration == null) return new AppConfigConfigurationResolver();
+            if (featureConfiguration == null) return new AppSettingsConfigurationResolver();
 
             var type = Type.GetType(featureConfiguration.ConfigurationResolver);
             if (type != null) return Activator.CreateInstance(type) as IConfigurationResolver;
 
-            return new AppConfigConfigurationResolver();
+            return new AppSettingsConfigurationResolver();
+        }
+
+        private static ICacheProvider GetCacheProvider()
+        {
+            var featureConfiguration = LemonadeConfigurationSection.Current;
+            if (featureConfiguration == null) return new CacheProvider(CacheExpiration);
+
+            var type = Type.GetType(featureConfiguration.CacheProvider);
+            if (type != null) return Activator.CreateInstance(type) as ICacheProvider;
+
+            return new CacheProvider(CacheExpiration);
         }
 
         private static ICacheProvider _cacheProvider;

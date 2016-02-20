@@ -1,13 +1,9 @@
 using System;
 using System.Collections.Generic;
+using Lemonade.Core.Services;
 
-namespace Lemonade
+namespace Lemonade.Services
 {
-    public interface ICacheProvider
-    {
-        T GetValue<T>(string key, Func<T> strategy);
-    }
-
     public class CacheProvider : ICacheProvider
     {
         public CacheProvider(double? cacheExpiration)

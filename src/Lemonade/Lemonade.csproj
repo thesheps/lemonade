@@ -78,25 +78,25 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Config.cs" />
+    <Compile Include="Feature.cs" />
+    <Compile Include="LemonadeConfigurationSection.cs" />
+    <Compile Include="Services\CacheProvider.cs" />
+    <Compile Include="Collections\ConfigurationValueCollection.cs" />
     <Compile Include="Errors.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Errors.resx</DependentUpon>
     </Compile>
-    <Compile Include="ValueProvider.cs" />
-    <Compile Include="Feature.cs" />
+    <Compile Include="Collections\FeatureValueCollection.cs" />
+    <Compile Include="Services\HttpConfigurationResolver.cs" />
+    <Compile Include="Collections\ValueCollection.cs" />
     <Compile Include="FeatureAttribute.cs" />
-    <Compile Include="ICacheProvider.cs" />
-    <Compile Include="LemonadeConfigurationSection.cs" />
     <Compile Include="FeatureWrapper.cs" />
-    <Compile Include="IConfigurationResolver.cs" />
     <Compile Include="Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Resolvers\AppConfigConfigurationResolver.cs" />
-    <Compile Include="Resolvers\AppConfigFeatureResolver.cs" />
-    <Compile Include="Exceptions\HttpConnectionException.cs" />
-    <Compile Include="IFeatureResolver.cs" />
-    <Compile Include="Resolvers\HttpFeatureResolver.cs" />
+    <Compile Include="Services\AppSettingsConfigurationResolver.cs" />
+    <Compile Include="Services\AppSettingsFeatureResolver.cs" />
+    <Compile Include="Services\HttpFeatureResolver.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Content\App.config.install.xdt">
@@ -105,6 +105,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Lemonade.Core\Lemonade.Core.csproj">
+      <Project>{ee4cb55f-6cff-47e0-82b1-a2a6e0d9eecf}</Project>
+      <Name>Lemonade.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Lemonade.Web.Contracts\Lemonade.Web.Contracts.csproj">
       <Project>{DF4CCA5C-FF05-4471-BF04-C4E36C7101D8}</Project>
       <Name>Lemonade.Web.Contracts</Name>
