@@ -75,6 +75,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EventHandlers\ConfigurationErrorHasOccurredHandler.cs" />
+    <Compile Include="EventHandlers\ConfigurationHasBeenCreatedHandler.cs" />
+    <Compile Include="EventHandlers\ConfigurationHasBeenDeletedHandler.cs" />
     <Compile Include="EventHandlers\ApplicationHasBeenDeletedHandler.cs" />
     <Compile Include="EventHandlers\ApplicationErrorHasOccurredHandler.cs" />
     <Compile Include="EventHandlers\FeatureOverrideHasBeenCreatedHandler.cs" />
@@ -83,7 +86,7 @@
     <Compile Include="EventHandlers\FeatureErrorHasOccurredHandler.cs" />
     <Compile Include="Events\ApplicationHasBeenCreated.cs" />
     <Compile Include="Events\ApplicationHasBeenDeleted.cs" />
-    <Compile Include="Events\DomainEvent.cs" />
+    <Compile Include="Events\DomainEvents.cs" />
     <Compile Include="Events\ApplicationErrorHasOccurred.cs" />
     <Compile Include="Events\FeatureErrorHasOccurred.cs" />
     <Compile Include="Events\FeatureHasBeenCreated.cs" />
@@ -100,6 +103,10 @@
     <Compile Include="Events\FeatureOverrideHasBeenDeleted.cs" />
     <Compile Include="Events\FeatureOverrideHasBeenCreated.cs" />
     <Compile Include="Events\FeatureOverrideHasBeenUpdated.cs" />
+    <Compile Include="Events\ConfigurationHasBeenCreated.cs" />
+    <Compile Include="Events\ConfigurationErrorHasOccurred.cs" />
+    <Compile Include="Events\ConfigurationHasBeenUpdated.cs" />
+    <Compile Include="Events\ConfigurationHasBeenDeleted.cs" />
     <Compile Include="Modules\FeatureOverridesModule.cs" />
     <Compile Include="Modules\ConfigurationsModule.cs" />
     <Compile Include="Modules\IndexModule.cs" />
@@ -201,6 +208,9 @@
     <None Include="Content\styles\lemonade.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="scripts\lemonade\handlers\configuration.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

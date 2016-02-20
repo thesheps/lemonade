@@ -37,13 +37,13 @@ namespace Lemonade.Web.Modules
             {
                 var application = this.Bind<Application>().ToEntity();
                 _createApplication.Execute(application);
-                DomainEvent.Raise(new ApplicationHasBeenCreated(application.ApplicationId, application.Name));
+                DomainEvents.Raise(new ApplicationHasBeenCreated(application.ApplicationId, application.Name));
 
                 return HttpStatusCode.OK;
             }
             catch (CreateApplicationException exception)
             {
-                DomainEvent.Raise(new ApplicationErrorHasOccurred(exception.Message));
+                DomainEvents.Raise(new ApplicationErrorHasOccurred(exception.Message));
                 return HttpStatusCode.BadRequest;
             }
         }
@@ -54,13 +54,13 @@ namespace Lemonade.Web.Modules
             {
                 var application = this.Bind<Application>();
                 _updateApplication.Execute(application.ToEntity());
-                DomainEvent.Raise(new ApplicationHasBeenUpdated(application.ApplicationId, application.Name));
+                DomainEvents.Raise(new ApplicationHasBeenUpdated(application.ApplicationId, application.Name));
 
                 return HttpStatusCode.OK;
             }
             catch (UpdateApplicationException exception)
             {
-                DomainEvent.Raise(new ApplicationErrorHasOccurred(exception.Message));
+                DomainEvents.Raise(new ApplicationErrorHasOccurred(exception.Message));
                 return HttpStatusCode.BadRequest;
             }
         }
@@ -73,12 +73,12 @@ namespace Lemonade.Web.Modules
             try
             {
                 _deleteApplication.Execute(applicationId);
-                DomainEvent.Raise(new ApplicationHasBeenDeleted(applicationId));
+                DomainEvents.Raise(new ApplicationHasBeenDeleted(applicationId));
                 return HttpStatusCode.OK;
             }
             catch (DeleteApplicationException exception)
             {
-                DomainEvent.Raise(new ApplicationErrorHasOccurred(exception.Message));
+                DomainEvents.Raise(new ApplicationErrorHasOccurred(exception.Message));
                 return HttpStatusCode.BadRequest;
             }
         }

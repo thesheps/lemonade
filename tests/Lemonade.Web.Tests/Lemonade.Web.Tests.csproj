@@ -100,6 +100,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GivenConfigurationsModule.cs" />
     <Compile Include="GivenFeatureOverridesModule.cs" />
     <Compile Include="Mocks\IMockClient.cs" />
     <Compile Include="GivenApplicationsModule.cs" />
@@ -137,6 +138,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Javascript\GivenConfiguration.js" />
     <Content Include="Javascript\GivenApplication.js" />
     <Content Include="Javascript\GivenFeature.js" />
   </ItemGroup>

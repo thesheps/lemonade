@@ -44,7 +44,9 @@
   <ItemGroup>
     <Compile Include="Commands\ICreateConfiguration.cs" />
     <Compile Include="Commands\ICreateFeatureOverride.cs" />
+    <Compile Include="Commands\IDeleteConfiguration.cs" />
     <Compile Include="Commands\IDeleteFeatureOverride.cs" />
+    <Compile Include="Commands\IUpdateConfiguration.cs" />
     <Compile Include="Commands\IUpdateFeature.cs" />
     <Compile Include="Commands\IUpdateApplication.cs" />
     <Compile Include="Commands\IDeleteApplication.cs" />
@@ -62,17 +64,20 @@
     <Compile Include="Exceptions\ConfigurationDoesNotExistException.cs" />
     <Compile Include="Exceptions\CreateConfigurationException.cs" />
     <Compile Include="Exceptions\CreateFeatureOverrideException.cs" />
+    <Compile Include="Exceptions\DeleteConfigurationException.cs" />
     <Compile Include="Exceptions\DeleteFeatureException.cs" />
     <Compile Include="Exceptions\DeleteApplicationException.cs" />
     <Compile Include="Exceptions\CreateApplicationException.cs" />
     <Compile Include="Exceptions\CreateFeatureException.cs" />
     <Compile Include="Exceptions\DeleteFeatureOverrideException.cs" />
     <Compile Include="Exceptions\UpdateApplicationException.cs" />
+    <Compile Include="Exceptions\UpdateConfigurationException.cs" />
     <Compile Include="Exceptions\UpdateFeatureOverrideException.cs" />
     <Compile Include="Exceptions\UpdateFeatureException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Entities\Application.cs" />
     <Compile Include="Queries\IGetAllApplications.cs" />
+    <Compile Include="Queries\IGetAllConfigurations.cs" />
     <Compile Include="Queries\IGetAllFeatures.cs" />
     <Compile Include="Queries\IGetAllFeaturesByApplicationId.cs" />
     <Compile Include="Queries\IGetApplicationByName.cs" />

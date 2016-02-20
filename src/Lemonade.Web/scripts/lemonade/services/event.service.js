@@ -79,15 +79,41 @@ function eventService($rootScope) {
         });
     }
 
-    var ERROR_ENCOUNTERED = "errorEncountered";
-    var errorEncountered = function(message) {
-        $rootScope.$broadcast(ERROR_ENCOUNTERED, {
+    var APPLICATION_ERROR_ENCOUNTERED = "applicationErrorEncountered";
+    var applicationErrorEncountered = function (message) {
+        $rootScope.$broadcast(APPLICATION_ERROR_ENCOUNTERED, {
             message: message
         });
     }
 
-    var onErrorEncountered = function ($scope, handler) {
-        $scope.$on(ERROR_ENCOUNTERED, function (event, message) {
+    var onApplicationErrorEncountered = function ($scope, handler) {
+        $scope.$on(APPLICATION_ERROR_ENCOUNTERED, function (event, message) {
+            handler(message);
+        });
+    }
+
+    var FEATURE_ERROR_ENCOUNTERED = "featureErrorEncountered";
+    var featureErrorEncountered = function (message) {
+        $rootScope.$broadcast(FEATURE_ERROR_ENCOUNTERED, {
+            message: message
+        });
+    }
+
+    var onFeatureErrorEncountered = function ($scope, handler) {
+        $scope.$on(FEATURE_ERROR_ENCOUNTERED, function (event, message) {
+            handler(message);
+        });
+    }
+
+    var CONFIGURATION_ERROR_ENCOUNTERED = "configurationErrorEncountered";
+    var configurationErrorEncountered = function (message) {
+        $rootScope.$broadcast(CONFIGURATION_ERROR_ENCOUNTERED, {
+            message: message
+        });
+    }
+
+    var onConfigurationErrorEncountered = function ($scope, handler) {
+        $scope.$on(CONFIGURATION_ERROR_ENCOUNTERED, function (event, message) {
             handler(message);
         });
     }
@@ -105,7 +131,11 @@ function eventService($rootScope) {
         onFeatureOverrideAdded: onFeatureOverrideAdded,
         featureOverrideRemoved: featureOverrideRemoved,
         onFeatureOverrideRemoved: onFeatureOverrideRemoved,
-        errorEncountered: errorEncountered,
-        onErrorEncountered: onErrorEncountered
+        configurationErrorEncountered: configurationErrorEncountered,
+        onConfigurationErrorEncountered: onConfigurationErrorEncountered,
+        featureErrorEncountered: featureErrorEncountered,
+        onFeatureErrorEncountered: onFeatureErrorEncountered,
+        applicationErrorEncountered: applicationErrorEncountered,
+        onApplicationErrorEncountered: onApplicationErrorEncountered
     }
 }

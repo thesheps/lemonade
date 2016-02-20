@@ -19,7 +19,7 @@ namespace Lemonade.Web.Infrastructure
     {
         public LemonadeBootstrapper()
         {
-            DomainEvent.Dispatcher = this;
+            DomainEvents.Dispatcher = this;
         }
 
         public void Dispatch<TEvent>(TEvent @event) where TEvent : IDomainEvent
@@ -51,6 +51,9 @@ namespace Lemonade.Web.Infrastructure
             base.ConfigureApplicationContainer(container);
 
             _container = container;
+            _container.Register<IDomainEventHandler<ConfigurationHasBeenCreated>, ConfigurationHasBeenCreatedHandler>();
+            _container.Register<IDomainEventHandler<ConfigurationHasBeenDeleted>, ConfigurationHasBeenDeletedHandler>();
+            _container.Register<IDomainEventHandler<ConfigurationErrorHasOccurred>, ConfigurationErrorHasOccurredHandler>();
             _container.Register<IDomainEventHandler<ApplicationHasBeenCreated>, ApplicationHasBeenCreatedHandler>();
             _container.Register<IDomainEventHandler<ApplicationHasBeenDeleted>, ApplicationHasBeenDeletedHandler>();
             _container.Register<IDomainEventHandler<ApplicationErrorHasOccurred>, ApplicationErrorHasOccurredHandler>();

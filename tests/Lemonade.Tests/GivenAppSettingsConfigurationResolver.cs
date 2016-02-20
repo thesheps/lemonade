@@ -1,5 +1,4 @@
 ﻿using System;
-using Lemonade.Resolvers;
 using Lemonade.Services;
 using NUnit.Framework;
 

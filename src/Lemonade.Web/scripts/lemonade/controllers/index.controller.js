@@ -28,8 +28,16 @@ function indexController($scope, $http, eventService) {
         eventService.featureOverrideRemoved(featureOverride);
     }
 
-    hubProxy.client.logError = function(error) {
-        eventService.errorEncountered(error);
+    hubProxy.client.logApplicationError = function(error) {
+        eventService.applicationErrorEncountered(error);
+    }
+
+    hubProxy.client.logConfigurationError = function (error) {
+        eventService.configurationErrorEncountered(error);
+    }
+
+    hubProxy.client.logFeatureError = function (error) {
+        eventService.featureErrorEncountered(error);
     }
 
     $.connection.hub.start();

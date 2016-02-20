@@ -1,6 +1,6 @@
 ﻿namespace Lemonade.Web.Events
 {
-    public static class DomainEvent
+    public static class DomainEvents
     {
         public static IDomainEventDispatcher Dispatcher { get; set; }
 

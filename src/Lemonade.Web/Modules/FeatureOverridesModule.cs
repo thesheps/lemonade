@@ -27,13 +27,13 @@ namespace Lemonade.Web.Modules
             {
                 var featureOverride = this.Bind<FeatureOverride>().ToEntity();
                 _createFeatureOverride.Execute(featureOverride);
-                DomainEvent.Raise(new FeatureOverrideHasBeenCreated(featureOverride.FeatureOverrideId, featureOverride.FeatureId, featureOverride.Hostname, featureOverride.IsEnabled));
+                DomainEvents.Raise(new FeatureOverrideHasBeenCreated(featureOverride.FeatureOverrideId, featureOverride.FeatureId, featureOverride.Hostname, featureOverride.IsEnabled));
 
                 return HttpStatusCode.OK;
             }
             catch (CreateFeatureOverrideException exception)
             {
-                DomainEvent.Raise(new FeatureErrorHasOccurred(exception.Message));
+                DomainEvents.Raise(new FeatureErrorHasOccurred(exception.Message));
                 return HttpStatusCode.BadRequest;
             }
         }
@@ -44,13 +44,13 @@ namespace Lemonade.Web.Modules
             {
                 var featureOverride = this.Bind<FeatureOverride>();
                 _updateFeatureOverride.Execute(featureOverride.ToEntity());
-                DomainEvent.Raise(new FeatureOverrideHasBeenUpdated(featureOverride.FeatureOverrideId, featureOverride.FeatureId, featureOverride.Hostname, featureOverride.IsEnabled));
+                DomainEvents.Raise(new FeatureOverrideHasBeenUpdated(featureOverride.FeatureOverrideId, featureOverride.FeatureId, featureOverride.Hostname, featureOverride.IsEnabled));
 
                 return HttpStatusCode.OK;
             }
             catch (UpdateFeatureOverrideException exception)
             {
-                DomainEvent.Raise(new FeatureErrorHasOccurred(exception.Message));
+                DomainEvents.Raise(new FeatureErrorHasOccurred(exception.Message));
                 return HttpStatusCode.BadRequest;
             }
         }
@@ -63,12 +63,12 @@ namespace Lemonade.Web.Modules
             try
             {
                 _deleteFeatureOverride.Execute(featureOverrideId);
-                DomainEvent.Raise(new FeatureOverrideHasBeenDeleted(featureOverrideId));
+                DomainEvents.Raise(new FeatureOverrideHasBeenDeleted(featureOverrideId));
                 return HttpStatusCode.OK;
             }
             catch (DeleteFeatureOverrideException exception)
             {
-                DomainEvent.Raise(new FeatureErrorHasOccurred(exception.Message));
+                DomainEvents.Raise(new FeatureErrorHasOccurred(exception.Message));
                 return HttpStatusCode.BadRequest;
             }
         }

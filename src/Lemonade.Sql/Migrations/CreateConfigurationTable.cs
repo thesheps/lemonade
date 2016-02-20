@@ -8,7 +8,7 @@ namespace Lemonade.Sql.Migrations
         public override void Up()
         {
             Create.Table("Configuration")
-                .WithColumn("ConfigurationId").AsInt32().PrimaryKey("PK_FeatureId").Identity()
+                .WithColumn("ConfigurationId").AsInt32().PrimaryKey("PK_ConfigurationId").Identity()
                 .WithColumn("ApplicationId").AsInt32()
                 .WithColumn("Name").AsString()
                 .WithColumn("Value").AsString();
@@ -18,7 +18,7 @@ namespace Lemonade.Sql.Migrations
                 .OnColumn("ApplicationId").Ascending()
                 .OnColumn("Name").Ascending()
                 .WithOptions()
-                .Unique();
+                .Unique();  
 
             Create.ForeignKey("FK_Configuration_ApplicationId")
                .FromTable("Configuration").ForeignColumn("ApplicationId")

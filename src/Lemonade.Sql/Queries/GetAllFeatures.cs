@@ -21,14 +21,13 @@ namespace Lemonade.Sql.Queries
             using (var cnn = CreateConnection())
             {
                 var results = cnn.Query<Data.Entities.Feature, Application, Data.Entities.Feature>(
-                    @"SELECT * FROM Feature f INNER JOIN Application a ON f.ApplicationId = a.ApplicationId
-                      WHERE a.Name = @applicationName",
+                    @"SELECT * FROM Feature f INNER JOIN Application a ON f.ApplicationId = a.ApplicationId",
                     (f, a) => 
                     {
                         f.Application = a;
                         return f;
                     },
-                    splitOn: "FeatureId");
+                    splitOn: "ApplicationId");
 
                 return results.ToList();
             }

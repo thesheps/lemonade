@@ -14,7 +14,7 @@ namespace Lemonade.Web.EventHandlers
         public void Handle(FeatureErrorHasOccurred @event)
         {
             var hubContext = _connectionManager.GetHubContext<LemonadeHub>();
-            hubContext.Clients.All.logError(@event);
+            hubContext.Clients.All.logFeatureError(@event);
         }
 
         private readonly IConnectionManager _connectionManager;

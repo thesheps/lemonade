@@ -148,6 +148,12 @@
     <value>Could not create the specified configuration</value>
   </data>
   <data name="ConfigurationDoesNotExist" xml:space="preserve">
-    <value>The specified configuration value does not exist</value>
+    <value>The specified configurationId value does not exist</value>
+  </data>
+  <data name="FailedToDeleteConfiguration" xml:space="preserve">
+    <value>Could not delete the specified configuration</value>
+  </data>
+  <data name="FailedToUpdateConfiguration" xml:space="preserve">
+    <value>Could not update the specified configuration</value>
   </data>
 </root>

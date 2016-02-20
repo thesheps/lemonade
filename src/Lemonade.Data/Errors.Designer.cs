@@ -61,7 +61,7 @@ namespace Lemonade.Data {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The specified configuration value does not exist.
+        ///   Looks up a localized string similar to The specified configurationId value does not exist.
         /// </summary>
         internal static string ConfigurationDoesNotExist {
             get {
@@ -115,6 +115,15 @@ namespace Lemonade.Data {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Could not delete the specified configuration.
+        /// </summary>
+        internal static string FailedToDeleteConfiguration {
+            get {
+                return ResourceManager.GetString("FailedToDeleteConfiguration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Could not delete the specified feature.
         /// </summary>
         internal static string FailedToDeleteFeature {
@@ -138,6 +147,15 @@ namespace Lemonade.Data {
         internal static string FailedToUpdateApplication {
             get {
                 return ResourceManager.GetString("FailedToUpdateApplication", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not update the specified configuration.
+        /// </summary>
+        internal static string FailedToUpdateConfiguration {
+            get {
+                return ResourceManager.GetString("FailedToUpdateConfiguration", resourceCulture);
             }
         }
         

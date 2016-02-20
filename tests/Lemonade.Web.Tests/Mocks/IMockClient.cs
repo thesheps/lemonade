@@ -7,5 +7,7 @@
         void removeApplication(dynamic application);
         void removeFeature(dynamic feature);
         void addFeatureOverride(dynamic featureOverride);
+        void addConfiguration(dynamic configuration);
+        void removeConfiguration(dynamic configuration);
     }
 }

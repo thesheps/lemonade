@@ -78,9 +78,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Config.cs" />
+    <Compile Include="Configuration.cs" />
     <Compile Include="Feature.cs" />
-    <Compile Include="LemonadeConfigurationSection.cs" />
-    <Compile Include="Services\CacheProvider.cs" />
     <Compile Include="Collections\ConfigurationValueCollection.cs" />
     <Compile Include="Errors.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -88,14 +87,15 @@
       <DependentUpon>Errors.resx</DependentUpon>
     </Compile>
     <Compile Include="Collections\FeatureValueCollection.cs" />
+    <Compile Include="LemonadeConfigurationSection.cs" />
+    <Compile Include="Services\AppSettingsConfigurationResolver.cs" />
+    <Compile Include="Services\AppSettingsFeatureResolver.cs" />
+    <Compile Include="Services\CacheProvider.cs" />
     <Compile Include="Services\HttpConfigurationResolver.cs" />
     <Compile Include="Collections\ValueCollection.cs" />
     <Compile Include="FeatureAttribute.cs" />
     <Compile Include="FeatureWrapper.cs" />
-    <Compile Include="Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\AppSettingsConfigurationResolver.cs" />
-    <Compile Include="Services\AppSettingsFeatureResolver.cs" />
     <Compile Include="Services\HttpFeatureResolver.cs" />
   </ItemGroup>
   <ItemGroup>

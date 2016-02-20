@@ -56,13 +56,13 @@ namespace Lemonade.Web.Modules
             {
                 var feature = this.Bind<Feature>().ToEntity();
                 _createFeature.Execute(feature);
-                DomainEvent.Raise(new FeatureHasBeenCreated(feature.FeatureId, feature.ApplicationId, feature.Name, feature.IsEnabled));
+                DomainEvents.Raise(new FeatureHasBeenCreated(feature.FeatureId, feature.ApplicationId, feature.Name, feature.IsEnabled));
 
                 return HttpStatusCode.OK;
             }
             catch (CreateFeatureException exception)
             {
-                DomainEvent.Raise(new FeatureErrorHasOccurred(exception.Message));
+                DomainEvents.Raise(new FeatureErrorHasOccurred(exception.Message));
                 return HttpStatusCode.BadRequest;
             }
         }
@@ -76,7 +76,7 @@ namespace Lemonade.Web.Modules
             }
             catch (UpdateFeatureException exception)
             {
-                DomainEvent.Raise(new FeatureErrorHasOccurred(exception.Message));
+                DomainEvents.Raise(new FeatureErrorHasOccurred(exception.Message));
                 return HttpStatusCode.BadRequest;
             }
         }
@@ -89,12 +89,12 @@ namespace Lemonade.Web.Modules
             try
             {
                 _deleteFeature.Execute(featureId);
-                DomainEvent.Raise(new FeatureHasBeenDeleted(featureId));
+                DomainEvents.Raise(new FeatureHasBeenDeleted(featureId));
                 return HttpStatusCode.OK;
             }
             catch (DeleteFeatureException exception)
             {
-                DomainEvent.Raise(new FeatureErrorHasOccurred(exception.Message));
+                DomainEvents.Raise(new FeatureErrorHasOccurred(exception.Message));
                 return HttpStatusCode.BadRequest;
             }
         }
@@ -105,7 +105,7 @@ namespace Lemonade.Web.Modules
             var feature = new Data.Entities.Feature { Name = featureName, ApplicationId = application.ApplicationId, Application = application };
             _createFeature.Execute(feature);
 
-            DomainEvent.Raise(new FeatureHasBeenCreated(feature.FeatureId, feature.ApplicationId, feature.Name, feature.IsEnabled));
+            DomainEvents.Raise(new FeatureHasBeenCreated(feature.FeatureId, feature.ApplicationId, feature.Name, feature.IsEnabled));
 
             return feature;
         }
@@ -115,7 +115,7 @@ namespace Lemonade.Web.Modules
             var application = new Data.Entities.Application { Name = applicationName };
             _createApplication.Execute(application);
 
-            DomainEvent.Raise(new ApplicationHasBeenCreated(application.ApplicationId, applicationName));
+            DomainEvents.Raise(new ApplicationHasBeenCreated(application.ApplicationId, applicationName));
 
             return application;
         }
