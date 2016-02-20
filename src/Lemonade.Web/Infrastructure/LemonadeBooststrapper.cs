@@ -9,6 +9,7 @@ using Microsoft.AspNet.SignalR;
 using Nancy;
 using Nancy.Bootstrapper;
 using Nancy.Conventions;
+using Nancy.Hosting.Aspnet;
 using Nancy.Responses;
 using Nancy.TinyIoc;
 using Nancy.ViewEngines;
@@ -90,6 +91,8 @@ namespace Lemonade.Web.Infrastructure
                     : null;
             });
         }
+
+        protected override IRootPathProvider RootPathProvider => new AspNetRootPathProvider();
 
         private readonly List<Action<TinyIoCContainer>> _dependencies = new List<Action<TinyIoCContainer>>();
         private TinyIoCContainer _container;
