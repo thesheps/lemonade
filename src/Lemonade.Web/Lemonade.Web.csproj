@@ -95,11 +95,13 @@
     <Compile Include="Infrastructure\CamelCasePropertyNameContractResolver.cs" />
     <Compile Include="Events\ApplicationHasBeenUpdated.cs" />
     <Compile Include="Infrastructure\LemonadeBooststrapper.cs" />
+    <Compile Include="Mappers\ConfigurationMapper.cs" />
     <Compile Include="Mappers\FeatureOverrideMapper.cs" />
     <Compile Include="Events\FeatureOverrideHasBeenDeleted.cs" />
     <Compile Include="Events\FeatureOverrideHasBeenCreated.cs" />
     <Compile Include="Events\FeatureOverrideHasBeenUpdated.cs" />
     <Compile Include="Modules\FeatureOverridesModule.cs" />
+    <Compile Include="Modules\ConfigurationsModule.cs" />
     <Compile Include="Modules\IndexModule.cs" />
     <Compile Include="Startup.cs" />
     <None Include="Content\Bootstrapper.cs">
@@ -140,10 +142,6 @@
     <ProjectReference Include="..\Lemonade.Data\Lemonade.Data.csproj">
       <Project>{A9171A74-BFAD-4C2E-A8E2-54BC2BCE496C}</Project>
       <Name>Lemonade.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Lemonade.Sql\Lemonade.Sql.csproj">
-      <Project>{06665811-5ED9-4088-81B2-805E80119772}</Project>
-      <Name>Lemonade.Sql</Name>
     </ProjectReference>
     <ProjectReference Include="..\Lemonade.Web.Contracts\Lemonade.Web.Contracts.csproj">
       <Project>{DF4CCA5C-FF05-4471-BF04-C4E36C7101D8}</Project>

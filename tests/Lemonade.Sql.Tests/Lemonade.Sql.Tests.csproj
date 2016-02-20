@@ -62,11 +62,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GivenCreateConfiguration.cs" />
     <Compile Include="GivenDeleteFeature.cs" />
     <Compile Include="GivenDeleteApplication.cs" />
-    <Compile Include="GivenSaveApplication.cs" />
-    <Compile Include="GivenSaveFeature.cs" />
-    <Compile Include="GivenSaveFeatureOverride.cs" />
+    <Compile Include="GivenCreateApplication.cs" />
+    <Compile Include="GivenCreateFeature.cs" />
+    <Compile Include="GivenCreateFeatureOverride.cs" />
     <Compile Include="GivenUpdateFeature.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

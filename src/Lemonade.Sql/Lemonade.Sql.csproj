@@ -60,13 +60,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\CreateConfiguration.cs" />
     <Compile Include="Commands\CreateFeatureOverride.cs" />
     <Compile Include="Commands\DeleteFeatureOverride.cs" />
     <Compile Include="Commands\UpdateApplication.cs" />
     <Compile Include="Commands\UpdateFeatureOverride.cs" />
     <Compile Include="Commands\UpdateFeature.cs" />
     <Compile Include="Migrations\CreateFeatureOverrideTable.cs" />
+    <Compile Include="Migrations\CreateConfigurationTable.cs" />
     <Compile Include="Migrations\RemoveUnusedColumns.cs" />
+    <Compile Include="Queries\GetConfigurationByNameAndApplication.cs" />
     <Compile Include="Queries\GetFeatureOverride.cs" />
     <Compile Include="SqlFeatureResolver.cs" />
     <Compile Include="Commands\DeleteApplication.cs" />

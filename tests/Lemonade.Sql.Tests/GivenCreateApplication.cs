@@ -7,7 +7,7 @@ using NUnit.Framework;
 
 namespace Lemonade.Sql.Tests
 {
-    public class GivenSaveFeature
+    public class GivenCreateApplication
     {
         [SetUp]
         public void SetUp()
@@ -17,26 +17,30 @@ namespace Lemonade.Sql.Tests
         }
 
         [Test]
-        public void WhenITryToSaveADuplicateFeature_ThenSaveFeatureExceptionIsThrown()
+        public void WhenISaveAnApplication_ThenICanRetrieveIt()
         {
-            var saveFeature = new CreateFeature();
             var saveApplication = new CreateApplication();
             var getApplicationByName = new GetApplicationByName();
+            saveApplication.Execute(new ApplicationBuilder()
+                .WithName("Test12345")
+                .Build());
 
+            var application = getApplicationByName.Execute("Test12345");
+            Assert.That(application, Is.Not.Null);
+            Assert.That(application.Name, Is.EqualTo("Test12345"));
+        }
+
+        [Test]
+        public void WhenITryToSaveADuplicateApplication_ThenSaveApplicationExceptionIsThrown()
+        {
+            var saveApplication = new CreateApplication();
             var application = new ApplicationBuilder()
                 .WithName("Test12345")
                 .Build();
 
             saveApplication.Execute(application);
-            application = getApplicationByName.Execute(application.Name);
 
-            var feature = new FeatureBuilder()
-                .WithName("MyTestFeature")
-                .WithApplication(application).Build();
-
-            saveFeature.Execute(feature);
-
-            Assert.Throws<CreateFeatureException>(() => saveFeature.Execute(feature));
+            Assert.Throws<CreateApplicationException>(() => saveApplication.Execute(application));
         }
     }
 }

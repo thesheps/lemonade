@@ -39,7 +39,7 @@ namespace Lemonade.Web.Tests
             _mockClient = Substitute.For<IMockClient>();
             SubstituteExtensions.Returns(hubContext.Clients.All, _mockClient);
 
-            var bootstrapper = new TestLemonadeBootstrapper();
+            var bootstrapper = new LemonadeBootstrapper();
             bootstrapper.AddDependency(c => c.Register(connectionManager));
 
             _browser = new Browser(bootstrapper, context => context.UserHostAddress("localhost"));

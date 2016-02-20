@@ -61,11 +61,29 @@ namespace Lemonade.Data {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The specified configuration value does not exist.
+        /// </summary>
+        internal static string ConfigurationDoesNotExist {
+            get {
+                return ResourceManager.GetString("ConfigurationDoesNotExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Could not create the specified application.
         /// </summary>
-        internal static string FailedToCreatedApplication {
+        internal static string FailedToCreateApplication {
             get {
-                return ResourceManager.GetString("FailedToCreatedApplication", resourceCulture);
+                return ResourceManager.GetString("FailedToCreateApplication", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not create the specified configuration.
+        /// </summary>
+        internal static string FailedToCreateConfiguration {
+            get {
+                return ResourceManager.GetString("FailedToCreateConfiguration", resourceCulture);
             }
         }
         
