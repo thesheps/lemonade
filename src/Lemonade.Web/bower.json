@@ -1,0 +1,24 @@
+{
+  "name": "Lemonade.Web",
+  "homepage": "https://github.com/thesheps/lemonade",
+  "authors": [
+    "shepc <chris.shepherd@ao.com>"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-material": "^1.0.5",
+    "jquery": "^2.2.0",
+    "signalr": "^2.2.0",
+    "angular-new-router": "^0.5.3"
+  }
+}
