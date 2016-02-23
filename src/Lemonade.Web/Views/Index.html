@@ -5,12 +5,12 @@
     <title>Lemonade</title>
     <link rel="shortcut icon" href="https://raw.githubusercontent.com/thesheps/lemonade/master/src/nuget-icon.png" />
 
-    <link rel="stylesheet" href="styles/animations.css">
-    <link rel="stylesheet" href="styles/lemonade.css">
+    <link rel="stylesheet" href="styles/animations.css"/>
+    <link rel="stylesheet" href="styles/lemonade.css"/>
     <link href="bower_components/angular-material/angular-material.css" rel="stylesheet" />
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
     <script src="bower_components/angular/angular.min.js"></script>
-    <script src="bower_components/angular-new-router/dist/router.es5.min.js"></script>
+    <script src="bower_components/angular-route/angular-route.min.js"></script>
     <script src="bower_components/angular-aria/angular-aria.min.js"></script>
     <script src="bower_components/angular-animate/angular-animate.min.js"></script>
     <script src="bower_components/angular-material/angular-material.min.js"></script>
@@ -20,16 +20,15 @@
 
 </head>
 
-<body layout="row" ng-app="lemonade" ng-controller="indexController">
+<body ng-app="lemonade" ng-controller="indexController" ng-cloak>
     <md-toolbar layout="row" class="md-toolbar-tools">
-        <a flex="50" href="/#/Applications">Applications</a>
-        <a ng-link="features">Features</a>
-        <a ng-link="Configurations">Configurations</a>
-        <a ng-link="About">About</a>
+        <a href="/#/Applications">Applications</a>
+        <a href="/#/Features">Features</a>
+        <a href="/#/Configurations">Configurations</a>
+        <a href="/#/About">About</a>
     </md-toolbar>
 
-    <div ng-viewport layout="row">
-
+    <div ng-view layout="column">
     </div>
 
     <script src="scripts/lemonade/app.js"></script>
@@ -37,11 +36,12 @@
     <script src="scripts/lemonade/handlers/configuration.js"></script>
     <script src="scripts/lemonade/handlers/feature.js"></script>
     <script src="scripts/lemonade/services/event.service.js"></script>
+
     <script src="scripts/lemonade/controllers/index.controller.js"></script>
     <script src="scripts/lemonade/controllers/application.controller.js"></script>
-    <script src="scripts/lemonade/controllers/feature.controller.js"></script>
     <script src="scripts/lemonade/controllers/configuration.controller.js"></script>
     <script src="scripts/lemonade/controllers/about.controller.js"></script>
+    <script src="scripts/lemonade/controllers/feature.controller.js"></script>
 </body>
 
 </html>

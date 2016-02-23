@@ -1,7 +1,7 @@
 ﻿angular.module("lemonade")
-    .controller("featureController", ["$scope", "$http", "eventService", featureController]);
+    .controller("featureController", ["$scope", "$http", "eventService", featuresController]);
 
-function featureController($scope, $http, eventService) {
+function featuresController($scope, $http, eventService) {
     var feature = new Feature($scope);
 
     $http.get("/api/applications").then(function (res) {

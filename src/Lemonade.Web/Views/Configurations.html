@@ -1,8 +1,9 @@
-﻿<div ng-cloak>
-    <h1>Configurations</h1>
-    <hr />
+﻿<div layout="row">
+    <h1 flex="100">Configurations</h1>
+</div>
 
-    <div class="col-md-4">
+<div layout="row">
+    <div flex="20">
         <h2>Applications</h2>
 
         <ul class="list-group" id="application-list">
@@ -12,7 +13,7 @@
         </ul>
     </div>
 
-    <div class="col-md-8 animate" ng-show="application != null">
+    <div flex="80" class="animate" ng-show="application != null">
         <h2>{{application.name}} - Configurations</h2>
 
         <table class="table">

@@ -1,7 +1,8 @@
-﻿<div ng-cloak>
-    <h1>Applications</h1>
-    <hr />
+﻿<div layout="row">
+    <h1 flex="100">Applications</h1>
+</div>
 
+<div layout="row">
     <ul class="list-group" id="application-list">
         <li class="application list-group-item animate" ng-repeat="application in applications">
             <label editable-text="application.name" onaftersave="updateApplication(application)" ng-click="selectApplication(application)" e-form="editFeatureForm">{{application.name}}</label>
