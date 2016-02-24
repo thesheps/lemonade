@@ -1,4 +1,4 @@
-﻿/// <reference path="../../../src/Lemonade.Web/scripts/lemonade/handlers/application.js"/>
+﻿/// <reference path="../../../src/Lemonade.Web/scripts/handlers/application.js"/>
 
 QUnit.test("WhenIAddAnApplication_ThenTheApplicationIsAddedToTheList", function (assert) {
     var scope = { applications: [], features: [], $apply: function (func) { func(); } }

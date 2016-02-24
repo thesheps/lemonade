@@ -16,9 +16,9 @@
     "tests"
   ],
   "dependencies": {
-    "angular-material": "^1.0.5",
     "jquery": "^2.2.0",
     "signalr": "^2.2.0",
+    "angular-material": "^1.0.5",
     "angular-route": "^1.5.0"
   }
 }

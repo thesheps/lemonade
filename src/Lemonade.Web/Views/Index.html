@@ -4,10 +4,11 @@
     <meta charset="utf-8" />
     <title>Lemonade</title>
     <link rel="shortcut icon" href="https://raw.githubusercontent.com/thesheps/lemonade/master/src/nuget-icon.png" />
-
-    <link rel="stylesheet" href="styles/animations.css"/>
-    <link rel="stylesheet" href="styles/lemonade.css"/>
+    <link rel="stylesheet" href="styles/animations.css" />
+    <link rel="stylesheet" href="styles/lemonade.css" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="bower_components/angular-material/angular-material.css" rel="stylesheet" />
+
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
     <script src="bower_components/angular/angular.min.js"></script>
     <script src="bower_components/angular-route/angular-route.min.js"></script>
@@ -15,33 +16,50 @@
     <script src="bower_components/angular-animate/angular-animate.min.js"></script>
     <script src="bower_components/angular-material/angular-material.min.js"></script>
     <script src="bower_components/signalr/jquery.signalR.min.js"></script>
-
     <script src="/signalr/hubs"></script>
-
 </head>
 
-<body ng-app="lemonade" ng-controller="indexController" ng-cloak>
-    <md-toolbar layout="row" class="md-toolbar-tools">
-        <a href="/#/Applications">Applications</a>
-        <a href="/#/Features">Features</a>
-        <a href="/#/Configurations">Configurations</a>
-        <a href="/#/About">About</a>
-    </md-toolbar>
+<body layout="row" ng-app="lemonade" ng-controller="indexController" ng-cloak>
+    <md-sidenav layout="column" class="md-sidenav-left md-whiteframe-z2" md-component-id="sideNav" md-is-locked-open="$mdMedia('gt-md')">
+        <md-toolbar class="md-tall md-hue-2" layout-padding>
+            <span flex></span>
+            <h1>Lemonade</h1>
+        </md-toolbar>
 
-    <div ng-view layout="column">
+        <md-list>
+            <md-item>
+                <md-button href="/#/Applications">Applications</md-button>
+            </md-item>
+            <md-divider></md-divider>
+            <md-item>
+                <md-button href="/#/Features">Features</md-button>
+            </md-item>
+            <md-divider></md-divider>
+            <md-item>
+                <md-button href="/#/Configurations">Configurations</md-button>
+            </md-item>
+            <md-divider></md-divider>
+            <md-item>
+                <md-button href="/#/About">About Lemonade</md-button>
+            </md-item>
+
+        </md-list>
+    </md-sidenav>
+
+    <div ng-view layout="column" flex="">
     </div>
 
-    <script src="scripts/lemonade/app.js"></script>
-    <script src="scripts/lemonade/handlers/application.js"></script>
-    <script src="scripts/lemonade/handlers/configuration.js"></script>
-    <script src="scripts/lemonade/handlers/feature.js"></script>
-    <script src="scripts/lemonade/services/event.service.js"></script>
-
-    <script src="scripts/lemonade/controllers/index.controller.js"></script>
-    <script src="scripts/lemonade/controllers/application.controller.js"></script>
-    <script src="scripts/lemonade/controllers/configuration.controller.js"></script>
-    <script src="scripts/lemonade/controllers/about.controller.js"></script>
-    <script src="scripts/lemonade/controllers/feature.controller.js"></script>
+    <script src="scripts/app.js"></script>
+    <script src="scripts/handlers/application.js"></script>
+    <script src="scripts/handlers/configuration.js"></script>
+    <script src="scripts/handlers/feature.js"></script>
+    <script src="scripts/services/event.service.js"></script>
+    <script src="scripts/controllers/index.controller.js"></script>
+    <script src="scripts/controllers/application.controller.js"></script>
+    <script src="scripts/controllers/configuration.controller.js"></script>
+    <script src="scripts/controllers/about.controller.js"></script>
+    <script src="scripts/controllers/feature.controller.js"></script>
+    <script src="scripts/directives/titleBar.directive.js"></script>
 </body>
 
 </html>

@@ -1,4 +1,4 @@
-﻿/// <reference path="../../../src/Lemonade.Web/scripts/lemonade/handlers/configuration.js"/>
+﻿/// <reference path="../../../src/Lemonade.Web/scripts/handlers/configuration.js"/>
 
 QUnit.test("WhenIAddAConfiguration_ThenTheConfigurationIsAddedToTheList", function (assert) {
     var scope = { configurations: [], $apply: function (func) { func(); } }

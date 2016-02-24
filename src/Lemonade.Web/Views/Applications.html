@@ -1,23 +1,35 @@
-﻿<div layout="row">
-    <h1 flex="100">Applications</h1>
-</div>
+﻿<title-bar title="Applications"></title-bar>
 
-<div layout="row">
-    <ul class="list-group" id="application-list">
-        <li class="application list-group-item animate" ng-repeat="application in applications">
-            <label editable-text="application.name" onaftersave="updateApplication(application)" ng-click="selectApplication(application)" e-form="editFeatureForm">{{application.name}}</label>
+<div layout="row" ng-cloak>
+    <md-content flex="25" layout-padding>
 
-            <div class="pull-right">
-                <span class="glyphicon glyphicon-pencil btn btn-xs btn-success" ng-click="editFeatureForm.$show()" ng-hide="editFeatureForm.$visible"></span>
-                <span class="glyphicon glyphicon-remove btn btn-xs btn-danger" ng-click="deleteApplication(application.applicationId)"></span>
-            </div>
-        </li>
-    </ul>
+        <md-content layout-padding>
 
-    <div class="input-group">
+            <md-list id="application-list">
+                <md-list-item ng-repeat="application in applications">
+                    <md-label flex="60" ng-click="selectApplication(application)">{{application.name}}</md-label>
+
+                    <div flex="40">
+                        <md-button class="md-icon-button" ng-click="editFeatureForm.$show()" ng-hide="editFeatureForm.$visible">
+                            <md-icon>mode_edit</md-icon>
+                        </md-button>
+
+                        <md-button class="md-icon-button" ng-click="deleteApplication(application.applicationId)">
+                            <md-icon>delete</md-icon>
+                        </md-button>
+                    </div>
+                </md-list-item>
+            </md-list>
+        </md-content>
+
+    </md-content>
+
+    <md-content flex="75" layout-padding>
+
         <input type="text" name="name" class="form-control" ng-model="applicationName" placeholder="Application name...">
         <span class="input-group-btn">
             <span class="btn btn-primary btn-md" ng-click="addApplication(applicationName)"><i class="glyphicon glyphicon-plus"></i> Add</span>
         </span>
-    </div>
+
+    </md-content>
 </div>

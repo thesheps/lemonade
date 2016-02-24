@@ -233,7 +233,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Views\Features.html" />
+    <EmbeddedResource Include="views\features.html" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Lemonade.Data\Lemonade.Data.csproj">
@@ -250,32 +250,32 @@
     <EmbeddedResource Include="styles\animations.css" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="scripts\lemonade\app.js" />
+    <EmbeddedResource Include="scripts\app.js" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Views\About.html" />
+    <EmbeddedResource Include="views\about.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Views\Index.html" />
+    <EmbeddedResource Include="views\index.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="scripts\lemonade\controllers\about.controller.js" />
+    <EmbeddedResource Include="scripts\controllers\about.controller.js" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="scripts\lemonade\controllers\index.controller.js" />
+    <EmbeddedResource Include="scripts\controllers\index.controller.js" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="scripts\lemonade\controllers\application.controller.js" />
+    <EmbeddedResource Include="scripts\controllers\application.controller.js" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Views\Applications.html" />
+    <EmbeddedResource Include="views\applications.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="scripts\lemonade\services\event.service.js" />
+    <EmbeddedResource Include="scripts\services\event.service.js" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="scripts\lemonade\handlers\application.js" />
-    <EmbeddedResource Include="scripts\lemonade\handlers\feature.js" />
+    <EmbeddedResource Include="scripts\handlers\application.js" />
+    <EmbeddedResource Include="scripts\handlers\feature.js" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Content\styles\lemonade.css">
@@ -283,17 +283,19 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="scripts\lemonade\handlers\configuration.js" />
+    <EmbeddedResource Include="scripts\handlers\configuration.js" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Views\Configurations.html" />
+    <EmbeddedResource Include="views\configurations.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="scripts\lemonade\controllers\configuration.controller.js" />
+    <EmbeddedResource Include="scripts\controllers\configuration.controller.js" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="bower_components\angular-animate\angular-animate.js" />
-    <EmbeddedResource Include="scripts\lemonade\controllers\feature.controller.js" />
+    <EmbeddedResource Include="scripts\directives\titleBar.directive.js" />
+    <EmbeddedResource Include="views\directives\titleBar.html" />
+    <EmbeddedResource Include="scripts\controllers\feature.controller.js" />
     <EmbeddedResource Include="bower_components\angular-animate\angular-animate.min.js" />
     <Content Include="bower_components\angular-animate\index.js" />
     <Content Include="bower_components\angular-aria\angular-aria.js" />
@@ -887,6 +889,7 @@
     <Content Include="Content\angular-material\angular-material.css" />
     <Content Include="Content\angular-material\angular-material.min.css" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>

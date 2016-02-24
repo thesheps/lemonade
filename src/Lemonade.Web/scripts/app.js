@@ -5,19 +5,19 @@ app.value("signalRServer", "");
 app.config(function($routeProvider) {
     $routeProvider
         .when("/Applications", {
-            templateUrl: "/Views/Applications.html",
+            templateUrl: "/views/applications.html",
             controller: "applicationController"
         })
         .when("/Features", {
-            templateUrl: "/Views/Features.html",
+            templateUrl: "/views/features.html",
             controller: "featureController"
         })
         .when("/Configurations", {
-            templateUrl: "/Views/Configurations.html",
+            templateUrl: "/views/configurations.html",
             controller: "configurationController"
         })
         .when("/About", {
-            templateUrl: "/Views/About.html",
+            templateUrl: "/views/about.html",
             controller: "aboutController"
         });
 });
