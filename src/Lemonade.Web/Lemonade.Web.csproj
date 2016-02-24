@@ -56,8 +56,8 @@
       <HintPath>..\..\packages\Nancy.Hosting.Aspnet.1.2.0\lib\net40\Nancy.Hosting.Aspnet.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.8.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
@@ -214,16 +214,9 @@
     <Compile Include="Modules\ApplicationsModule.cs" />
     <Compile Include="Modules\FeaturesModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="fonts\glyphicons-halflings-regular.eot" />
-    <EmbeddedResource Include="fonts\glyphicons-halflings-regular.ttf" />
-    <EmbeddedResource Include="fonts\glyphicons-halflings-regular.woff" />
-    <EmbeddedResource Include="fonts\glyphicons-halflings-regular.woff2" />
     <None Include="web.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="Content\App.config.install.xdt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -246,7 +239,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="fonts\glyphicons-halflings-regular.svg" />
     <EmbeddedResource Include="styles\animations.css" />
   </ItemGroup>
   <ItemGroup>
@@ -274,7 +266,6 @@
     <EmbeddedResource Include="scripts\services\event.service.js" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="scripts\handlers\application.js" />
     <EmbeddedResource Include="scripts\handlers\feature.js" />
   </ItemGroup>
   <ItemGroup>
@@ -293,6 +284,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="bower_components\angular-animate\angular-animate.js" />
+    <EmbeddedResource Include="scripts\directives\ngEnter.directive.js" />
     <EmbeddedResource Include="scripts\directives\titleBar.directive.js" />
     <EmbeddedResource Include="views\directives\titleBar.html" />
     <EmbeddedResource Include="scripts\controllers\feature.controller.js" />
@@ -886,8 +878,6 @@
     <Content Include="bower_components\jquery\src\wrap.js" />
     <Content Include="bower_components\signalr\jquery.signalR.js" />
     <EmbeddedResource Include="bower_components\signalr\jquery.signalR.min.js" />
-    <Content Include="Content\angular-material\angular-material.css" />
-    <Content Include="Content\angular-material\angular-material.min.css" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

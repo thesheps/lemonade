@@ -1,10 +1,8 @@
 ﻿angular.module("lemonade")
-    .controller("applicationController", ["$scope", "$http", "eventService", applicationController]);
+    .controller("applicationController", ["$scope", "$http", "$mdToast", "eventService", applicationController]);
 
-function applicationController($scope, $http, eventService) {
-    var application = new Application($scope);
-
-    $http.get("/api/applications").then(function(res) {
+function applicationController($scope, $http, $mdToast, eventService) {
+    $http.get("/api/applications").then(function (res) {
         $scope.applications = res.data;
     });
 
@@ -20,7 +18,33 @@ function applicationController($scope, $http, eventService) {
         $.ajax({ url: "/api/applications?id=" + applicationId, type: "DELETE" });
     }
 
-    eventService.onApplicationAdded($scope, application.addApplication);
-    eventService.onApplicationRemoved($scope, application.removeApplication);
-    eventService.onApplicationErrorEncountered($scope, application.logApplicationError);
+    $scope.onApplicationAdded = function (application) {
+        $scope.$apply(function () {
+            $scope.applications.push(application);
+        });
+    }
+
+    $scope.onApplicationRemoved = function (application) {
+        $scope.$apply(function () {
+            for (var i = 0; i < $scope.applications.length; i++) {
+                if ($scope.applications[i].applicationId === application.applicationId) {
+                    $scope.applications.splice(i, 1);
+                }
+            }
+
+            $scope.application = null;
+            $scope.features = [];
+        });
+    },
+
+    $scope.onApplicationErrorEncountered = function (error) {
+        $mdToast.show($mdToast.simple()
+            .content(error.message)
+            .action("OK")
+            .position("bottom right"));
+    }
+
+    eventService.onApplicationAdded($scope, $scope.onApplicationAdded);
+    eventService.onApplicationRemoved($scope, $scope.onApplicationRemoved);
+    eventService.onApplicationErrorEncountered($scope, $scope.onApplicationErrorEncountered);
 }

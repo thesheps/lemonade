@@ -27,22 +27,13 @@
         </md-toolbar>
 
         <md-list>
-            <md-item>
-                <md-button href="/#/Applications">Applications</md-button>
-            </md-item>
+            <md-list-item ng-href="/#/Applications">Applications</md-list-item>
             <md-divider></md-divider>
-            <md-item>
-                <md-button href="/#/Features">Features</md-button>
-            </md-item>
+            <md-list-item ng-href="/#/Features">Features</md-list-item>
             <md-divider></md-divider>
-            <md-item>
-                <md-button href="/#/Configurations">Configurations</md-button>
-            </md-item>
+            <md-list-item ng-href="/#/Configurations">Configurations</md-list-item>
             <md-divider></md-divider>
-            <md-item>
-                <md-button href="/#/About">About Lemonade</md-button>
-            </md-item>
-
+            <md-list-item ng-href="/#/About">About</md-list-item>
         </md-list>
     </md-sidenav>
 
@@ -60,6 +51,7 @@
     <script src="scripts/controllers/about.controller.js"></script>
     <script src="scripts/controllers/feature.controller.js"></script>
     <script src="scripts/directives/titleBar.directive.js"></script>
+    <script src="scripts/directives/ngEnter.directive.js"></script>
 </body>
 
 </html>

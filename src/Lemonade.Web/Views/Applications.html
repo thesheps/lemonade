@@ -1,17 +1,17 @@
 ﻿<title-bar title="Applications"></title-bar>
 
 <div layout="row" ng-cloak>
-    <md-content flex="25" layout-padding>
-
+    <md-content flex="80" layout-padding>
         <md-content layout-padding>
-
             <md-list id="application-list">
-                <md-list-item ng-repeat="application in applications">
-                    <md-label flex="60" ng-click="selectApplication(application)">{{application.name}}</md-label>
+                <md-list-item ng-repeat="application in applications" class="animate">
+                    <div layout="row" layout-align="center center">
+                        <md-input-container md-icon-float class="md-block">
+                            <input ng-model="application.name" type="text" ng-enter="updateApplication(application)" aria-label="Update application name">
+                        </md-input-container>
 
-                    <div flex="40">
-                        <md-button class="md-icon-button" ng-click="editFeatureForm.$show()" ng-hide="editFeatureForm.$visible">
-                            <md-icon>mode_edit</md-icon>
+                        <md-button class="md-icon-button" ng-click="updateApplication(application)">
+                            <md-icon>done</md-icon>
                         </md-button>
 
                         <md-button class="md-icon-button" ng-click="deleteApplication(application.applicationId)">
@@ -22,14 +22,10 @@
             </md-list>
         </md-content>
 
-    </md-content>
-
-    <md-content flex="75" layout-padding>
-
-        <input type="text" name="name" class="form-control" ng-model="applicationName" placeholder="Application name...">
-        <span class="input-group-btn">
-            <span class="btn btn-primary btn-md" ng-click="addApplication(applicationName)"><i class="glyphicon glyphicon-plus"></i> Add</span>
-        </span>
-
+        <md-input-container class="md-icon-float md-block">
+            <label>Application Name</label>
+            <md-icon>add_circle</md-icon>
+            <input ng-model="applicationName" type="text" ng-enter="addApplication(applicationName)" aria-label="Enter application name">
+        </md-input-container>
     </md-content>
 </div>
