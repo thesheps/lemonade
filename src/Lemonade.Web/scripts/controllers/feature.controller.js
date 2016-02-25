@@ -1,9 +1,7 @@
 ﻿angular.module("lemonade")
-    .controller("featureController", ["$scope", "$http", "eventService", featuresController]);
+    .controller("featureController", ["$scope", "$http", "eventService", "toastService", featuresController]);
 
-function featuresController($scope, $http, eventService) {
-    var feature = new Feature($scope);
-
+function featuresController($scope, $http, eventService, toastService) {
     $http.get("/api/applications").then(function (res) {
         $scope.applications = res.data;
     });
@@ -40,9 +38,56 @@ function featuresController($scope, $http, eventService) {
         $.ajax({ url: "/api/featureoverrides?id=" + featureOverrideId, type: "DELETE" });
     }
 
-    eventService.onFeatureAdded($scope, feature.addFeature);
-    eventService.onFeatureRemoved($scope, feature.removeFeature);
-    eventService.onFeatureOverrideAdded($scope, feature.addFeatureOverride);
-    eventService.onFeatureOverrideRemoved($scope, feature.removeFeatureOverride);
-    eventService.onFeatureErrorEncountered($scope, feature.logFeatureError);
+    $scope.onFeatureAdded = function (feature) {
+        $scope.$apply(function () {
+            $scope.features.push(feature);
+        });
+    }
+
+    $scope.onFeatureRemoved = function (feature) {
+        $scope.$apply(function () {
+            for (var i = 0; i < $scope.features.length; i++) {
+                if ($scope.features[i].featureId === feature.featureId) {
+                    $scope.features.splice(i, 1);
+                    return;
+                }
+            }
+        });
+    }
+
+    $scope.onFeatureOverrideAdded = function (featureOverride) {
+        $scope.$apply(function () {
+            for (var i = 0; i < $scope.features.length; i++) {
+                if ($scope.features[i].featureId === featureOverride.featureId) {
+                    $scope.features[i].featureOverrides.push(featureOverride);
+                    return;
+                }
+            }
+        });
+    }
+
+    $scope.onFeatureOverrideRemoved = function (featureOverride) {
+        $scope.$apply(function () {
+            for (var x = 0; x < $scope.features.length; x++) {
+                var feature = $scope.features[x];
+
+                for (var y = 0; y < feature.featureOverrides.length; y++) {
+                    if (feature.featureOverrides[y].featureOverrideId === featureOverride.featureOverrideId) {
+                        feature.featureOverrides.splice(y, 1);
+                        return;
+                    }
+                }
+            }
+        });
+    }
+
+    $scope.onFeatureErrorEncountered = function (error) {
+        toastService.toast(error.message, "OK", "bottom right");
+    }
+
+    eventService.onFeatureAdded($scope, $scope.onFeatureAdded);
+    eventService.onFeatureRemoved($scope, $scope.onFeatureRemoved);
+    eventService.onFeatureOverrideAdded($scope, $scope.onFeatureOverrideAdded);
+    eventService.onFeatureOverrideRemoved($scope, $scope.onFeatureOverrideRemoved);
+    eventService.onFeatureErrorEncountered($scope, $scope.onFeatureErrorEncountered);
 }

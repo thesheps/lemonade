@@ -1,9 +1,7 @@
 ﻿angular.module("lemonade")
-    .controller("configurationController", ["$scope", "$http", "eventService", configurationController]);
+    .controller("configurationController", ["$scope", "$http", "eventService", "toastService", configurationController]);
 
-function configurationController($scope, $http, eventService) {
-    var configuration = new Configuration($scope);
-
+function configurationController($scope, $http, eventService, toastService) {
     $http.get("/api/applications").then(function (res) {
         $scope.applications = res.data;
     });
@@ -28,7 +26,29 @@ function configurationController($scope, $http, eventService) {
         $.ajax({ url: "/api/configurations?id=" + configurationId, type: "DELETE" });
     }
 
-    eventService.onConfigurationAdded($scope, configuration.addConfiguration);
-    eventService.onConfigurationRemoved($scope, configuration.removeConfiguration);
-    eventService.onConfigurationErrorEncountered($scope, configuration.logConfigurationError);
+    $scope.onConfigurationAdded = function (configuration) {
+        $scope.$apply(function () {
+            $scope.configurations.push(configuration);
+        });
+    }
+
+    $scope.onConfigurationRemoved = function (configuration) {
+        $scope.$apply(function () {
+            for (var i = 0; i < $scope.configurations.length; i++) {
+                if ($scope.configurations[i].configurationId === configuration.configurationId) {
+                    $scope.configurations.splice(i, 1);
+                }
+            }
+
+            $scope.configuration = null;
+        });
+    }
+
+    $scope.onConfigurationErrorEncountered = function (error) {
+        toastService.toast(error.message, "OK", "bottom right");
+    }
+
+    eventService.onConfigurationAdded($scope, $scope.onConfigurationAdded);
+    eventService.onConfigurationRemoved($scope, $scope.onConfigurationRemoved);
+    eventService.onConfigurationErrorEncountered($scope, $scope.onConfigurationErrorEncountered);
 }

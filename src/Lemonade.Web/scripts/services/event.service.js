@@ -1,4 +1,5 @@
-﻿app.service("eventService", ["$rootScope", eventService]);
+﻿angular.module("lemonade")
+    .service("eventService", ["$rootScope", eventService]);
 
 function eventService($rootScope) {
     var subscribe = function (name, event) {

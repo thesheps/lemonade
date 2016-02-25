@@ -266,15 +266,9 @@
     <EmbeddedResource Include="scripts\services\event.service.js" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="scripts\handlers\feature.js" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Content\styles\lemonade.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="scripts\handlers\configuration.js" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="views\configurations.html" />
@@ -284,6 +278,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="bower_components\angular-animate\angular-animate.js" />
+    <EmbeddedResource Include="scripts\services\toast.service.js" />
     <EmbeddedResource Include="scripts\directives\ngEnter.directive.js" />
     <EmbeddedResource Include="scripts\directives\titleBar.directive.js" />
     <EmbeddedResource Include="views\directives\titleBar.html" />

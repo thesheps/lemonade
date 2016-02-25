@@ -1,7 +1,7 @@
 ﻿angular.module("lemonade")
-    .controller("applicationController", ["$scope", "$http", "$mdToast", "eventService", applicationController]);
+    .controller("applicationController", ["$scope", "$http", "eventService", "toastService", applicationController]);
 
-function applicationController($scope, $http, $mdToast, eventService) {
+function applicationController($scope, $http, eventService, toastService) {
     $http.get("/api/applications").then(function (res) {
         $scope.applications = res.data;
     });
@@ -38,10 +38,7 @@ function applicationController($scope, $http, $mdToast, eventService) {
     },
 
     $scope.onApplicationErrorEncountered = function (error) {
-        $mdToast.show($mdToast.simple()
-            .content(error.message)
-            .action("OK")
-            .position("bottom right"));
+        toastService.toast(error.message, "OK", "bottom right");
     }
 
     eventService.onApplicationAdded($scope, $scope.onApplicationAdded);
