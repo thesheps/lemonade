@@ -1,7 +1,65 @@
 ﻿<title-bar title="Configurations"></title-bar>
 
 <div layout="row">
-    <div flex="20">
+    <md-content flex="" layout-padding>
+        <md-content layout-padding>
+            <md-input-container class="md-block">
+                <label>Application</label>
+                <md-select ng-model="ctrl.userState">
+                    <md-option ng-repeat="application in applications" ng-click="selectApplication(application)">
+                        {{application.name}}
+                    </md-option>
+                </md-select>
+            </md-input-container>
+
+            <div layout="row">
+                <md-input-container class="md-icon-float md-block">
+                    <label>Configuration Name</label>
+                    <md-icon>add_circle</md-icon>
+                    <input ng-model="newConfiguration.name" type="text" ng-enter="addConfiguration(newConfiguration)">
+                </md-input-container>
+
+                <md-input-container class="md-block">
+                    <label>Value</label>
+                    <input ng-model="newConfiguration.value" type="text" ng-enter="addConfiguration(newConfiguration)">
+                </md-input-container>
+            </div>
+
+            <md-list>
+                <md-list-item ng-repeat="configuration in configurations" class="animate">
+                    <div layout="row" layout-align="center center">
+                        <md-input-container md-icon-float class="md-block">
+                            <label>Configuration Name</label>
+                            <input ng-model="configuration.name" type="text" ng-enter="updateconfiguration(configuration)">
+                        </md-input-container>
+
+                        <md-input-container md-icon-float class="md-block">
+                            <md-select ng-model="configuration.type">
+                                <md-option value="String">String</md-option>
+                                <md-option value="Date">Date</md-option>
+                                <md-option value="Integer">Integer</md-option>
+                                <md-option value="Decimal">Decimal</md-option>
+                            </md-select>
+                        </md-input-container>
+
+                        <md-input-container md-icon-float class="md-block">
+                            <input ng-model="configuration.value" type="text" ng-enter="updateconfiguration(configuration)" ng-show="configuration.type == 'String'" ng-required="configuration.type == 'String'">
+                            <md-datepicker ng-model="configuration.value" md-placeholder="Enter date" ng-show="configuration.type == 'Date'" ng-required="configuration.type == 'Date'"></md-datepicker>
+                            <input type="number" ng-model="configuration.value" ng-pattern="[0-9]*" ng-show="configuration.type == 'Integer'" ng-required="configuration.type == 'Integer'" />
+                            <input type="number" ng-model="configuration.value" ng-pattern="([0-9]*)\.([0-9]*)" ng-show="configuration.type == 'Decimal'" ng-required="configuration.type == 'Decimal'" />
+                        </md-input-container>
+
+                        <md-button class="md-icon-button" ng-click="deleteConfiguration(configuration.configurationId)">
+                            <md-icon>delete</md-icon>
+                        </md-button>
+                    </div>
+                </md-list-item>
+            </md-list>
+        </md-content>
+    </md-content>
+
+
+    <!--<div flex="20">
         <h2>Applications</h2>
 
         <ul class="list-group" id="application-list">
@@ -56,5 +114,5 @@
                 </tr>
             </tbody>
         </table>
-    </div>
+    </div>-->
 </div>

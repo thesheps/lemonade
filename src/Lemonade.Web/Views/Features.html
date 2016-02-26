@@ -1,9 +1,9 @@
 ﻿<title-bar title="Features"></title-bar>
 
 <div layout="row">
-    <md-content flex="80" layout-padding>
+    <md-content flex="" layout-padding>
         <md-content layout-padding>
-            <md-input-container>
+            <md-input-container class="md-block">
                 <label>Application</label>
                 <md-select ng-model="ctrl.userState">
                     <md-option ng-repeat="application in applications" ng-click="selectApplication(application)">
@@ -12,11 +12,18 @@
                 </md-select>
             </md-input-container>
 
+            <md-input-container class="md-icon-float md-block">
+                <label>Feature Name</label>
+                <md-icon>add_circle</md-icon>
+                <input ng-model="newFeature.name" type="text" ng-enter="addFeature(newFeature)" aria-label="Enter feature name">
+            </md-input-container>
+
             <md-list>
                 <md-list-item ng-repeat="feature in features" class="animate">
                     <div layout="row" layout-align="center center">
                         <md-input-container md-icon-float class="md-block">
                             <md-checkbox ng-model="feature.isEnabled" ng-change="updateFeature(feature)">
+                                <label>Feature Name</label>
                                 <input ng-model="feature.name" type="text" ng-enter="updateFeature(feature)" aria-label="Update feature name">
                             </md-checkbox>
 
@@ -27,14 +34,7 @@
                     </div>
                 </md-list-item>
             </md-list>
-
-
         </md-content>
-        <md-input-container class="md-icon-float md-block">
-            <label>Feature Name</label>
-            <md-icon>add_circle</md-icon>
-            <input ng-model="newFeature.name" type="text" ng-enter="addFeature(newFeature)" aria-label="Enter feature name">
-        </md-input-container>
     </md-content>
 
 
