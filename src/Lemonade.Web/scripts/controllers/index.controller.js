@@ -1,7 +1,4 @@
-﻿angular.module("lemonade")
-    .controller("indexController", ["$scope", "$http", "eventService", indexController]);
-
-function indexController($scope, $http, eventService) {
+﻿function indexController($scope, $http, eventService) {
     var hubProxy = $.connection.lemonadeHub;
 
     hubProxy.client.addApplication = function(application) {

@@ -1,7 +1,4 @@
-﻿angular.module("lemonade")
-    .controller("featureController", ["$scope", "$http", "eventService", "toastService", featuresController]);
-
-function featuresController($scope, $http, eventService, toastService) {
+﻿function featureController($scope, $http, eventService, toastService) {
     $http.get("/api/applications").then(function (res) {
         $scope.applications = res.data;
     });

@@ -1,7 +1,4 @@
-﻿angular.module("lemonade")
-    .service("toastService", ["$mdToast", toastService]);
-
-function toastService($mdToast) {
+﻿function toastService($mdToast) {
     return {
         toast: function(title, buttonText, position) {
             $mdToast.show($mdToast.simple()

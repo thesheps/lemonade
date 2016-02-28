@@ -2,7 +2,16 @@
 
 app.value("signalRServer", "");
 
-app.config(function($routeProvider) {
+app.controller("aboutController", [function () { }]);
+app.controller("applicationController", ["$scope", "$http", "eventService", "toastService", applicationController]);
+app.controller("configurationController", ["$scope", "$http", "eventService", "toastService", configurationController]);
+app.controller("featureController", ["$scope", "$http", "eventService", "toastService", featureController]);
+app.controller("indexController", ["$scope", "$http", "eventService", indexController]);
+
+app.service("eventService", ["$rootScope", eventService]);
+app.service("toastService", ["$mdToast", toastService]);
+
+app.config(function ($routeProvider) {
     $routeProvider
         .when("/Applications", {
             templateUrl: "/views/applications.html",

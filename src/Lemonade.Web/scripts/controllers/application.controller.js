@@ -1,7 +1,4 @@
-﻿angular.module("lemonade")
-    .controller("applicationController", ["$scope", "$http", "eventService", "toastService", applicationController]);
-
-function applicationController($scope, $http, eventService, toastService) {
+﻿function applicationController($scope, $http, eventService, toastService) {
     $http.get("/api/applications").then(function (res) {
         $scope.applications = res.data;
     });
