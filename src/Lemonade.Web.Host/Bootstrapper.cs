@@ -1,8 +1,4 @@
-﻿using Lemonade.Data.Commands;
-using Lemonade.Data.Queries;
-using Lemonade.Sql.Commands;
-using Lemonade.Sql.Migrations;
-using Lemonade.Sql.Queries;
+﻿using Lemonade.Sql.Migrations;
 using Lemonade.Web.Infrastructure;
 using Nancy.TinyIoc;
 
@@ -17,9 +13,9 @@ namespace Lemonade.Web.Host
 
         protected override void ConfigureDependencies(TinyIoCContainer container)
         {
-            container.Register<IGetAllFeatures, GetAllFeatures>();
-            container.Register<IGetFeatureByNameAndApplication, GetFeatureByNameAndApplication>();
-            container.Register<ICreateFeature, CreateFeature>();
+            //container.Register<IGetAllFeatures, GetAllFeatures>();
+            //container.Register<IGetFeatureByNameAndApplication, GetFeatureByNameAndApplication>();
+            //container.Register<ICreateFeature, CreateFeature>();
         }
     }
 }

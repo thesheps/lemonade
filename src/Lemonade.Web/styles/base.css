@@ -30,4 +30,10 @@
 
 md-datepicker {
     margin-top: 15px;
+}   
+
+.header-logo {
+    content:url('https://github.com/thesheps/lemonade/blob/master/src/nuget-icon.png?raw=true');
+    height: 75px;
+    width: 75px;
 }

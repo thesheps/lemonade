@@ -5,7 +5,10 @@ var browserSync = require('browser-sync').create();
  
 gulp.task("watch", function () {    
     gulp.watch([
+        "src/Lemonade.Web/styles/**/*.css",
         "src/Lemonade.Web/scripts/**/*.js",
+        "src/Lemonade.Web.Host/styles/**/*.css",
+        "src/Lemonade.Web.Host/scripts/**/*.js",
         "src/Lemonade.Web/views/**/*.html"
     ], ["msbuild", browserSync.reload]);
 });
@@ -17,7 +20,7 @@ gulp.task("msbuild", function() {
 			stdout: false,
             configuration: 'Debug',
             toolsVersion: 14.0,
-			}));
+		}));
 });
 
 gulp.task('browser-sync', function() {

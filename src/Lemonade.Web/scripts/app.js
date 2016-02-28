@@ -1,7 +1,5 @@
 ﻿var app = angular.module("lemonade", ["ngAnimate", "ngMaterial", "ngRoute"]);
 
-app.value("signalRServer", "");
-
 app.controller("aboutController", [function () { }]);
 app.controller("applicationController", ["$scope", "$http", "eventService", "toastService", applicationController]);
 app.controller("configurationController", ["$scope", "$http", "eventService", "toastService", configurationController]);
@@ -11,7 +9,7 @@ app.controller("indexController", ["$scope", "$http", "eventService", indexContr
 app.service("eventService", ["$rootScope", eventService]);
 app.service("toastService", ["$mdToast", toastService]);
 
-app.config(function ($routeProvider) {
+app.config(function ($routeProvider, $mdThemingProvider) {
     $routeProvider
         .when("/Applications", {
             templateUrl: "/views/applications.html",
@@ -29,4 +27,8 @@ app.config(function ($routeProvider) {
             templateUrl: "/views/about.html",
             controller: "aboutController"
         });
+});
+
+app.run(function ($rootScope) {
+    $rootScope.title = "Lemonade";
 });

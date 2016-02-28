@@ -39,7 +39,7 @@ namespace Lemonade.Services
             return GetValue<T>(response.Data.Value);
         }
 
-        private T GetValue<T>(string value)
+        private static T GetValue<T>(string value)
         {
             if (typeof(T) == typeof(Uri))
                 return (T)((object)new Uri(value));
