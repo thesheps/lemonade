@@ -21,9 +21,8 @@
 
 <body layout="row" ng-app="lemonade" ng-controller="indexController" ng-cloak>
     <md-sidenav layout="column" class="md-sidenav-left md-whiteframe-z2" md-component-id="sideNav" md-is-locked-open="$mdMedia('gt-md')">
-        <md-toolbar class="md-tall md-hue-2" layout-padding>
-            <span flex></span>
-            <h1>Lemonade</h1>
+        <md-toolbar class="lg-tall md-hue-0" layout-padding>
+            <h1>{{title}}</h1>
         </md-toolbar>
 
         <md-list>
@@ -50,6 +49,7 @@
     <script src="scripts/directives/titleBar.directive.js"></script>
     <script src="scripts/directives/multiInput.directive.js"></script>
     <script src="scripts/directives/ngEnter.directive.js"></script>
+    <script src="scripts/lemonade.js"></script>
 </body>
 
 </html>

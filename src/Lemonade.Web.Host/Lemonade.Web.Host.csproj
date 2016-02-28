@@ -90,6 +90,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="scripts\lemonade.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
