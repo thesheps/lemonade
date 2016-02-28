@@ -1,0 +1,33 @@
+﻿.animate.ng-enter, .animate.ng-leave.ng-leave-active {
+    transition: 0.4s linear all;
+    opacity: 0;
+}
+
+.animate.ng-leave, .animate.ng-enter.ng-enter-active {
+    transition: 0.4s linear all;
+    opacity: 1;
+}
+
+.animate.ng-hide-add,
+.animate.ng-hide-remove {
+    transition: 0.4s linear all;
+}
+
+.animate.ng-hide-add-active,
+.animate.ng-hide-remove-active {
+    transition: 0.4s linear all;
+}
+
+.animate.ng-hide-add,
+.animate.ng-hide-remove.ng-hide-remove-active {
+    opacity: 1;
+}
+
+.animate.ng-hide-remove,
+.animate.ng-hide-add.ng-hide-add-active {
+    opacity: 0;
+}
+
+md-datepicker {
+    margin-top: 15px;
+}

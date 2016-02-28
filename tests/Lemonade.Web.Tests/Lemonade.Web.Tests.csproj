@@ -141,6 +141,9 @@
     <Content Include="Javascript\GivenConfiguration.js" />
     <Content Include="Javascript\GivenApplication.js" />
     <Content Include="Javascript\GivenFeature.js" />
+    <Content Include="Mocks\EventService.js" />
+    <Content Include="Mocks\Http.js" />
+    <Content Include="Mocks\Scope.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

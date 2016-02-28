@@ -4,62 +4,52 @@
     <meta charset="utf-8" />
     <title>Lemonade</title>
     <link rel="shortcut icon" href="https://raw.githubusercontent.com/thesheps/lemonade/master/src/nuget-icon.png" />
-    <link rel="stylesheet" href="styles/bootstrap.min.css">
-    <link rel="stylesheet" href="styles/flatly.min.css">
-    <link rel="stylesheet" href="styles/animations.css">
-    <link rel="stylesheet" href="styles/xeditable.css">
-    <link rel="stylesheet" href="styles/lemonade.css">
-    <script src="scripts/jquery-1.9.1.min.js"></script>
-    <script src="scripts/bootstrap.min.js"></script>
-    <script src="scripts/bootstrap-growl.min.js"></script>
-    <script src="scripts/angular.min.js"></script>
-    <script src="scripts/angular-animate.min.js"></script>
-    <script src="scripts/angular-route.min.js"></script>
-    <script src="scripts/xeditable.min.js"></script>
-    <script src="scripts/jquery.signalR-2.2.0.min.js"></script>
+    <link rel="stylesheet" href="styles/base.css" />
+    <link rel="stylesheet" href="styles/lemonade.css" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="bower_components/angular-material/angular-material.css" rel="stylesheet" />
+
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/angular/angular.min.js"></script>
+    <script src="bower_components/angular-route/angular-route.min.js"></script>
+    <script src="bower_components/angular-aria/angular-aria.min.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.min.js"></script>
+    <script src="bower_components/angular-material/angular-material.min.js"></script>
+    <script src="bower_components/signalr/jquery.signalR.min.js"></script>
     <script src="/signalr/hubs"></script>
-    <script src="scripts/lemonade/app.js"></script>
-    <script src="scripts/lemonade/handlers/application.js"></script>
-    <script src="scripts/lemonade/handlers/configuration.js"></script>
-    <script src="scripts/lemonade/handlers/feature.js"></script>
-    <script src="scripts/lemonade/services/event.service.js"></script>
-    <script src="scripts/lemonade/controllers/index.controller.js"></script>
-    <script src="scripts/lemonade/controllers/application.controller.js"></script>
-    <script src="scripts/lemonade/controllers/feature.controller.js"></script>
-    <script src="scripts/lemonade/controllers/configuration.controller.js"></script>
-    <script src="scripts/lemonade/controllers/about.controller.js"></script>
 </head>
 
-<body>
-    <div class="container" ng-app="lemonade" ng-controller="indexController">
-        <nav class="navbar navbar-default">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
+<body layout="row" ng-app="lemonade" ng-controller="indexController" ng-cloak>
+    <md-sidenav layout="column" class="md-sidenav-left md-whiteframe-z2" md-component-id="sideNav" md-is-locked-open="$mdMedia('gt-md')">
+        <md-toolbar class="md-tall md-hue-2" layout-padding>
+            <span flex></span>
+            <h1>Lemonade</h1>
+        </md-toolbar>
 
-                    <a href="/" class="navbar-brand">Lemonade</a>
-                </div>
+        <md-list>
+            <md-list-item ng-href="/#/Applications">Applications</md-list-item>
+            <md-divider></md-divider>
+            <md-list-item ng-href="/#/Features">Features</md-list-item>
+            <md-divider></md-divider>
+            <md-list-item ng-href="/#/Configurations">Configurations</md-list-item>
+            <md-divider></md-divider>
+            <md-list-item ng-href="/#/About">About</md-list-item>
+        </md-list>
+    </md-sidenav>
 
-                <div class="collapse navbar-collapse" id="navbar">
-                    <ul class="nav navbar-nav">
-                        <li><a href="/#/Applications">Applications</a></li>
-                        <li><a href="/#/Features">Features</a></li>
-                        <li><a href="/#/Configurations">Configurations</a></li>
-                        <li><a href="/#/About">About</a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-
-        <div ng-view>
-
-        </div>
+    <div ng-view layout="column" flex="">
     </div>
+
+    <script src="scripts/controllers/application.controller.js"></script>
+    <script src="scripts/controllers/index.controller.js"></script>
+    <script src="scripts/controllers/configuration.controller.js"></script>
+    <script src="scripts/controllers/feature.controller.js"></script>
+    <script src="scripts/services/toast.service.js"></script>
+    <script src="scripts/services/event.service.js"></script>
+    <script src="scripts/app.js"></script>
+    <script src="scripts/directives/titleBar.directive.js"></script>
+    <script src="scripts/directives/multiInput.directive.js"></script>
+    <script src="scripts/directives/ngEnter.directive.js"></script>
 </body>
 
 </html>

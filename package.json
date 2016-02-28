@@ -1,0 +1,40 @@
+{
+  "name": "lemonade",
+  "version": "1.0.0",
+  "description": "Lemonade feature switch library",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "browser-sync": "^2.11.1",
+    "gulp": "^3.9.1",
+    "gulp-msbuild": "^0.3.0",
+    "gulp-watch": "^4.3.5"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thesheps/lemonade.git"
+  },
+  "keywords": [
+    "feature",
+    "config",
+    "switch",
+    "toggle",
+    "localisation",
+    "sql",
+    "db",
+    "web",
+    "http"
+  ],
+  "author": "CJ Shepherd",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/thesheps/lemonade/issues"
+  },
+  "homepage": "https://github.com/thesheps/lemonade#readme"
+}

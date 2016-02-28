@@ -1,61 +1,49 @@
-﻿<div ng-cloak>
-    <h1>Configurations</h1>
-    <hr />
+﻿<title-bar title="Configurations"></title-bar>
 
-    <div class="col-md-4">
-        <h2>Applications</h2>
+<div layout="row">
+    <md-content flex="" layout-padding>
+        <md-content layout-padding>
+            <md-input-container class="md-block">
+                <label>Please Select an Application</label>
+                <md-select ng-model="ctrl.userState">
+                    <md-option ng-repeat="application in applications" ng-click="selectApplication(application)">
+                        {{application.name}}
+                    </md-option>
+                </md-select>
+            </md-input-container>
 
-        <ul class="list-group" id="application-list">
-            <li class="application list-group-item animate" ng-repeat="application in applications">
-                <a href="" ng-click="selectApplication(application)">{{application.name}}</a>
-            </li>
-        </ul>
-    </div>
+            <div layout="row" ng-show="application != null" layout-align="start center">
+                <md-input-container class="md-icon-float md-block">
+                    <label>Configuration Name</label>
+                    <md-icon>add_circle</md-icon>
+                    <input ng-model="newConfiguration.name" type="text" ng-enter="addConfiguration(newConfiguration)">
+                </md-input-container>
 
-    <div class="col-md-8 animate" ng-show="application != null">
-        <h2>{{application.name}} - Configurations</h2>
+                <multi-input ng-model="newConfiguration.value">
+                </multi-input>
 
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Configuration Name</th>
-                    <th>Value</th>
-                    <th></th>
-                </tr>
-            </thead>
+                <md-button class="md-icon-button" ng-click="addConfiguration(newConfiguration)">
+                    <md-icon>done</md-icon>
+                </md-button>
+            </div>
 
-            <tbody ng-repeat="configuration in configurations" class="table animate">
-                <tr class="configuration">
-                    <td>
-                        <div class="hide" name="applicationId">{{configuration.applicationId}}</div>
-                        <div class="hide" name="configurationId">{{configuration.configurationId}}</div>
-                        <a href="" editable-text="configuration.name" onaftersave="updateConfiguration(configuration)">{{configuration.name}}</a>
-                    </td>
-                    <td><a href="" editable-text="configuration.value" onaftersave="updateConfiguration(configuration)">{{configuration.value}}</a></td>
-                    <td>
-                        <div class="pull-right">
-                            <div class="btn btn-xs btn-danger glyphicon glyphicon-remove" ng-click="deleteConfiguration(configuration.configurationId)"></div>
-                        </div>
-                    </td>
-                </tr>
+            <md-list>
+                <md-list-item ng-repeat="configuration in configurations" class="animate">
+                    <md-input-container>
+                        <label>Configuration Name</label>
+                        <input ng-model="configuration.name" type="text" ng-enter="updateconfiguration(configuration)">
+                    </md-input-container>
 
-            </tbody>
+                    <md-input-container>
+                        <label>Configuration Value</label>
+                        <input ng-model="configuration.value" type="text" ng-enter="updateconfiguration(configuration)">
+                    </md-input-container>
 
-            <tbody>
-                <tr />
-                <tr>
-                    <td>
-                        <input name="applicationId" type="hidden" ng-model="newConfiguration.ApplicationId" />
-                        <input name="name" ng-model="newConfiguration.Name" class="input-sm" placeholder="Configuration name" />
-                    </td>
-                    <td><input name="value" class="input-sm" type="text" ng-model="newConfiguration.Value" /></td>
-                    <td>
-                        <button class="btn btn-primary pull-right" ng-click="addConfiguration(newConfiguration)">
-                            <span><i class="glyphicon glyphicon-plus"></i> Add</span>
-                        </button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+                    <md-button class="md-icon-button" ng-click="deleteConfiguration(configuration.configurationId)">
+                        <md-icon>delete</md-icon>
+                    </md-button>
+                </md-list-item>
+            </md-list>
+        </md-content>
+    </md-content>
 </div>

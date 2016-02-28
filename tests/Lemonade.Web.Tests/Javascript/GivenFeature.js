@@ -1,50 +1,56 @@
-﻿/// <reference path="../../../src/Lemonade.Web/scripts/lemonade/handlers/feature.js"/>
+﻿/// <reference path="../Mocks/EventService.js" />
+/// <reference path="../Mocks/Scope.js" />
+/// <reference path="../Mocks/Http.js" />
+/// <reference path="../../../src/Lemonade.Web/scripts/controllers/feature.controller.js"/>
 
 QUnit.test("WhenIAddAFeature_ThenTheFeatureIsAddedToTheList", function (assert) {
-    var scope = { applications: [], features: [], $apply: function (func) { func(); } }
-    var feature = new Feature(scope);
+    var scope = new Scope();
+    var http = new Http([]);
+    var eventService = new EventService();
 
-    feature.addFeature({ feature: { featureId: 1, applicationId: 1, name: "MyTestFeature" } });
+    featureController(scope, http, eventService);
+
+    scope.onFeatureAdded({ featureId: 1, applicationId: 1, name: "MyTestFeature" });
+    console.log(scope.features[0].name);
     assert.ok(scope.features[0].name === "MyTestFeature", "Passed!");
 });
 
 QUnit.test("WhenIRemoveAFeature_ThenTheFeatureIsRemovedFromTheList", function (assert) {
-    var scope = { applications: [], features: [], $apply: function (func) { func(); } }
-    var feature = new Feature(scope);
+    var scope = new Scope();
+    var http = new Http([]);
+    var eventService = new EventService();
 
-    feature.addFeature({ feature: { featureId: 1, applicationId: 1, name: "MyTestFeature" } });
-    feature.removeFeature({ feature: { featureId: 1, applicationId: 1, name: "MyTestFeature" } });
+    featureController(scope, http, eventService);
+
+    scope.onFeatureAdded({ featureId: 1, applicationId: 1, name: "MyTestFeature" });
+    scope.onFeatureRemoved({ featureId: 1, applicationId: 1, name: "MyTestFeature" });
     assert.ok(scope.features.length === 0, "Passed!");
 });
 
 QUnit.test("WhenIAddAFeatureOverride_ThenTheFeatureOverrideIsAddedToTheList", function (assert) {
-    var scope = { applications: [], features: [{ featureId: 1, applicationId: 1, name: "MyTestFeature", featureOverrides: [] }], $apply: function (func) { func(); } }
-    var feature = new Feature(scope);
+    var scope = new Scope([], [], [{ featureId: 1, applicationId: 1, name: "MyTestFeature", featureOverrides: [] }], []);
+    var http = new Http([]);
+    var eventService = new EventService();
 
-    feature.addFeatureOverride({ featureOverride: { featureId: 1, featureOverrideId: 1, hostname: "TestHostname" } });
-    assert.ok(scope.features[0].featureOverrides[0].hostname === "TestHostname", "Passed!");
-});
+    featureController(scope, http, eventService);
 
-QUnit.test("WhenIAddAFeatureOverrideForANewFeature_ThenTheFeatureOverrideIsAddedToTheList", function (assert) {
-    var scope = { applications: [], features: [{ featureId: 1, applicationId: 1, name: "MyTestFeature", featureOverrides: [] }], $apply: function (func) { func(); } }
-    var feature = new Feature(scope);
-
-    feature.addFeatureOverride({ featureOverride: { featureId: 1, featureOverrideId: 1, hostname: "TestHostname" } });
+    scope.onFeatureOverrideAdded({ featureId: 1, featureOverrideId: 1, hostname: "TestHostname" });
     assert.ok(scope.features[0].featureOverrides[0].hostname === "TestHostname", "Passed!");
 });
 
 QUnit.test("WhenIRemoveAFeatureOverride_ThenTheFeatureOverrideIsRemovedFromTheList", function (assert) {
-    var scope = { applications: [], features: [], $apply: function (func) { func(); } }
-    var feature = new Feature(scope);
+    var scope = new Scope();
+    var http = new Http([]);
+    var eventService = new EventService();
 
-    feature.addFeature({
-        feature: {
-            featureId: 1, applicationId: 1, name: "MyTestFeature", featureOverrides: [
-                { featureOverrideId: 1 }
-            ]
-        }
+    featureController(scope, http, eventService);
+
+    scope.onFeatureAdded({
+        featureId: 1, applicationId: 1, name: "MyTestFeature", featureOverrides: [
+            { featureOverrideId: 1 }
+        ]
     });
 
-    feature.removeFeatureOverride({ featureOverride: { featureOverrideId: 1 } });
+    scope.onFeatureOverrideRemoved({ featureOverrideId: 1 });
     assert.ok(scope.features[0].featureOverrides.length === 0, "Passed!");
 });

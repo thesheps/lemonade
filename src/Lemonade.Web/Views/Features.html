@@ -1,107 +1,69 @@
-﻿<div ng-cloak>
-    <h1>Features</h1>
-    <hr />
+﻿<title-bar title="Features"></title-bar>
 
-    <div class="col-md-4">
-        <h2>Applications</h2>
+<div layout="row">
+    <md-content flex="" layout-padding>
+        <md-content layout-padding>
+            <md-input-container class="md-block">
+                <label>Please Select an Application</label>
+                <md-select ng-model="ctrl.userState">
+                    <md-option ng-repeat="application in applications" ng-click="selectApplication(application)">
+                        {{application.name}}
+                    </md-option>
+                </md-select>
+            </md-input-container>
 
-        <ul class="list-group" id="application-list">
-            <li class="application list-group-item animate" ng-repeat="application in applications">
-                <a href="" ng-click="selectApplication(application)">{{application.name}}</a>
-            </li>
-        </ul>
-    </div>
+            <div layout="column" ng-show="application != null">
+                <md-input-container class="md-icon-float md-block">
+                    <label>Add a New Feature</label>
+                    <input ng-model="newFeature.name" type="text" ng-enter="addFeature(newFeature)" aria-label="Enter feature name">
+                </md-input-container>
+            </div>
 
-    <div class="col-md-8 animate" ng-show="application != null">
-        <h2>{{application.name}} - Features</h2>
+            <md-card ng-repeat="feature in features" class="animate" layout-padding>
+                <md-input-container class="md-block">
+                    <md-checkbox ng-model="feature.isEnabled" ng-change="updateFeature(feature)">
+                        <label>Feature Name</label>
+                        <input ng-model="feature.name" type="text" ng-enter="updateFeature(feature)" aria-label="Update feature name">
+                    </md-checkbox>
 
-        <table class="table">
-            <thead>
-            <tr>
-                <th>Feature Name</th>
-                <th>Enabled</th>
-                <th></th>
-            </tr>
-            </thead>
+                    <md-button class="md-icon-button" ng-click="feature.showOverrides = !feature.showOverrides">
+                        <md-icon>list</md-icon>
+                    </md-button>
 
-            <tbody ng-repeat="feature in features" class="table animate">
-            <tr class="feature">
-                <td>
-                    <div class="hide" name="applicationId">{{feature.applicationId}}</div>
-                    <div class="hide" name="featureId">{{feature.featureId}}</div>
-                    <a href="" editable-text="feature.name" onaftersave="updateFeature(feature)">{{feature.name}}</a>
-                </td>
-                <td><a href="" editable-checkbox="feature.isEnabled" onaftersave="updateFeature(feature)">{{feature.isEnabled}}</a></td>
-                <td>
-                    <div class="pull-right">
-                        <div class="btn btn-xs btn-primary glyphicon glyphicon-list-alt accordion-toggle" data-toggle="collapse" data-target="#feature-{{feature.featureId}}" title="View client overrides"></div>
-                        <div class="btn btn-xs btn-danger glyphicon glyphicon-remove" ng-click="deleteFeature(feature.featureId)"></div>
-                    </div>
-                </td>
-            </tr>
+                    <md-button class="md-icon-button" ng-click="deleteFeature(feature.featureId)">
+                        <md-icon>delete</md-icon>
+                    </md-button>
+                </md-input-container>
 
-            <tr>
-                <td colspan="3">
-                    <div class="accordion-body collapse well" id="feature-{{feature.featureId}}">
-                        <h4>Client Overrides</h4>
-                        <table class="table table-striped">
-                            <thead>
-                            <tr>
-                                <th>Hostname</th>
-                                <th>Enabled</th>
-                                <th></th>
-                            </tr>
-                            </thead>
+                <md-list ng-show="feature.showOverrides" layout-align="start center">
+                    <md-divider />
 
-                            <tbody class="table table-striped">
-                            <tr class="animate" ng-repeat="featureOverride in feature.featureOverrides">
-                                <td><a href="" editable-text="featureOverride.hostname" onaftersave="updateFeatureOverride(featureOverride)">{{featureOverride.hostname}}</a></td>
-                                <td><a href="" editable-checkbox="featureOverride.isEnabled" onaftersave="updateFeatureOverride(featureOverride)">{{featureOverride.isEnabled}}</a></td>
-                                <td>
-                                    <div class="pull-right">
-                                        <div class="btn btn-xs btn-danger glyphicon glyphicon-remove" ng-click="deleteFeatureOverride(featureOverride.featureOverrideId)"></div>
-                                    </div>
-                                </td>
-                            </tr>
+                    <md-list-item>
+                        <h2 class="md-headline">Feature Overrides</h2>
+                    </md-list-item>
 
-                            <tr/>
-                            </tbody>
+                    <md-list-item>
+                        <md-input-container class="md-icon-float md-block">
+                            <label>Add a host override</label>
+                            <md-icon>add_circle</md-icon>
+                            <input ng-model="newFeatureOverride.hostName" type="text" ng-enter="addFeatureOverride(newFeatureOverride)" ng-init="newFeatureOverride.FeatureId = feature.featureId" aria-label="Enter hostname">
+                        </md-input-container>
+                    </md-list-item>
 
-                            <tbody>
-                            <tr>
-                                <td>
-                                    <input name="featureId" type="hidden" ng-model="feature.newOverride.FeatureId" ng-init="feature.newOverride.FeatureId = feature.featureId"/>
-                                    <input name="name" ng-model="feature.newOverride.Hostname" class="input-sm" placeholder="Hostname"/>
-                                </td>
-                                <td><input name="isEnabled" type="checkbox" ng-model="feature.newOverride.IsEnabled"/></td>
-                                <td>
-                                    <button class="btn btn-primary pull-right" ng-click="addFeatureOverride(feature.newOverride)">
-                                        <span><i class="glyphicon glyphicon-plus"></i> Add</span>
-                                    </button>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </td>
-            </tr>
-            </tbody>
+                    <md-list-item ng-repeat="featureOverride in feature.featureOverrides" class="animate">
+                        <md-checkbox ng-model="featureOverride.isEnabled" ng-change="updateFeatureOverride(featureOverride)"></md-checkbox>
 
-            <tbody>
-            <tr/>
-            <tr>
-                <td>
-                    <input name="applicationId" type="hidden" ng-model="newFeature.ApplicationId"/>
-                    <input name="name" ng-model="newFeature.Name" class="input-sm" placeholder="Feature name"/>
-                </td>
-                <td><input name="isEnabled" type="checkbox" ng-model="newFeature.IsEnabled"/></td>
-                <td>
-                    <button class="btn btn-primary pull-right" ng-click="addFeature(newFeature)">
-                        <span><i class="glyphicon glyphicon-plus"></i> Add</span>
-                    </button>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
+                        <md-input-container>
+                            <label>Host Name</label>
+                            <input ng-model="featureOverride.hostname" type="text" ng-enter="updateFeatureOverride(featureOverride)" aria-label="Update feature override hostname" />
+                        </md-input-container>
+
+                        <md-button class="md-icon-button" ng-click="deleteFeatureOverride(featureOverride.featureOverrideId)">
+                            <md-icon>delete</md-icon>
+                        </md-button>
+                    </md-list-item>
+                </md-list>
+            </md-card>
+        </md-content>
+    </md-content>
 </div>

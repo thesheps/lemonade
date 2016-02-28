@@ -1,22 +1,28 @@
-﻿<div ng-cloak>
-    <h1>Applications</h1>
-    <hr />
+﻿<title-bar title="Applications"></title-bar>
 
-    <ul class="list-group" id="application-list">
-        <li class="application list-group-item animate" ng-repeat="application in applications">
-            <label editable-text="application.name" onaftersave="updateApplication(application)" ng-click="selectApplication(application)" e-form="editFeatureForm">{{application.name}}</label>
+<div layout="row" ng-cloak>
+    <md-content flex="" layout-padding>
+        <md-input-container class="md-block">
+            <label>Create a New Application</label>
+            <input ng-model="applicationName" type="text" ng-enter="addApplication(applicationName)" aria-label="Enter application name">
+        </md-input-container>
 
-            <div class="pull-right">
-                <span class="glyphicon glyphicon-pencil btn btn-xs btn-success" ng-click="editFeatureForm.$show()" ng-hide="editFeatureForm.$visible"></span>
-                <span class="glyphicon glyphicon-remove btn btn-xs btn-danger" ng-click="deleteApplication(application.applicationId)"></span>
-            </div>
-        </li>
-    </ul>
+        <md-list>
+            <md-list-item ng-repeat="application in applications" class="animate">
+                <div layout="row" layout-align="center center">
+                    <md-input-container md-icon-float class="md-block">
+                        <input ng-model="application.name" type="text" ng-enter="updateApplication(application)" aria-label="Update application name">
+                    </md-input-container>
 
-    <div class="input-group">
-        <input type="text" name="name" class="form-control" ng-model="applicationName" placeholder="Application name...">
-        <span class="input-group-btn">
-            <span class="btn btn-primary btn-md" ng-click="addApplication(applicationName)"><i class="glyphicon glyphicon-plus"></i> Add</span>
-        </span>
-    </div>
+                    <md-button class="md-icon-button" ng-click="updateApplication(application)">
+                        <md-icon>done</md-icon>
+                    </md-button>
+
+                    <md-button class="md-icon-button" ng-click="deleteApplication(application.applicationId)">
+                        <md-icon>delete</md-icon>
+                    </md-button>
+                </div>
+            </md-list-item>
+        </md-list>
+    </md-content>
 </div>
