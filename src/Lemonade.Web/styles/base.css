@@ -33,7 +33,8 @@ md-datepicker {
 }   
 
 .header-logo {
-    content:url('https://github.com/thesheps/lemonade/blob/master/src/nuget-icon.png?raw=true');
+    content:url('https://raw.githubusercontent.com/thesheps/lemonade/master/src/Lemonade.Web/Views/logo-header.png');
+    background-color: rgb(156, 214, 68);
     height: 75px;
     width: 75px;
 }

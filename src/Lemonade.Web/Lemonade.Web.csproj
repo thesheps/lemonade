@@ -274,6 +274,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="bower_components\angular-animate\angular-animate.js" />
+    <None Include="Content\scripts\lemonade.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <Content Include="views\logo-header.png" />
     <EmbeddedResource Include="scripts\directives\multiInput.directive.js" />
     <EmbeddedResource Include="views\directives\multiInput.html" />
     <EmbeddedResource Include="scripts\services\toast.service.js" />
