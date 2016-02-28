@@ -4,7 +4,7 @@
     <md-content flex="" layout-padding>
         <md-content layout-padding>
             <md-input-container class="md-block">
-                <label>Application</label>
+                <label>Please Select an Application</label>
                 <md-select ng-model="ctrl.userState">
                     <md-option ng-repeat="application in applications" ng-click="selectApplication(application)">
                         {{application.name}}
@@ -12,122 +12,28 @@
                 </md-select>
             </md-input-container>
 
-            <md-input-container class="md-icon-float md-block">
-                <label>Feature Name</label>
-                <md-icon>add_circle</md-icon>
-                <input ng-model="newFeature.name" type="text" ng-enter="addFeature(newFeature)" aria-label="Enter feature name">
-            </md-input-container>
+            <div layout="row" ng-show="application != null">
+                <md-input-container class="md-icon-float md-block">
+                    <label>Feature Name</label>
+                    <md-icon>add_circle</md-icon>
+                    <input ng-model="newFeature.name" type="text" ng-enter="addFeature(newFeature)" aria-label="Enter feature name">
+                </md-input-container>
+            </div>
 
             <md-list>
                 <md-list-item ng-repeat="feature in features" class="animate">
-                    <div layout="row" layout-align="center center">
-                        <md-input-container md-icon-float class="md-block">
-                            <md-checkbox ng-model="feature.isEnabled" ng-change="updateFeature(feature)">
-                                <label>Feature Name</label>
-                                <input ng-model="feature.name" type="text" ng-enter="updateFeature(feature)" aria-label="Update feature name">
-                            </md-checkbox>
+                    <md-input-container class="md-block">
+                        <md-checkbox ng-model="feature.isEnabled" ng-change="updateFeature(feature)">
+                            <label>Feature Name</label>
+                            <input ng-model="feature.name" type="text" ng-enter="updateFeature(feature)" aria-label="Update feature name">
+                        </md-checkbox>
 
-                            <md-button class="md-icon-button" ng-click="deleteFeature(feature.featureId)">
-                                <md-icon>delete</md-icon>
-                            </md-button>
-                        </md-input-container>
-                    </div>
+                        <md-button class="md-icon-button" ng-click="deleteFeature(feature.featureId)">
+                            <md-icon>delete</md-icon>
+                        </md-button>
+                    </md-input-container>
                 </md-list-item>
             </md-list>
         </md-content>
     </md-content>
-
-
-    <!--<div flex="80" class="animate" ng-show="application != null">
-        <h2>{{application.name}} - Features</h2>
-
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Feature Name</th>
-                    <th>Enabled</th>
-                    <th></th>
-                </tr>
-            </thead>
-
-            <tbody ng-repeat="feature in features" class="table animate">
-                <tr class="feature">
-                    <td>
-                        <div class="hide" name="applicationId">{{feature.applicationId}}</div>
-                        <div class="hide" name="featureId">{{feature.featureId}}</div>
-                        <a href="" editable-text="feature.name" onaftersave="updateFeature(feature)">{{feature.name}}</a>
-                    </td>
-                    <td><a href="" editable-checkbox="feature.isEnabled" onaftersave="updateFeature(feature)">{{feature.isEnabled}}</a></td>
-                    <td>
-                        <div class="pull-right">
-                            <div class="btn btn-xs btn-primary glyphicon glyphicon-list-alt accordion-toggle" data-toggle="collapse" data-target="#feature-{{feature.featureId}}" title="View client overrides"></div>
-                            <div class="btn btn-xs btn-danger glyphicon glyphicon-remove" ng-click="deleteFeature(feature.featureId)"></div>
-                        </div>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td colspan="3">
-                        <div class="accordion-body collapse well" id="feature-{{feature.featureId}}">
-                            <h4>Client Overrides</h4>
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>Hostname</th>
-                                        <th>Enabled</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-
-                                <tbody class="table table-striped">
-                                    <tr class="animate" ng-repeat="featureOverride in feature.featureOverrides">
-                                        <td><a href="" editable-text="featureOverride.hostname" onaftersave="updateFeatureOverride(featureOverride)">{{featureOverride.hostname}}</a></td>
-                                        <td><a href="" editable-checkbox="featureOverride.isEnabled" onaftersave="updateFeatureOverride(featureOverride)">{{featureOverride.isEnabled}}</a></td>
-                                        <td>
-                                            <div class="pull-right">
-                                                <div class="btn btn-xs btn-danger glyphicon glyphicon-remove" ng-click="deleteFeatureOverride(featureOverride.featureOverrideId)"></div>
-                                            </div>
-                                        </td>
-                                    </tr>
-
-                                    <tr />
-                                </tbody>
-
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            <input name="featureId" type="hidden" ng-model="feature.newOverride.FeatureId" ng-init="feature.newOverride.FeatureId = feature.featureId" />
-                                            <input name="name" ng-model="feature.newOverride.Hostname" class="input-sm" placeholder="Hostname" />
-                                        </td>
-                                        <td><input name="isEnabled" type="checkbox" ng-model="feature.newOverride.IsEnabled" /></td>
-                                        <td>
-                                            <button class="btn btn-primary pull-right" ng-click="addFeatureOverride(feature.newOverride)">
-                                                <span><i class="glyphicon glyphicon-plus"></i> Add</span>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </td>
-                </tr>
-            </tbody>
-
-            <tbody>
-                <tr />
-                <tr>
-                    <td>
-                        <input name="applicationId" type="hidden" ng-model="newFeature.ApplicationId" />
-                        <input name="name" ng-model="newFeature.Name" class="input-sm" placeholder="Feature name" />
-                    </td>
-                    <td><input name="isEnabled" type="checkbox" ng-model="newFeature.IsEnabled" /></td>
-                    <td>
-                        <button class="btn btn-primary pull-right" ng-click="addFeature(newFeature)">
-                            <span><i class="glyphicon glyphicon-plus"></i> Add</span>
-                        </button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>-->
 </div>

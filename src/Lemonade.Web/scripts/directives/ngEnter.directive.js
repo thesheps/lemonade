@@ -1,5 +1,5 @@
 ﻿angular.module("lemonade")
-    .directive('ngEnter', function () {
+    .directive("ngEnter", function () {
         return function (scope, element, attrs) {
             element.bind("keydown keypress", function (event) {
                 if (event.which === 13) {

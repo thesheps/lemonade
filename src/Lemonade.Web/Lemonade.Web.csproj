@@ -238,7 +238,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="styles\animations.css" />
+    <EmbeddedResource Include="styles\base.css" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="scripts\app.js" />
@@ -274,6 +274,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="bower_components\angular-animate\angular-animate.js" />
+    <EmbeddedResource Include="scripts\directives\multiInput.directive.js" />
+    <EmbeddedResource Include="views\directives\multiInput.html" />
     <EmbeddedResource Include="scripts\services\toast.service.js" />
     <EmbeddedResource Include="scripts\directives\ngEnter.directive.js" />
     <EmbeddedResource Include="scripts\directives\titleBar.directive.js" />

@@ -4,7 +4,7 @@
     <md-content flex="" layout-padding>
         <md-content layout-padding>
             <md-input-container class="md-block">
-                <label>Application</label>
+                <label>Please Select an Application</label>
                 <md-select ng-model="ctrl.userState">
                     <md-option ng-repeat="application in applications" ng-click="selectApplication(application)">
                         {{application.name}}
@@ -12,107 +12,38 @@
                 </md-select>
             </md-input-container>
 
-            <div layout="row">
+            <div layout="row" ng-show="application != null" layout-align="start center">
                 <md-input-container class="md-icon-float md-block">
                     <label>Configuration Name</label>
                     <md-icon>add_circle</md-icon>
                     <input ng-model="newConfiguration.name" type="text" ng-enter="addConfiguration(newConfiguration)">
                 </md-input-container>
 
-                <md-input-container class="md-block">
-                    <label>Value</label>
-                    <input ng-model="newConfiguration.value" type="text" ng-enter="addConfiguration(newConfiguration)">
-                </md-input-container>
+                <multi-input ng-model="newConfiguration.value">
+                </multi-input>
+
+                <md-button class="md-icon-button" ng-click="addConfiguration(newConfiguration)">
+                    <md-icon>done</md-icon>
+                </md-button>
             </div>
 
             <md-list>
                 <md-list-item ng-repeat="configuration in configurations" class="animate">
-                    <div layout="row" layout-align="center center">
-                        <md-input-container md-icon-float class="md-block">
-                            <label>Configuration Name</label>
-                            <input ng-model="configuration.name" type="text" ng-enter="updateconfiguration(configuration)">
-                        </md-input-container>
+                    <md-input-container>
+                        <label>Configuration Name</label>
+                        <input ng-model="configuration.name" type="text" ng-enter="updateconfiguration(configuration)">
+                    </md-input-container>
 
-                        <md-input-container md-icon-float class="md-block">
-                            <md-select ng-model="configuration.type">
-                                <md-option value="String">String</md-option>
-                                <md-option value="Date">Date</md-option>
-                                <md-option value="Integer">Integer</md-option>
-                                <md-option value="Decimal">Decimal</md-option>
-                            </md-select>
-                        </md-input-container>
+                    <md-input-container>
+                        <label>Configuration Value</label>
+                        <input ng-model="configuration.value" type="text" ng-enter="updateconfiguration(configuration)">
+                    </md-input-container>
 
-                        <md-input-container md-icon-float class="md-block">
-                            <input ng-model="configuration.value" type="text" ng-enter="updateconfiguration(configuration)" ng-show="configuration.type == 'String'" ng-required="configuration.type == 'String'">
-                            <md-datepicker ng-model="configuration.value" md-placeholder="Enter date" ng-show="configuration.type == 'Date'" ng-required="configuration.type == 'Date'"></md-datepicker>
-                            <input type="number" ng-model="configuration.value" ng-pattern="[0-9]*" ng-show="configuration.type == 'Integer'" ng-required="configuration.type == 'Integer'" />
-                            <input type="number" ng-model="configuration.value" ng-pattern="([0-9]*)\.([0-9]*)" ng-show="configuration.type == 'Decimal'" ng-required="configuration.type == 'Decimal'" />
-                        </md-input-container>
-
-                        <md-button class="md-icon-button" ng-click="deleteConfiguration(configuration.configurationId)">
-                            <md-icon>delete</md-icon>
-                        </md-button>
-                    </div>
+                    <md-button class="md-icon-button" ng-click="deleteConfiguration(configuration.configurationId)">
+                        <md-icon>delete</md-icon>
+                    </md-button>
                 </md-list-item>
             </md-list>
         </md-content>
     </md-content>
-
-
-    <!--<div flex="20">
-        <h2>Applications</h2>
-
-        <ul class="list-group" id="application-list">
-            <li class="application list-group-item animate" ng-repeat="application in applications">
-                <a href="" ng-click="selectApplication(application)">{{application.name}}</a>
-            </li>
-        </ul>
-    </div>
-
-    <div flex="80" class="animate" ng-show="application != null">
-        <h2>{{application.name}} - Configurations</h2>
-
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Configuration Name</th>
-                    <th>Value</th>
-                    <th></th>
-                </tr>
-            </thead>
-
-            <tbody ng-repeat="configuration in configurations" class="table animate">
-                <tr class="configuration">
-                    <td>
-                        <div class="hide" name="applicationId">{{configuration.applicationId}}</div>
-                        <div class="hide" name="configurationId">{{configuration.configurationId}}</div>
-                        <a href="" editable-text="configuration.name" onaftersave="updateConfiguration(configuration)">{{configuration.name}}</a>
-                    </td>
-                    <td><a href="" editable-text="configuration.value" onaftersave="updateConfiguration(configuration)">{{configuration.value}}</a></td>
-                    <td>
-                        <div class="pull-right">
-                            <div class="btn btn-xs btn-danger glyphicon glyphicon-remove" ng-click="deleteConfiguration(configuration.configurationId)"></div>
-                        </div>
-                    </td>
-                </tr>
-
-            </tbody>
-
-            <tbody>
-                <tr />
-                <tr>
-                    <td>
-                        <input name="applicationId" type="hidden" ng-model="newConfiguration.ApplicationId" />
-                        <input name="name" ng-model="newConfiguration.Name" class="input-sm" placeholder="Configuration name" />
-                    </td>
-                    <td><input name="value" class="input-sm" type="text" ng-model="newConfiguration.Value" /></td>
-                    <td>
-                        <button class="btn btn-primary pull-right" ng-click="addConfiguration(newConfiguration)">
-                            <span><i class="glyphicon glyphicon-plus"></i> Add</span>
-                        </button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>-->
 </div>

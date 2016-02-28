@@ -27,3 +27,7 @@
 .animate.ng-hide-add.ng-hide-add-active {
     opacity: 0;
 }
+
+md-datepicker {
+    margin-top: 15px;
+}
