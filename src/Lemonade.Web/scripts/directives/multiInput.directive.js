@@ -14,10 +14,10 @@
                 scope.$watch("booleanValue", function (newValue) { scope.ngModel = newValue; });
                 scope.$watch("type", function (newValue) {
                     if (newValue === "Date") { scope.dateValue = null; }
-                    if (newValue === "Integer") { scope.integerValue = null; }
-                    if (newValue === "Decimal") { scope.decimalValue = null; }
-                    if (newValue === "String") { scope.stringValue = null; }
-                    if (newValue === "Boolean") { scope.booleanValue = null; }
+                    if (newValue === "Integer") { scope.integerValue = 0; }
+                    if (newValue === "Decimal") { scope.decimalValue = 0; }
+                    if (newValue === "String") { scope.stringValue = ""; }
+                    if (newValue === "Boolean") { scope.booleanValue = false; }
                 });
             }
         };

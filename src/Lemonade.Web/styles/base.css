@@ -38,3 +38,7 @@ md-datepicker {
     height: 75px;
     width: 75px;
 }
+
+md-input-container .md-errors-spacer {
+    min-height: 0 !important;
+}

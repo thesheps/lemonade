@@ -9,21 +9,19 @@
         </md-select>
     </md-input-container>
 
-    <md-checkbox ng-show="type == 'Boolean'" ng-required="type == 'Boolean'" ng-model="booleanValue" aria-label="Boolean value">
-    </md-checkbox>
+    <md-checkbox ng-show="type == 'Boolean'" ng-model="booleanValue" aria-label="Boolean value"></md-checkbox>
 
-    <md-datepicker ng-show="type == 'Date'" ng-required="type == 'Date'" ng-model="dateValue" aria-label="Date value">
-    </md-datepicker>
+    <md-datepicker ng-show="type == 'Date'" ng-model="dateValue" aria-label="Date value"></md-datepicker>
 
-    <md-input-container ng-show="type == 'String'" ng-required="type == 'String'">
+    <md-input-container ng-show="type == 'String'">
         <input ng-model="stringValue" type="text" aria-label="Text value" />
     </md-input-container>
 
-    <md-input-container ng-show="type == 'Integer'" ng-required="type == 'Integer'">
+    <md-input-container ng-show="type == 'Integer'">
         <input aria-label="Integer value" type="number" ng-model="integerValue" ng-pattern="/^(0|[1-9][0-9]*)$/" />
     </md-input-container>
 
-    <md-input-container ng-show="type == 'Decimal'" ng-required="type == 'Decimal'">
+    <md-input-container ng-show="type == 'Decimal'">
         <input aria-label="Decimal value" type="number" ng-model="decimalValue" ng-pattern="/^(0|[1-9]\.[0-9]*)$/" />
     </md-input-container>
 </div>
