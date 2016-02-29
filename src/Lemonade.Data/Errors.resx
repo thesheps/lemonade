@@ -156,4 +156,7 @@
   <data name="FailedToUpdateConfiguration" xml:space="preserve">
     <value>Could not update the specified configuration</value>
   </data>
+  <data name="FailedToCreateResource" xml:space="preserve">
+    <value>Could not create the specified resource</value>
+  </data>
 </root>

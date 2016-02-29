@@ -46,6 +46,7 @@
     <Compile Include="ConfigurationBuilder.cs" />
     <Compile Include="FeatureBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ResourceBuilder.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\Lemonade.Data\Lemonade.Data.csproj">

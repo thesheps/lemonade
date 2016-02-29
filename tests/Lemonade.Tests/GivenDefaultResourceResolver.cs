@@ -1,14 +1,13 @@
 ﻿using System.Globalization;
 using System.Web;
 using System.Web.Compilation;
-using System.Web.UI;
 using Lemonade.Core.Services;
 using NSubstitute;
 using NUnit.Framework;
 
 namespace Lemonade.Tests
 {
-    public class GivenHttpResourceProvider : TemplateControl
+    public class GivenDefaultResourceResolver
     {
         [TestCase("en-GB", "Hello World")]
         [TestCase("de-DE", "Tag Weld")]

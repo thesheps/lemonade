@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="Commands\ICreateConfiguration.cs" />
     <Compile Include="Commands\ICreateFeatureOverride.cs" />
+    <Compile Include="Commands\ICreateResource.cs" />
     <Compile Include="Commands\IDeleteConfiguration.cs" />
     <Compile Include="Commands\IDeleteFeatureOverride.cs" />
     <Compile Include="Commands\IUpdateConfiguration.cs" />
@@ -56,6 +57,7 @@
     <Compile Include="Entities\Configuration.cs" />
     <Compile Include="Entities\Feature.cs" />
     <Compile Include="Entities\FeatureOverride.cs" />
+    <Compile Include="Entities\Resource.cs" />
     <Compile Include="Errors.Designer.cs">
       <DependentUpon>Errors.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -64,6 +66,7 @@
     <Compile Include="Exceptions\ConfigurationDoesNotExistException.cs" />
     <Compile Include="Exceptions\CreateConfigurationException.cs" />
     <Compile Include="Exceptions\CreateFeatureOverrideException.cs" />
+    <Compile Include="Exceptions\CreateResourceException.cs" />
     <Compile Include="Exceptions\DeleteConfigurationException.cs" />
     <Compile Include="Exceptions\DeleteFeatureException.cs" />
     <Compile Include="Exceptions\DeleteApplicationException.cs" />
@@ -79,6 +82,7 @@
     <Compile Include="Queries\IGetAllApplications.cs" />
     <Compile Include="Queries\IGetAllConfigurations.cs" />
     <Compile Include="Queries\IGetAllFeatures.cs" />
+    <Compile Include="Queries\IGetAllResourcesByApplicationId.cs" />
     <Compile Include="Queries\IGetAllFeaturesByApplicationId.cs" />
     <Compile Include="Queries\IGetApplicationByName.cs" />
     <Compile Include="Queries\IGetConfigurationByNameAndApplication.cs" />

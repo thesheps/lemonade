@@ -62,6 +62,7 @@
   <ItemGroup>
     <Compile Include="Commands\CreateConfiguration.cs" />
     <Compile Include="Commands\CreateFeatureOverride.cs" />
+    <Compile Include="Commands\CreateResource.cs" />
     <Compile Include="Commands\DeleteFeatureOverride.cs" />
     <Compile Include="Commands\DeleteConfiguration.cs" />
     <Compile Include="Commands\UpdateConfiguration.cs" />
@@ -70,7 +71,9 @@
     <Compile Include="Commands\UpdateFeature.cs" />
     <Compile Include="Migrations\CreateFeatureOverrideTable.cs" />
     <Compile Include="Migrations\CreateConfigurationTable.cs" />
+    <Compile Include="Migrations\CreateResourceTable.cs" />
     <Compile Include="Migrations\RemoveUnusedColumns.cs" />
+    <Compile Include="Queries\GetAllResourcesByApplicationId.cs" />
     <Compile Include="Queries\GetConfigurationByNameAndApplication.cs" />
     <Compile Include="Queries\GetFeatureOverride.cs" />
     <Compile Include="Queries\GetAllConfigurations.cs" />

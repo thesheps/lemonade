@@ -91,7 +91,7 @@
     <Compile Include="GivenFeatureAttribute.cs" />
     <Compile Include="GivenFeatureSwitch.cs" />
     <Compile Include="GivenFeature.cs" />
-    <Compile Include="GivenDefaultResourceProvider.cs" />
+    <Compile Include="GivenDefaultResourceResolver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

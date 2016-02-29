@@ -63,6 +63,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GivenCreateConfiguration.cs" />
+    <Compile Include="GivenCreateResource.cs" />
     <Compile Include="GivenDeleteConfiguration.cs" />
     <Compile Include="GivenDeleteFeature.cs" />
     <Compile Include="GivenDeleteApplication.cs" />
