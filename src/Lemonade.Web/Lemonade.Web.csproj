@@ -99,6 +99,7 @@
     <Compile Include="Events\ApplicationHasBeenUpdated.cs" />
     <Compile Include="Infrastructure\LemonadeBooststrapper.cs" />
     <Compile Include="Mappers\ConfigurationMapper.cs" />
+    <Compile Include="Mappers\ResourceMapper.cs" />
     <Compile Include="Mappers\FeatureOverrideMapper.cs" />
     <Compile Include="Events\FeatureOverrideHasBeenDeleted.cs" />
     <Compile Include="Events\FeatureOverrideHasBeenCreated.cs" />
@@ -109,6 +110,7 @@
     <Compile Include="Events\ConfigurationHasBeenDeleted.cs" />
     <Compile Include="Modules\FeatureOverridesModule.cs" />
     <Compile Include="Modules\ConfigurationsModule.cs" />
+    <Compile Include="Modules\ResourcesModule.cs" />
     <Compile Include="Modules\IndexModule.cs" />
     <Compile Include="Startup.cs" />
     <None Include="bower.json" />

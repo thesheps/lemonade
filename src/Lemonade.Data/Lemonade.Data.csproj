@@ -88,6 +88,7 @@
     <Compile Include="Queries\IGetConfigurationByNameAndApplication.cs" />
     <Compile Include="Queries\IGetFeatureByNameAndApplication.cs" />
     <Compile Include="Queries\IGetFeatureOverride.cs" />
+    <Compile Include="Queries\IGetResource.cs" />
     <Compile Include="Queries\IUpdateFeatureOverride.cs" />
   </ItemGroup>
   <ItemGroup>

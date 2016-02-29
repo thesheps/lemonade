@@ -6,11 +6,16 @@
   </configSections>
   <configSections xdt:Transform="RemoveAll" xdt:Locator="Condition(count(*)=0)" />
 
-  <Lemonade xdt:Transform="InsertAfter(/configuration/configSections)" 
+  <Lemonade xdt:Transform="InsertAfter(/configuration/configSections)"
             FeatureResolver="Lemonade.Services.HttpFeatureResolver"
-            ConfigurationResolver="Lemonade.Services.HttpConfigurationResolver" 
-            ApplicationName="Hello World" 
+            ConfigurationResolver="Lemonade.Services.HttpConfigurationResolver"
+            ResourceResolver="Lemonade.Services.HttpResourceResolver"
+            ApplicationName="Hello World"
             CacheExpiration="0" />
+
+  <system.web xdt:Transform="InsertIfMissing">
+    <globalization resourceProviderFactoryType="Lemonade.Services.LemonadeResourceProviderFactory, Lemonade" />
+  </system.web>
 
   <appSettings xdt:Transform="InsertIfMissing">
     <add xdt:Transform="InsertIfMissing" key="LemonadeServiceUrl" value="" xdt:Locator="Match(key)" />
