@@ -84,13 +84,14 @@
   <ItemGroup>
     <Compile Include="Fakes\FakeResolver.cs" />
     <Compile Include="Fakes\FakeSwitch.cs" />
-    <Compile Include="GivenAppSettingsConfigurationResolver.cs" />
-    <Compile Include="GivenAppSettingsFeatureResolver.cs" />
+    <Compile Include="GivenDefaultConfigurationResolver.cs" />
+    <Compile Include="GivenDefaultFeatureResolver.cs" />
     <Compile Include="GivenCacheProvider.cs" />
     <Compile Include="GivenConfig.cs" />
     <Compile Include="GivenFeatureAttribute.cs" />
     <Compile Include="GivenFeatureSwitch.cs" />
     <Compile Include="GivenFeature.cs" />
+    <Compile Include="GivenDefaultResourceProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

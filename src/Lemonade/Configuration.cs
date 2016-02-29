@@ -18,6 +18,12 @@ namespace Lemonade
             set { _configurationResolver = value; }
         }
 
+        public static IResourceResolver ResourceResolver
+        {
+            get { return _resourceResolver ?? (_resourceResolver = GetResourceResolver()); }
+            set { _resourceResolver = value; }
+        }
+
         public static ICacheProvider CacheProvider
         {
             get { return _cacheProvider ?? (_cacheProvider = GetCacheProvider()); }
@@ -38,41 +44,53 @@ namespace Lemonade
 
         private static IFeatureResolver GetFeatureResolver()
         {
-            var featureConfiguration = LemonadeConfigurationSection.Current;
-            if (featureConfiguration == null) return new AppSettingsFeatureResolver();
+            var configuration = LemonadeConfigurationSection.Current;
+            if (configuration == null) return new DefaultFeatureResolver();
 
-            var type = Type.GetType(featureConfiguration.FeatureResolver);
+            var type = Type.GetType(configuration.FeatureResolver);
             if (type != null) return Activator.CreateInstance(type) as IFeatureResolver;
 
-            return new AppSettingsFeatureResolver();
+            return new DefaultFeatureResolver();
         }
 
         private static IConfigurationResolver GetConfigurationResolver()
         {
-            var featureConfiguration = LemonadeConfigurationSection.Current;
-            if (featureConfiguration == null) return new AppSettingsConfigurationResolver();
+            var configuration = LemonadeConfigurationSection.Current;
+            if (configuration == null) return new DefaultConfigurationResolver();
 
-            var type = Type.GetType(featureConfiguration.ConfigurationResolver);
+            var type = Type.GetType(configuration.ConfigurationResolver);
             if (type != null) return Activator.CreateInstance(type) as IConfigurationResolver;
 
-            return new AppSettingsConfigurationResolver();
+            return new DefaultConfigurationResolver();
+        }
+
+        private static IResourceResolver GetResourceResolver()
+        {
+            var configuration = LemonadeConfigurationSection.Current;
+            if (configuration == null) return new DefaultResourceResolver();
+
+            var type = Type.GetType(configuration.ResourceResolver);
+            if (type != null) return Activator.CreateInstance(type) as IResourceResolver;
+
+            return new DefaultResourceResolver();
         }
 
         private static ICacheProvider GetCacheProvider()
         {
-            var featureConfiguration = LemonadeConfigurationSection.Current;
-            if (featureConfiguration == null) return new CacheProvider(CacheExpiration);
+            var configuration = LemonadeConfigurationSection.Current;
+            if (configuration == null) return new CacheProvider(CacheExpiration);
 
-            var type = Type.GetType(featureConfiguration.CacheProvider);
+            var type = Type.GetType(configuration.CacheProvider);
             if (type != null) return Activator.CreateInstance(type) as ICacheProvider;
 
             return new CacheProvider(CacheExpiration);
         }
 
-        private static ICacheProvider _cacheProvider;
-        private static IConfigurationResolver _configurationResolver;
-        private static IFeatureResolver _featureResolver;
-        private static string _applicationName;
         private static double? _cacheExpiration;
+        private static string _applicationName;
+        private static IFeatureResolver _featureResolver;
+        private static IConfigurationResolver _configurationResolver;
+        private static IResourceResolver _resourceResolver;
+        private static ICacheProvider _cacheProvider;
     }
 }

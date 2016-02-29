@@ -25,7 +25,7 @@ namespace Lemonade.Tests
         public void WhenNoConfigurationResolverIsSet_ThenAppConfigConfigurationResolverIsUsed()
         {
             Configuration.ConfigurationResolver = null;
-            Assert.That(Configuration.ConfigurationResolver, Is.TypeOf<AppSettingsConfigurationResolver>());
+            Assert.That(Configuration.ConfigurationResolver, Is.TypeOf<DefaultConfigurationResolver>());
         }
 
         public T Resolve<T>(string configurationName, string applicationName)

@@ -4,7 +4,7 @@ using Lemonade.Core.Services;
 
 namespace Lemonade.Services
 {
-    public class AppSettingsConfigurationResolver : IConfigurationResolver
+    public class DefaultConfigurationResolver : IConfigurationResolver
     {
         public T Resolve<T>(string configurationName, string applicationName)
         {

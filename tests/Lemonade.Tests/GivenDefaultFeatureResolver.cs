@@ -3,12 +3,12 @@ using NUnit.Framework;
 
 namespace Lemonade.Tests
 {
-    public class GivenAppSettingsFeatureResolver
+    public class GivenDefaultFeatureResolver
     {
         [Test]
         public void WhenIHaveAnEnabledKnownFeatureSwitch_ThenTheValueIsRetrievedAsTrue()
         {
-            var resolver = new AppSettingsFeatureResolver();
+            var resolver = new DefaultFeatureResolver();
             var enabled = resolver.Resolve("EnabledProperty", null);
             Assert.That(enabled, Is.True);
         }
@@ -16,7 +16,7 @@ namespace Lemonade.Tests
         [Test]
         public void WhenIHaveADisabledKnownFeatureSwitch_ThenTheValueIsRetrievedAsFalse()
         {
-            var resolver = new AppSettingsFeatureResolver();
+            var resolver = new DefaultFeatureResolver();
             var enabled = resolver.Resolve("DisabledProperty", null);
             Assert.That(enabled, Is.False);
         }
@@ -24,7 +24,7 @@ namespace Lemonade.Tests
         [Test]
         public void WhenIHaveAnUnknownFeatureSwitch_ThenTheValueIsRetrievedAsFalse()
         {
-            var resolver = new AppSettingsFeatureResolver();
+            var resolver = new DefaultFeatureResolver();
             var enabled = resolver.Resolve("NullProperty", null);
             Assert.That(enabled, Is.False);
         }
@@ -32,7 +32,7 @@ namespace Lemonade.Tests
         [Test]
         public void WhenIHaveAnEnabledKnownAppConfigSettingAndUseFeatureWrapper_ThenTheValueIsRetrievedAsTrue()
         {
-            Configuration.FeatureResolver = new AppSettingsFeatureResolver();
+            Configuration.FeatureResolver = new DefaultFeatureResolver();
             Assert.That(Feature.Switches["EnabledProperty"], Is.True);
             Assert.That(Feature.Switches[d => d.EnabledProperty], Is.True);
         }

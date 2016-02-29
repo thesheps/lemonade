@@ -89,15 +89,17 @@
     </Compile>
     <Compile Include="Collections\FeatureValueCollection.cs" />
     <Compile Include="LemonadeConfigurationSection.cs" />
-    <Compile Include="Services\AppSettingsConfigurationResolver.cs" />
-    <Compile Include="Services\AppSettingsFeatureResolver.cs" />
+    <Compile Include="Services\DefaultConfigurationResolver.cs" />
+    <Compile Include="Services\DefaultFeatureResolver.cs" />
     <Compile Include="Services\CacheProvider.cs" />
+    <Compile Include="Services\DefaultResourceResolver.cs" />
     <Compile Include="Services\HttpConfigurationResolver.cs" />
     <Compile Include="Collections\ValueCollection.cs" />
     <Compile Include="FeatureAttribute.cs" />
     <Compile Include="FeatureWrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\HttpFeatureResolver.cs" />
+    <Compile Include="Services\HttpResourceResolver.cs" />
     <Compile Include="Services\LemonadeResourceProviderFactory.cs" />
   </ItemGroup>
   <ItemGroup>

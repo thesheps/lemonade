@@ -13,6 +13,9 @@ namespace Lemonade
         [ConfigurationProperty("ConfigurationResolver", IsRequired = false)]
         public string ConfigurationResolver => this["ConfigurationResolver"] as string;
 
+        [ConfigurationProperty("ResourceResolver", IsRequired = false)]
+        public string ResourceResolver => this["ResourceResolver"] as string;
+
         [ConfigurationProperty("CacheProvider", IsRequired = false)]
         public string CacheProvider => this["CacheProvider"] as string;
 
