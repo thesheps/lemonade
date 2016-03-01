@@ -26,7 +26,7 @@ namespace Lemonade.Tests
             var resourceProvider = Substitute.For<IResourceProvider>();
             var resourceResolver = Substitute.For<IResourceResolver>();
             resourceProvider.GetObject(Arg.Any<string>(), Arg.Any<CultureInfo>()).Returns("Test");
-            resourceResolver.Create(Arg.Any<string>()).Returns(resourceProvider);
+            resourceResolver.Create(Arg.Any<ICacheProvider>(), Arg.Any<string>(), Arg.Any<string>()).Returns(resourceProvider);
 
             Configuration.ResourceResolver = resourceResolver;
 

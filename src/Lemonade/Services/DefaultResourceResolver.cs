@@ -7,37 +7,45 @@ namespace Lemonade.Services
 {
     public class DefaultResourceResolver : IResourceResolver
     {
-        public IResourceProvider Create(string resourceSet)
+        public IResourceProvider Create(ICacheProvider cacheProvider, string applicationName, string resourceSet)
         {
-            return new DefaultResourceProvider(resourceSet);
+            return new DefaultResourceProvider(cacheProvider, applicationName, resourceSet);
         }
 
         private class DefaultResourceProvider : IResourceProvider
         {
             public IResourceReader ResourceReader { get; }
 
-            public DefaultResourceProvider(string resourceSet)
+            public DefaultResourceProvider(ICacheProvider cacheProvider, string applicationName, string resourceSet)
             {
+                _cacheProvider = cacheProvider;
+                _applicationName = applicationName;
                 _resourceSet = resourceSet;
             }
 
             public object GetObject(string resourceKey, CultureInfo culture)
             {
-                var cultureName = (culture ?? CultureInfo.CurrentCulture).ThreeLetterWindowsLanguageName;
+                var locale = (culture ?? CultureInfo.CurrentCulture).ThreeLetterWindowsLanguageName;
+                var key = $"Resource{_applicationName}|{_resourceSet}|{resourceKey}|{locale}";
 
-                switch (cultureName)
+                return _cacheProvider.GetValue(key, () =>
                 {
-                    case "ENG":
-                        return "Hello World";
-                    case "DEU":
-                        return "Tag Weld";
-                    case "FRA":
-                        return "Bonjour le monde";
-                }
-
-                return string.Empty;
+                    switch (locale)
+                    {
+                        case "ENG":
+                            return "Hello World";
+                        case "DEU":
+                            return "Tag Weld";
+                        case "FRA":
+                            return "Bonjour le monde";
+                        default:
+                            return string.Empty;
+                    }
+                });
             }
 
+            private readonly ICacheProvider _cacheProvider;
+            private readonly string _applicationName;
             private readonly string _resourceSet;
         }
     }

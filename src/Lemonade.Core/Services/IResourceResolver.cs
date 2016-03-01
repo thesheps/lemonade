@@ -4,6 +4,6 @@ namespace Lemonade.Core.Services
 {
     public interface IResourceResolver
     {
-        IResourceProvider Create(string resourceSet);
+        IResourceProvider Create(ICacheProvider cacheProvider, string applicationName, string resourceSet);
     }
 }

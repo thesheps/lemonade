@@ -12,7 +12,7 @@ namespace Lemonade.Collections
             _valueCollection = new ValueCollection<T>((s) =>
             {
                 var key = $"Config{applicationName}{s}";
-                return cacheProvider.GetValue<T>(key, () => configurationResolver.Resolve<T>(s, applicationName));
+                return cacheProvider.GetValue(key, () => configurationResolver.Resolve<T>(s, applicationName));
             });
         }
 

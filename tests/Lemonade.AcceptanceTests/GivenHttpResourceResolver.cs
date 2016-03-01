@@ -2,7 +2,6 @@
 using System.Globalization;
 using System.Web;
 using Lemonade.Builders;
-using Lemonade.Data.Entities;
 using Lemonade.Services;
 using Lemonade.Sql.Commands;
 using Lemonade.Sql.Migrations;

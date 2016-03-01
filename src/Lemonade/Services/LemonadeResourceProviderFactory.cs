@@ -16,7 +16,7 @@ namespace Lemonade.Services
 
         private static IResourceProvider CreateResourceProvider(string resourceSet)
         {
-            return Configuration.ResourceResolver.Create(resourceSet);
+            return Configuration.ResourceResolver.Create(Configuration.CacheProvider, Configuration.ApplicationName, resourceSet);
         }
     }
 }

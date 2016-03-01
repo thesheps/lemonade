@@ -13,25 +13,27 @@ namespace Lemonade.Services
 {
     public class HttpResourceResolver : IResourceResolver
     {
-        public IResourceProvider Create(string resourceSet)
+        public IResourceProvider Create(ICacheProvider cacheProvider, string applicationName, string resourceSet)
         {
-            return new HttpResourceProvider(resourceSet);
+            return new HttpResourceProvider(cacheProvider, applicationName, resourceSet);
         }
 
         private class HttpResourceProvider : IResourceProvider
         {
             public IResourceReader ResourceReader { get; }
 
-            public HttpResourceProvider(string resourceSet) : this(resourceSet, ConfigurationManager.AppSettings["LemonadeServiceUrl"])
+            public HttpResourceProvider(ICacheProvider cacheProvider, string applicationName, string resourceSet) : this(cacheProvider, applicationName, resourceSet, ConfigurationManager.AppSettings["LemonadeServiceUrl"])
             {
             }
 
-            private HttpResourceProvider(string resourceSet, string lemonadeServiceUri) : this(resourceSet, new Uri(lemonadeServiceUri))
+            private HttpResourceProvider(ICacheProvider cacheProvider, string applicationName, string resourceSet, string lemonadeServiceUri) : this(cacheProvider, applicationName, resourceSet, new Uri(lemonadeServiceUri))
             {
             }
 
-            private HttpResourceProvider(string resourceSet, Uri lemonadeServiceUri)
+            private HttpResourceProvider(ICacheProvider cacheProvider, string applicationName, string resourceSet, Uri lemonadeServiceUri)
             {
+                _cacheProvider = cacheProvider;
+                _applicationName = applicationName;
                 _resourceSet = resourceSet;
                 _restClient = new RestClient(lemonadeServiceUri);
             }
@@ -39,23 +41,30 @@ namespace Lemonade.Services
             public object GetObject(string resourceKey, CultureInfo culture)
             {
                 var locale = (culture ?? CultureInfo.CurrentCulture).ToString();
-                var restRequest = new RestRequest("/api/resource") { OnBeforeDeserialization = resp => { resp.ContentType = "application/json"; } };
-                restRequest.AddQueryParameter("application", Configuration.ApplicationName);
-                restRequest.AddQueryParameter("resourceSet", _resourceSet);
-                restRequest.AddQueryParameter("resourceKey", resourceKey);
-                restRequest.AddQueryParameter("locale", locale);
+                var key = $"Resource{_applicationName}|{_resourceSet}|{resourceKey}|{locale}";
 
-                var response = _restClient.Get<Resource>(restRequest);
+                return _cacheProvider.GetValue(key, () =>
+                {
+                    var restRequest = new RestRequest("/api/resource") { OnBeforeDeserialization = resp => { resp.ContentType = "application/json"; } };
+                    restRequest.AddQueryParameter("application", _applicationName);
+                    restRequest.AddQueryParameter("resourceSet", _resourceSet);
+                    restRequest.AddQueryParameter("resourceKey", resourceKey);
+                    restRequest.AddQueryParameter("locale", locale);
 
-                if (response.ErrorMessage == "Unable to connect to the remote server")
-                    throw new HttpConnectionException(string.Format(Errors.UnableToConnect, _restClient.BaseUrl), response.ErrorException);
+                    var response = _restClient.Get<Resource>(restRequest);
 
-                if (response.StatusCode == HttpStatusCode.InternalServerError)
-                    throw new HttpConnectionException(Errors.ServerError, response.ErrorException);
+                    if (response.ErrorMessage == "Unable to connect to the remote server")
+                        throw new HttpConnectionException(string.Format(Errors.UnableToConnect, _restClient.BaseUrl), response.ErrorException);
 
-                return response.Data.Value;
+                    if (response.StatusCode == HttpStatusCode.InternalServerError)
+                        throw new HttpConnectionException(Errors.ServerError, response.ErrorException);
+
+                    return response.Data.Value;
+                });
             }
 
+            private readonly ICacheProvider _cacheProvider;
+            private readonly string _applicationName;
             private readonly string _resourceSet;
             private readonly RestClient _restClient;
         }
