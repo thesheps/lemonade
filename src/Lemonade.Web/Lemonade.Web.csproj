@@ -80,6 +80,7 @@
     <Compile Include="EventHandlers\ConfigurationHasBeenDeletedHandler.cs" />
     <Compile Include="EventHandlers\ApplicationHasBeenDeletedHandler.cs" />
     <Compile Include="EventHandlers\ApplicationErrorHasOccurredHandler.cs" />
+    <Compile Include="EventHandlers\ResourceHasBeenCreatedHandler.cs" />
     <Compile Include="EventHandlers\FeatureOverrideHasBeenCreatedHandler.cs" />
     <Compile Include="EventHandlers\FeatureOverrideHasBeenDeletedHandler.cs" />
     <Compile Include="EventHandlers\FeatureHasBeenDeletedHandler.cs" />
@@ -110,6 +111,8 @@
     <Compile Include="Events\ConfigurationHasBeenDeleted.cs" />
     <Compile Include="Modules\FeatureOverridesModule.cs" />
     <Compile Include="Modules\ConfigurationsModule.cs" />
+    <Compile Include="Events\ResourceHasBeenCreated.cs" />
+    <Compile Include="Events\ResourceErrorHasOccurred.cs" />
     <Compile Include="Modules\ResourcesModule.cs" />
     <Compile Include="Modules\IndexModule.cs" />
     <Compile Include="Startup.cs" />

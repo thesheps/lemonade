@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading;
-using Lemonade.Core.Services;
 using Lemonade.Services;
 using NUnit.Framework;
 

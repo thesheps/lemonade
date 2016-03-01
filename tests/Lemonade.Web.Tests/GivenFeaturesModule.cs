@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using System.Net;
-using Lemonade.AcceptanceTests;
 using Lemonade.Services;
 using Lemonade.Sql.Commands;
 using Lemonade.Sql.Migrations;

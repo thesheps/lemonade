@@ -63,6 +63,7 @@ namespace Lemonade.Web.Infrastructure
             _container.Register<IDomainEventHandler<FeatureOverrideHasBeenDeleted>, FeatureOverrideHasBeenDeletedHandler>();
             _container.Register<IDomainEventHandler<FeatureOverrideHasBeenCreated>, FeatureOverrideHasBeenCreatedHandler>();
             _container.Register<IDomainEventHandler<FeatureErrorHasOccurred>, FeatureErrorHasOccurredHandler>();
+            _container.Register<IDomainEventHandler<ResourceHasBeenCreated>, ResourceHasBeenCreatedHandler>();
             _container.Register(GlobalHost.ConnectionManager);
 
             ConfigureDependencies(_container);
