@@ -77,7 +77,7 @@ namespace Lemonade.Web.Tests
         }
 
         [Test]
-        public void WhenIPostMultipleResources_ThenICanGetItViaHttp()
+        public void WhenIPostMultipleResources_ThenICanGetItViaHttpAndSignalRClientsAreNotified()
         {
             var application = new Data.Entities.Application { ApplicationId = 1, Name = "TestApplication1" };
             _createApplication.Execute(application);
@@ -94,22 +94,11 @@ namespace Lemonade.Web.Tests
 
             var result = JsonConvert.DeserializeObject<IList<Resource>>(response.Body.AsString());
             Assert.That(result.Count, Is.EqualTo(3));
-        }
-
-        [Test]
-        public void WhenIPostAResource_ThenSignalRClientsAreNotified()
-        {
-            var application = new Data.Entities.Application { ApplicationId = 1, Name = "TestApplication1" };
-            _createApplication.Execute(application);
-
-            var resource = GetResourceModel("Test", "Test", "Test", "Test", _getApplication.Execute(application.Name).ToContract());
-
-            Post(resource);
             _mockClient.Received().addResource(Arg.Any<dynamic>());
         }
 
         [Test]
-        public void WhenIDeleteAResource_ThenTheResourceIsRemoved()
+        public void WhenIDeleteAResource_ThenTheResourceIsRemovedAndSignalRClientsAreNotified()
         {
             var application = new Data.Entities.Application { ApplicationId = 1, Name = "TestApplication1" };
             _createApplication.Execute(application);
@@ -121,10 +110,11 @@ namespace Lemonade.Web.Tests
 
             var resource = _getResource.Execute(application.Name, "Test", "Test", "Test");
             Assert.That(resource, Is.Null);
+            _mockClient.Received().removeResource(Arg.Any<dynamic>());
         }
 
         [Test]
-        public void WhenIPutAResource_ThenTheResourceIsUpdated()
+        public void WhenIPutAResource_ThenTheResourceIsUpdatedAndSignalRClientsAreNotified()
         {
             var application = new Data.Entities.Application { ApplicationId = 1, Name = "TestApplication1" };
             _createApplication.Execute(application);
@@ -140,6 +130,7 @@ namespace Lemonade.Web.Tests
 
             resource = _getResource.Execute(application.Name, "Test", "Test", "Test");
             Assert.That(resource.Value, Is.EqualTo("Ponies"));
+            _mockClient.Received().updateResource(Arg.Any<dynamic>());
         }
 
         private void Post(Resource resource)

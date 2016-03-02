@@ -27,20 +27,6 @@ namespace Lemonade.Web.Modules
             Delete["api/resources"] = r => DeleteResource();
         }
 
-        private HttpStatusCode UpdateResource()
-        {
-            try
-            {
-                _updateResource.Execute(this.Bind<Resource>().ToEntity());
-                return HttpStatusCode.OK;
-            }
-            catch (UpdateFeatureException exception)
-            {
-                DomainEvents.Raise(new ResourceErrorHasOccurred(exception.Message));
-                return HttpStatusCode.BadRequest;
-            }
-        }
-
         private Resource GetResource()
         {
             var application = Request.Query["application"].Value as string;
@@ -73,6 +59,23 @@ namespace Lemonade.Web.Modules
                 return HttpStatusCode.OK;
             }
             catch (CreateResourceException exception)
+            {
+                DomainEvents.Raise(new ResourceErrorHasOccurred(exception.Message));
+                return HttpStatusCode.BadRequest;
+            }
+        }
+
+        private HttpStatusCode UpdateResource()
+        {
+            try
+            {
+                var resource = this.Bind<Resource>();
+                _updateResource.Execute(resource.ToEntity());
+                DomainEvents.Raise(new ResourceHasBeenUpdated(resource.ResourceId, resource.ApplicationId, resource.ResourceSet, resource.ResourceKey, resource.Locale, resource.Value));
+
+                return HttpStatusCode.OK;
+            }
+            catch (UpdateFeatureException exception)
             {
                 DomainEvents.Raise(new ResourceErrorHasOccurred(exception.Message));
                 return HttpStatusCode.BadRequest;

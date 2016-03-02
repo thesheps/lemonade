@@ -9,7 +9,8 @@
         void addFeatureOverride(dynamic featureOverride);
         void addConfiguration(dynamic configuration);
         void removeConfiguration(dynamic configuration);
-        void addResource(dynamic configuration);
-        void removeResource(dynamic configuration);
+        void addResource(dynamic resource);
+        void removeResource(dynamic resource);
+        void updateResource(dynamic resource);
     }
 }

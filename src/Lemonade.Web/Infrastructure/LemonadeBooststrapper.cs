@@ -53,17 +53,30 @@ namespace Lemonade.Web.Infrastructure
 
             _container = container;
             _container.Register<IDomainEventHandler<ConfigurationHasBeenCreated>, ConfigurationHasBeenCreatedHandler>();
+            _container.Register<IDomainEventHandler<ConfigurationHasBeenUpdated>, ConfigurationHasBeenUpdatedHandler>();
             _container.Register<IDomainEventHandler<ConfigurationHasBeenDeleted>, ConfigurationHasBeenDeletedHandler>();
             _container.Register<IDomainEventHandler<ConfigurationErrorHasOccurred>, ConfigurationErrorHasOccurredHandler>();
+
             _container.Register<IDomainEventHandler<ApplicationHasBeenCreated>, ApplicationHasBeenCreatedHandler>();
+            _container.Register<IDomainEventHandler<ApplicationHasBeenUpdated>, ApplicationHasBeenUpdatedHandler>();
             _container.Register<IDomainEventHandler<ApplicationHasBeenDeleted>, ApplicationHasBeenDeletedHandler>();
             _container.Register<IDomainEventHandler<ApplicationErrorHasOccurred>, ApplicationErrorHasOccurredHandler>();
+
             _container.Register<IDomainEventHandler<FeatureHasBeenCreated>, FeatureHasBeenCreatedHandler>();
+            _container.Register<IDomainEventHandler<FeatureHasBeenUpdated>, FeatureHasBeenUpdatedHandler>();
             _container.Register<IDomainEventHandler<FeatureHasBeenDeleted>, FeatureHasBeenDeletedHandler>();
-            _container.Register<IDomainEventHandler<FeatureOverrideHasBeenDeleted>, FeatureOverrideHasBeenDeletedHandler>();
-            _container.Register<IDomainEventHandler<FeatureOverrideHasBeenCreated>, FeatureOverrideHasBeenCreatedHandler>();
             _container.Register<IDomainEventHandler<FeatureErrorHasOccurred>, FeatureErrorHasOccurredHandler>();
+
+            _container.Register<IDomainEventHandler<FeatureOverrideHasBeenCreated>, FeatureOverrideHasBeenCreatedHandler>();
+            _container.Register<IDomainEventHandler<FeatureOverrideHasBeenUpdated>, FeatureOverrideHasBeenUpdatedHandler>();
+            _container.Register<IDomainEventHandler<FeatureOverrideHasBeenDeleted>, FeatureOverrideHasBeenDeletedHandler>();
+            _container.Register<IDomainEventHandler<FeatureOverrideErrorHasOccurred>, FeatureOverrideErrorHasOccurredHandler>();
+
             _container.Register<IDomainEventHandler<ResourceHasBeenCreated>, ResourceHasBeenCreatedHandler>();
+            _container.Register<IDomainEventHandler<ResourceHasBeenUpdated>, ResourceHasBeenUpdatedHandler>();
+            _container.Register<IDomainEventHandler<ResourceHasBeenDeleted>, ResourceHasBeenDeletedHandler>();
+            _container.Register<IDomainEventHandler<ResourceErrorHasOccurred>, ResourceErrorHasOccurredHandler>();
+
             _container.Register(GlobalHost.ConnectionManager);
 
             ConfigureDependencies(_container);

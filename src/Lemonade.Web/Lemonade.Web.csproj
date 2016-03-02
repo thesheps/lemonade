@@ -75,11 +75,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EventHandlers\FeatureOverrideHasBeenUpdatedHandler.cs" />
+    <Compile Include="EventHandlers\ResourceHasBeenUpdatedHandler.cs" />
+    <Compile Include="EventHandlers\FeatureHasBeenUpdatedHandler.cs" />
+    <Compile Include="EventHandlers\ConfigurationHasBeenUpdatedHandler.cs" />
+    <Compile Include="EventHandlers\ApplicationHasBeenUpdatedHandler.cs" />
     <Compile Include="EventHandlers\ConfigurationErrorHasOccurredHandler.cs" />
     <Compile Include="EventHandlers\ConfigurationHasBeenCreatedHandler.cs" />
     <Compile Include="EventHandlers\ConfigurationHasBeenDeletedHandler.cs" />
     <Compile Include="EventHandlers\ApplicationHasBeenDeletedHandler.cs" />
     <Compile Include="EventHandlers\ApplicationErrorHasOccurredHandler.cs" />
+    <Compile Include="EventHandlers\ResourceErrorHasOccurredHandler.cs" />
+    <Compile Include="EventHandlers\ResourceHasBeenDeletedHandler.cs" />
     <Compile Include="EventHandlers\ResourceHasBeenCreatedHandler.cs" />
     <Compile Include="EventHandlers\FeatureOverrideHasBeenCreatedHandler.cs" />
     <Compile Include="EventHandlers\FeatureOverrideHasBeenDeletedHandler.cs" />
@@ -93,11 +100,13 @@
     <Compile Include="Events\FeatureHasBeenCreated.cs" />
     <Compile Include="Events\FeatureHasBeenDeleted.cs" />
     <Compile Include="Events\FeatureHasBeenUpdated.cs" />
+    <Compile Include="Events\FeatureOverrideErrorHasOccurred.cs" />
     <Compile Include="Events\IDomainEvent.cs" />
     <Compile Include="Events\IDomainEventDispatcher.cs" />
     <Compile Include="Events\IDomainEventHandler.cs" />
     <Compile Include="Infrastructure\CamelCasePropertyNameContractResolver.cs" />
     <Compile Include="Events\ApplicationHasBeenUpdated.cs" />
+    <Compile Include="EventHandlers\FeatureOverrideErrorHasOccurredHandler.cs" />
     <Compile Include="Infrastructure\LemonadeBooststrapper.cs" />
     <Compile Include="Mappers\ConfigurationMapper.cs" />
     <Compile Include="Mappers\ResourceMapper.cs" />
@@ -114,6 +123,7 @@
     <Compile Include="Events\ResourceHasBeenCreated.cs" />
     <Compile Include="Events\ResourceErrorHasOccurred.cs" />
     <Compile Include="Events\ResourceHasBeenDeleted.cs" />
+    <Compile Include="Events\ResourceHasBeenUpdated.cs" />
     <Compile Include="Modules\ResourcesModule.cs" />
     <Compile Include="Modules\IndexModule.cs" />
     <Compile Include="Startup.cs" />
