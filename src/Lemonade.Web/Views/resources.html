@@ -1,0 +1,70 @@
+﻿<title-bar title="Resources"></title-bar>
+
+<div layout="row">
+    <md-content flex="" layout-padding>
+        <md-content layout-padding>
+            <md-input-container class="md-block">
+                <label>Please Select an Application</label>
+                <md-select ng-model="ctrl.userState">
+                    <md-option ng-repeat="application in applications" ng-click="selectApplication(application)">
+                        {{application.name}}
+                    </md-option>
+                </md-select>
+            </md-input-container>
+
+            <div layout="row" ng-show="application != null" layout-align="start center">
+                <md-input-container class="md-icon-float md-block">
+                    <label>Resource Set</label>
+                    <input ng-model="newResource.resourceSet" type="text" ng-enter="addResource(newResource)">
+                </md-input-container>
+
+                <md-input-container class="md-icon-float md-block">
+                    <label>Resource Key</label>
+                    <input ng-model="newResource.resourceKey" type="text" ng-enter="addResource(newResource)">
+                </md-input-container>
+
+                <md-input-container class="md-icon-float md-block">
+                    <label>Locale</label>
+                    <input ng-model="newResource.locale" type="text" ng-enter="addResource(newResource)">
+                </md-input-container>
+
+                <md-input-container class="md-icon-float md-block">
+                    <label>Value</label>
+                    <input ng-model="newResource.value" type="text" ng-enter="addResource(newResource)">
+                </md-input-container>
+
+                <md-button class="md-icon-button" ng-click="addResource(newResource)">
+                    <md-icon>done</md-icon>
+                </md-button>
+            </div>
+
+            <md-list>
+                <md-list-item ng-repeat="resource in resources" class="animate">
+                    <md-input-container class="md-icon-float md-block">
+                        <label>Resource Set</label>
+                        <input ng-model="resource.resourceSet" type="text" ng-enter="updateResource(newResource)">
+                    </md-input-container>
+
+                    <md-input-container class="md-icon-float md-block">
+                        <label>Resource Key</label>
+                        <input ng-model="resource.resourceKey" type="text" ng-enter="updateResource(newResource)">
+                    </md-input-container>
+
+                    <md-input-container class="md-icon-float md-block">
+                        <label>Locale</label>
+                        <input ng-model="resource.locale" type="text" ng-enter="updateResource(newResource)">
+                    </md-input-container>
+
+                    <md-input-container class="md-icon-float md-block">
+                        <label>Value</label>
+                        <input ng-model="resource.value" type="text" ng-enter="updateResource(newResource)">
+                    </md-input-container>
+
+                    <md-button class="md-icon-button" ng-click="deleteResource(resource.resourceId)">
+                        <md-icon>delete</md-icon>
+                    </md-button>
+                </md-list-item>
+            </md-list>
+        </md-content>
+    </md-content>
+</div>

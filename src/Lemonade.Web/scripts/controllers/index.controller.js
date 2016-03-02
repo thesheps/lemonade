@@ -45,5 +45,17 @@
         eventService.configurationErrorEncountered(error);
     }
 
+    hubProxy.client.addResource = function (resource) {
+        eventService.resourceAdded(resource);
+    }
+
+    hubProxy.client.removeResource = function (resource) {
+        eventService.resourceRemoved(resource);
+    }
+
+    hubProxy.client.logResourceError = function (error) {
+        eventService.resourceErrorEncountered(error);
+    }
+
     $.connection.hub.start();
 }
