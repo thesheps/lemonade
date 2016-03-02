@@ -102,24 +102,24 @@ namespace Lemonade.Web.Tests
             Assert.That(resource, Is.Null);
         }
 
-        //[Test]
-        //public void WhenIPutAResource_ThenTheResourceIsUpdated()
-        //{
-        //    var application = new Data.Entities.Application { ApplicationId = 1, Name = "TestApplication1" };
-        //    _createApplication.Execute(application);
+        [Test]
+        public void WhenIPutAResource_ThenTheResourceIsUpdated()
+        {
+            var application = new Data.Entities.Application { ApplicationId = 1, Name = "TestApplication1" };
+            _createApplication.Execute(application);
 
-        //    var resourceModel = GetResourceModel("Test", "Test", "Test", "Test", _getApplication.Execute(application.Name).ToContract());
-        //    Post(resourceModel);
+            var resourceModel = GetResourceModel("Test", "Test", "Test", "Test", application.ToContract());
+            Post(resourceModel);
 
-        //    var resource = _getResource.Execute(application.Name, "Test", "Test", "test");
-        //    resourceModel = resource.ToContract();
-        //    resourceModel.Value = "Ponies";
+            var resource = _getResource.Execute(application.Name, "Test", "Test", "test");
+            resourceModel = resource.ToContract();
+            resourceModel.Value = "Ponies";
 
-        //    Put(resourceModel);
+            Put(resourceModel);
 
-        //    resource = _getResource.Execute(application.Name, "Test", "Test", "Test");
-        //    Assert.That(resource, Is.Null);
-        //}
+            resource = _getResource.Execute(application.Name, "Test", "Test", "Test");
+            Assert.That(resource.Value, Is.EqualTo("Ponies"));
+        }
 
         private void Post(Resource resource)
         {

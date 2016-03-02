@@ -159,4 +159,7 @@
   <data name="FailedToCreateResource" xml:space="preserve">
     <value>Could not create the specified resource</value>
   </data>
+  <data name="FailedToDeleteResource" xml:space="preserve">
+    <value>Could not delete the specified resource</value>
+  </data>
 </root>

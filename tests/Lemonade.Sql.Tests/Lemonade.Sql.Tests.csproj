@@ -67,6 +67,7 @@
     <Compile Include="GivenCreateConfiguration.cs" />
     <Compile Include="GivenCreateResource.cs" />
     <Compile Include="GivenDeleteConfiguration.cs" />
+    <Compile Include="GivenDeleteResource.cs" />
     <Compile Include="GivenDeleteFeature.cs" />
     <Compile Include="GivenDeleteApplication.cs" />
     <Compile Include="GivenCreateApplication.cs" />

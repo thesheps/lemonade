@@ -11,12 +11,30 @@ namespace Lemonade.Web.Modules
 {
     public class ResourcesModule : NancyModule
     {
-        public ResourcesModule(IGetResource getResource, ICreateResource createResource)
+        public ResourcesModule(IGetResource getResource, ICreateResource createResource, IDeleteResource deleteResource, IUpdateResource updateResource)
         {
             _getResource = getResource;
             _createResource = createResource;
-            Get["/api/resource"] = p => GetResource();
-            Post["/api/resources"] = p => CreateResource();
+            _deleteResource = deleteResource;
+            _updateResource = updateResource;
+            Get["/api/resource"] = r => GetResource();
+            Post["/api/resources"] = r => CreateResource();
+            Put["/api/resources"] = r => UpdateResource();
+            Delete["api/resources"] = r => DeleteResource();
+        }
+
+        private HttpStatusCode UpdateResource()
+        {
+            try
+            {
+                _updateResource.Execute(this.Bind<Resource>().ToEntity());
+                return HttpStatusCode.OK;
+            }
+            catch (UpdateFeatureException exception)
+            {
+                DomainEvents.Raise(new ResourceErrorHasOccurred(exception.Message));
+                return HttpStatusCode.BadRequest;
+            }
         }
 
         private Resource GetResource()
@@ -47,7 +65,27 @@ namespace Lemonade.Web.Modules
             }
         }
 
+        private HttpStatusCode DeleteResource()
+        {
+            int resourceId;
+            int.TryParse(Request.Query["id"].Value as string, out resourceId);
+
+            try
+            {
+                _deleteResource.Execute(resourceId);
+                DomainEvents.Raise(new ResourceHasBeenDeleted(resourceId));
+                return HttpStatusCode.OK;
+            }
+            catch (DeleteResourceException exception)
+            {
+                DomainEvents.Raise(new ResourceErrorHasOccurred(exception.Message));
+                return HttpStatusCode.BadRequest;
+            }
+        }
+
         private readonly IGetResource _getResource;
         private readonly ICreateResource _createResource;
+        private readonly IDeleteResource _deleteResource;
+        private readonly IUpdateResource _updateResource;
     }
 }

@@ -151,6 +151,15 @@ namespace Lemonade.Data {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Could not delete the specified resource.
+        /// </summary>
+        internal static string FailedToDeleteResource {
+            get {
+                return ResourceManager.GetString("FailedToDeleteResource", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Could not update the specified application.
         /// </summary>
         internal static string FailedToUpdateApplication {

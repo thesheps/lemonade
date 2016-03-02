@@ -65,10 +65,12 @@
     <Compile Include="Commands\CreateResource.cs" />
     <Compile Include="Commands\DeleteFeatureOverride.cs" />
     <Compile Include="Commands\DeleteConfiguration.cs" />
+    <Compile Include="Commands\DeleteResource.cs" />
     <Compile Include="Commands\UpdateConfiguration.cs" />
     <Compile Include="Commands\UpdateApplication.cs" />
     <Compile Include="Commands\UpdateFeatureOverride.cs" />
     <Compile Include="Commands\UpdateFeature.cs" />
+    <Compile Include="Commands\UpdateResource.cs" />
     <Compile Include="Migrations\CreateFeatureOverrideTable.cs" />
     <Compile Include="Migrations\CreateConfigurationTable.cs" />
     <Compile Include="Migrations\CreateResourceTable.cs" />
