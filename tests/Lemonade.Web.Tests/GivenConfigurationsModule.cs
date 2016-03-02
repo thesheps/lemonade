@@ -47,9 +47,15 @@ namespace Lemonade.Web.Tests
         [Test]
         public void WhenIPostAConfiguration_ThenICanGetItViaHttp()
         {
-            Post(new Contracts.Configuration { Name = "TestConfig", Value = "Hello World", ConfigurationId = 1, ApplicationId = 1 });
+            var configuration = new Contracts.Configuration { Name = "TestConfig", Value = "Hello World", ConfigurationId = 1, ApplicationId = 1 };
+            Post(configuration);
 
-            var response = _browser.Get("/api/configurations", with => with.Header("Accept", "application/json"));
+            var response = _browser.Get("/api/configurations", with =>
+            {
+                with.Header("Accept", "application/json");
+                with.Query("applicationId", configuration.ApplicationId.ToString());
+            });
+
             var result = JsonConvert.DeserializeObject<List<Contracts.Configuration>>(response.Body.AsString());
 
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
@@ -67,10 +73,16 @@ namespace Lemonade.Web.Tests
         [Test]
         public void WhenIPutAConfiguration_ThenTheConfigurationIsUpdated()
         {
-            Post(new Contracts.Configuration { Name = "TestConfig", Value = "Test", ConfigurationId = 1, ApplicationId = 1 });
+            var configuration = new Contracts.Configuration { Name = "TestConfig", Value = "Test", ConfigurationId = 1, ApplicationId = 1 };
+            Post(configuration);
             Put(new Contracts.Configuration { Name = "PONIES", Value = "Updated", ConfigurationId = 1 });
 
-            var response = _browser.Get("/api/configurations", with => with.Header("Accept", "application/json"));
+            var response = _browser.Get("/api/configurations", with =>
+            {
+                with.Header("Accept", "application/json");
+                with.Query("applicationId", configuration.ApplicationId.ToString());
+            });
+
             var result = JsonConvert.DeserializeObject<List<Contracts.Configuration>>(response.Body.AsString());
 
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));

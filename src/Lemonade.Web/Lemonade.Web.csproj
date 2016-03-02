@@ -287,6 +287,7 @@
     <None Include="Content\scripts\lemonade.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <EmbeddedResource Include="scripts\controllers\resource.controller.js" />
     <Content Include="views\logo-header.png" />
     <EmbeddedResource Include="scripts\directives\multiInput.directive.js" />
     <EmbeddedResource Include="views\directives\multiInput.html" />

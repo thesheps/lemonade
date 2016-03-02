@@ -1,4 +1,6 @@
-﻿using Lemonade.Data.Commands;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Lemonade.Data.Commands;
 using Lemonade.Data.Exceptions;
 using Lemonade.Data.Queries;
 using Lemonade.Web.Contracts;
@@ -11,13 +13,15 @@ namespace Lemonade.Web.Modules
 {
     public class ResourcesModule : NancyModule
     {
-        public ResourcesModule(IGetResource getResource, ICreateResource createResource, IDeleteResource deleteResource, IUpdateResource updateResource)
+        public ResourcesModule(IGetResource getResource, IGetAllResourcesByApplicationId getAllResourcesbyApplicationId, ICreateResource createResource, IDeleteResource deleteResource, IUpdateResource updateResource)
         {
             _getResource = getResource;
+            _getAllResourcesbyApplicationId = getAllResourcesbyApplicationId;
             _createResource = createResource;
             _deleteResource = deleteResource;
             _updateResource = updateResource;
             Get["/api/resource"] = r => GetResource();
+            Get["/api/resources"] = r => GetResources();
             Post["/api/resources"] = r => CreateResource();
             Put["/api/resources"] = r => UpdateResource();
             Delete["api/resources"] = r => DeleteResource();
@@ -46,6 +50,16 @@ namespace Lemonade.Web.Modules
             var resource = _getResource.Execute(application, resourceSet, resourceKey, locale);
 
             return resource.ToContract();
+        }
+
+        private IList<Resource> GetResources()
+        {
+            int applicationId;
+            int.TryParse(Request.Query["applicationId"].Value as string, out applicationId);
+
+            var resources = _getAllResourcesbyApplicationId.Execute(applicationId);
+
+            return resources.Select(r => r.ToContract()).ToList();
         }
 
         private HttpStatusCode CreateResource()
@@ -84,6 +98,7 @@ namespace Lemonade.Web.Modules
         }
 
         private readonly IGetResource _getResource;
+        private readonly IGetAllResourcesByApplicationId _getAllResourcesbyApplicationId;
         private readonly ICreateResource _createResource;
         private readonly IDeleteResource _deleteResource;
         private readonly IUpdateResource _updateResource;

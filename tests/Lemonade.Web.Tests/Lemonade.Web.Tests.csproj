@@ -144,6 +144,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Javascript\GivenResource.js" />
     <Content Include="Javascript\GivenConfiguration.js" />
     <Content Include="Javascript\GivenApplication.js" />
     <Content Include="Javascript\GivenFeature.js" />

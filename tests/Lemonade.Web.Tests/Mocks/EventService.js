@@ -11,5 +11,8 @@
         onConfigurationAdded: function ($scope, callback) { },
         onConfigurationRemoved: function ($scope, callback) { },
         onConfigurationErrorEncountered: function ($scope, callback) { },
+        onResourceAdded: function ($scope, callback) { },
+        onResourceRemoved: function ($scope, callback) { },
+        onResourceErrorEncountered: function ($scope, callback) { }
     }
 }

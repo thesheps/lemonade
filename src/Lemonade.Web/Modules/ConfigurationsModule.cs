@@ -13,10 +13,10 @@ namespace Lemonade.Web.Modules
 {
     public class ConfigurationsModule : NancyModule
     {
-        public ConfigurationsModule(IGetConfigurationByNameAndApplication getConfigurationByNameAndApplication, IGetAllConfigurations getAllConfigurations, ICreateConfiguration createConfiguration, IUpdateConfiguration updateConfiguration, IDeleteConfiguration deleteConfiguration)
+        public ConfigurationsModule(IGetConfigurationByNameAndApplication getConfigurationByNameAndApplication, IGetAllConfigurationsByApplicationId getAllConfigurationsByApplicationId, ICreateConfiguration createConfiguration, IUpdateConfiguration updateConfiguration, IDeleteConfiguration deleteConfiguration)
         {
             _getConfigurationByNameAndApplication = getConfigurationByNameAndApplication;
-            _getAllConfigurations = getAllConfigurations;
+            _getAllConfigurationsByApplicationId = getAllConfigurationsByApplicationId;
             _createConfiguration = createConfiguration;
             _updateConfiguration = updateConfiguration;
             _deleteConfiguration = deleteConfiguration;
@@ -40,11 +40,12 @@ namespace Lemonade.Web.Modules
 
         private IList<Configuration> GetConfigurations()
         {
-            var configurations = _getAllConfigurations.Execute();
+            int applicationId;
+            int.TryParse(Request.Query["applicationId"].Value as string, out applicationId);
 
-            if (configurations == null) throw new ConfigurationDoesNotExistException();
+            var configurations = _getAllConfigurationsByApplicationId.Execute(applicationId);
 
-            return configurations.Select(c => c.ToContract()).ToList();
+            return configurations.Select(f => f.ToContract()).ToList();
         }
 
         private HttpStatusCode PostConfiguration()
@@ -100,7 +101,7 @@ namespace Lemonade.Web.Modules
         }
 
         private readonly IGetConfigurationByNameAndApplication _getConfigurationByNameAndApplication;
-        private readonly IGetAllConfigurations _getAllConfigurations;
+        private readonly IGetAllConfigurationsByApplicationId _getAllConfigurationsByApplicationId;
         private readonly ICreateConfiguration _createConfiguration;
         private readonly IUpdateConfiguration _updateConfiguration;
         private readonly IDeleteConfiguration _deleteConfiguration;

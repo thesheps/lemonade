@@ -84,7 +84,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Entities\Application.cs" />
     <Compile Include="Queries\IGetAllApplications.cs" />
-    <Compile Include="Queries\IGetAllConfigurations.cs" />
+    <Compile Include="Queries\IGetAllConfigurationsByApplicationId.cs" />
     <Compile Include="Queries\IGetAllFeatures.cs" />
     <Compile Include="Queries\IGetAllResourcesByApplicationId.cs" />
     <Compile Include="Queries\IGetAllFeaturesByApplicationId.cs" />

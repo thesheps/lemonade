@@ -43,6 +43,15 @@
         onConfigurationRemoved: function ($scope, callback) { handle($scope, "configurationRemoved", callback); },
 
         configurationErrorEncountered: function (event) { subscribe("configurationErrorEncountered", event); },
-        onConfigurationErrorEncountered: function ($scope, callback) { handle($scope, "configurationErrorEncountered", callback); }
+        onConfigurationErrorEncountered: function ($scope, callback) { handle($scope, "configurationErrorEncountered", callback); },
+
+        resourceAdded: function (event) { subscribe("resourceAdded", event); },
+        onResourceAdded: function ($scope, callback) { handle($scope, "resourceAdded", callback); },
+
+        resourceRemoved: function (event) { subscribe("resourceRemoved", event); },
+        onResourceRemoved: function ($scope, callback) { handle($scope, "resourceRemoved", callback); },
+
+        resourceErrorEncountered: function (event) { subscribe("resourceErrorEncountered", event); },
+        onResourceErrorEncountered: function ($scope, callback) { handle($scope, "resourceErrorEncountered", callback); }
     }
 }

@@ -79,7 +79,7 @@
     <Compile Include="Queries\GetConfigurationByNameAndApplication.cs" />
     <Compile Include="Queries\GetResource.cs" />
     <Compile Include="Queries\GetFeatureOverride.cs" />
-    <Compile Include="Queries\GetAllConfigurations.cs" />
+    <Compile Include="Queries\GetAllConfigurationsByApplicationId.cs" />
     <Compile Include="SqlFeatureResolver.cs" />
     <Compile Include="Commands\DeleteApplication.cs" />
     <Compile Include="Commands\DeleteFeature.cs" />
