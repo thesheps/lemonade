@@ -18,11 +18,6 @@ namespace Lemonade.Web.Infrastructure
 {
     public class LemonadeBootstrapper : DefaultNancyBootstrapper, IDomainEventDispatcher
     {
-        public LemonadeBootstrapper()
-        {
-            DomainEvents.Dispatcher = this;
-        }
-
         public void Dispatch<TEvent>(TEvent @event) where TEvent : IDomainEvent
         {
             _container.ResolveAll<IDomainEventHandler<TEvent>>().ToList().ForEach(h => h.Handle(@event));
@@ -76,6 +71,8 @@ namespace Lemonade.Web.Infrastructure
             _container.Register<IDomainEventHandler<ResourceHasBeenUpdated>, ResourceHasBeenUpdatedHandler>();
             _container.Register<IDomainEventHandler<ResourceHasBeenDeleted>, ResourceHasBeenDeletedHandler>();
             _container.Register<IDomainEventHandler<ResourceErrorHasOccurred>, ResourceErrorHasOccurredHandler>();
+
+            _container.Register<IDomainEventDispatcher>(this);
 
             _container.Register(GlobalHost.ConnectionManager);
 

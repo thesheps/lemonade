@@ -3,6 +3,7 @@ using Lemonade.Data.Exceptions;
 using Lemonade.Data.Queries;
 using Lemonade.Web.Contracts;
 using Lemonade.Web.Events;
+using Lemonade.Web.Infrastructure;
 using Lemonade.Web.Mappers;
 using Nancy;
 using Nancy.ModelBinding;
@@ -11,8 +12,9 @@ namespace Lemonade.Web.Modules
 {
     public class FeatureOverridesModule : NancyModule
     {
-        public FeatureOverridesModule(ICreateFeatureOverride createFeatureOverride, IUpdateFeatureOverride updateFeatureOverride, IDeleteFeatureOverride deleteFeatureOverride)
+        public FeatureOverridesModule(IDomainEventDispatcher eventDispatcher, ICreateFeatureOverride createFeatureOverride, IUpdateFeatureOverride updateFeatureOverride, IDeleteFeatureOverride deleteFeatureOverride)
         {
+            _eventDispatcher = eventDispatcher;
             _createFeatureOverride = createFeatureOverride;
             _updateFeatureOverride = updateFeatureOverride;
             _deleteFeatureOverride = deleteFeatureOverride;
@@ -27,13 +29,13 @@ namespace Lemonade.Web.Modules
             {
                 var featureOverride = this.Bind<FeatureOverride>().ToEntity();
                 _createFeatureOverride.Execute(featureOverride);
-                DomainEvents.Raise(new FeatureOverrideHasBeenCreated(featureOverride.FeatureOverrideId, featureOverride.FeatureId, featureOverride.Hostname, featureOverride.IsEnabled));
+                _eventDispatcher.Dispatch(new FeatureOverrideHasBeenCreated(featureOverride.FeatureOverrideId, featureOverride.FeatureId, featureOverride.Hostname, featureOverride.IsEnabled));
 
                 return HttpStatusCode.OK;
             }
             catch (CreateFeatureOverrideException exception)
             {
-                DomainEvents.Raise(new FeatureErrorHasOccurred(exception.Message));
+                _eventDispatcher.Dispatch(new FeatureErrorHasOccurred(exception.Message));
                 return HttpStatusCode.BadRequest;
             }
         }
@@ -44,13 +46,13 @@ namespace Lemonade.Web.Modules
             {
                 var featureOverride = this.Bind<FeatureOverride>();
                 _updateFeatureOverride.Execute(featureOverride.ToEntity());
-                DomainEvents.Raise(new FeatureOverrideHasBeenUpdated(featureOverride.FeatureOverrideId, featureOverride.FeatureId, featureOverride.Hostname, featureOverride.IsEnabled));
+                _eventDispatcher.Dispatch(new FeatureOverrideHasBeenUpdated(featureOverride.FeatureOverrideId, featureOverride.FeatureId, featureOverride.Hostname, featureOverride.IsEnabled));
 
                 return HttpStatusCode.OK;
             }
             catch (UpdateFeatureOverrideException exception)
             {
-                DomainEvents.Raise(new FeatureErrorHasOccurred(exception.Message));
+                _eventDispatcher.Dispatch(new FeatureErrorHasOccurred(exception.Message));
                 return HttpStatusCode.BadRequest;
             }
         }
@@ -63,17 +65,18 @@ namespace Lemonade.Web.Modules
             try
             {
                 _deleteFeatureOverride.Execute(featureOverrideId);
-                DomainEvents.Raise(new FeatureOverrideHasBeenDeleted(featureOverrideId));
+                _eventDispatcher.Dispatch(new FeatureOverrideHasBeenDeleted(featureOverrideId));
                 return HttpStatusCode.OK;
             }
             catch (DeleteFeatureOverrideException exception)
             {
-                DomainEvents.Raise(new FeatureErrorHasOccurred(exception.Message));
+                _eventDispatcher.Dispatch(new FeatureErrorHasOccurred(exception.Message));
                 return HttpStatusCode.BadRequest;
             }
         }
 
         private readonly IDeleteFeatureOverride _deleteFeatureOverride;
+        private readonly IDomainEventDispatcher _eventDispatcher;
         private readonly ICreateFeatureOverride _createFeatureOverride;
         private readonly IUpdateFeatureOverride _updateFeatureOverride;
     }

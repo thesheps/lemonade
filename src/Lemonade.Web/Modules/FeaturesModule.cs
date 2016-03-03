@@ -5,6 +5,7 @@ using Lemonade.Data.Exceptions;
 using Lemonade.Data.Queries;
 using Lemonade.Web.Contracts;
 using Lemonade.Web.Events;
+using Lemonade.Web.Infrastructure;
 using Lemonade.Web.Mappers;
 using Nancy;
 using Nancy.ModelBinding;
@@ -13,9 +14,10 @@ namespace Lemonade.Web.Modules
 {
     public class FeaturesModule : NancyModule
     {
-        public FeaturesModule(IGetAllFeaturesByApplicationId getAllFeaturesByApplicationId, IGetFeatureByNameAndApplication getFeatureByNameAndApplication, 
+        public FeaturesModule(IDomainEventDispatcher eventDispatcher, IGetAllFeaturesByApplicationId getAllFeaturesByApplicationId, IGetFeatureByNameAndApplication getFeatureByNameAndApplication, 
             IGetApplicationByName getApplicationByName, ICreateFeature createFeature, IUpdateFeature updateFeature, IDeleteFeature deleteFeature, ICreateApplication createApplication)
         {
+            _eventDispatcher = eventDispatcher;
             _getFeatureByNameAndApplication = getFeatureByNameAndApplication;
             _getApplicationByName = getApplicationByName;
             _getAllFeaturesByApplicationId = getAllFeaturesByApplicationId;
@@ -56,13 +58,13 @@ namespace Lemonade.Web.Modules
             {
                 var feature = this.Bind<Feature>().ToEntity();
                 _createFeature.Execute(feature);
-                DomainEvents.Raise(new FeatureHasBeenCreated(feature.FeatureId, feature.ApplicationId, feature.Name, feature.IsEnabled));
+                _eventDispatcher.Dispatch(new FeatureHasBeenCreated(feature.FeatureId, feature.ApplicationId, feature.Name, feature.IsEnabled));
 
                 return HttpStatusCode.OK;
             }
             catch (CreateFeatureException exception)
             {
-                DomainEvents.Raise(new FeatureErrorHasOccurred(exception.Message));
+                _eventDispatcher.Dispatch(new FeatureErrorHasOccurred(exception.Message));
                 return HttpStatusCode.BadRequest;
             }
         }
@@ -76,7 +78,7 @@ namespace Lemonade.Web.Modules
             }
             catch (UpdateFeatureException exception)
             {
-                DomainEvents.Raise(new FeatureErrorHasOccurred(exception.Message));
+                _eventDispatcher.Dispatch(new FeatureErrorHasOccurred(exception.Message));
                 return HttpStatusCode.BadRequest;
             }
         }
@@ -89,12 +91,12 @@ namespace Lemonade.Web.Modules
             try
             {
                 _deleteFeature.Execute(featureId);
-                DomainEvents.Raise(new FeatureHasBeenDeleted(featureId));
+                _eventDispatcher.Dispatch(new FeatureHasBeenDeleted(featureId));
                 return HttpStatusCode.OK;
             }
             catch (DeleteFeatureException exception)
             {
-                DomainEvents.Raise(new FeatureErrorHasOccurred(exception.Message));
+                _eventDispatcher.Dispatch(new FeatureErrorHasOccurred(exception.Message));
                 return HttpStatusCode.BadRequest;
             }
         }
@@ -105,7 +107,7 @@ namespace Lemonade.Web.Modules
             var feature = new Data.Entities.Feature { Name = featureName, ApplicationId = application.ApplicationId, Application = application };
             _createFeature.Execute(feature);
 
-            DomainEvents.Raise(new FeatureHasBeenCreated(feature.FeatureId, feature.ApplicationId, feature.Name, feature.IsEnabled));
+            _eventDispatcher.Dispatch(new FeatureHasBeenCreated(feature.FeatureId, feature.ApplicationId, feature.Name, feature.IsEnabled));
 
             return feature;
         }
@@ -115,7 +117,7 @@ namespace Lemonade.Web.Modules
             var application = new Data.Entities.Application { Name = applicationName };
             _createApplication.Execute(application);
 
-            DomainEvents.Raise(new ApplicationHasBeenCreated(application.ApplicationId, applicationName));
+            _eventDispatcher.Dispatch(new ApplicationHasBeenCreated(application.ApplicationId, applicationName));
 
             return application;
         }
@@ -126,6 +128,7 @@ namespace Lemonade.Web.Modules
             return application;
         }
 
+        private readonly IDomainEventDispatcher _eventDispatcher;
         private readonly IGetFeatureByNameAndApplication _getFeatureByNameAndApplication;
         private readonly IGetApplicationByName _getApplicationByName;
         private readonly IGetAllFeaturesByApplicationId _getAllFeaturesByApplicationId;

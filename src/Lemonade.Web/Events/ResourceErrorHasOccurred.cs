@@ -1,4 +1,6 @@
-﻿namespace Lemonade.Web.Events
+﻿using Lemonade.Web.Infrastructure;
+
+namespace Lemonade.Web.Events
 {
     public class ResourceErrorHasOccurred : IDomainEvent
     {

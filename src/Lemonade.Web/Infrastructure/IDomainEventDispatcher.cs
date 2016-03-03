@@ -1,4 +1,4 @@
-﻿namespace Lemonade.Web.Events
+﻿namespace Lemonade.Web.Infrastructure
 {
     public interface IDomainEventDispatcher
     {

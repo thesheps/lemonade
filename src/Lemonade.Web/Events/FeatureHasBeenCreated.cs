@@ -1,4 +1,5 @@
 ﻿using Lemonade.Web.Contracts;
+using Lemonade.Web.Infrastructure;
 
 namespace Lemonade.Web.Events
 {

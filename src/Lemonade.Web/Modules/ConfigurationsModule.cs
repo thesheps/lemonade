@@ -5,6 +5,7 @@ using Lemonade.Data.Exceptions;
 using Lemonade.Data.Queries;
 using Lemonade.Web.Contracts;
 using Lemonade.Web.Events;
+using Lemonade.Web.Infrastructure;
 using Lemonade.Web.Mappers;
 using Nancy;
 using Nancy.ModelBinding;
@@ -13,8 +14,9 @@ namespace Lemonade.Web.Modules
 {
     public class ConfigurationsModule : NancyModule
     {
-        public ConfigurationsModule(IGetConfigurationByNameAndApplication getConfigurationByNameAndApplication, IGetAllConfigurationsByApplicationId getAllConfigurationsByApplicationId, ICreateConfiguration createConfiguration, IUpdateConfiguration updateConfiguration, IDeleteConfiguration deleteConfiguration)
+        public ConfigurationsModule(IDomainEventDispatcher eventDispatcher, IGetConfigurationByNameAndApplication getConfigurationByNameAndApplication, IGetAllConfigurationsByApplicationId getAllConfigurationsByApplicationId, ICreateConfiguration createConfiguration, IUpdateConfiguration updateConfiguration, IDeleteConfiguration deleteConfiguration)
         {
+            _eventDispatcher = eventDispatcher;
             _getConfigurationByNameAndApplication = getConfigurationByNameAndApplication;
             _getAllConfigurationsByApplicationId = getAllConfigurationsByApplicationId;
             _createConfiguration = createConfiguration;
@@ -54,13 +56,13 @@ namespace Lemonade.Web.Modules
             {
                 var configuration = this.Bind<Configuration>().ToEntity();
                 _createConfiguration.Execute(configuration);
-                DomainEvents.Raise(new ConfigurationHasBeenCreated(configuration.ApplicationId, configuration.Name, configuration.Value));
+                _eventDispatcher.Dispatch(new ConfigurationHasBeenCreated(configuration.ApplicationId, configuration.Name, configuration.Value));
 
                 return HttpStatusCode.OK;
             }
             catch (CreateConfigurationException exception)
             {
-                DomainEvents.Raise(new ConfigurationErrorHasOccurred(exception.Message));
+                _eventDispatcher.Dispatch(new ConfigurationErrorHasOccurred(exception.Message));
                 return HttpStatusCode.BadRequest;
             }
         }
@@ -71,13 +73,13 @@ namespace Lemonade.Web.Modules
             {
                 var configuration = this.Bind<Configuration>().ToEntity();
                 _updateConfiguration.Execute(configuration);
-                DomainEvents.Raise(new ConfigurationHasBeenUpdated(configuration.ApplicationId, configuration.Name));
+                _eventDispatcher.Dispatch(new ConfigurationHasBeenUpdated(configuration.ApplicationId, configuration.Name));
 
                 return HttpStatusCode.OK;
             }
             catch (UpdateConfigurationException exception)
             {
-                DomainEvents.Raise(new ConfigurationErrorHasOccurred(exception.Message));
+                _eventDispatcher.Dispatch(new ConfigurationErrorHasOccurred(exception.Message));
                 return HttpStatusCode.BadRequest;
             }
         }
@@ -90,16 +92,17 @@ namespace Lemonade.Web.Modules
             try
             {
                 _deleteConfiguration.Execute(configurationId);
-                DomainEvents.Raise(new ConfigurationHasBeenDeleted(configurationId));
+                _eventDispatcher.Dispatch(new ConfigurationHasBeenDeleted(configurationId));
                 return HttpStatusCode.OK;
             }
             catch (DeleteConfigurationException exception)
             {
-                DomainEvents.Raise(new ConfigurationErrorHasOccurred(exception.Message));
+                _eventDispatcher.Dispatch(new ConfigurationErrorHasOccurred(exception.Message));
                 return HttpStatusCode.BadRequest;
             }
         }
 
+        private readonly IDomainEventDispatcher _eventDispatcher;
         private readonly IGetConfigurationByNameAndApplication _getConfigurationByNameAndApplication;
         private readonly IGetAllConfigurationsByApplicationId _getAllConfigurationsByApplicationId;
         private readonly ICreateConfiguration _createConfiguration;

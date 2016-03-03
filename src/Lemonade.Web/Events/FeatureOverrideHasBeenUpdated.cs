@@ -1,3 +1,5 @@
+using Lemonade.Web.Infrastructure;
+
 namespace Lemonade.Web.Events
 {
     public class FeatureOverrideHasBeenUpdated : IDomainEvent

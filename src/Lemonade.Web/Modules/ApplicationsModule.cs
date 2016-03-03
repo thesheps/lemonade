@@ -8,13 +8,15 @@ using Lemonade.Data.Exceptions;
 using Lemonade.Data.Queries;
 using Lemonade.Web.Contracts;
 using Lemonade.Web.Events;
+using Lemonade.Web.Infrastructure;
 
 namespace Lemonade.Web.Modules
 {
     public class ApplicationsModule : NancyModule
     {
-        public ApplicationsModule(IGetAllApplications getAllApplications, ICreateApplication createApplication, IUpdateApplication updateApplication, IDeleteApplication deleteApplication)
+        public ApplicationsModule(IDomainEventDispatcher eventDispatcher, IGetAllApplications getAllApplications, ICreateApplication createApplication, IUpdateApplication updateApplication, IDeleteApplication deleteApplication)
         {
+            _eventDispatcher = eventDispatcher;
             _getAllApplications = getAllApplications;
             _createApplication = createApplication;
             _updateApplication = updateApplication;
@@ -37,13 +39,13 @@ namespace Lemonade.Web.Modules
             {
                 var application = this.Bind<Application>().ToEntity();
                 _createApplication.Execute(application);
-                DomainEvents.Raise(new ApplicationHasBeenCreated(application.ApplicationId, application.Name));
+                _eventDispatcher.Dispatch(new ApplicationHasBeenCreated(application.ApplicationId, application.Name));
 
                 return HttpStatusCode.OK;
             }
             catch (CreateApplicationException exception)
             {
-                DomainEvents.Raise(new ApplicationErrorHasOccurred(exception.Message));
+                _eventDispatcher.Dispatch(new ApplicationErrorHasOccurred(exception.Message));
                 return HttpStatusCode.BadRequest;
             }
         }
@@ -54,13 +56,13 @@ namespace Lemonade.Web.Modules
             {
                 var application = this.Bind<Application>();
                 _updateApplication.Execute(application.ToEntity());
-                DomainEvents.Raise(new ApplicationHasBeenUpdated(application.ApplicationId, application.Name));
+                _eventDispatcher.Dispatch(new ApplicationHasBeenUpdated(application.ApplicationId, application.Name));
 
                 return HttpStatusCode.OK;
             }
             catch (UpdateApplicationException exception)
             {
-                DomainEvents.Raise(new ApplicationErrorHasOccurred(exception.Message));
+                _eventDispatcher.Dispatch(new ApplicationErrorHasOccurred(exception.Message));
                 return HttpStatusCode.BadRequest;
             }
         }
@@ -73,16 +75,17 @@ namespace Lemonade.Web.Modules
             try
             {
                 _deleteApplication.Execute(applicationId);
-                DomainEvents.Raise(new ApplicationHasBeenDeleted(applicationId));
+                _eventDispatcher.Dispatch(new ApplicationHasBeenDeleted(applicationId));
                 return HttpStatusCode.OK;
             }
             catch (DeleteApplicationException exception)
             {
-                DomainEvents.Raise(new ApplicationErrorHasOccurred(exception.Message));
+                _eventDispatcher.Dispatch(new ApplicationErrorHasOccurred(exception.Message));
                 return HttpStatusCode.BadRequest;
             }
         }
 
+        private readonly IDomainEventDispatcher _eventDispatcher;
         private readonly IGetAllApplications _getAllApplications;
         private readonly ICreateApplication _createApplication;
         private readonly IUpdateApplication _updateApplication;

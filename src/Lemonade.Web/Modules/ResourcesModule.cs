@@ -5,6 +5,7 @@ using Lemonade.Data.Exceptions;
 using Lemonade.Data.Queries;
 using Lemonade.Web.Contracts;
 using Lemonade.Web.Events;
+using Lemonade.Web.Infrastructure;
 using Lemonade.Web.Mappers;
 using Nancy;
 using Nancy.ModelBinding;
@@ -13,8 +14,9 @@ namespace Lemonade.Web.Modules
 {
     public class ResourcesModule : NancyModule
     {
-        public ResourcesModule(IGetResource getResource, IGetAllResourcesByApplicationId getAllResourcesbyApplicationId, ICreateResource createResource, IDeleteResource deleteResource, IUpdateResource updateResource)
+        public ResourcesModule(IDomainEventDispatcher eventDispatcher, IGetResource getResource, IGetAllResourcesByApplicationId getAllResourcesbyApplicationId, ICreateResource createResource, IDeleteResource deleteResource, IUpdateResource updateResource)
         {
+            _eventDispatcher = eventDispatcher;
             _getResource = getResource;
             _getAllResourcesbyApplicationId = getAllResourcesbyApplicationId;
             _createResource = createResource;
@@ -54,13 +56,13 @@ namespace Lemonade.Web.Modules
             {
                 var resource = this.Bind<Resource>().ToEntity();
                 _createResource.Execute(resource);
-                DomainEvents.Raise(new ResourceHasBeenCreated(resource.ResourceId, resource.ApplicationId, resource.ResourceSet, resource.ResourceKey, resource.Locale, resource.Value));
+                _eventDispatcher.Dispatch(new ResourceHasBeenCreated(resource.ResourceId, resource.ApplicationId, resource.ResourceSet, resource.ResourceKey, resource.Locale, resource.Value));
 
                 return HttpStatusCode.OK;
             }
             catch (CreateResourceException exception)
             {
-                DomainEvents.Raise(new ResourceErrorHasOccurred(exception.Message));
+                _eventDispatcher.Dispatch(new ResourceErrorHasOccurred(exception.Message));
                 return HttpStatusCode.BadRequest;
             }
         }
@@ -71,13 +73,13 @@ namespace Lemonade.Web.Modules
             {
                 var resource = this.Bind<Resource>();
                 _updateResource.Execute(resource.ToEntity());
-                DomainEvents.Raise(new ResourceHasBeenUpdated(resource.ResourceId, resource.ApplicationId, resource.ResourceSet, resource.ResourceKey, resource.Locale, resource.Value));
+                _eventDispatcher.Dispatch(new ResourceHasBeenUpdated(resource.ResourceId, resource.ApplicationId, resource.ResourceSet, resource.ResourceKey, resource.Locale, resource.Value));
 
                 return HttpStatusCode.OK;
             }
             catch (UpdateFeatureException exception)
             {
-                DomainEvents.Raise(new ResourceErrorHasOccurred(exception.Message));
+                _eventDispatcher.Dispatch(new ResourceErrorHasOccurred(exception.Message));
                 return HttpStatusCode.BadRequest;
             }
         }
@@ -90,16 +92,17 @@ namespace Lemonade.Web.Modules
             try
             {
                 _deleteResource.Execute(resourceId);
-                DomainEvents.Raise(new ResourceHasBeenDeleted(resourceId));
+                _eventDispatcher.Dispatch(new ResourceHasBeenDeleted(resourceId));
                 return HttpStatusCode.OK;
             }
             catch (DeleteResourceException exception)
             {
-                DomainEvents.Raise(new ResourceErrorHasOccurred(exception.Message));
+                _eventDispatcher.Dispatch(new ResourceErrorHasOccurred(exception.Message));
                 return HttpStatusCode.BadRequest;
             }
         }
 
+        private readonly IDomainEventDispatcher _eventDispatcher;
         private readonly IGetResource _getResource;
         private readonly IGetAllResourcesByApplicationId _getAllResourcesbyApplicationId;
         private readonly ICreateResource _createResource;
