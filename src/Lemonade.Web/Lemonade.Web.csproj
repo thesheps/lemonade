@@ -95,6 +95,8 @@
     <Compile Include="EventHandlers\FeatureErrorHasOccurredHandler.cs" />
     <Compile Include="Infrastructure\CamelCasePropertyNameContractResolver.cs" />
     <Compile Include="EventHandlers\FeatureOverrideErrorHasOccurredHandler.cs" />
+    <Compile Include="Infrastructure\CommandInstaller.cs" />
+    <Compile Include="Infrastructure\DomainEventInstaller.cs" />
     <Compile Include="Infrastructure\LemonadeBooststrapper.cs" />
     <Compile Include="Mappers\ConfigurationMapper.cs" />
     <Compile Include="Mappers\ResourceMapper.cs" />
