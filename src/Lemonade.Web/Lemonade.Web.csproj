@@ -75,6 +75,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommandHandlers\CreateApplicationCommandHandler.cs" />
     <Compile Include="EventHandlers\FeatureOverrideHasBeenUpdatedHandler.cs" />
     <Compile Include="EventHandlers\ResourceHasBeenUpdatedHandler.cs" />
     <Compile Include="EventHandlers\FeatureHasBeenUpdatedHandler.cs" />

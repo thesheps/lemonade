@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using Lemonade.Web.CommandHandlers;
+using Lemonade.Web.Core.Commands;
 using Lemonade.Web.Core.Events;
 using Lemonade.Web.EventHandlers;
 using Microsoft.AspNet.SignalR;
@@ -16,11 +18,16 @@ using Nancy.ViewEngines;
 
 namespace Lemonade.Web.Infrastructure
 {
-    public class LemonadeBootstrapper : DefaultNancyBootstrapper, IDomainEventDispatcher
+    public class LemonadeBootstrapper : DefaultNancyBootstrapper, IDomainEventDispatcher, ICommandDispatcher
     {
-        public void Dispatch<TEvent>(TEvent @event) where TEvent : IDomainEvent
+        void IDomainEventDispatcher.Dispatch<TEvent>(TEvent @event)
         {
             _container.ResolveAll<IDomainEventHandler<TEvent>>().ToList().ForEach(h => h.Handle(@event));
+        }
+
+        void ICommandDispatcher.Dispatch<TCommand>(TCommand command)
+        {
+            _container.ResolveAll<ICommandHandler<TCommand>>().ToList().ForEach(h => h.Handle(command));
         }
 
         public void AddDependency(Action<TinyIoCContainer> dependency)
@@ -51,28 +58,26 @@ namespace Lemonade.Web.Infrastructure
             _container.Register<IDomainEventHandler<ConfigurationHasBeenUpdated>, ConfigurationHasBeenUpdatedHandler>();
             _container.Register<IDomainEventHandler<ConfigurationHasBeenDeleted>, ConfigurationHasBeenDeletedHandler>();
             _container.Register<IDomainEventHandler<ConfigurationErrorHasOccurred>, ConfigurationErrorHasOccurredHandler>();
-
             _container.Register<IDomainEventHandler<ApplicationHasBeenCreated>, ApplicationHasBeenCreatedHandler>();
             _container.Register<IDomainEventHandler<ApplicationHasBeenUpdated>, ApplicationHasBeenUpdatedHandler>();
             _container.Register<IDomainEventHandler<ApplicationHasBeenDeleted>, ApplicationHasBeenDeletedHandler>();
             _container.Register<IDomainEventHandler<ApplicationErrorHasOccurred>, ApplicationErrorHasOccurredHandler>();
-
             _container.Register<IDomainEventHandler<FeatureHasBeenCreated>, FeatureHasBeenCreatedHandler>();
             _container.Register<IDomainEventHandler<FeatureHasBeenUpdated>, FeatureHasBeenUpdatedHandler>();
             _container.Register<IDomainEventHandler<FeatureHasBeenDeleted>, FeatureHasBeenDeletedHandler>();
             _container.Register<IDomainEventHandler<FeatureErrorHasOccurred>, FeatureErrorHasOccurredHandler>();
-
             _container.Register<IDomainEventHandler<FeatureOverrideHasBeenCreated>, FeatureOverrideHasBeenCreatedHandler>();
             _container.Register<IDomainEventHandler<FeatureOverrideHasBeenUpdated>, FeatureOverrideHasBeenUpdatedHandler>();
             _container.Register<IDomainEventHandler<FeatureOverrideHasBeenDeleted>, FeatureOverrideHasBeenDeletedHandler>();
             _container.Register<IDomainEventHandler<FeatureOverrideErrorHasOccurred>, FeatureOverrideErrorHasOccurredHandler>();
-
             _container.Register<IDomainEventHandler<ResourceHasBeenCreated>, ResourceHasBeenCreatedHandler>();
             _container.Register<IDomainEventHandler<ResourceHasBeenUpdated>, ResourceHasBeenUpdatedHandler>();
             _container.Register<IDomainEventHandler<ResourceHasBeenDeleted>, ResourceHasBeenDeletedHandler>();
             _container.Register<IDomainEventHandler<ResourceErrorHasOccurred>, ResourceErrorHasOccurredHandler>();
 
             _container.Register<IDomainEventDispatcher>(this);
+            _container.Register<ICommandDispatcher>(this);
+            _container.Register<ICommandHandler<CreateApplicationCommand>, CreateApplicationCommandHandler>();
 
             _container.Register(GlobalHost.ConnectionManager);
 

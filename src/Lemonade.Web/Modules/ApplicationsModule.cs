@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Lemonade.Web.Mappers;
 using Nancy;
 using Nancy.ModelBinding;
@@ -7,17 +8,18 @@ using Lemonade.Data.Commands;
 using Lemonade.Data.Exceptions;
 using Lemonade.Data.Queries;
 using Lemonade.Web.Contracts;
+using Lemonade.Web.Core.Commands;
 using Lemonade.Web.Core.Events;
 
 namespace Lemonade.Web.Modules
 {
     public class ApplicationsModule : NancyModule
     {
-        public ApplicationsModule(IDomainEventDispatcher eventDispatcher, IGetAllApplications getAllApplications, ICreateApplication createApplication, IUpdateApplication updateApplication, IDeleteApplication deleteApplication)
+        public ApplicationsModule(IDomainEventDispatcher eventDispatcher, ICommandDispatcher commandDispatcher, IGetAllApplications getAllApplications, IUpdateApplication updateApplication, IDeleteApplication deleteApplication)
         {
             _eventDispatcher = eventDispatcher;
+            _commandDispatcher = commandDispatcher;
             _getAllApplications = getAllApplications;
-            _createApplication = createApplication;
             _updateApplication = updateApplication;
             _deleteApplication = deleteApplication;
 
@@ -36,15 +38,11 @@ namespace Lemonade.Web.Modules
         {
             try
             {
-                var application = this.Bind<Application>().ToEntity();
-                _createApplication.Execute(application);
-                _eventDispatcher.Dispatch(new ApplicationHasBeenCreated(application.ApplicationId, application.Name));
-
+                _commandDispatcher.Dispatch(new CreateApplicationCommand(this.Bind<Application>().Name));
                 return HttpStatusCode.OK;
             }
-            catch (CreateApplicationException exception)
+            catch (Exception)
             {
-                _eventDispatcher.Dispatch(new ApplicationErrorHasOccurred(exception.Message));
                 return HttpStatusCode.BadRequest;
             }
         }
@@ -85,8 +83,8 @@ namespace Lemonade.Web.Modules
         }
 
         private readonly IDomainEventDispatcher _eventDispatcher;
+        private readonly ICommandDispatcher _commandDispatcher;
         private readonly IGetAllApplications _getAllApplications;
-        private readonly ICreateApplication _createApplication;
         private readonly IUpdateApplication _updateApplication;
         private readonly IDeleteApplication _deleteApplication;
     }
