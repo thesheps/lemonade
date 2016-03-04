@@ -7,8 +7,7 @@ using Lemonade.Data.Commands;
 using Lemonade.Data.Exceptions;
 using Lemonade.Data.Queries;
 using Lemonade.Web.Contracts;
-using Lemonade.Web.Events;
-using Lemonade.Web.Infrastructure;
+using Lemonade.Web.Core.Events;
 
 namespace Lemonade.Web.Modules
 {

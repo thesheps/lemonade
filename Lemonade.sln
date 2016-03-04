@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lemonade.Tests", "tests\Lemonade.Tests\Lemonade.Tests.csproj", "{2AD17D00-0D39-409E-9ED7-AE3C259DE846}"
 EndProject
@@ -39,6 +39,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lemonade.Data", "src\Lemonade.Data\Lemonade.Data.csproj", "{A9171A74-BFAD-4C2E-A8E2-54BC2BCE496C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lemonade.Core", "src\Lemonade.Core\Lemonade.Core.csproj", "{EE4CB55F-6CFF-47E0-82B1-A2A6E0D9EECF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lemonade.Web.Core", "src\Lemonade.Web.Core\Lemonade.Web.Core.csproj", "{8DC27E9B-C739-44D3-BCCE-5545CFCA8098}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -94,6 +96,10 @@ Global
 		{EE4CB55F-6CFF-47E0-82B1-A2A6E0D9EECF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EE4CB55F-6CFF-47E0-82B1-A2A6E0D9EECF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EE4CB55F-6CFF-47E0-82B1-A2A6E0D9EECF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8DC27E9B-C739-44D3-BCCE-5545CFCA8098}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8DC27E9B-C739-44D3-BCCE-5545CFCA8098}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8DC27E9B-C739-44D3-BCCE-5545CFCA8098}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8DC27E9B-C739-44D3-BCCE-5545CFCA8098}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -111,5 +117,6 @@ Global
 		{BBFBD9FF-4E2D-41E4-A8BD-AB482E0D7139} = {C92253CB-CC26-4544-9469-C7677DB42084}
 		{A9171A74-BFAD-4C2E-A8E2-54BC2BCE496C} = {C92253CB-CC26-4544-9469-C7677DB42084}
 		{EE4CB55F-6CFF-47E0-82B1-A2A6E0D9EECF} = {C92253CB-CC26-4544-9469-C7677DB42084}
+		{8DC27E9B-C739-44D3-BCCE-5545CFCA8098} = {C92253CB-CC26-4544-9469-C7677DB42084}
 	EndGlobalSection
 EndGlobal

@@ -1,5 +1,5 @@
 ﻿using Lemonade.Web;
-using Lemonade.Web.Events;
+using Lemonade.Web.Core.Events;
 using Lemonade.Web.Infrastructure;
 using Microsoft.AspNet.SignalR;
 using Microsoft.Owin;

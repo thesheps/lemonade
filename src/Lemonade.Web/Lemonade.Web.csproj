@@ -92,37 +92,14 @@
     <Compile Include="EventHandlers\FeatureOverrideHasBeenDeletedHandler.cs" />
     <Compile Include="EventHandlers\FeatureHasBeenDeletedHandler.cs" />
     <Compile Include="EventHandlers\FeatureErrorHasOccurredHandler.cs" />
-    <Compile Include="Events\ApplicationHasBeenCreated.cs" />
-    <Compile Include="Events\ApplicationHasBeenDeleted.cs" />
-    <Compile Include="Events\ApplicationErrorHasOccurred.cs" />
-    <Compile Include="Events\FeatureErrorHasOccurred.cs" />
-    <Compile Include="Events\FeatureHasBeenCreated.cs" />
-    <Compile Include="Events\FeatureHasBeenDeleted.cs" />
-    <Compile Include="Events\FeatureHasBeenUpdated.cs" />
-    <Compile Include="Events\FeatureOverrideErrorHasOccurred.cs" />
-    <Compile Include="Infrastructure\IDomainEvent.cs" />
-    <Compile Include="Infrastructure\IDomainEventDispatcher.cs" />
-    <Compile Include="Infrastructure\IDomainEventHandler.cs" />
     <Compile Include="Infrastructure\CamelCasePropertyNameContractResolver.cs" />
-    <Compile Include="Events\ApplicationHasBeenUpdated.cs" />
     <Compile Include="EventHandlers\FeatureOverrideErrorHasOccurredHandler.cs" />
     <Compile Include="Infrastructure\LemonadeBooststrapper.cs" />
     <Compile Include="Mappers\ConfigurationMapper.cs" />
     <Compile Include="Mappers\ResourceMapper.cs" />
     <Compile Include="Mappers\FeatureOverrideMapper.cs" />
-    <Compile Include="Events\FeatureOverrideHasBeenDeleted.cs" />
-    <Compile Include="Events\FeatureOverrideHasBeenCreated.cs" />
-    <Compile Include="Events\FeatureOverrideHasBeenUpdated.cs" />
-    <Compile Include="Events\ConfigurationHasBeenCreated.cs" />
-    <Compile Include="Events\ConfigurationErrorHasOccurred.cs" />
-    <Compile Include="Events\ConfigurationHasBeenUpdated.cs" />
-    <Compile Include="Events\ConfigurationHasBeenDeleted.cs" />
     <Compile Include="Modules\FeatureOverridesModule.cs" />
     <Compile Include="Modules\ConfigurationsModule.cs" />
-    <Compile Include="Events\ResourceHasBeenCreated.cs" />
-    <Compile Include="Events\ResourceErrorHasOccurred.cs" />
-    <Compile Include="Events\ResourceHasBeenDeleted.cs" />
-    <Compile Include="Events\ResourceHasBeenUpdated.cs" />
     <Compile Include="Modules\ResourcesModule.cs" />
     <Compile Include="Modules\IndexModule.cs" />
     <Compile Include="Startup.cs" />
@@ -254,6 +231,10 @@
     <ProjectReference Include="..\Lemonade.Web.Contracts\Lemonade.Web.Contracts.csproj">
       <Project>{DF4CCA5C-FF05-4471-BF04-C4E36C7101D8}</Project>
       <Name>Lemonade.Web.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Lemonade.Web.Core\Lemonade.Web.Core.csproj">
+      <Project>{8DC27E9B-C739-44D3-BCCE-5545CFCA8098}</Project>
+      <Name>Lemonade.Web.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

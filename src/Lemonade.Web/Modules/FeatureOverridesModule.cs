@@ -2,8 +2,7 @@
 using Lemonade.Data.Exceptions;
 using Lemonade.Data.Queries;
 using Lemonade.Web.Contracts;
-using Lemonade.Web.Events;
-using Lemonade.Web.Infrastructure;
+using Lemonade.Web.Core.Events;
 using Lemonade.Web.Mappers;
 using Nancy;
 using Nancy.ModelBinding;

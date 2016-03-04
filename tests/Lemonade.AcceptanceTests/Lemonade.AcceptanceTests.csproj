@@ -121,6 +121,10 @@
       <Project>{06665811-5ED9-4088-81B2-805E80119772}</Project>
       <Name>Lemonade.Sql</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\src\Lemonade.Web.Core\Lemonade.Web.Core.csproj">
+      <Project>{8dc27e9b-c739-44d3-bcce-5545cfca8098}</Project>
+      <Name>Lemonade.Web.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\src\Lemonade.Web\Lemonade.Web.csproj">
       <Project>{F3F461B3-2FC8-4704-9A8E-7B9A490668C9}</Project>
       <Name>Lemonade.Web</Name>
