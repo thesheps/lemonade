@@ -5,11 +5,8 @@ using Lemonade.Services;
 using Lemonade.Sql.Commands;
 using Lemonade.Sql.Migrations;
 using Lemonade.Sql.Queries;
-using Lemonade.Web.Infrastructure;
 using Lemonade.Web.Mappers;
 using Lemonade.Web.Tests.Mocks;
-using Microsoft.AspNet.SignalR;
-using Microsoft.AspNet.SignalR.Infrastructure;
 using Nancy.Testing;
 using Newtonsoft.Json;
 using NSubstitute;
@@ -29,20 +26,11 @@ namespace Lemonade.Web.Tests
             _getApplication = new GetApplicationByName();
             _getFeature = new GetFeatureByNameAndApplication();
             _server = new Server(64978);
+            _testBootstrapper = new TestBootstrapper();
+            _browser = new Browser(_testBootstrapper, context => context.UserHostAddress("localhost"));
+
             Runner.SqlCompact(ConnectionString).Down();
             Runner.SqlCompact(ConnectionString).Up();
-
-            var hubContext = Substitute.For<IHubContext>();
-            var connectionManager = Substitute.For<IConnectionManager>();
-            connectionManager.GetHubContext<LemonadeHub>().Returns(hubContext);
-
-            _mockClient = Substitute.For<IMockClient>();
-            SubstituteExtensions.Returns(hubContext.Clients.All, _mockClient);
-
-            var bootstrapper = new LemonadeBootstrapper();
-            bootstrapper.AddDependency(c => c.Register(connectionManager));
-
-            _browser = new Browser(bootstrapper, context => context.UserHostAddress("localhost"));
         }
 
         [TearDown]
@@ -82,7 +70,11 @@ namespace Lemonade.Web.Tests
             var feature = GetFeatureModel("MySuperCoolFeature1", _getApplication.Execute(application.Name).ToContract());
 
             Post(feature);
-            _mockClient.Received().addFeature(Arg.Any<dynamic>());
+
+            _testBootstrapper
+                .Resolve<IMockClient>()
+                .Received()
+                .addFeature(Arg.Any<dynamic>());
         }
 
         [Test]
@@ -190,7 +182,7 @@ namespace Lemonade.Web.Tests
         private CreateApplication _createApplication;
         private GetApplicationByName _getApplication;
         private GetFeatureByNameAndApplication _getFeature;
-        private IMockClient _mockClient;
+        private TestBootstrapper _testBootstrapper;
         private const string ConnectionString = "Lemonade";
     }
 }

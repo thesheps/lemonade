@@ -1,10 +1,7 @@
 ﻿using System.Collections.Generic;
 using Lemonade.Sql.Migrations;
 using Lemonade.Web.Contracts;
-using Lemonade.Web.Infrastructure;
 using Lemonade.Web.Tests.Mocks;
-using Microsoft.AspNet.SignalR;
-using Microsoft.AspNet.SignalR.Infrastructure;
 using Nancy;
 using Nancy.Testing;
 using Newtonsoft.Json;
@@ -23,17 +20,8 @@ namespace Lemonade.Web.Tests
             Runner.SqlCompact(ConnectionString).Down();
             Runner.SqlCompact(ConnectionString).Up();
 
-            var hubContext = Substitute.For<IHubContext>();
-            var connectionManager = Substitute.For<IConnectionManager>();
-            connectionManager.GetHubContext<LemonadeHub>().Returns(hubContext);
-
-            _mockClient = Substitute.For<IMockClient>();
-            SubstituteExtensions.Returns(hubContext.Clients.All, _mockClient);
-
-            var bootstrapper = new LemonadeBootstrapper();
-            bootstrapper.AddDependency(c => c.Register(connectionManager));
-
-            _browser = new Browser(bootstrapper, context => context.UserHostAddress("TEST"));
+            _bootstrapper = new TestBootstrapper();
+            _browser = new Browser(_bootstrapper, context => context.UserHostAddress("TEST"));
             Post(new Application { Name = "TestApplication1", ApplicationId = 1 });
         }
 
@@ -67,7 +55,11 @@ namespace Lemonade.Web.Tests
         public void WhenIPostAConfiguration_ThenSignalRClientsAreNotified()
         {
             Post(new Contracts.Configuration { Name = "TestConfig", Value = "Test", ConfigurationId = 1, ApplicationId = 1 });
-            _mockClient.Received().addConfiguration(Arg.Any<dynamic>());
+
+            _bootstrapper
+                .Resolve<IMockClient>()
+                .Received()
+                .addConfiguration(Arg.Any<dynamic>());
         }
 
         [Test]
@@ -108,7 +100,11 @@ namespace Lemonade.Web.Tests
         {
             Post(new Contracts.Configuration { Name = "TestConfig", Value = "Test", ConfigurationId = 1, ApplicationId = 1 });
             Delete(new Contracts.Configuration { ConfigurationId = 1 });
-            _mockClient.Received().removeConfiguration(Arg.Any<dynamic>());
+
+            _bootstrapper
+                .Resolve<IMockClient>()
+                .Received()
+                .removeConfiguration(Arg.Any<dynamic>());
         }
 
         private void Post(Application application)
@@ -148,9 +144,9 @@ namespace Lemonade.Web.Tests
             });
         }
 
-        private IMockClient _mockClient;
         private Server _server;
         private Browser _browser;
+        private TestBootstrapper _bootstrapper;
         private const string ConnectionString = "Lemonade";
     }
 }

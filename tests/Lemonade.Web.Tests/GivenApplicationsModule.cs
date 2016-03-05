@@ -1,10 +1,7 @@
 ﻿using System.Collections.Generic;
 using Lemonade.Sql.Migrations;
 using Lemonade.Web.Contracts;
-using Lemonade.Web.Infrastructure;
 using Lemonade.Web.Tests.Mocks;
-using Microsoft.AspNet.SignalR;
-using Microsoft.AspNet.SignalR.Infrastructure;
 using Nancy;
 using Nancy.Testing;
 using Newtonsoft.Json;
@@ -23,17 +20,8 @@ namespace Lemonade.Web.Tests
             Runner.SqlCompact(ConnectionString).Down();
             Runner.SqlCompact(ConnectionString).Up();
 
-            var hubContext = Substitute.For<IHubContext>();
-            var connectionManager = Substitute.For<IConnectionManager>();
-            connectionManager.GetHubContext<LemonadeHub>().Returns(hubContext);
-
-            _mockClient = Substitute.For<IMockClient>();
-            SubstituteExtensions.Returns(hubContext.Clients.All, _mockClient);
-
-            var bootstrapper = new LemonadeBootstrapper();
-            bootstrapper.AddDependency(c => c.Register(connectionManager));
-
-            _browser = new Browser(bootstrapper, context => context.UserHostAddress("TEST"));
+            _bootstrapper = new TestBootstrapper();
+            _browser = new Browser(_bootstrapper, context => context.UserHostAddress("TEST"));
         }
 
         [TearDown]
@@ -60,7 +48,11 @@ namespace Lemonade.Web.Tests
         public void WhenIPostAnApplication_ThenSignalRClientsAreNotified()
         {
             Post(new Application { Name = "TestApplication1" });
-            _mockClient.Received().addApplication(Arg.Any<dynamic>());
+
+            _bootstrapper
+                .Resolve<IMockClient>()
+                .Received()
+                .addApplication(Arg.Any<dynamic>());
         }
 
         [Test]
@@ -95,7 +87,11 @@ namespace Lemonade.Web.Tests
         {
             Post(new Application { Name = "TestApplication1" });
             Delete(new Application { Name = "TestApplication1" });
-            _mockClient.Received().removeApplication(Arg.Any<dynamic>());
+
+            _bootstrapper
+                .Resolve<IMockClient>()
+                .Received()
+                .removeApplication(Arg.Any<dynamic>());
         }
 
         private void Post(Application application)
@@ -126,9 +122,9 @@ namespace Lemonade.Web.Tests
             });
         }
 
-        private IMockClient _mockClient;
         private Server _server;
         private Browser _browser;
+        private TestBootstrapper _bootstrapper;
         private const string ConnectionString = "Lemonade";
     }
 }

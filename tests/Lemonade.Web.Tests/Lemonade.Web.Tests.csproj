@@ -108,6 +108,7 @@
     <Compile Include="GivenApplicationsModule.cs" />
     <Compile Include="GivenFeaturesModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestBootstrapper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

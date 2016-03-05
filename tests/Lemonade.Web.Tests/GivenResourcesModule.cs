@@ -3,11 +3,8 @@ using Lemonade.Sql.Commands;
 using Lemonade.Sql.Migrations;
 using Lemonade.Sql.Queries;
 using Lemonade.Web.Contracts;
-using Lemonade.Web.Infrastructure;
 using Lemonade.Web.Mappers;
 using Lemonade.Web.Tests.Mocks;
-using Microsoft.AspNet.SignalR;
-using Microsoft.AspNet.SignalR.Infrastructure;
 using Nancy.Testing;
 using Newtonsoft.Json;
 using NSubstitute;
@@ -30,17 +27,8 @@ namespace Lemonade.Web.Tests
             Runner.SqlCompact(ConnectionString).Down();
             Runner.SqlCompact(ConnectionString).Up();
 
-            var hubContext = Substitute.For<IHubContext>();
-            var connectionManager = Substitute.For<IConnectionManager>();
-            connectionManager.GetHubContext<LemonadeHub>().Returns(hubContext);
-
-            _mockClient = Substitute.For<IMockClient>();
-            SubstituteExtensions.Returns(hubContext.Clients.All, _mockClient);
-
-            var bootstrapper = new LemonadeBootstrapper();
-            bootstrapper.AddDependency(c => c.Register(connectionManager));
-
-            _browser = new Browser(bootstrapper, context => context.UserHostAddress("localhost"));
+            _bootstrapper = new TestBootstrapper();
+            _browser = new Browser(_bootstrapper, context => context.UserHostAddress("localhost"));
         }
 
         [TearDown]
@@ -94,7 +82,11 @@ namespace Lemonade.Web.Tests
 
             var result = JsonConvert.DeserializeObject<IList<Resource>>(response.Body.AsString());
             Assert.That(result.Count, Is.EqualTo(3));
-            _mockClient.Received().addResource(Arg.Any<dynamic>());
+
+            _bootstrapper
+                .Resolve<IMockClient>()
+                .Received()
+                .addResource(Arg.Any<dynamic>());
         }
 
         [Test]
@@ -110,7 +102,11 @@ namespace Lemonade.Web.Tests
 
             var resource = _getResource.Execute(application.Name, "Test", "Test", "Test");
             Assert.That(resource, Is.Null);
-            _mockClient.Received().removeResource(Arg.Any<dynamic>());
+
+            _bootstrapper
+                .Resolve<IMockClient>()
+                .Received()
+                .removeResource(Arg.Any<dynamic>());
         }
 
         [Test]
@@ -130,7 +126,11 @@ namespace Lemonade.Web.Tests
 
             resource = _getResource.Execute(application.Name, "Test", "Test", "Test");
             Assert.That(resource.Value, Is.EqualTo("Ponies"));
-            _mockClient.Received().updateResource(Arg.Any<dynamic>());
+
+            _bootstrapper
+                .Resolve<IMockClient>()
+                .Received()
+                .updateResource(Arg.Any<dynamic>());
         }
 
         private void Post(Resource resource)
@@ -169,7 +169,7 @@ namespace Lemonade.Web.Tests
         private CreateApplication _createApplication;
         private GetApplicationByName _getApplication;
         private GetResource _getResource;
-        private IMockClient _mockClient;
+        private TestBootstrapper _bootstrapper;
         private const string ConnectionString = "Lemonade";
     }
 }

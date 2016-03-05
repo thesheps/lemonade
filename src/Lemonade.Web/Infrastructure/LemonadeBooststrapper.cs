@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -16,11 +15,6 @@ namespace Lemonade.Web.Infrastructure
 {
     public class LemonadeBootstrapper : DefaultNancyBootstrapper
     {
-        public void AddDependency(Action<TinyIoCContainer> dependency)
-        {
-            _dependencies.Add(dependency);
-        }
-
         protected override void ConfigureConventions(NancyConventions conventions)
         {
             base.ConfigureConventions(conventions);
@@ -33,21 +27,18 @@ namespace Lemonade.Web.Infrastructure
 
         protected override void ConfigureApplicationContainer(TinyIoCContainer container)
         {
-            container
-                .InstallCommandHandlers()
-                .InstallDomainEventHandlers();
-
             base.ConfigureApplicationContainer(container);
-
-            container.Register(GlobalHost.ConnectionManager);
 
             ConfigureDependencies(container);
 
-            _dependencies.ForEach(d => d(container));
+            container
+                .InstallCommandHandlers()
+                .InstallDomainEventHandlers();
         }
 
         protected virtual void ConfigureDependencies(TinyIoCContainer container)
         {
+            container.Register(GlobalHost.ConnectionManager);
         }
 
         protected override NancyInternalConfiguration InternalConfiguration
@@ -73,7 +64,5 @@ namespace Lemonade.Web.Infrastructure
                     : null;
             });
         }
-
-        private readonly List<Action<TinyIoCContainer>> _dependencies = new List<Action<TinyIoCContainer>>();
     }
 }

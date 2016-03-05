@@ -1,13 +1,9 @@
-﻿using Lemonade.AcceptanceTests;
-using Lemonade.Sql.Commands;
+﻿using Lemonade.Sql.Commands;
 using Lemonade.Sql.Migrations;
 using Lemonade.Sql.Queries;
 using Lemonade.Web.Contracts;
-using Lemonade.Web.Infrastructure;
 using Lemonade.Web.Mappers;
 using Lemonade.Web.Tests.Mocks;
-using Microsoft.AspNet.SignalR;
-using Microsoft.AspNet.SignalR.Infrastructure;
 using Nancy;
 using Nancy.Testing;
 using Newtonsoft.Json;
@@ -32,17 +28,8 @@ namespace Lemonade.Web.Tests
             Runner.SqlCompact(ConnectionString).Down();
             Runner.SqlCompact(ConnectionString).Up();
 
-            var hubContext = Substitute.For<IHubContext>();
-            var connectionManager = Substitute.For<IConnectionManager>();
-            connectionManager.GetHubContext<LemonadeHub>().Returns(hubContext);
-
-            _mockClient = Substitute.For<IMockClient>();
-            SubstituteExtensions.Returns(hubContext.Clients.All, _mockClient);
-
-            var bootstrapper = new LemonadeBootstrapper();
-            bootstrapper.AddDependency(c => c.Register(connectionManager));
-
-            _browser = new Browser(bootstrapper, context => context.UserHostAddress("localhost"));
+            _bootstrapper = new TestBootstrapper();
+            _browser = new Browser(_bootstrapper, context => context.UserHostAddress("localhost"));
         }
 
         [TearDown]
@@ -89,7 +76,11 @@ namespace Lemonade.Web.Tests
             var featureOverride = new Data.Entities.FeatureOverride { FeatureId = feature.FeatureId, Hostname = "Test", IsEnabled = true };
 
             Post(featureOverride.ToContract());
-            _mockClient.Received().addFeatureOverride(Arg.Any<dynamic>());
+
+            _bootstrapper
+                .Resolve<IMockClient>()
+                .Received()
+                .addFeatureOverride(Arg.Any<dynamic>());
         }
 
         [Test]
@@ -154,7 +145,7 @@ namespace Lemonade.Web.Tests
         private CreateApplication _createApplication;
         private CreateFeature _createFeature;
         private CreateFeatureOverride _createFeatureOverride;
-        private IMockClient _mockClient;
+        private TestBootstrapper _bootstrapper;
         private const string ConnectionString = "Lemonade";
     }
 }
