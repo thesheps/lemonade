@@ -46,6 +46,7 @@
     <Compile Include="CommandHandlers\DeleteFeatureCommandHandler.cs" />
     <Compile Include="CommandHandlers\DeleteFeatureOverrideCommandHandler.cs" />
     <Compile Include="CommandHandlers\DeleteResourceCommandHandler.cs" />
+    <Compile Include="CommandHandlers\ICommandHandler.cs" />
     <Compile Include="CommandHandlers\UpdateFeatureCommandHandler.cs" />
     <Compile Include="CommandHandlers\UpdateFeatureOverrideCommandHandler.cs" />
     <Compile Include="CommandHandlers\UpdateResourceCommandHandler.cs" />
@@ -66,8 +67,6 @@
     <Compile Include="CommandHandlers\DeleteApplicationCommandHandler.cs" />
     <Compile Include="Commands\DeleteApplicationCommand.cs" />
     <Compile Include="Commands\CreateApplicationCommand.cs" />
-    <Compile Include="Commands\ICommandDispatcher.cs" />
-    <Compile Include="Commands\ICommandHandler.cs" />
     <Compile Include="Commands\ICommand.cs" />
     <Compile Include="Commands\UpdateApplicationCommand.cs" />
     <Compile Include="Commands\UpdateFeatureCommand.cs" />
@@ -89,6 +88,7 @@
     <Compile Include="EventHandlers\FeatureOverrideHasBeenCreatedHandler.cs" />
     <Compile Include="EventHandlers\FeatureOverrideHasBeenDeletedHandler.cs" />
     <Compile Include="EventHandlers\FeatureOverrideHasBeenUpdatedHandler.cs" />
+    <Compile Include="EventHandlers\IDomainEventHandler.cs" />
     <Compile Include="EventHandlers\ResourceErrorHasOccurredHandler.cs" />
     <Compile Include="EventHandlers\ResourceHasBeenCreatedHandler.cs" />
     <Compile Include="EventHandlers\ResourceHasBeenDeletedHandler.cs" />
@@ -110,13 +110,13 @@
     <Compile Include="Events\FeatureOverrideHasBeenDeleted.cs" />
     <Compile Include="Events\FeatureOverrideHasBeenUpdated.cs" />
     <Compile Include="Events\IDomainEvent.cs" />
-    <Compile Include="Events\IDomainEventDispatcher.cs" />
-    <Compile Include="Events\IDomainEventHandler.cs" />
     <Compile Include="Events\ResourceErrorHasOccurred.cs" />
     <Compile Include="Events\ResourceHasBeenCreated.cs" />
     <Compile Include="Events\ResourceHasBeenDeleted.cs" />
     <Compile Include="Events\ResourceHasBeenUpdated.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\ICommandDispatcher.cs" />
+    <Compile Include="Services\IDomainEventDispatcher.cs" />
     <Compile Include="Services\INotifyClients.cs" />
   </ItemGroup>
   <ItemGroup>

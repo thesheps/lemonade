@@ -1,5 +1,7 @@
 ﻿using System.Linq;
+using Lemonade.Web.Core.CommandHandlers;
 using Lemonade.Web.Core.Commands;
+using Lemonade.Web.Core.Services;
 using Nancy.TinyIoc;
 
 namespace Lemonade.Web.Services

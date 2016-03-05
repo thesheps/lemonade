@@ -8,6 +8,7 @@ using Lemonade.Data.Queries;
 using Lemonade.Web.Contracts;
 using Lemonade.Web.Core.Commands;
 using Lemonade.Web.Core.Events;
+using Lemonade.Web.Core.Services;
 
 namespace Lemonade.Web.Modules
 {

@@ -2,6 +2,7 @@ using Lemonade.Data.Commands;
 using Lemonade.Data.Exceptions;
 using Lemonade.Web.Core.Commands;
 using Lemonade.Web.Core.Events;
+using Lemonade.Web.Core.Services;
 
 namespace Lemonade.Web.Core.CommandHandlers
 {

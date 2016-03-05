@@ -1,4 +1,6 @@
-﻿namespace Lemonade.Web.Core.Commands
+﻿using Lemonade.Web.Core.Commands;
+
+namespace Lemonade.Web.Core.Services
 {
     public interface ICommandDispatcher
     {
