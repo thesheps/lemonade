@@ -76,8 +76,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Infrastructure\CamelCasePropertyNameContractResolver.cs" />
-    <Compile Include="Infrastructure\CommandInstaller.cs" />
-    <Compile Include="Infrastructure\DomainEventInstaller.cs" />
+    <Compile Include="Infrastructure\Installer.cs" />
     <Compile Include="Infrastructure\LemonadeBooststrapper.cs" />
     <Compile Include="Mappers\ConfigurationMapper.cs" />
     <Compile Include="Mappers\ResourceMapper.cs" />
@@ -86,6 +85,8 @@
     <Compile Include="Modules\ConfigurationsModule.cs" />
     <Compile Include="Modules\ResourcesModule.cs" />
     <Compile Include="Modules\IndexModule.cs" />
+    <Compile Include="Services\CommandDispatcher.cs" />
+    <Compile Include="Services\DomainEventDispatcher.cs" />
     <Compile Include="Services\NotifyClients.cs" />
     <Compile Include="Startup.cs" />
     <None Include="bower.json" />

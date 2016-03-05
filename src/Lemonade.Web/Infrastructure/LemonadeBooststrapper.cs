@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using Lemonade.Web.Core.Commands;
-using Lemonade.Web.Core.Events;
 using Microsoft.AspNet.SignalR;
 using Nancy;
 using Nancy.Bootstrapper;
@@ -16,18 +14,8 @@ using Nancy.ViewEngines;
 
 namespace Lemonade.Web.Infrastructure
 {
-    public class LemonadeBootstrapper : DefaultNancyBootstrapper, IDomainEventDispatcher, ICommandDispatcher
+    public class LemonadeBootstrapper : DefaultNancyBootstrapper
     {
-        void IDomainEventDispatcher.Dispatch<TEvent>(TEvent @event)
-        {
-            _container.ResolveAll<IDomainEventHandler<TEvent>>().ToList().ForEach(h => h.Handle(@event));
-        }
-
-        void ICommandDispatcher.Dispatch<TCommand>(TCommand command)
-        {
-            _container.ResolveAll<ICommandHandler<TCommand>>().ToList().ForEach(h => h.Handle(command));
-        }
-
         public void AddDependency(Action<TinyIoCContainer> dependency)
         {
             _dependencies.Add(dependency);
@@ -45,20 +33,17 @@ namespace Lemonade.Web.Infrastructure
 
         protected override void ConfigureApplicationContainer(TinyIoCContainer container)
         {
+            container
+                .InstallCommandHandlers()
+                .InstallDomainEventHandlers();
+
             base.ConfigureApplicationContainer(container);
 
-            DomainEventInstaller.Install(container);
-            CommandInstaller.Install(container);
-
-            container.Register<IDomainEventDispatcher>(this);
-            container.Register<ICommandDispatcher>(this);
             container.Register(GlobalHost.ConnectionManager);
 
             ConfigureDependencies(container);
 
             _dependencies.ForEach(d => d(container));
-
-            _container = container;
         }
 
         protected virtual void ConfigureDependencies(TinyIoCContainer container)
@@ -90,6 +75,5 @@ namespace Lemonade.Web.Infrastructure
         }
 
         private readonly List<Action<TinyIoCContainer>> _dependencies = new List<Action<TinyIoCContainer>>();
-        private TinyIoCContainer _container;
     }
 }

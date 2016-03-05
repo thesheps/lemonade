@@ -7,6 +7,10 @@ namespace Lemonade.Collections
 {
     sealed internal class FeatureValueCollection : IFeatureValueCollection
     {
+        public bool this[Func<object, dynamic> keyFunction] => _valueCollection[keyFunction];
+        public bool this[string key] => _valueCollection[key];
+        public bool Get<TExpression>(Expression<Func<TExpression, dynamic>> expression) { return _valueCollection.Get(expression); }
+
         public FeatureValueCollection(ICacheProvider cacheProvider, IFeatureResolver featureResolver, string applicationName)
         {
             _valueCollection = new ValueCollection<bool>((s) =>
@@ -25,10 +29,6 @@ namespace Lemonade.Collections
         {
             if (this[keyFunction]) action.Invoke();
         }
-
-        public bool this[Func<object, dynamic> keyFunction] => _valueCollection[keyFunction];
-        public bool this[string key] => _valueCollection[key];
-        public bool Get<TExpression>(Expression<Func<TExpression, dynamic>> expression) { return _valueCollection.Get(expression); }
 
         private readonly IValueCollection<bool> _valueCollection;
     }

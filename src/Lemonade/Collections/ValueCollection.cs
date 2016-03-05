@@ -7,14 +7,13 @@ namespace Lemonade.Collections
 {
     sealed internal class ValueCollection<T> : IValueCollection<T>
     {
+        public T this[Func<dynamic, dynamic> keyFunction] => _getValue(keyFunction(_key));
+        public T this[string key] => _getValue(key);
+
         public ValueCollection(Func<string, T> getValue)
         {
             _getValue = getValue;
         }
-
-        public T this[Func<dynamic, dynamic> keyFunction] => _getValue(keyFunction(_key));
-
-        public T this[string key] => _getValue(key);
 
         public T Get<TExpression>(Expression<Func<TExpression, dynamic>> expression)
         {

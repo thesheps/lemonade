@@ -1,12 +1,14 @@
-﻿using Lemonade.Web.Core.EventHandlers;
+﻿using Lemonade.Web.Core.CommandHandlers;
+using Lemonade.Web.Core.Commands;
+using Lemonade.Web.Core.EventHandlers;
 using Lemonade.Web.Core.Events;
 using Nancy.TinyIoc;
 
 namespace Lemonade.Web.Infrastructure
 {
-    public class DomainEventInstaller
+    public static class Installer
     {
-        public static void Install(TinyIoCContainer container)
+        public static TinyIoCContainer InstallDomainEventHandlers(this TinyIoCContainer container)
         {
             container.Register<IDomainEventHandler<ConfigurationHasBeenCreated>, ConfigurationHasBeenCreatedHandler>();
             container.Register<IDomainEventHandler<ConfigurationHasBeenUpdated>, ConfigurationHasBeenUpdatedHandler>();
@@ -28,6 +30,14 @@ namespace Lemonade.Web.Infrastructure
             container.Register<IDomainEventHandler<ResourceHasBeenUpdated>, ResourceHasBeenUpdatedHandler>();
             container.Register<IDomainEventHandler<ResourceHasBeenDeleted>, ResourceHasBeenDeletedHandler>();
             container.Register<IDomainEventHandler<ResourceErrorHasOccurred>, ResourceErrorHasOccurredHandler>();
+
+            return container;
+        }
+
+        public static TinyIoCContainer InstallCommandHandlers(this TinyIoCContainer container)
+        {
+            container.Register<ICommandHandler<CreateApplicationCommand>, CreateApplicationCommandHandler>();
+            return container;
         }
     }
 }
