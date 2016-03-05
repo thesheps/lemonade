@@ -1,6 +1,6 @@
-﻿using System;
-using Lemonade.Data.Commands;
+﻿using Lemonade.Data.Commands;
 using Lemonade.Data.Entities;
+using Lemonade.Data.Exceptions;
 using Lemonade.Web.Core.Commands;
 using Lemonade.Web.Core.Events;
 
@@ -23,7 +23,7 @@ namespace Lemonade.Web.Core.CommandHandlers
                 _createApplication.Execute(application);
                 _eventDispatcher.Dispatch(new ApplicationHasBeenCreated(application.ApplicationId, application.Name));
             }
-            catch(Exception ex)
+            catch(CreateApplicationException ex)
             {
                 _eventDispatcher.Dispatch(new ApplicationErrorHasOccurred(ex.Message));
                 throw;

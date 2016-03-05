@@ -25,11 +25,14 @@ namespace Lemonade.Sql.Commands
                 {
                     cnn.Execute(@"INSERT INTO Resource (ApplicationId, ResourceSet, ResourceKey, Locale, Value)
                                   VALUES (@ApplicationId, @ResourceSet, @ResourceKey, @Locale, @Value)", 
-                                  new { resource.ApplicationId,
-                                        resource.ResourceSet,
-                                        resource.ResourceKey,
-                                        resource.Locale,
-                                        resource.Value });
+                    new
+                    {
+                        resource.ApplicationId,
+                        resource.ResourceSet,
+                        resource.ResourceKey,
+                        resource.Locale,
+                        resource.Value
+                    });
 
                     resource.ResourceId = cnn.Query<int>("SELECT CAST(@@IDENTITY AS INT)").First();
                 }

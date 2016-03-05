@@ -40,11 +40,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommandHandlers\UpdateApplicationCommandHandler.cs" />
     <Compile Include="CommandHandlers\CreateApplicationCommandHandler.cs" />
+    <Compile Include="CommandHandlers\DeleteApplicationCommandHandler.cs" />
+    <Compile Include="Commands\DeleteApplicationCommand.cs" />
     <Compile Include="Commands\CreateApplicationCommand.cs" />
     <Compile Include="Commands\ICommandDispatcher.cs" />
     <Compile Include="Commands\ICommandHandler.cs" />
     <Compile Include="Commands\ICommand.cs" />
+    <Compile Include="Commands\UpdateApplicationCommand.cs" />
     <Compile Include="EventHandlers\ApplicationErrorHasOccurredHandler.cs" />
     <Compile Include="EventHandlers\ApplicationHasBeenCreatedHandler.cs" />
     <Compile Include="EventHandlers\ApplicationHasBeenDeletedHandler.cs" />

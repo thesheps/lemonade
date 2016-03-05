@@ -24,11 +24,11 @@ namespace Lemonade.Sql.Commands
                 {
                     cnn.Execute(@"INSERT INTO Feature (IsEnabled, Name, ApplicationId)
                                   VALUES (@IsEnabled, @Name, @ApplicationId)", new
-                        {
-                            feature.IsEnabled,
-                            feature.Name,
-                            feature.ApplicationId
-                        });
+                    {
+                        feature.IsEnabled,
+                        feature.Name,
+                        feature.ApplicationId
+                    });
 
                     feature.FeatureId = cnn.Query<int>("SELECT CAST(@@IDENTITY AS INT)").First();
                 }

@@ -37,6 +37,9 @@ namespace Lemonade.Web.Infrastructure
         public static TinyIoCContainer InstallCommandHandlers(this TinyIoCContainer container)
         {
             container.Register<ICommandHandler<CreateApplicationCommand>, CreateApplicationCommandHandler>();
+            container.Register<ICommandHandler<UpdateApplicationCommand>, UpdateApplicationCommandHandler>();
+            container.Register<ICommandHandler<DeleteApplicationCommand>, DeleteApplicationCommandHandler>();
+
             return container;
         }
     }
