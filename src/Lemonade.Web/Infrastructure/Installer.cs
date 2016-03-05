@@ -45,6 +45,10 @@ namespace Lemonade.Web.Infrastructure
             container.Register<ICommandHandler<CreateResourceCommand>, CreateResourceCommandHandler>();
             container.Register<ICommandHandler<UpdateResourceCommand>, UpdateResourceCommandHandler>();
             container.Register<ICommandHandler<DeleteResourceCommand>, DeleteResourceCommandHandler>();
+            container.Register<ICommandHandler<CreateFeatureCommand>, CreateFeatureCommandHandler>();
+            container.Register<ICommandHandler<UpdateFeatureCommand>, UpdateFeatureCommandHandler>();
+            container.Register<ICommandHandler<DeleteFeatureCommand>, DeleteFeatureCommandHandler>();
+
             return container;
         }
     }
