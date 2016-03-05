@@ -40,10 +40,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommandHandlers\CreateResourceCommandHandler.cs" />
+    <Compile Include="CommandHandlers\DeleteResourceCommandHandler.cs" />
+    <Compile Include="CommandHandlers\UpdateResourceCommandHandler.cs" />
+    <Compile Include="Commands\CreateResourceCommand.cs" />
     <Compile Include="Commands\DeleteConfigurationCommand.cs" />
     <Compile Include="Commands\CreateConfigurationCommand.cs" />
     <Compile Include="CommandHandlers\CreateConfigurationCommandHandler.cs" />
     <Compile Include="CommandHandlers\DeleteConfigurationCommandHandler.cs" />
+    <Compile Include="Commands\DeleteResourceCommand.cs" />
     <Compile Include="Commands\UpdateConfigurationCommand.cs" />
     <Compile Include="CommandHandlers\UpdateConfigurationCommandHandler.cs" />
     <Compile Include="CommandHandlers\UpdateApplicationCommandHandler.cs" />
@@ -55,6 +60,7 @@
     <Compile Include="Commands\ICommandHandler.cs" />
     <Compile Include="Commands\ICommand.cs" />
     <Compile Include="Commands\UpdateApplicationCommand.cs" />
+    <Compile Include="Commands\UpdateResourceCommand.cs" />
     <Compile Include="EventHandlers\ApplicationErrorHasOccurredHandler.cs" />
     <Compile Include="EventHandlers\ApplicationHasBeenCreatedHandler.cs" />
     <Compile Include="EventHandlers\ApplicationHasBeenDeletedHandler.cs" />

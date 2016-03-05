@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Lemonade.Data.Commands;
 using Lemonade.Data.Exceptions;
 using Lemonade.Data.Queries;
 using Lemonade.Web.Contracts;
-using Lemonade.Web.Core.Events;
+using Lemonade.Web.Core.Commands;
 using Lemonade.Web.Mappers;
 using Nancy;
 using Nancy.ModelBinding;
@@ -13,14 +12,11 @@ namespace Lemonade.Web.Modules
 {
     public class ResourcesModule : NancyModule
     {
-        public ResourcesModule(IDomainEventDispatcher eventDispatcher, IGetResource getResource, IGetAllResourcesByApplicationId getAllResourcesbyApplicationId, ICreateResource createResource, IDeleteResource deleteResource, IUpdateResource updateResource)
+        public ResourcesModule(ICommandDispatcher commandDispatcher, IGetResource getResource, IGetAllResourcesByApplicationId getAllResourcesbyApplicationId)
         {
-            _eventDispatcher = eventDispatcher;
+            _commandDispatcher = commandDispatcher;
             _getResource = getResource;
             _getAllResourcesbyApplicationId = getAllResourcesbyApplicationId;
-            _createResource = createResource;
-            _deleteResource = deleteResource;
-            _updateResource = updateResource;
             Get["/api/resource"] = r => GetResource();
             Get["/api/resources"] = r => GetResources();
             Post["/api/resources"] = r => CreateResource();
@@ -53,15 +49,13 @@ namespace Lemonade.Web.Modules
         {
             try
             {
-                var resource = this.Bind<Resource>().ToEntity();
-                _createResource.Execute(resource);
-                _eventDispatcher.Dispatch(new ResourceHasBeenCreated(resource.ResourceId, resource.ApplicationId, resource.ResourceSet, resource.ResourceKey, resource.Locale, resource.Value));
+                var resource = this.Bind<Resource>();
+                _commandDispatcher.Dispatch(new CreateResourceCommand(resource.ApplicationId, resource.Locale, resource.ResourceKey, resource.ResourceSet, resource.Value));
 
                 return HttpStatusCode.OK;
             }
-            catch (CreateResourceException exception)
+            catch (CreateResourceException)
             {
-                _eventDispatcher.Dispatch(new ResourceErrorHasOccurred(exception.Message));
                 return HttpStatusCode.BadRequest;
             }
         }
@@ -71,14 +65,12 @@ namespace Lemonade.Web.Modules
             try
             {
                 var resource = this.Bind<Resource>();
-                _updateResource.Execute(resource.ToEntity());
-                _eventDispatcher.Dispatch(new ResourceHasBeenUpdated(resource.ResourceId, resource.ApplicationId, resource.ResourceSet, resource.ResourceKey, resource.Locale, resource.Value));
+                _commandDispatcher.Dispatch(new UpdateResourceCommand(resource.ResourceId, resource.ResourceSet, resource.ResourceKey, resource.Locale, resource.Value));
 
                 return HttpStatusCode.OK;
             }
-            catch (UpdateFeatureException exception)
+            catch (UpdateFeatureException)
             {
-                _eventDispatcher.Dispatch(new ResourceErrorHasOccurred(exception.Message));
                 return HttpStatusCode.BadRequest;
             }
         }
@@ -90,22 +82,17 @@ namespace Lemonade.Web.Modules
 
             try
             {
-                _deleteResource.Execute(resourceId);
-                _eventDispatcher.Dispatch(new ResourceHasBeenDeleted(resourceId));
+                _commandDispatcher.Dispatch(new DeleteResourceCommand(resourceId));
                 return HttpStatusCode.OK;
             }
-            catch (DeleteResourceException exception)
+            catch (DeleteResourceException)
             {
-                _eventDispatcher.Dispatch(new ResourceErrorHasOccurred(exception.Message));
                 return HttpStatusCode.BadRequest;
             }
         }
 
-        private readonly IDomainEventDispatcher _eventDispatcher;
+        private readonly ICommandDispatcher _commandDispatcher;
         private readonly IGetResource _getResource;
         private readonly IGetAllResourcesByApplicationId _getAllResourcesbyApplicationId;
-        private readonly ICreateResource _createResource;
-        private readonly IDeleteResource _deleteResource;
-        private readonly IUpdateResource _updateResource;
     }
 }

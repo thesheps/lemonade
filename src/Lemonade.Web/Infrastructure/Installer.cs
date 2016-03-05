@@ -42,7 +42,9 @@ namespace Lemonade.Web.Infrastructure
             container.Register<ICommandHandler<CreateConfigurationCommand>, CreateConfigurationCommandHandler>();
             container.Register<ICommandHandler<UpdateConfigurationCommand>, UpdateConfigurationCommandHandler>();
             container.Register<ICommandHandler<DeleteConfigurationCommand>, DeleteConfigurationCommandHandler>();
-
+            container.Register<ICommandHandler<CreateResourceCommand>, CreateResourceCommandHandler>();
+            container.Register<ICommandHandler<UpdateResourceCommand>, UpdateResourceCommandHandler>();
+            container.Register<ICommandHandler<DeleteResourceCommand>, DeleteResourceCommandHandler>();
             return container;
         }
     }
