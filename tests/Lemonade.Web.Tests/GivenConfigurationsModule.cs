@@ -33,7 +33,7 @@ namespace Lemonade.Web.Tests
         }
 
         [Test]
-        public void WhenIPostAConfiguration_ThenICanGetItViaHttp()
+        public void WhenIPostAConfiguration_ThenICanGetItViaHttpAndSignalRClientsAreNotified()
         {
             var configuration = new Contracts.Configuration { Name = "TestConfig", Value = "Hello World", ConfigurationId = 1, ApplicationId = 1 };
             Post(configuration);
@@ -49,12 +49,6 @@ namespace Lemonade.Web.Tests
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
             Assert.That(result.Count, Is.EqualTo(1));
             Assert.That(result[0].Name, Is.EqualTo("TestConfig"));
-        }
-
-        [Test]
-        public void WhenIPostAConfiguration_ThenSignalRClientsAreNotified()
-        {
-            Post(new Contracts.Configuration { Name = "TestConfig", Value = "Test", ConfigurationId = 1, ApplicationId = 1 });
 
             _bootstrapper
                 .Resolve<IMockClient>()
@@ -63,7 +57,7 @@ namespace Lemonade.Web.Tests
         }
 
         [Test]
-        public void WhenIPutAConfiguration_ThenTheConfigurationIsUpdated()
+        public void WhenIPutAConfiguration_ThenTheConfigurationIsUpdatedAndSignalRClientsAreNotified()
         {
             var configuration = new Contracts.Configuration { Name = "TestConfig", Value = "Test", ConfigurationId = 1, ApplicationId = 1 };
             Post(configuration);
@@ -80,10 +74,15 @@ namespace Lemonade.Web.Tests
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
             Assert.That(result.Count, Is.EqualTo(1));
             Assert.That(result[0].Name, Is.EqualTo("PONIES"));
+
+            _bootstrapper
+                .Resolve<IMockClient>()
+                .Received()
+                .updateConfiguration(Arg.Any<dynamic>());
         }
 
         [Test]
-        public void WhenIDeleteAConfiguration_ThenItIsNoLongerAvailable()
+        public void WhenIDeleteAConfiguration_ThenItIsNoLongerAvailableAndSignalRClientsAreNotified()
         {
             Post(new Contracts.Configuration { Name = "TestConfig", Value = "Test", ConfigurationId = 1, ApplicationId = 1 });
             Delete(new Contracts.Configuration { ConfigurationId = 1 });
@@ -93,13 +92,6 @@ namespace Lemonade.Web.Tests
 
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
             Assert.That(result.Count, Is.EqualTo(0));
-        }
-
-        [Test]
-        public void WhenIDeleteAConfiguration_ThenSignalRClientsAreNotified()
-        {
-            Post(new Contracts.Configuration { Name = "TestConfig", Value = "Test", ConfigurationId = 1, ApplicationId = 1 });
-            Delete(new Contracts.Configuration { ConfigurationId = 1 });
 
             _bootstrapper
                 .Resolve<IMockClient>()

@@ -32,7 +32,7 @@ namespace Lemonade.Web.Tests
         }
 
         [Test]
-        public void WhenIPostAnApplication_ThenICanGetItViaHttp()
+        public void WhenIPostAnApplication_ThenICanGetItViaHttpAndSignalRClientsAreNotified()
         {
             Post(new Application { Name = "TestApplication1" });
 
@@ -42,12 +42,6 @@ namespace Lemonade.Web.Tests
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
             Assert.That(result.Count, Is.EqualTo(1));
             Assert.That(result[0].Name, Is.EqualTo("TestApplication1"));
-        }
-
-        [Test]
-        public void WhenIPostAnApplication_ThenSignalRClientsAreNotified()
-        {
-            Post(new Application { Name = "TestApplication1" });
 
             _bootstrapper
                 .Resolve<IMockClient>()
@@ -56,7 +50,7 @@ namespace Lemonade.Web.Tests
         }
 
         [Test]
-        public void WhenIPutAnApplication_ThenTheApplicationIsUpdated()
+        public void WhenIPutAnApplication_ThenTheApplicationIsUpdatedAndSignalRClientsAreUpdated()
         {
             Post(new Application { Name = "TestApplication1" });
             Put(new Application { Name = "PONIES", ApplicationId = 1 });
@@ -67,10 +61,15 @@ namespace Lemonade.Web.Tests
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
             Assert.That(result.Count, Is.EqualTo(1));
             Assert.That(result[0].Name, Is.EqualTo("PONIES"));
+
+            _bootstrapper
+                .Resolve<IMockClient>()
+                .Received()
+                .updateApplication(Arg.Any<dynamic>());
         }
 
         [Test]
-        public void WhenIDeleteAnApplication_ThenItIsNoLongerAvailable()
+        public void WhenIDeleteAnApplication_ThenItIsNoLongerAvailableAndSignalRClientsAreNotified()
         {
             Post(new Application { Name = "TestApplication1" });
             Delete(new Application { Name = "TestApplication1" });
@@ -80,13 +79,6 @@ namespace Lemonade.Web.Tests
 
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
             Assert.That(result.Count, Is.EqualTo(0));
-        }
-
-        [Test]
-        public void WhenIDeleteAnApplication_ThenSignalRClientsAreNotified()
-        {
-            Post(new Application { Name = "TestApplication1" });
-            Delete(new Application { Name = "TestApplication1" });
 
             _bootstrapper
                 .Resolve<IMockClient>()

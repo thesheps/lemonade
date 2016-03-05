@@ -39,7 +39,7 @@ namespace Lemonade.Web.Tests
         }
 
         [Test]
-        public void WhenIPostAFeatureOverride_ThenItIsSaved()
+        public void WhenIPostAFeatureOverride_ThenItIsSavedAndSignalRClientsAreNotified()
         {
             var application = new Application { ApplicationId = 1, Name = "TestApplication1" };
             _createApplication.Execute(application);
@@ -47,10 +47,9 @@ namespace Lemonade.Web.Tests
             var feature = new Data.Entities.Feature { ApplicationId = application.ApplicationId, Name = "Feature1" };
             _createFeature.Execute(feature);
 
-            var featureOverride = new Data.Entities.FeatureOverride { FeatureId = feature.FeatureId, Hostname = "Test", IsEnabled = true };
-            _createFeatureOverride.Execute(featureOverride);
+            var featureOverride = new FeatureOverride { FeatureId = feature.FeatureId, Hostname = "Test", IsEnabled = true };
 
-            Post(featureOverride.ToContract());
+            Post(featureOverride);
 
             var response = _browser.Get("/api/feature", with =>
             {
@@ -62,20 +61,6 @@ namespace Lemonade.Web.Tests
             var result = JsonConvert.DeserializeObject<Contracts.Feature>(response.Body.AsString());
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
             Assert.That(result.FeatureOverrides[0].IsEnabled, Is.True);
-        }
-
-        [Test]
-        public void WhenIPostAFeatureOverride_ThenSignalRClientsAreNotified()
-        {
-            var application = new Application { ApplicationId = 1, Name = "TestApplication1" };
-            _createApplication.Execute(application);
-
-            var feature = new Data.Entities.Feature { ApplicationId = application.ApplicationId, Name = "Feature1" };
-            _createFeature.Execute(feature);
-
-            var featureOverride = new Data.Entities.FeatureOverride { FeatureId = feature.FeatureId, Hostname = "Test", IsEnabled = true };
-
-            Post(featureOverride.ToContract());
 
             _bootstrapper
                 .Resolve<IMockClient>()
@@ -84,7 +69,7 @@ namespace Lemonade.Web.Tests
         }
 
         [Test]
-        public void WhenIDeleteAFeatureOverride_ThenTheFeatureOverrideIsRemoved()
+        public void WhenIDeleteAFeatureOverride_ThenTheFeatureOverrideIsRemovedAndSignalRClientsAreNotified()
         {
             var application = new Application { ApplicationId = 1, Name = "TestApplication1" };
             _createApplication.Execute(application);
@@ -99,10 +84,15 @@ namespace Lemonade.Web.Tests
 
             feature = _getFeature.Execute(feature.Name, application.Name);
             CollectionAssert.IsEmpty(feature.FeatureOverrides);
+
+            _bootstrapper
+                .Resolve<IMockClient>()
+                .Received()
+                .removeFeatureOverride(Arg.Any<dynamic>());
         }
 
         [Test]
-        public void WhenIPutAFeature_ThenTheFeatureOverrideIsUpdated()
+        public void WhenIPutAFeature_ThenTheFeatureOverrideIsUpdatedAndSignalRClientsAreNotified()
         {
             var application = new Application { ApplicationId = 1, Name = "TestApplication1" };
             _createApplication.Execute(application);
@@ -119,6 +109,11 @@ namespace Lemonade.Web.Tests
 
             feature = _getFeature.Execute(feature.Name, application.Name);
             Assert.That(feature.FeatureOverrides[0].Hostname, Is.EqualTo("TEST123"));
+
+            _bootstrapper
+                .Resolve<IMockClient>()
+                .Received()
+                .updateFeatureOverride(Arg.Any<dynamic>());
         }
 
         private void Post(FeatureOverride featureOverride)

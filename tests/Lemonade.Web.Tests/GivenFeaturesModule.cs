@@ -40,7 +40,7 @@ namespace Lemonade.Web.Tests
         }
 
         [Test]
-        public void WhenIPostAFeature_ThenICanGetItViaHttp()
+        public void WhenIPostAFeature_ThenICanGetItViaHttpAndSignalRClientsAreNotified()
         {
             var application = new Data.Entities.Application { ApplicationId = 1, Name = "TestApplication1" };
             _createApplication.Execute(application);
@@ -59,17 +59,6 @@ namespace Lemonade.Web.Tests
             var result = JsonConvert.DeserializeObject<Contracts.Feature>(response.Body.AsString());
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
             Assert.That(result.IsEnabled, Is.True);
-        }
-
-        [Test]
-        public void WhenIPostAFeature_ThenSignalRClientsAreNotified()
-        {
-            var application = new Data.Entities.Application { ApplicationId = 1, Name = "TestApplication1" };
-            _createApplication.Execute(application);
-
-            var feature = GetFeatureModel("MySuperCoolFeature1", _getApplication.Execute(application.Name).ToContract());
-
-            Post(feature);
 
             _testBootstrapper
                 .Resolve<IMockClient>()
@@ -93,7 +82,7 @@ namespace Lemonade.Web.Tests
         }
 
         [Test]
-        public void WhenIDeleteAFeature_ThenTheFeatureIsRemoved()
+        public void WhenIDeleteAFeature_ThenTheFeatureIsRemovedAndSignalRClientsAreNotified()
         {
             var application = new Data.Entities.Application { ApplicationId = 1, Name = "TestApplication1" };
             _createApplication.Execute(application);
@@ -105,10 +94,15 @@ namespace Lemonade.Web.Tests
 
             var feature = _getFeature.Execute(featureModel.Name, application.Name);
             Assert.That(feature, Is.Null);
+
+            _testBootstrapper
+                .Resolve<IMockClient>()
+                .Received()
+                .removeFeature(Arg.Any<dynamic>());
         }
 
         [Test]
-        public void WhenIPutAFeature_ThenTheFeatureIsUpdated()
+        public void WhenIPutAFeature_ThenTheFeatureIsUpdatedAndSignalRClientsAreNotified()
         {
             var application = new Data.Entities.Application { ApplicationId = 1, Name = "TestApplication1" };
             _createApplication.Execute(application);
@@ -124,10 +118,15 @@ namespace Lemonade.Web.Tests
 
             feature = _getFeature.Execute("MySuperCoolFeature1", application.Name);
             Assert.That(feature, Is.Null);
+
+            _testBootstrapper
+                .Resolve<IMockClient>()
+                .Received()
+                .updateFeature(Arg.Any<dynamic>());
         }
 
         [Test]
-        public void WhenIGetAFeatureWithAHostnameOveride_ThenTheFeatureIsRetrieved()
+        public void WhenIGetAFeatureWithAHostnameOverride_ThenTheFeatureIsRetrieved()
         {
             var application = new Data.Entities.Application { Name = "TestApplication" };
             new CreateApplication().Execute(application);

@@ -72,7 +72,9 @@ namespace Lemonade.Web.Modules
         {
             try
             {
-                _updateFeature.Execute(this.Bind<Feature>().ToEntity());
+                var feature = this.Bind<Feature>();
+                _updateFeature.Execute(feature.ToEntity());
+                _eventDispatcher.Dispatch(new FeatureHasBeenUpdated(feature.FeatureId, feature.ApplicationId, feature.Name, feature.IsEnabled));
                 return HttpStatusCode.OK;
             }
             catch (UpdateFeatureException exception)

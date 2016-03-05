@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Lemonade.Sql.Commands;
+﻿using Lemonade.Sql.Commands;
 using Lemonade.Sql.Migrations;
 using Lemonade.Sql.Queries;
 using Lemonade.Web.Contracts;
@@ -38,7 +37,7 @@ namespace Lemonade.Web.Tests
         }
 
         [Test]
-        public void WhenIPostAResource_ThenICanGetItViaHttp()
+        public void WhenIPostAResource_ThenICanGetItViaHttpAndSignalRClientsAreNotified()
         {
             var application = new Data.Entities.Application { ApplicationId = 1, Name = "TestApplication1" };
             _createApplication.Execute(application);
@@ -62,26 +61,6 @@ namespace Lemonade.Web.Tests
             Assert.That(result.ResourceKey, Is.EqualTo(resource.ResourceKey));
             Assert.That(result.ResourceSet, Is.EqualTo(resource.ResourceSet));
             Assert.That(result.Locale, Is.EqualTo(resource.Locale));
-        }
-
-        [Test]
-        public void WhenIPostMultipleResources_ThenICanGetItViaHttpAndSignalRClientsAreNotified()
-        {
-            var application = new Data.Entities.Application { ApplicationId = 1, Name = "TestApplication1" };
-            _createApplication.Execute(application);
-
-            Post(GetResourceModel("de-DE", "Test", "Test1", "Test1", application.ToContract()));
-            Post(GetResourceModel("de-DE", "Test", "Test2", "Test2", application.ToContract()));
-            Post(GetResourceModel("de-DE", "Test", "Test3", "Test3", application.ToContract()));
-
-            var response = _browser.Get("/api/resources", with =>
-            {
-                with.Header("Accept", "application/json");
-                with.Query("applicationId", application.ApplicationId.ToString());
-            });
-
-            var result = JsonConvert.DeserializeObject<IList<Resource>>(response.Body.AsString());
-            Assert.That(result.Count, Is.EqualTo(3));
 
             _bootstrapper
                 .Resolve<IMockClient>()
