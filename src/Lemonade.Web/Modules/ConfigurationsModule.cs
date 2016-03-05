@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Lemonade.Data.Commands;
 using Lemonade.Data.Exceptions;
 using Lemonade.Data.Queries;
 using Lemonade.Web.Contracts;
-using Lemonade.Web.Core.Events;
+using Lemonade.Web.Core.Commands;
 using Lemonade.Web.Mappers;
 using Nancy;
 using Nancy.ModelBinding;
@@ -13,14 +12,11 @@ namespace Lemonade.Web.Modules
 {
     public class ConfigurationsModule : NancyModule
     {
-        public ConfigurationsModule(IDomainEventDispatcher eventDispatcher, IGetConfigurationByNameAndApplication getConfigurationByNameAndApplication, IGetAllConfigurationsByApplicationId getAllConfigurationsByApplicationId, ICreateConfiguration createConfiguration, IUpdateConfiguration updateConfiguration, IDeleteConfiguration deleteConfiguration)
+        public ConfigurationsModule(ICommandDispatcher commandDispatcher, IGetConfigurationByNameAndApplication getConfigurationByNameAndApplication, IGetAllConfigurationsByApplicationId getAllConfigurationsByApplicationId)
         {
-            _eventDispatcher = eventDispatcher;
+            _commandDispatcher = commandDispatcher;
             _getConfigurationByNameAndApplication = getConfigurationByNameAndApplication;
             _getAllConfigurationsByApplicationId = getAllConfigurationsByApplicationId;
-            _createConfiguration = createConfiguration;
-            _updateConfiguration = updateConfiguration;
-            _deleteConfiguration = deleteConfiguration;
             Get["/api/configurations"] = p => GetConfigurations();
             Get["/api/configuration"] = p => GetConfiguration();
             Post["/api/configurations"] = p => PostConfiguration();
@@ -53,15 +49,13 @@ namespace Lemonade.Web.Modules
         {
             try
             {
-                var configuration = this.Bind<Configuration>().ToEntity();
-                _createConfiguration.Execute(configuration);
-                _eventDispatcher.Dispatch(new ConfigurationHasBeenCreated(configuration.ApplicationId, configuration.Name, configuration.Value));
+                var configuration = this.Bind<Configuration>();
+                _commandDispatcher.Dispatch(new CreateConfigurationCommand(configuration.ApplicationId, configuration.Name, configuration.Value));
 
                 return HttpStatusCode.OK;
             }
-            catch (CreateConfigurationException exception)
+            catch (CreateConfigurationException)
             {
-                _eventDispatcher.Dispatch(new ConfigurationErrorHasOccurred(exception.Message));
                 return HttpStatusCode.BadRequest;
             }
         }
@@ -70,15 +64,13 @@ namespace Lemonade.Web.Modules
         {
             try
             {
-                var configuration = this.Bind<Configuration>().ToEntity();
-                _updateConfiguration.Execute(configuration);
-                _eventDispatcher.Dispatch(new ConfigurationHasBeenUpdated(configuration.ApplicationId, configuration.Name));
+                var configuration = this.Bind<Configuration>();
+                _commandDispatcher.Dispatch(new UpdateConfigurationCommand(configuration.ConfigurationId, configuration.Name, configuration.Value));
 
                 return HttpStatusCode.OK;
             }
-            catch (UpdateConfigurationException exception)
+            catch (UpdateConfigurationException)
             {
-                _eventDispatcher.Dispatch(new ConfigurationErrorHasOccurred(exception.Message));
                 return HttpStatusCode.BadRequest;
             }
         }
@@ -90,22 +82,17 @@ namespace Lemonade.Web.Modules
 
             try
             {
-                _deleteConfiguration.Execute(configurationId);
-                _eventDispatcher.Dispatch(new ConfigurationHasBeenDeleted(configurationId));
+                _commandDispatcher.Dispatch(new DeleteConfigurationCommand(configurationId));
                 return HttpStatusCode.OK;
             }
-            catch (DeleteConfigurationException exception)
+            catch (DeleteConfigurationException)
             {
-                _eventDispatcher.Dispatch(new ConfigurationErrorHasOccurred(exception.Message));
                 return HttpStatusCode.BadRequest;
             }
         }
 
-        private readonly IDomainEventDispatcher _eventDispatcher;
+        private readonly ICommandDispatcher _commandDispatcher;
         private readonly IGetConfigurationByNameAndApplication _getConfigurationByNameAndApplication;
         private readonly IGetAllConfigurationsByApplicationId _getAllConfigurationsByApplicationId;
-        private readonly ICreateConfiguration _createConfiguration;
-        private readonly IUpdateConfiguration _updateConfiguration;
-        private readonly IDeleteConfiguration _deleteConfiguration;
     }
 }

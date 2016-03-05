@@ -27,7 +27,8 @@ namespace Lemonade.Web.Mappers
                 ResourceKey = resource.ResourceKey,
                 ResourceId = resource.ResourceId,
                 ResourceSet = resource.ResourceSet,
-                Value = resource.Value
+                Value = resource.Value,
+                Application = resource.Application.ToEntity()
             };
         }
     }

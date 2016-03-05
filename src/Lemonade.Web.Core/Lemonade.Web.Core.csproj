@@ -40,6 +40,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\DeleteConfigurationCommand.cs" />
+    <Compile Include="Commands\CreateConfigurationCommand.cs" />
+    <Compile Include="CommandHandlers\CreateConfigurationCommandHandler.cs" />
+    <Compile Include="CommandHandlers\DeleteConfigurationCommandHandler.cs" />
+    <Compile Include="Commands\UpdateConfigurationCommand.cs" />
+    <Compile Include="CommandHandlers\UpdateConfigurationCommandHandler.cs" />
     <Compile Include="CommandHandlers\UpdateApplicationCommandHandler.cs" />
     <Compile Include="CommandHandlers\CreateApplicationCommandHandler.cs" />
     <Compile Include="CommandHandlers\DeleteApplicationCommandHandler.cs" />
