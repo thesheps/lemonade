@@ -48,6 +48,9 @@ namespace Lemonade.Web.Infrastructure
             container.Register<ICommandHandler<CreateFeatureCommand>, CreateFeatureCommandHandler>();
             container.Register<ICommandHandler<UpdateFeatureCommand>, UpdateFeatureCommandHandler>();
             container.Register<ICommandHandler<DeleteFeatureCommand>, DeleteFeatureCommandHandler>();
+            container.Register<ICommandHandler<CreateFeatureOverrideCommand>, CreateFeatureOverrideCommandHandler>();
+            container.Register<ICommandHandler<UpdateFeatureOverrideCommand>, UpdateFeatureOverrideCommandHandler>();
+            container.Register<ICommandHandler<DeleteFeatureOverrideCommand>, DeleteFeatureOverrideCommandHandler>();
 
             return container;
         }
