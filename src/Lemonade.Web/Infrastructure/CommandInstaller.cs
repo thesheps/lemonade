@@ -1,4 +1,4 @@
-﻿using Lemonade.Web.CommandHandlers;
+﻿using Lemonade.Web.Core.CommandHandlers;
 using Lemonade.Web.Core.Commands;
 using Nancy.TinyIoc;
 

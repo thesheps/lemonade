@@ -4,7 +4,7 @@ using Lemonade.Data.Entities;
 using Lemonade.Web.Core.Commands;
 using Lemonade.Web.Core.Events;
 
-namespace Lemonade.Web.CommandHandlers
+namespace Lemonade.Web.Core.CommandHandlers
 {
     public class CreateApplicationCommandHandler : ICommandHandler<CreateApplicationCommand>
     {

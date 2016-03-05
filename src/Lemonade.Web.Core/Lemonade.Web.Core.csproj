@@ -40,10 +40,31 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommandHandlers\CreateApplicationCommandHandler.cs" />
     <Compile Include="Commands\CreateApplicationCommand.cs" />
     <Compile Include="Commands\ICommandDispatcher.cs" />
     <Compile Include="Commands\ICommandHandler.cs" />
     <Compile Include="Commands\ICommand.cs" />
+    <Compile Include="EventHandlers\ApplicationErrorHasOccurredHandler.cs" />
+    <Compile Include="EventHandlers\ApplicationHasBeenCreatedHandler.cs" />
+    <Compile Include="EventHandlers\ApplicationHasBeenDeletedHandler.cs" />
+    <Compile Include="EventHandlers\ApplicationHasBeenUpdatedHandler.cs" />
+    <Compile Include="EventHandlers\ConfigurationErrorHasOccurredHandler.cs" />
+    <Compile Include="EventHandlers\ConfigurationHasBeenCreatedHandler.cs" />
+    <Compile Include="EventHandlers\ConfigurationHasBeenDeletedHandler.cs" />
+    <Compile Include="EventHandlers\ConfigurationHasBeenUpdatedHandler.cs" />
+    <Compile Include="EventHandlers\FeatureErrorHasOccurredHandler.cs" />
+    <Compile Include="EventHandlers\FeatureHasBeenCreatedHandler.cs" />
+    <Compile Include="EventHandlers\FeatureHasBeenDeletedHandler.cs" />
+    <Compile Include="EventHandlers\FeatureHasBeenUpdatedHandler.cs" />
+    <Compile Include="EventHandlers\FeatureOverrideErrorHasOccurredHandler.cs" />
+    <Compile Include="EventHandlers\FeatureOverrideHasBeenCreatedHandler.cs" />
+    <Compile Include="EventHandlers\FeatureOverrideHasBeenDeletedHandler.cs" />
+    <Compile Include="EventHandlers\FeatureOverrideHasBeenUpdatedHandler.cs" />
+    <Compile Include="EventHandlers\ResourceErrorHasOccurredHandler.cs" />
+    <Compile Include="EventHandlers\ResourceHasBeenCreatedHandler.cs" />
+    <Compile Include="EventHandlers\ResourceHasBeenDeletedHandler.cs" />
+    <Compile Include="EventHandlers\ResourceHasBeenUpdatedHandler.cs" />
     <Compile Include="Events\ApplicationErrorHasOccurred.cs" />
     <Compile Include="Events\ApplicationHasBeenCreated.cs" />
     <Compile Include="Events\ApplicationHasBeenDeleted.cs" />
@@ -68,8 +89,14 @@
     <Compile Include="Events\ResourceHasBeenDeleted.cs" />
     <Compile Include="Events\ResourceHasBeenUpdated.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\INotifyClients.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Lemonade.Data\Lemonade.Data.csproj">
+      <Project>{A9171A74-BFAD-4C2E-A8E2-54BC2BCE496C}</Project>
+      <Name>Lemonade.Data</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

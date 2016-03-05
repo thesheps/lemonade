@@ -1,5 +1,5 @@
-﻿using Lemonade.Web.Core.Events;
-using Lemonade.Web.EventHandlers;
+﻿using Lemonade.Web.Core.EventHandlers;
+using Lemonade.Web.Core.Events;
 using Nancy.TinyIoc;
 
 namespace Lemonade.Web.Infrastructure

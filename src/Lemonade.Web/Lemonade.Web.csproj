@@ -75,26 +75,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CommandHandlers\CreateApplicationCommandHandler.cs" />
-    <Compile Include="EventHandlers\FeatureOverrideHasBeenUpdatedHandler.cs" />
-    <Compile Include="EventHandlers\ResourceHasBeenUpdatedHandler.cs" />
-    <Compile Include="EventHandlers\FeatureHasBeenUpdatedHandler.cs" />
-    <Compile Include="EventHandlers\ConfigurationHasBeenUpdatedHandler.cs" />
-    <Compile Include="EventHandlers\ApplicationHasBeenUpdatedHandler.cs" />
-    <Compile Include="EventHandlers\ConfigurationErrorHasOccurredHandler.cs" />
-    <Compile Include="EventHandlers\ConfigurationHasBeenCreatedHandler.cs" />
-    <Compile Include="EventHandlers\ConfigurationHasBeenDeletedHandler.cs" />
-    <Compile Include="EventHandlers\ApplicationHasBeenDeletedHandler.cs" />
-    <Compile Include="EventHandlers\ApplicationErrorHasOccurredHandler.cs" />
-    <Compile Include="EventHandlers\ResourceErrorHasOccurredHandler.cs" />
-    <Compile Include="EventHandlers\ResourceHasBeenDeletedHandler.cs" />
-    <Compile Include="EventHandlers\ResourceHasBeenCreatedHandler.cs" />
-    <Compile Include="EventHandlers\FeatureOverrideHasBeenCreatedHandler.cs" />
-    <Compile Include="EventHandlers\FeatureOverrideHasBeenDeletedHandler.cs" />
-    <Compile Include="EventHandlers\FeatureHasBeenDeletedHandler.cs" />
-    <Compile Include="EventHandlers\FeatureErrorHasOccurredHandler.cs" />
     <Compile Include="Infrastructure\CamelCasePropertyNameContractResolver.cs" />
-    <Compile Include="EventHandlers\FeatureOverrideErrorHasOccurredHandler.cs" />
     <Compile Include="Infrastructure\CommandInstaller.cs" />
     <Compile Include="Infrastructure\DomainEventInstaller.cs" />
     <Compile Include="Infrastructure\LemonadeBooststrapper.cs" />
@@ -105,6 +86,7 @@
     <Compile Include="Modules\ConfigurationsModule.cs" />
     <Compile Include="Modules\ResourcesModule.cs" />
     <Compile Include="Modules\IndexModule.cs" />
+    <Compile Include="Services\NotifyClients.cs" />
     <Compile Include="Startup.cs" />
     <None Include="bower.json" />
     <None Include="bower_components\angular-animate\.bower.json" />
@@ -201,8 +183,6 @@
     <None Include="Content\Bootstrapper.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <Compile Include="EventHandlers\ApplicationHasBeenCreatedHandler.cs" />
-    <Compile Include="EventHandlers\FeatureHasBeenCreatedHandler.cs" />
     <Compile Include="Infrastructure\LemonadeHub.cs" />
     <Compile Include="Mappers\ApplicationMapper.cs" />
     <Compile Include="Mappers\FeatureMapper.cs" />
