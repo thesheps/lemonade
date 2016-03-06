@@ -1,24 +1,20 @@
-﻿using System.Linq;
-using Lemonade.Web.Mappers;
-using Nancy;
+﻿using Nancy;
 using Nancy.ModelBinding;
 using System.Collections.Generic;
 using Lemonade.Data.Exceptions;
-using Lemonade.Data.Queries;
 using Lemonade.Web.Contracts;
 using Lemonade.Web.Core.Commands;
-using Lemonade.Web.Core.Events;
+using Lemonade.Web.Core.Queries;
 using Lemonade.Web.Core.Services;
 
 namespace Lemonade.Web.Modules
 {
     public class ApplicationsModule : NancyModule
     {
-        public ApplicationsModule(IDomainEventDispatcher eventDispatcher, ICommandDispatcher commandDispatcher, IGetAllApplications getAllApplications)
+        public ApplicationsModule(ICommandDispatcher commandDispatcher, IQueryDispatcher queryDispatcher)
         {
-            _eventDispatcher = eventDispatcher;
             _commandDispatcher = commandDispatcher;
-            _getAllApplications = getAllApplications;
+            _queryDispatcher = queryDispatcher;
 
             Get["/api/applications"] = p => GetApplications();
             Post["/api/applications"] = p => PostApplication();
@@ -28,7 +24,7 @@ namespace Lemonade.Web.Modules
 
         private IList<Application> GetApplications()
         {
-            return _getAllApplications.Execute().Select(a => a.ToContract()).ToList();
+            return _queryDispatcher.Dispatch(new GetAllApplicationsQuery());
         }
 
         private HttpStatusCode PostApplication()
@@ -53,9 +49,8 @@ namespace Lemonade.Web.Modules
 
                 return HttpStatusCode.OK;
             }
-            catch (UpdateApplicationException exception)
+            catch (UpdateApplicationException)
             {
-                _eventDispatcher.Dispatch(new ApplicationErrorHasOccurred(exception.Message));
                 return HttpStatusCode.BadRequest;
             }
         }
@@ -76,8 +71,7 @@ namespace Lemonade.Web.Modules
             }
         }
 
-        private readonly IDomainEventDispatcher _eventDispatcher;
         private readonly ICommandDispatcher _commandDispatcher;
-        private readonly IGetAllApplications _getAllApplications;
+        private readonly IQueryDispatcher _queryDispatcher;
     }
 }

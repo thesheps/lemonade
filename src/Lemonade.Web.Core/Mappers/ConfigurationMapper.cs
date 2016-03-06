@@ -1,12 +1,12 @@
-﻿using Lemonade.Web.Contracts;
+﻿using Lemonade.Data.Entities;
 
-namespace Lemonade.Web.Mappers
+namespace Lemonade.Web.Core.Mappers
 {
     public static class ConfigurationMapper
     {
-        public static Configuration ToContract(this Data.Entities.Configuration configuration)
+        public static Contracts.Configuration ToContract(this Configuration configuration)
         {
-            return new Configuration
+            return new Contracts.Configuration
             {
                 ConfigurationId = configuration.ConfigurationId,
                 Name = configuration.Name,
@@ -15,9 +15,9 @@ namespace Lemonade.Web.Mappers
             };
         }
 
-        public static Data.Entities.Configuration ToEntity(this Configuration configuration)
+        public static Configuration ToEntity(this Contracts.Configuration configuration)
         {
-            return new Data.Entities.Configuration
+            return new Configuration
             {
                 ConfigurationId = configuration.ConfigurationId,
                 ApplicationId = configuration.ApplicationId,

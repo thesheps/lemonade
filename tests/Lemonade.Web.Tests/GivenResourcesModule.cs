@@ -2,7 +2,7 @@
 using Lemonade.Sql.Migrations;
 using Lemonade.Sql.Queries;
 using Lemonade.Web.Contracts;
-using Lemonade.Web.Mappers;
+using Lemonade.Web.Core.Mappers;
 using Lemonade.Web.Tests.Mocks;
 using Nancy.Testing;
 using Newtonsoft.Json;

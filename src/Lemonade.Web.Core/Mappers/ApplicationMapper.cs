@@ -1,21 +1,21 @@
-﻿using Lemonade.Web.Contracts;
+﻿using Lemonade.Data.Entities;
 
-namespace Lemonade.Web.Mappers
+namespace Lemonade.Web.Core.Mappers
 {
     public static class ApplicationMapper
     {
-        public static Application ToContract(this Data.Entities.Application application)
+        public static Contracts.Application ToContract(this Application application)
         {
-            return new Application
+            return new Contracts.Application
             {
                 ApplicationId = application.ApplicationId,
                 Name = application.Name
             };
         }
 
-        public static Data.Entities.Application ToEntity(this Application application)
+        public static Application ToEntity(this Contracts.Application application)
         {
-            return new Data.Entities.Application
+            return new Application
             {
                 ApplicationId = application.ApplicationId,
                 Name = application.Name

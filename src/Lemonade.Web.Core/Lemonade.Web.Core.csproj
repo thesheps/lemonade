@@ -115,6 +115,16 @@
     <Compile Include="Events\ResourceHasBeenDeleted.cs" />
     <Compile Include="Events\ResourceHasBeenUpdated.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Mappers\ApplicationMapper.cs" />
+    <Compile Include="Mappers\ConfigurationMapper.cs" />
+    <Compile Include="Mappers\FeatureMapper.cs" />
+    <Compile Include="Mappers\FeatureOverrideMapper.cs" />
+    <Compile Include="Mappers\ResourceMapper.cs" />
+    <Compile Include="Queries\GetAllApplicationsQuery.cs" />
+    <Compile Include="Queries\IQuery.cs" />
+    <Compile Include="QueryHandlers\GetAllApplicationsQueryHandler.cs" />
+    <Compile Include="QueryHandlers\IQueryHandler.cs" />
+    <Compile Include="Services\IQueryDispatcher.cs" />
     <Compile Include="Services\ICommandDispatcher.cs" />
     <Compile Include="Services\IDomainEventDispatcher.cs" />
     <Compile Include="Services\INotifyClients.cs" />
@@ -123,6 +133,10 @@
     <ProjectReference Include="..\Lemonade.Data\Lemonade.Data.csproj">
       <Project>{A9171A74-BFAD-4C2E-A8E2-54BC2BCE496C}</Project>
       <Name>Lemonade.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Lemonade.Web.Contracts\Lemonade.Web.Contracts.csproj">
+      <Project>{DF4CCA5C-FF05-4471-BF04-C4E36C7101D8}</Project>
+      <Name>Lemonade.Web.Contracts</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

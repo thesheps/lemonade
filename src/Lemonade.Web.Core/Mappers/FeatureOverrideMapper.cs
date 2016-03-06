@@ -1,12 +1,12 @@
-﻿using Lemonade.Web.Contracts;
+﻿using Lemonade.Data.Entities;
 
-namespace Lemonade.Web.Mappers
+namespace Lemonade.Web.Core.Mappers
 {
     public static class FeatureOverrideMapper
     {
-        public static FeatureOverride ToContract(this Data.Entities.FeatureOverride featureOverride)
+        public static Contracts.FeatureOverride ToContract(this FeatureOverride featureOverride)
         {
-            return new FeatureOverride
+            return new Contracts.FeatureOverride
             {
                 FeatureOverrideId = featureOverride.FeatureOverrideId,
                 FeatureId = featureOverride.FeatureId,
@@ -15,9 +15,9 @@ namespace Lemonade.Web.Mappers
             };
         }
 
-        public static Data.Entities.FeatureOverride ToEntity(this FeatureOverride featureOverride)
+        public static FeatureOverride ToEntity(this Contracts.FeatureOverride featureOverride)
         {
-            return new Data.Entities.FeatureOverride
+            return new FeatureOverride
             {
                 FeatureOverrideId = featureOverride.FeatureOverrideId,
                 FeatureId = featureOverride.FeatureId,

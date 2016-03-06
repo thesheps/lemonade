@@ -1,12 +1,12 @@
-﻿using Lemonade.Web.Contracts;
+﻿using Lemonade.Data.Entities;
 
-namespace Lemonade.Web.Mappers
+namespace Lemonade.Web.Core.Mappers
 {
     public static class ResourceMapper
     {
-        public static Resource ToContract(this Data.Entities.Resource resource)
+        public static Contracts.Resource ToContract(this Resource resource)
         {
-            return new Resource
+            return new Contracts.Resource
             {
                 ApplicationId = resource.ApplicationId,
                 Locale = resource.Locale,
@@ -18,9 +18,9 @@ namespace Lemonade.Web.Mappers
             };
         }
 
-        public static Data.Entities.Resource ToEntity(this Resource resource)
+        public static Resource ToEntity(this Contracts.Resource resource)
         {
-            return new Data.Entities.Resource
+            return new Resource
             {
                 ApplicationId = resource.ApplicationId,
                 Locale = resource.Locale,

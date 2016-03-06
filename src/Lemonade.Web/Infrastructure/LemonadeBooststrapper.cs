@@ -33,6 +33,7 @@ namespace Lemonade.Web.Infrastructure
 
             container
                 .InstallCommandHandlers()
+                .InstallQueryHandlers()
                 .InstallDomainEventHandlers();
         }
 
