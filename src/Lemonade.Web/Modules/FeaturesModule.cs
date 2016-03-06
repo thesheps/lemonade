@@ -1,11 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Lemonade.Data.Exceptions;
-using Lemonade.Data.Queries;
+﻿using System;
+using System.Collections.Generic;
 using Lemonade.Web.Contracts;
 using Lemonade.Web.Core.Commands;
-using Lemonade.Web.Core.Events;
-using Lemonade.Web.Core.Mappers;
+using Lemonade.Web.Core.Queries;
 using Lemonade.Web.Core.Services;
 using Nancy;
 using Nancy.ModelBinding;
@@ -14,13 +11,11 @@ namespace Lemonade.Web.Modules
 {
     public class FeaturesModule : NancyModule
     {
-        public FeaturesModule(IDomainEventDispatcher eventDispatcher, ICommandDispatcher commandDispatcher, IGetAllFeaturesByApplicationId getAllFeaturesByApplicationId, IGetFeatureByNameAndApplication getFeatureByNameAndApplication, IGetApplicationByName getApplicationByName)
+        public FeaturesModule(IDomainEventDispatcher eventDispatcher, ICommandDispatcher commandDispatcher, IQueryDispatcher queryDispatcher)
         {
             _eventDispatcher = eventDispatcher;
             _commandDispatcher = commandDispatcher;
-            _getFeatureByNameAndApplication = getFeatureByNameAndApplication;
-            _getApplicationByName = getApplicationByName;
-            _getAllFeaturesByApplicationId = getAllFeaturesByApplicationId;
+            _queryDispatcher = queryDispatcher;
 
             Post["/api/features"] = p => CreateFeature();
             Put["/api/features"] = p => UpdateFeature();
@@ -33,14 +28,9 @@ namespace Lemonade.Web.Modules
         {
             var featureName = Request.Query["feature"].Value as string;
             var applicationName = Request.Query["application"].Value as string;
-            var feature = _getFeatureByNameAndApplication.Execute(featureName, applicationName);
-            if (feature != null) return feature.ToContract();
-            var application = _getApplicationByName.Execute(applicationName);
-            _commandDispatcher.Dispatch(new CreateFeatureCommand(featureName, application.ApplicationId, false));
+            var feature = _queryDispatcher.Dispatch(new GetFeatureByNameAndApplicationQuery(applicationName, featureName));
 
-            feature = _getFeatureByNameAndApplication.Execute(featureName, applicationName);
-
-            return feature.ToContract();
+            return feature;
         }
 
         private IList<Feature> GetFeatures()
@@ -48,23 +38,22 @@ namespace Lemonade.Web.Modules
             int applicationId;
             int.TryParse(Request.Query["applicationId"].Value as string, out applicationId);
 
-            var feature = _getAllFeaturesByApplicationId.Execute(applicationId);
+            var features = _queryDispatcher.Dispatch(new GetAllFeaturesByApplicationIdQuery(applicationId));
 
-            return feature.Select(f => f.ToContract()).ToList();
+            return features;
         }
 
         private HttpStatusCode CreateFeature()
         {
             try
             {
-                var feature = this.Bind<Feature>().ToEntity();
+                var feature = this.Bind<Feature>();
                 _commandDispatcher.Dispatch(new CreateFeatureCommand(feature.Name, feature.ApplicationId, feature.IsEnabled));
 
                 return HttpStatusCode.OK;
             }
-            catch (CreateFeatureException exception)
+            catch (Exception)
             {
-                _eventDispatcher.Dispatch(new FeatureErrorHasOccurred(exception.Message));
                 return HttpStatusCode.BadRequest;
             }
         }
@@ -78,9 +67,8 @@ namespace Lemonade.Web.Modules
 
                 return HttpStatusCode.OK;
             }
-            catch (UpdateFeatureException exception)
+            catch (Exception)
             {
-                _eventDispatcher.Dispatch(new FeatureErrorHasOccurred(exception.Message));
                 return HttpStatusCode.BadRequest;
             }
         }
@@ -95,17 +83,14 @@ namespace Lemonade.Web.Modules
                 _commandDispatcher.Dispatch(new DeleteFeatureCommand(featureId));
                 return HttpStatusCode.OK;
             }
-            catch (DeleteFeatureException exception)
+            catch (Exception)
             {
-                _eventDispatcher.Dispatch(new FeatureErrorHasOccurred(exception.Message));
                 return HttpStatusCode.BadRequest;
             }
         }
 
         private readonly IDomainEventDispatcher _eventDispatcher;
         private readonly ICommandDispatcher _commandDispatcher;
-        private readonly IGetFeatureByNameAndApplication _getFeatureByNameAndApplication;
-        private readonly IGetApplicationByName _getApplicationByName;
-        private readonly IGetAllFeaturesByApplicationId _getAllFeaturesByApplicationId;
+        private readonly IQueryDispatcher _queryDispatcher;
     }
 }

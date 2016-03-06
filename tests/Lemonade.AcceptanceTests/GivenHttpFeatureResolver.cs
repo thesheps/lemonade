@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net;
 using Lemonade.Builders;
+using Lemonade.Core.Exceptions;
 using Lemonade.Services;
 using Lemonade.Sql.Commands;
 using Lemonade.Sql.Migrations;
@@ -61,12 +62,12 @@ namespace Lemonade.AcceptanceTests
         }
 
         [Test]
-        public void WhenIHaveAnUnknownFeatureAndITryToRetrieveIt_ThenItIsInserted()
+        public void WhenIHaveAnUnknownFeatureAndITryToRetrieveIt_ThenUnknownFeatureExceptionIsThrown()
         {
-            var enabled = Feature.Switches["Sheep"];
-            var feature = _getFeature.Execute("Sheep", "Test Application");
-            Assert.That(feature.IsEnabled, Is.False);
-            Assert.That(enabled, Is.False);
+            Assert.Throws<FeatureCouldNotBeFoundException>(() =>
+            {
+                var feature = Feature.Switches["Sheep"];
+            });
         }
 
         [Test]

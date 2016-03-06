@@ -45,6 +45,9 @@ namespace Lemonade.Services
             if (response.StatusCode == HttpStatusCode.InternalServerError)
                 throw new HttpConnectionException(Errors.ServerError, response.ErrorException);
 
+            if (response.Data == null)
+                throw new FeatureCouldNotBeFoundException();
+
             return response.Data;
         }
 

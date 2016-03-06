@@ -1,10 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Lemonade.Data.Exceptions;
-using Lemonade.Data.Queries;
+﻿using System;
+using System.Collections.Generic;
 using Lemonade.Web.Contracts;
 using Lemonade.Web.Core.Commands;
-using Lemonade.Web.Core.Mappers;
+using Lemonade.Web.Core.Queries;
 using Lemonade.Web.Core.Services;
 using Nancy;
 using Nancy.ModelBinding;
@@ -13,11 +11,10 @@ namespace Lemonade.Web.Modules
 {
     public class ConfigurationsModule : NancyModule
     {
-        public ConfigurationsModule(ICommandDispatcher commandDispatcher, IGetConfigurationByNameAndApplication getConfigurationByNameAndApplication, IGetAllConfigurationsByApplicationId getAllConfigurationsByApplicationId)
+        public ConfigurationsModule(ICommandDispatcher commandDispatcher, IQueryDispatcher queryDispatcher)
         {
             _commandDispatcher = commandDispatcher;
-            _getConfigurationByNameAndApplication = getConfigurationByNameAndApplication;
-            _getAllConfigurationsByApplicationId = getAllConfigurationsByApplicationId;
+            _queryDispatcher = queryDispatcher;
             Get["/api/configurations"] = p => GetConfigurations();
             Get["/api/configuration"] = p => GetConfiguration();
             Post["/api/configurations"] = p => PostConfiguration();
@@ -29,11 +26,9 @@ namespace Lemonade.Web.Modules
         {
             var configurationName = Request.Query["configuration"].Value as string;
             var applicationName = Request.Query["application"].Value as string;
-            var configuration = _getConfigurationByNameAndApplication.Execute(configurationName, applicationName);
+            var configuration = _queryDispatcher.Dispatch(new GetConfigurationByNameAndApplicationQuery(applicationName, configurationName));
 
-            if (configuration == null) throw new ConfigurationDoesNotExistException();
-
-            return configuration.ToContract();
+            return configuration;
         }
 
         private IList<Configuration> GetConfigurations()
@@ -41,9 +36,9 @@ namespace Lemonade.Web.Modules
             int applicationId;
             int.TryParse(Request.Query["applicationId"].Value as string, out applicationId);
 
-            var configurations = _getAllConfigurationsByApplicationId.Execute(applicationId);
+            var configurations = _queryDispatcher.Dispatch(new GetAllConfigurationsByApplicationIdQuery(applicationId));
 
-            return configurations.Select(f => f.ToContract()).ToList();
+            return configurations;
         }
 
         private HttpStatusCode PostConfiguration()
@@ -55,7 +50,7 @@ namespace Lemonade.Web.Modules
 
                 return HttpStatusCode.OK;
             }
-            catch (CreateConfigurationException)
+            catch (Exception)
             {
                 return HttpStatusCode.BadRequest;
             }
@@ -70,7 +65,7 @@ namespace Lemonade.Web.Modules
 
                 return HttpStatusCode.OK;
             }
-            catch (UpdateConfigurationException)
+            catch (Exception)
             {
                 return HttpStatusCode.BadRequest;
             }
@@ -86,14 +81,13 @@ namespace Lemonade.Web.Modules
                 _commandDispatcher.Dispatch(new DeleteConfigurationCommand(configurationId));
                 return HttpStatusCode.OK;
             }
-            catch (DeleteConfigurationException)
+            catch (Exception)
             {
                 return HttpStatusCode.BadRequest;
             }
         }
 
         private readonly ICommandDispatcher _commandDispatcher;
-        private readonly IGetConfigurationByNameAndApplication _getConfigurationByNameAndApplication;
-        private readonly IGetAllConfigurationsByApplicationId _getAllConfigurationsByApplicationId;
+        private readonly IQueryDispatcher _queryDispatcher;
     }
 }

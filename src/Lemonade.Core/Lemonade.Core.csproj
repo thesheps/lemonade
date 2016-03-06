@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Exceptions\FeatureCouldNotBeFoundException.cs" />
     <Compile Include="Services\ICacheProvider.cs" />
     <Compile Include="Collections\IConfigurationValueCollection.cs" />
     <Compile Include="Services\IConfigurationResolver.cs" />

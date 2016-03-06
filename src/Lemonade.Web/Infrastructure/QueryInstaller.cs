@@ -11,6 +11,12 @@ namespace Lemonade.Web.Infrastructure
         public static TinyIoCContainer InstallQueryHandlers(this TinyIoCContainer container)
         {
             container.Register<IQueryHandler<GetAllApplicationsQuery, IList<Application>>, GetAllApplicationsQueryHandler>();
+            container.Register<IQueryHandler<GetAllConfigurationsByApplicationIdQuery, IList<Configuration>>, GetAllConfigurationsByApplicationIdQueryHandler>();
+            container.Register<IQueryHandler<GetAllFeaturesByApplicationIdQuery, IList<Feature>>, GetAllFeaturesByApplicationIdQueryHandler>();
+            container.Register<IQueryHandler<GetAllResourcesByApplicationIdQuery, IList<Resource>>, GetAllResourcesByApplicationIdQueryHandler>();
+            container.Register<IQueryHandler<GetConfigurationByNameAndApplicationQuery, Configuration>, GetConfigurationByNameAndApplicationQueryHandler>();
+            container.Register<IQueryHandler<GetFeatureByNameAndApplicationQuery, Feature>, GetFeatureByNameAndApplicationQueryHandler>();
+            container.Register<IQueryHandler<GetResourceQuery, Resource>, GetResourceQueryHandler>();
 
             return container;
         }

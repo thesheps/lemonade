@@ -1,4 +1,4 @@
-﻿using Lemonade.Data.Exceptions;
+﻿using System;
 using Lemonade.Web.Contracts;
 using Lemonade.Web.Core.Commands;
 using Lemonade.Web.Core.Services;
@@ -9,9 +9,8 @@ namespace Lemonade.Web.Modules
 {
     public class FeatureOverridesModule : NancyModule
     {
-        public FeatureOverridesModule(IDomainEventDispatcher eventDispatcher, ICommandDispatcher commandDispatcher)
+        public FeatureOverridesModule(ICommandDispatcher commandDispatcher)
         {
-            _eventDispatcher = eventDispatcher;
             _commandDispatcher = commandDispatcher;
             Post["/api/featureoverrides"] = p => CreateFeatureOverride();
             Put["/api/featureoverrides"] = p => UpdateFeatureOverride();
@@ -26,7 +25,7 @@ namespace Lemonade.Web.Modules
                 _commandDispatcher.Dispatch(new CreateFeatureOverrideCommand(featureOverride.FeatureId, featureOverride.FeatureOverrideId, featureOverride.Hostname, featureOverride.IsEnabled));
                 return HttpStatusCode.OK;
             }
-            catch (CreateFeatureOverrideException)
+            catch (Exception)
             {
                 return HttpStatusCode.BadRequest;
             }
@@ -41,7 +40,7 @@ namespace Lemonade.Web.Modules
 
                 return HttpStatusCode.OK;
             }
-            catch (UpdateFeatureOverrideException)
+            catch (Exception)
             {
                 return HttpStatusCode.BadRequest;
             }
@@ -57,13 +56,12 @@ namespace Lemonade.Web.Modules
                 _commandDispatcher.Dispatch(new DeleteFeatureOverrideCommand(featureOverrideId));                
                 return HttpStatusCode.OK;
             }
-            catch (DeleteFeatureOverrideException)
+            catch (Exception)
             {
                 return HttpStatusCode.BadRequest;
             }
         }
 
-        private readonly IDomainEventDispatcher _eventDispatcher;
         private readonly ICommandDispatcher _commandDispatcher;
     }
 }

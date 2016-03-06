@@ -1,10 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Lemonade.Data.Exceptions;
-using Lemonade.Data.Queries;
+﻿using System;
+using System.Collections.Generic;
 using Lemonade.Web.Contracts;
 using Lemonade.Web.Core.Commands;
-using Lemonade.Web.Core.Mappers;
+using Lemonade.Web.Core.Queries;
 using Lemonade.Web.Core.Services;
 using Nancy;
 using Nancy.ModelBinding;
@@ -13,11 +11,10 @@ namespace Lemonade.Web.Modules
 {
     public class ResourcesModule : NancyModule
     {
-        public ResourcesModule(ICommandDispatcher commandDispatcher, IGetResource getResource, IGetAllResourcesByApplicationId getAllResourcesbyApplicationId)
+        public ResourcesModule(ICommandDispatcher commandDispatcher, IQueryDispatcher queryDispatcher)
         {
             _commandDispatcher = commandDispatcher;
-            _getResource = getResource;
-            _getAllResourcesbyApplicationId = getAllResourcesbyApplicationId;
+            _queryDispatcher = queryDispatcher;
             Get["/api/resource"] = r => GetResource();
             Get["/api/resources"] = r => GetResources();
             Post["/api/resources"] = r => CreateResource();
@@ -31,9 +28,9 @@ namespace Lemonade.Web.Modules
             var resourceSet = Request.Query["resourceSet"].Value as string;
             var resourceKey = Request.Query["resourceKey"].Value as string;
             var locale = Request.Query["locale"].Value as string;
-            var resource = _getResource.Execute(application, resourceSet, resourceKey, locale);
+            var resource = _queryDispatcher.Dispatch(new GetResourceQuery(application, resourceSet, resourceKey, locale));
 
-            return resource.ToContract();
+            return resource;
         }
 
         private IList<Resource> GetResources()
@@ -41,9 +38,9 @@ namespace Lemonade.Web.Modules
             int applicationId;
             int.TryParse(Request.Query["applicationId"].Value as string, out applicationId);
 
-            var resources = _getAllResourcesbyApplicationId.Execute(applicationId);
+            var resources = _queryDispatcher.Dispatch(new GetAllResourcesByApplicationIdQuery(applicationId));
 
-            return resources.Select(r => r.ToContract()).ToList();
+            return resources;
         }
 
         private HttpStatusCode CreateResource()
@@ -55,7 +52,7 @@ namespace Lemonade.Web.Modules
 
                 return HttpStatusCode.OK;
             }
-            catch (CreateResourceException)
+            catch (Exception)
             {
                 return HttpStatusCode.BadRequest;
             }
@@ -70,7 +67,7 @@ namespace Lemonade.Web.Modules
 
                 return HttpStatusCode.OK;
             }
-            catch (UpdateFeatureException)
+            catch (Exception)
             {
                 return HttpStatusCode.BadRequest;
             }
@@ -86,14 +83,13 @@ namespace Lemonade.Web.Modules
                 _commandDispatcher.Dispatch(new DeleteResourceCommand(resourceId));
                 return HttpStatusCode.OK;
             }
-            catch (DeleteResourceException)
+            catch (Exception)
             {
                 return HttpStatusCode.BadRequest;
             }
         }
 
         private readonly ICommandDispatcher _commandDispatcher;
-        private readonly IGetResource _getResource;
-        private readonly IGetAllResourcesByApplicationId _getAllResourcesbyApplicationId;
+        private readonly IQueryDispatcher _queryDispatcher;
     }
 }

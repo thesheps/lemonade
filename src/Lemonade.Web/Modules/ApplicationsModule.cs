@@ -1,7 +1,7 @@
-﻿using Nancy;
+﻿using System;
+using Nancy;
 using Nancy.ModelBinding;
 using System.Collections.Generic;
-using Lemonade.Data.Exceptions;
 using Lemonade.Web.Contracts;
 using Lemonade.Web.Core.Commands;
 using Lemonade.Web.Core.Queries;
@@ -34,7 +34,7 @@ namespace Lemonade.Web.Modules
                 _commandDispatcher.Dispatch(new CreateApplicationCommand(this.Bind<Application>().Name));
                 return HttpStatusCode.OK;
             }
-            catch (CreateApplicationException)
+            catch (Exception)
             {
                 return HttpStatusCode.BadRequest;
             }
@@ -49,7 +49,7 @@ namespace Lemonade.Web.Modules
 
                 return HttpStatusCode.OK;
             }
-            catch (UpdateApplicationException)
+            catch (Exception)
             {
                 return HttpStatusCode.BadRequest;
             }
@@ -65,7 +65,7 @@ namespace Lemonade.Web.Modules
                 _commandDispatcher.Dispatch(new DeleteApplicationCommand(applicationId));
                 return HttpStatusCode.OK;
             }
-            catch (DeleteApplicationException)
+            catch (Exception)
             {
                 return HttpStatusCode.BadRequest;
             }
