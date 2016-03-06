@@ -15,7 +15,7 @@
             <div layout="column" ng-show="application != null">
                 <md-input-container class="md-icon-float md-block">
                     <label>Add a New Feature</label>
-                    <input ng-model="newFeature.name" type="text" ng-enter="addFeature(newFeature)" aria-label="Enter feature name">
+                    <input required ng-model="newFeature.name" type="text" ng-enter="addFeature(newFeature)" aria-label="Enter feature name">
                 </md-input-container>
             </div>
 
@@ -51,7 +51,7 @@
                     </md-list-item>
 
                     <md-list-item ng-repeat="featureOverride in feature.featureOverrides" class="animate">
-                        <md-checkbox ng-model="featureOverride.isEnabled" ng-change="updateFeatureOverride(featureOverride)"></md-checkbox>
+                        <md-checkbox ng-model="featureOverride.isEnabled" ng-change="updateFeatureOverride(featureOverride)" aria-label="Enable/Disable feature override"></md-checkbox>
 
                         <md-input-container>
                             <label>Host Name</label>

@@ -25,6 +25,7 @@
 
     $scope.onConfigurationAdded = function (configuration) {
         $scope.$apply(function () {
+            $scope.newConfiguration = { applicationId: $scope.application.applicationId }
             $scope.configurations.push(configuration);
         });
     }

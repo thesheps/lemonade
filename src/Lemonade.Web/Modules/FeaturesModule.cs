@@ -11,9 +11,8 @@ namespace Lemonade.Web.Modules
 {
     public class FeaturesModule : NancyModule
     {
-        public FeaturesModule(IDomainEventDispatcher eventDispatcher, ICommandDispatcher commandDispatcher, IQueryDispatcher queryDispatcher)
+        public FeaturesModule(ICommandDispatcher commandDispatcher, IQueryDispatcher queryDispatcher)
         {
-            _eventDispatcher = eventDispatcher;
             _commandDispatcher = commandDispatcher;
             _queryDispatcher = queryDispatcher;
 
@@ -89,7 +88,6 @@ namespace Lemonade.Web.Modules
             }
         }
 
-        private readonly IDomainEventDispatcher _eventDispatcher;
         private readonly ICommandDispatcher _commandDispatcher;
         private readonly IQueryDispatcher _queryDispatcher;
     }

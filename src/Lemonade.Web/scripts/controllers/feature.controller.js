@@ -38,6 +38,7 @@
     $scope.onFeatureAdded = function (feature) {
         $scope.$apply(function () {
             $scope.features.push(feature);
+            $scope.newFeature = { applicationId: $scope.application.applicationId }
         });
     }
 

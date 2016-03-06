@@ -18,6 +18,7 @@
     $scope.onApplicationAdded = function (application) {
         $scope.$apply(function () {
             $scope.applications.push(application);
+            $scope.applicationName = "";
         });
     }
 

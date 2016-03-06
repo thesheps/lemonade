@@ -25,6 +25,7 @@
 
     $scope.onResourceAdded = function (resource) {
         $scope.$apply(function () {
+            $scope.newResource = { applicationId: $scope.application.applicationId }
             $scope.resources.push(resource);
         });
     }

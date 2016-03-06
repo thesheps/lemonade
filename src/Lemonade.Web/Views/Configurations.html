@@ -16,7 +16,7 @@
                 <md-input-container class="md-icon-float md-block">
                     <label>Configuration Name</label>
                     <md-icon>add_circle</md-icon>
-                    <input ng-model="newConfiguration.name" type="text" ng-enter="addConfiguration(newConfiguration)">
+                    <input required ng-model="newConfiguration.name" type="text" ng-enter="addConfiguration(newConfiguration)">
                 </md-input-container>
 
                 <multi-input ng-model="newConfiguration.value">
