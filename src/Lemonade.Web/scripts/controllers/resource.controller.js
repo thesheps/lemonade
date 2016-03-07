@@ -32,7 +32,7 @@
             return criteria === undefined ||
                    criteria.resourceSet === "" || resource.resourceSet === criteria.resourceSet ||
                    criteria.resourceKey === "" || resource.resourceKey === criteria.resourceKey ||
-                   criteria.locale === {} || criteria.locale.description === "Show all..." || resource.locale === criteria.locale.isoCode ||
+                   criteria.locale === {} || criteria.locale.description === "Show all..." || resource.localeId === criteria.locale.localeId ||
                    criteria.value === "" || resource.value === criteria.value;
         };
     }

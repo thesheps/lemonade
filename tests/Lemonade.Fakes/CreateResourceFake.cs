@@ -24,14 +24,14 @@ namespace Lemonade.Fakes
             {
                 try
                 {
-                    cnn.Execute(@"INSERT INTO Resource (ApplicationId, ResourceSet, ResourceKey, Locale, Value)
-                                  VALUES (@ApplicationId, @ResourceSet, @ResourceKey, @Locale, @Value)", 
+                    cnn.Execute(@"INSERT INTO Resource (ApplicationId, ResourceSet, ResourceKey, LocaleId, Value)
+                                  VALUES (@ApplicationId, @ResourceSet, @ResourceKey, @LocaleId, @Value)", 
                     new
                     {
                         resource.ApplicationId,
                         resource.ResourceSet,
                         resource.ResourceKey,
-                        resource.Locale,
+                        resource.LocaleId,
                         resource.Value
                     });
 

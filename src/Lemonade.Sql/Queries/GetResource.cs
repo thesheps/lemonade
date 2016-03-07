@@ -19,13 +19,15 @@ namespace Lemonade.Sql.Queries
         {
             using (var cnn = CreateConnection())
             {
-                var resource = cnn.Query<Resource, Application, Resource>(
-                    @"SELECT * FROM Resource r INNER JOIN Application a ON r.ApplicationId = a.ApplicationId
+                var resource = cnn.Query<Resource, Application, Locale, Resource>(
+                    @"SELECT * FROM Resource r 
+                      INNER JOIN Application a ON r.ApplicationId = a.ApplicationId
+                      INNER JOIN Locale l ON r.LocaleId = l.LocaleId
                       WHERE r.ResourceSet = @resourceSet AND r.ResourceKey = @resourceKey AND
-                            a.Name = @application AND r.Locale = @locale",
-                    (r, a) => { r.Application = a; return r; },
-                    new { resourceSet, resourceKey, application, locale},
-                    splitOn: "ApplicationId").FirstOrDefault();
+                            a.Name = @application AND l.IsoCode = @locale",
+                    (r, a, l) => { r.Application = a; r.Locale = l; return r; },
+                    new { resourceSet, resourceKey, application, locale },
+                    splitOn: "ApplicationId,LocaleId").FirstOrDefault();
 
                 return resource;
             }

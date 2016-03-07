@@ -1,4 +1,5 @@
 ﻿using Lemonade.Builders;
+using Lemonade.Data.Entities;
 using Lemonade.Fakes;
 using Lemonade.Sql.Commands;
 using Lemonade.Sql.Migrations;
@@ -26,10 +27,13 @@ namespace Lemonade.Sql.Tests
                 .WithName("Test12345")
                 .Build();
 
+            var locale = new Locale { Description = "English", IsoCode = "en-GB" };
+
             new CreateApplicationFake().Execute(application);
+            new CreateLocaleFake().Execute(locale);
 
             var resource = new ResourceBuilder()
-                .WithLocale("de-DE")
+                .WithLocale(locale)
                 .WithResourceKey("HelloWorld")
                 .WithResourceSet("MyTestResources")
                 .WithValue("Hello World")
@@ -37,7 +41,7 @@ namespace Lemonade.Sql.Tests
 
             _createResource.Execute(resource);
             _deleteFeature.Execute(resource.ResourceId);
-            resource = _getResource.Execute(application.Name, resource.ResourceSet, resource.ResourceKey, resource.Locale);
+            resource = _getResource.Execute(application.Name, resource.ResourceSet, resource.ResourceKey, resource.Locale.IsoCode);
 
             Assert.That(resource, Is.Null);
         }

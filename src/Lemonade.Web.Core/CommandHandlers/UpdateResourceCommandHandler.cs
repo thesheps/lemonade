@@ -19,9 +19,9 @@ namespace Lemonade.Web.Core.CommandHandlers
         {
             try
             {
-                var resource = new Resource { ResourceId = command.ResourceId, Locale = command.Locale, ResourceKey = command.ResourceKey, ResourceSet = command.ResourceSet, Value = command.Value };
+                var resource = new Resource { ResourceId = command.ResourceId, LocaleId = command.LocaleId, ResourceKey = command.ResourceKey, ResourceSet = command.ResourceSet, Value = command.Value };
                 _updateResource.Execute(resource);
-                _eventDispatcher.Dispatch(new ResourceHasBeenUpdated(resource.ResourceId, resource.ApplicationId, resource.ResourceSet, resource.ResourceKey, resource.Locale, resource.Value));
+                _eventDispatcher.Dispatch(new ResourceHasBeenUpdated(resource.ResourceId, resource.ApplicationId, resource.LocaleId, resource.ResourceSet, resource.ResourceKey, resource.Value));
             }
             catch (UpdateResourceException exception)
             {

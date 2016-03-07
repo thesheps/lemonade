@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="Commands\ICreateConfiguration.cs" />
     <Compile Include="Commands\ICreateFeatureOverride.cs" />
+    <Compile Include="Commands\ICreateLocale.cs" />
     <Compile Include="Commands\ICreateResource.cs" />
     <Compile Include="Commands\IDeleteConfiguration.cs" />
     <Compile Include="Commands\IDeleteFeatureOverride.cs" />
@@ -86,6 +87,7 @@
     <Compile Include="Queries\IGetAllApplications.cs" />
     <Compile Include="Queries\IGetAllConfigurationsByApplicationId.cs" />
     <Compile Include="Queries\IGetAllFeatures.cs" />
+    <Compile Include="Queries\IGetAllLocales.cs" />
     <Compile Include="Queries\IGetAllResourcesByApplicationId.cs" />
     <Compile Include="Queries\IGetAllFeaturesByApplicationId.cs" />
     <Compile Include="Queries\IGetApplicationByName.cs" />
@@ -94,6 +96,7 @@
     <Compile Include="Queries\IGetFeatureOverride.cs" />
     <Compile Include="Queries\IGetResource.cs" />
     <Compile Include="Queries\IUpdateFeatureOverride.cs" />
+    <Compile Include="Entities\Locale.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Errors.resx">

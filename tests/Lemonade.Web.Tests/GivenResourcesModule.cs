@@ -1,5 +1,4 @@
 ﻿using Lemonade.Fakes;
-using Lemonade.Sql.Commands;
 using Lemonade.Sql.Migrations;
 using Lemonade.Sql.Queries;
 using Lemonade.Web.Contracts;
@@ -43,7 +42,8 @@ namespace Lemonade.Web.Tests
             var application = new Data.Entities.Application { ApplicationId = 1, Name = "TestApplication1" };
             _createApplication.Execute(application);
 
-            var resource = GetResourceModel("de-DE", "Test", "Test", "Test", application.ToContract());
+            var locale = new GetAllLocales().Execute()[10].ToContract();
+            var resource = GetResourceModel(locale, "Test", "Test", "Test", application.ToContract());
 
             Post(resource);
 
@@ -53,7 +53,7 @@ namespace Lemonade.Web.Tests
                 with.Query("application", application.Name);
                 with.Query("resourceSet", resource.ResourceSet);
                 with.Query("resourceKey", resource.ResourceKey);
-                with.Query("locale", resource.Locale);
+                with.Query("locale", resource.Locale.IsoCode);
             });
 
             var result = JsonConvert.DeserializeObject<Resource>(response.Body.AsString());
@@ -61,7 +61,7 @@ namespace Lemonade.Web.Tests
             Assert.That(result.ApplicationId, Is.EqualTo(application.ApplicationId));
             Assert.That(result.ResourceKey, Is.EqualTo(resource.ResourceKey));
             Assert.That(result.ResourceSet, Is.EqualTo(resource.ResourceSet));
-            Assert.That(result.Locale, Is.EqualTo(resource.Locale));
+            Assert.That(result.Locale.IsoCode, Is.EqualTo(resource.Locale.IsoCode));
 
             _bootstrapper
                 .Resolve<IMockClient>()
@@ -75,7 +75,8 @@ namespace Lemonade.Web.Tests
             var application = new Data.Entities.Application { ApplicationId = 1, Name = "TestApplication1" };
             _createApplication.Execute(application);
 
-            var resourceModel = GetResourceModel("Test", "Test", "Test", "Test", _getApplication.Execute(application.Name).ToContract());
+            var locale = new GetAllLocales().Execute()[0].ToContract();
+            var resourceModel = GetResourceModel(locale, "Test", "Test", "Test", _getApplication.Execute(application.Name).ToContract());
             Post(resourceModel);
 
             _browser.Delete("/api/resources", with => { with.Query("id", "1"); });
@@ -95,16 +96,17 @@ namespace Lemonade.Web.Tests
             var application = new Data.Entities.Application { ApplicationId = 1, Name = "TestApplication1" };
             _createApplication.Execute(application);
 
-            var resourceModel = GetResourceModel("Test", "Test", "Test", "Test", application.ToContract());
+            var locale = new GetAllLocales().Execute()[0].ToContract();
+            var resourceModel = GetResourceModel(locale, "Test", "Test", "Test", application.ToContract());
             Post(resourceModel);
 
-            var resource = _getResource.Execute(application.Name, "Test", "Test", "test");
+            var resource = _getResource.Execute(application.Name, "Test", "Test", locale.IsoCode);
             resourceModel = resource.ToContract();
             resourceModel.Value = "Ponies";
 
             Put(resourceModel);
 
-            resource = _getResource.Execute(application.Name, "Test", "Test", "Test");
+            resource = _getResource.Execute(application.Name, "Test", "Test", locale.IsoCode);
             Assert.That(resource.Value, Is.EqualTo("Ponies"));
 
             _bootstrapper
@@ -131,10 +133,11 @@ namespace Lemonade.Web.Tests
             });
         }
 
-        private static Resource GetResourceModel(string locale, string resourceKey, string resourceSet, string value, Application application)
+        private static Resource GetResourceModel(Locale locale, string resourceKey, string resourceSet, string value, Application application)
         {
             return new Resource
             {
+                LocaleId = locale.LocaleId,
                 Locale = locale,
                 ResourceKey = resourceKey,
                 ResourceSet = resourceSet,

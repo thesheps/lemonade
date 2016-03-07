@@ -48,7 +48,7 @@ namespace Lemonade.Web.Modules
             try
             {
                 var resource = this.Bind<Resource>();
-                _commandDispatcher.Dispatch(new CreateResourceCommand(resource.ApplicationId, resource.Locale, resource.ResourceKey, resource.ResourceSet, resource.Value));
+                _commandDispatcher.Dispatch(new CreateResourceCommand(resource.ApplicationId, resource.LocaleId, resource.ResourceKey, resource.ResourceSet, resource.Value));
 
                 return HttpStatusCode.OK;
             }
@@ -63,7 +63,7 @@ namespace Lemonade.Web.Modules
             try
             {
                 var resource = this.Bind<Resource>();
-                _commandDispatcher.Dispatch(new UpdateResourceCommand(resource.ResourceId, resource.ResourceSet, resource.ResourceKey, resource.Locale, resource.Value));
+                _commandDispatcher.Dispatch(new UpdateResourceCommand(resource.ResourceId, resource.LocaleId, resource.ResourceSet, resource.ResourceKey, resource.Value));
 
                 return HttpStatusCode.OK;
             }

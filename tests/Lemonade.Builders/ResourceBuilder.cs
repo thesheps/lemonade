@@ -16,8 +16,9 @@ namespace Lemonade.Builders
             return this;
         }
 
-        public ResourceBuilder WithLocale(string locale)
+        public ResourceBuilder WithLocale(Locale locale)
         {
+            _resource.LocaleId = locale.LocaleId;
             _resource.Locale = locale;
             return this;
         }

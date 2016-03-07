@@ -60,6 +60,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\CreateLocale.cs" />
     <Compile Include="Commands\CreateConfiguration.cs" />
     <Compile Include="Commands\CreateFeatureOverride.cs" />
     <Compile Include="Commands\CreateResource.cs" />
@@ -74,7 +75,9 @@
     <Compile Include="Migrations\CreateFeatureOverrideTable.cs" />
     <Compile Include="Migrations\CreateConfigurationTable.cs" />
     <Compile Include="Migrations\CreateResourceTable.cs" />
+    <Compile Include="Migrations\CreateLocaleTable.cs" />
     <Compile Include="Migrations\RemoveUnusedColumns.cs" />
+    <Compile Include="Queries\GetAllLocales.cs" />
     <Compile Include="Queries\GetAllResourcesByApplicationId.cs" />
     <Compile Include="Queries\GetConfigurationByNameAndApplication.cs" />
     <Compile Include="Queries\GetResource.cs" />

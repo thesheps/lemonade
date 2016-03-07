@@ -9,7 +9,8 @@ namespace Lemonade.Web.Core.Mappers
             return new Contracts.Resource
             {
                 ApplicationId = resource.ApplicationId,
-                Locale = resource.Locale,
+                LocaleId = resource.LocaleId,
+                Locale = resource.Locale.ToContract(),
                 ResourceKey = resource.ResourceKey,
                 ResourceId = resource.ResourceId,
                 ResourceSet = resource.ResourceSet,
@@ -23,12 +24,13 @@ namespace Lemonade.Web.Core.Mappers
             return new Resource
             {
                 ApplicationId = resource.ApplicationId,
-                Locale = resource.Locale,
+                LocaleId = resource.LocaleId,
                 ResourceKey = resource.ResourceKey,
                 ResourceId = resource.ResourceId,
                 ResourceSet = resource.ResourceSet,
                 Value = resource.Value,
-                Application = resource.Application.ToEntity()
+                Application = resource.Application.ToEntity(),
+                Locale = resource.Locale.ToEntity()
             };
         }
     }

@@ -14,6 +14,7 @@ namespace Lemonade.Web.Infrastructure
             container.Register<IQueryHandler<GetAllConfigurationsByApplicationIdQuery, IList<Configuration>>, GetAllConfigurationsByApplicationIdQueryHandler>();
             container.Register<IQueryHandler<GetAllFeaturesByApplicationIdQuery, IList<Feature>>, GetAllFeaturesByApplicationIdQueryHandler>();
             container.Register<IQueryHandler<GetAllResourcesByApplicationIdQuery, IList<Resource>>, GetAllResourcesByApplicationIdQueryHandler>();
+            container.Register<IQueryHandler<GetAllLocalesQuery, IList<Locale>>, GetAllLocalesQueryHandler>();
             container.Register<IQueryHandler<GetConfigurationByNameAndApplicationQuery, Configuration>, GetConfigurationByNameAndApplicationQueryHandler>();
             container.Register<IQueryHandler<GetFeatureByNameAndApplicationQuery, Feature>, GetFeatureByNameAndApplicationQueryHandler>();
             container.Register<IQueryHandler<GetResourceQuery, Resource>, GetResourceQueryHandler>();

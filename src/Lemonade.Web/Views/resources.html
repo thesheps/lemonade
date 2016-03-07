@@ -25,8 +25,8 @@
 
                 <md-input-container class="md-block">
                     <label>Locale</label>
-                    <md-select ng-model="newResource.locale">
-                        <md-option ng-repeat="locale in locales" ng-value="locale.isoCode">
+                    <md-select ng-model="newResource.localeId">
+                        <md-option ng-repeat="locale in locales" ng-value="locale.localeId">
                             {{locale.description}}
                         </md-option>
                     </md-select>

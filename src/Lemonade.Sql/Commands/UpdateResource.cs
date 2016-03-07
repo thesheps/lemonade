@@ -24,13 +24,13 @@ namespace Lemonade.Sql.Commands
                     cnn.Execute(@"UPDATE Resource
                                   SET ResourceSet = @ResourceSet, 
                                   ResourceKey = @ResourceKey, 
-                                  Locale = @Locale, 
+                                  LocaleId = @LocaleId, 
                                   Value = @Value
                                   WHERE ResourceId = @ResourceId", new
                     {
                         resource.ResourceSet,
                         resource.ResourceKey,
-                        resource.Locale,
+                        resource.LocaleId,
                         resource.Value,
                         resource.ResourceId
                     });

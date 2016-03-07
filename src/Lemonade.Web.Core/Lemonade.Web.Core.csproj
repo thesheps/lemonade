@@ -115,6 +115,7 @@
     <Compile Include="Events\ResourceHasBeenDeleted.cs" />
     <Compile Include="Events\ResourceHasBeenUpdated.cs" />
     <Compile Include="Mappers\CultureMapper.cs" />
+    <Compile Include="Mappers\LocaleMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Mappers\ApplicationMapper.cs" />
     <Compile Include="Mappers\ConfigurationMapper.cs" />
@@ -124,6 +125,7 @@
     <Compile Include="Queries\GetAllApplicationsQuery.cs" />
     <Compile Include="Queries\GetAllConfigurationsByApplicationIdQuery.cs" />
     <Compile Include="Queries\GetAllFeaturesByApplicationIdQuery.cs" />
+    <Compile Include="Queries\GetAllLocalesQuery.cs" />
     <Compile Include="Queries\GetAllResourcesByApplicationIdQuery.cs" />
     <Compile Include="Queries\GetConfigurationByNameAndApplicationQuery.cs" />
     <Compile Include="Queries\GetFeatureByNameAndApplicationQuery.cs" />
@@ -132,6 +134,7 @@
     <Compile Include="QueryHandlers\GetAllApplicationsQueryHandler.cs" />
     <Compile Include="QueryHandlers\GetAllConfigurationsByApplicationIdQueryHandler.cs" />
     <Compile Include="QueryHandlers\GetAllFeaturesByApplicationIdQueryHandler.cs" />
+    <Compile Include="QueryHandlers\GetAllLocalesQueryHandler.cs" />
     <Compile Include="QueryHandlers\GetAllResourcesByApplicationIdQueryHandler.cs" />
     <Compile Include="QueryHandlers\GetConfigurationByNameAndApplicationQueryHandler.cs" />
     <Compile Include="QueryHandlers\GetFeatureByNameAndApplicationQueryHandler.cs" />

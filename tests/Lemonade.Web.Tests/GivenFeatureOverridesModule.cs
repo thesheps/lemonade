@@ -1,5 +1,4 @@
 ﻿using Lemonade.Fakes;
-using Lemonade.Sql.Commands;
 using Lemonade.Sql.Migrations;
 using Lemonade.Sql.Queries;
 using Lemonade.Web.Contracts;

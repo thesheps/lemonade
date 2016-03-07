@@ -1,4 +1,4 @@
-﻿namespace Lemonade.Web.Contracts
+﻿namespace Lemonade.Data.Entities
 {
     public class Locale
     {

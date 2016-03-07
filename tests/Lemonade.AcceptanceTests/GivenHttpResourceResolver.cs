@@ -2,6 +2,8 @@
 using System.Globalization;
 using System.Web;
 using Lemonade.Builders;
+using Lemonade.Data.Commands;
+using Lemonade.Data.Entities;
 using Lemonade.Fakes;
 using Lemonade.Services;
 using Lemonade.Sql.Commands;
@@ -25,10 +27,13 @@ namespace Lemonade.AcceptanceTests
                 .WithName("Test Application")
                 .Build();
 
+            var locale = new Locale { Description = "English", IsoCode = "en-GB" };
+
             new CreateApplicationFake().Execute(application);
+            new CreateLocaleFake().Execute(locale);
 
             var resource = new ResourceBuilder()
-                .WithLocale("de-DE")
+                .WithLocale(locale)
                 .WithResourceKey("HelloWorld")
                 .WithResourceSet("MyTestResources")
                 .WithValue("Hello World")
@@ -50,7 +55,7 @@ namespace Lemonade.AcceptanceTests
         [Test]
         public void WhenIHaveAKnownLocalisedResourceAndRetrieveIt_ThenTheValueIsCorrect()
         {
-            var culture = CultureInfo.CreateSpecificCulture("de-DE");
+            var culture = CultureInfo.CreateSpecificCulture("en-GB");
             var test = HttpContext.GetGlobalResourceObject("MyTestResources", "HelloWorld", culture);
             Assert.That(test, Is.EqualTo("Hello World"));
         }

@@ -47,6 +47,7 @@
     <Compile Include="CreateConfigurationFake.cs" />
     <Compile Include="CreateFeatureFake.cs" />
     <Compile Include="CreateFeatureOverrideFake.cs" />
+    <Compile Include="CreateLocaleFake.cs" />
     <Compile Include="CreateResourceFake.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

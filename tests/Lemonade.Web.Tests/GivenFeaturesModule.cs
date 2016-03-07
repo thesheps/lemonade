@@ -3,7 +3,6 @@ using System.Linq;
 using System.Net;
 using Lemonade.Fakes;
 using Lemonade.Services;
-using Lemonade.Sql.Commands;
 using Lemonade.Sql.Migrations;
 using Lemonade.Sql.Queries;
 using Lemonade.Web.Core.Mappers;

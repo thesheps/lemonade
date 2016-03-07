@@ -2,16 +2,16 @@
 {
     public class UpdateResourceCommand : ICommand
     {
-        public int ResourceId { get; set; }
-        public string Locale { get; set; }
-        public string ResourceKey { get; set; }
-        public string ResourceSet { get; set; }
-        public string Value { get; set; }
+        public int ResourceId { get; }
+        public int LocaleId { get; }
+        public string ResourceKey { get; }
+        public string ResourceSet { get; }
+        public string Value { get; }
 
-        public UpdateResourceCommand(int resourceId, string locale, string resourceKey, string resourceSet, string value)
+        public UpdateResourceCommand(int resourceId, int localeId, string resourceKey, string resourceSet, string value)
         {
             ResourceId = resourceId;
-            Locale = locale;
+            LocaleId = localeId;
             ResourceKey = resourceKey;
             ResourceSet = resourceSet;
             Value = value;
