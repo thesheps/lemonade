@@ -3,6 +3,10 @@
         $scope.applications = res.data;
     });
 
+    $http.get("/api/locales").then(function (res) {
+        $scope.locales = res.data;
+    });
+
     $scope.selectApplication = function (application) {
         $http.get("/api/resources?applicationId=" + application.applicationId).then(function (res) {
             $scope.application = application;
@@ -28,7 +32,7 @@
             return criteria === undefined ||
                    criteria.resourceSet === "" || resource.resourceSet === criteria.resourceSet ||
                    criteria.resourceKey === "" || resource.resourceKey === criteria.resourceKey ||
-                   criteria.locale === "" || resource.locale === criteria.locale ||
+                   criteria.locale === {} || criteria.locale.description === "Show all..." || resource.locale === criteria.locale.isoCode ||
                    criteria.value === "" || resource.value === criteria.value;
         };
     }

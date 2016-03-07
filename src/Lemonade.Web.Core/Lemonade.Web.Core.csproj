@@ -114,6 +114,7 @@
     <Compile Include="Events\ResourceHasBeenCreated.cs" />
     <Compile Include="Events\ResourceHasBeenDeleted.cs" />
     <Compile Include="Events\ResourceHasBeenUpdated.cs" />
+    <Compile Include="Mappers\CultureMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Mappers\ApplicationMapper.cs" />
     <Compile Include="Mappers\ConfigurationMapper.cs" />

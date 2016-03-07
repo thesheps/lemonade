@@ -103,6 +103,7 @@
   <ItemGroup>
     <Compile Include="GivenConfigurationsModule.cs" />
     <Compile Include="GivenFeatureOverridesModule.cs" />
+    <Compile Include="GivenLocalesModule.cs" />
     <Compile Include="GivenResourcesModule.cs" />
     <Compile Include="Mocks\IMockClient.cs" />
     <Compile Include="GivenApplicationsModule.cs" />

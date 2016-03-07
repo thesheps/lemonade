@@ -82,6 +82,7 @@
     <Compile Include="Infrastructure\QueryInstaller.cs" />
     <Compile Include="Modules\FeatureOverridesModule.cs" />
     <Compile Include="Modules\ConfigurationsModule.cs" />
+    <Compile Include="Modules\LocalesModules.cs" />
     <Compile Include="Modules\ResourcesModule.cs" />
     <Compile Include="Modules\IndexModule.cs" />
     <Compile Include="Services\QueryDispatcher.cs" />

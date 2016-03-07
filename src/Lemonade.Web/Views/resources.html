@@ -23,9 +23,13 @@
                     <input ng-model="newResource.resourceKey" type="text" ng-enter="addResource(newResource)">
                 </md-input-container>
 
-                <md-input-container class="md-icon-float md-block">
+                <md-input-container class="md-block">
                     <label>Locale</label>
-                    <input ng-model="newResource.locale" type="text" ng-enter="addResource(newResource)">
+                    <md-select ng-model="newResource.locale">
+                        <md-option ng-repeat="locale in locales" ng-value="locale.isoCode">
+                            {{locale.description}}
+                        </md-option>
+                    </md-select>
                 </md-input-container>
 
                 <md-input-container class="md-icon-float md-block">
@@ -38,29 +42,41 @@
                 </md-button>
             </div>
 
-            <div layout="row" ng-show="resources != null">
-                <md-input-container class="md-block">
-                    <label>Filter on resource set</label>
-                    <input ng-model="criteria.resourceSet" />
-                </md-input-container>
-
-                <md-input-container class="md-block">
-                    <label>Filter on resource key</label>
-                    <input ng-model="criteria.resourceKey" />
-                </md-input-container>
-
-                <md-input-container class="md-block">
-                    <label>Filter on locale</label>
-                    <input ng-model="criteria.locale" />
-                </md-input-container>
-
-                <md-input-container class="md-block">
-                    <label>Filter on value</label>
-                    <input ng-model="criteria.value" />
-                </md-input-container>
-            </div>
-
             <md-list>
+                <md-list-item>
+                    <div ng-show="resources != null" layout="column">
+                        <h3 class="md-headline">Filters</h3>
+
+                        <div layout="row">
+                            <md-input-container class="md-block">
+                                <label>Resource set</label>
+                                <input ng-model="criteria.resourceSet" />
+                            </md-input-container>
+
+                            <md-input-container class="md-block">
+                                <label>Resource key</label>
+                                <input ng-model="criteria.resourceKey" />
+                            </md-input-container>
+
+                            <md-input-container class="md-block">
+                                <label>Locale</label>
+                                <md-select ng-model="criteria.locale">
+                                    <md-option ng-repeat="locale in locales" ng-value="locale">
+                                        {{locale.description}}
+                                    </md-option>
+                                </md-select>
+                            </md-input-container>
+
+                            <md-input-container class="md-block">
+                                <label>Value</label>
+                                <input ng-model="criteria.value" />
+                            </md-input-container>
+                        </div>
+                    </div>
+                </md-list-item>
+                
+                <md-list-item/>
+
                 <md-list-item ng-repeat="resource in resources | filter:resourceFilter(criteria)" class="animate">
                     <md-input-container class="md-icon-float md-block">
                         <label>Resource Set</label>
