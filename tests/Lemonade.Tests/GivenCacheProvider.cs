@@ -68,10 +68,11 @@ namespace Lemonade.Tests
             var value = cacheProvider.GetValue<bool>("TEST", () =>
             {
                 attempts++;
-                throw new Exception();
+                if (attempts != retries) throw new Exception();
+                return true;
             });
 
-            Assert.That(attempts, Is.EqualTo(retries + 1));
+            Assert.That(attempts, Is.EqualTo(retries));
         }
     }
 }

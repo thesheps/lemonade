@@ -1,4 +1,5 @@
 ﻿using Lemonade.Builders;
+using Lemonade.Fakes;
 using Lemonade.Sql.Commands;
 using Lemonade.Sql.Migrations;
 using Lemonade.Sql.Queries;
@@ -22,7 +23,7 @@ namespace Lemonade.Sql.Tests
                 .WithName("Test12345")
                 .Build();
 
-            new CreateApplication().Execute(application);
+            new CreateApplicationFake().Execute(application);
 
             var resource = new ResourceBuilder()
                 .WithLocale("de-DE")
@@ -31,7 +32,7 @@ namespace Lemonade.Sql.Tests
                 .WithValue("Hello World")
                 .WithApplication(application).Build();
 
-            new CreateResource().Execute(resource);
+            new CreateResourceFake().Execute(resource);
 
             var resources = new GetAllResourcesByApplicationId().Execute(application.ApplicationId);
 

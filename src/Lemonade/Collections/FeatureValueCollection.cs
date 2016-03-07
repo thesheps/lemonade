@@ -5,7 +5,7 @@ using Lemonade.Core.Services;
 
 namespace Lemonade.Collections
 {
-    sealed internal class FeatureValueCollection : IFeatureValueCollection
+    public class FeatureValueCollection : IFeatureValueCollection
     {
         public bool this[Func<object, dynamic> keyFunction] => _valueCollection[keyFunction];
         public bool this[string key] => _valueCollection[key];

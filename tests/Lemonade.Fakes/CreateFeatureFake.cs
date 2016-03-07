@@ -3,16 +3,17 @@ using System.Linq;
 using Dapper;
 using Lemonade.Data.Commands;
 using Lemonade.Data.Exceptions;
+using Lemonade.Sql;
 
-namespace Lemonade.Sql.Commands
+namespace Lemonade.Fakes
 {
-    public class CreateFeature : LemonadeConnection, ICreateFeature
+    public class CreateFeatureFake : LemonadeConnection, ICreateFeature
     {
-        public CreateFeature()
+        public CreateFeatureFake()
         {
         }
 
-        public CreateFeature(string connectionStringName) : base(connectionStringName)
+        public CreateFeatureFake(string connectionStringName) : base(connectionStringName)
         {
         }
 
@@ -22,14 +23,15 @@ namespace Lemonade.Sql.Commands
             {
                 try
                 {
-                    feature.FeatureId = cnn.Query<int>(@"INSERT INTO Feature (IsEnabled, Name, ApplicationId)
-                                                         VALUES (@IsEnabled, @Name, @ApplicationId);
-                                                         SELECT SCOPE_IDENTITY();", new
+                    cnn.Execute(@"INSERT INTO Feature (IsEnabled, Name, ApplicationId)
+                                  VALUES (@IsEnabled, @Name, @ApplicationId)", new
                     {
                         feature.IsEnabled,
                         feature.Name,
                         feature.ApplicationId
-                    }).First();
+                    });
+
+                    feature.FeatureId = cnn.Query<int>("SELECT CAST(@@IDENTITY AS INT)").First();
                 }
                 catch (DbException exception)
                 {

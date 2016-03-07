@@ -4,16 +4,17 @@ using Dapper;
 using Lemonade.Data.Commands;
 using Lemonade.Data.Entities;
 using Lemonade.Data.Exceptions;
+using Lemonade.Sql;
 
-namespace Lemonade.Sql.Commands
+namespace Lemonade.Fakes
 {
-    public class CreateApplication : LemonadeConnection, ICreateApplication
+    public class CreateApplicationFake : LemonadeConnection, ICreateApplication
     {
-        public CreateApplication()
+        public CreateApplicationFake()
         {
         }
 
-        public CreateApplication(string connectionStringName) : base(connectionStringName)
+        public CreateApplicationFake(string connectionStringName) : base(connectionStringName)
         {
         }
 
@@ -23,8 +24,8 @@ namespace Lemonade.Sql.Commands
             {
                 try
                 {
-                    application.ApplicationId = cnn.Query<int>(@"INSERT INTO Application (Name) VALUES (@Name);
-                                                                 SELECT SCOPE_IDENTITY();", new { application.Name }).First();
+                    cnn.Execute("INSERT INTO Application (Name) VALUES (@Name)", new { application.Name });
+                    application.ApplicationId = cnn.Query<int>("SELECT CAST(@@IDENTITY AS INT)").First();
                 }
                 catch (DbException exception)
                 {

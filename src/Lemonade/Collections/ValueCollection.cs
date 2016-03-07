@@ -5,7 +5,7 @@ using Lemonade.Core.Collections;
 
 namespace Lemonade.Collections
 {
-    sealed internal class ValueCollection<T> : IValueCollection<T>
+    public class ValueCollection<T> : IValueCollection<T>
     {
         public T this[Func<dynamic, dynamic> keyFunction] => _getValue(keyFunction(_key));
         public T this[string key] => _getValue(key);

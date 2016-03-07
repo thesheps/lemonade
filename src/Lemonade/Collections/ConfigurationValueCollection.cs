@@ -5,7 +5,7 @@ using Lemonade.Core.Services;
 
 namespace Lemonade.Collections
 {
-    sealed internal class ConfigurationValueCollection<T> : IConfigurationValueCollection<T>
+    public class ConfigurationValueCollection<T> : IConfigurationValueCollection<T>
     {
         public T this[Func<object, object> keyFunction] => _valueCollection[keyFunction];
         public T this[string key] => _valueCollection[key];

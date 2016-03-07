@@ -1,4 +1,5 @@
 ﻿using Lemonade.Builders;
+using Lemonade.Fakes;
 using Lemonade.Sql.Commands;
 using Lemonade.Sql.Migrations;
 using Lemonade.Sql.Queries;
@@ -11,7 +12,7 @@ namespace Lemonade.Sql.Tests
         [SetUp]
         public void SetUp()
         {
-            _createResource = new CreateResource();
+            _createResource = new CreateResourceFake();
             _deleteFeature = new DeleteResource();
             _getResource = new GetResource();
             Runner.SqlCompact("Lemonade").Down();
@@ -25,7 +26,7 @@ namespace Lemonade.Sql.Tests
                 .WithName("Test12345")
                 .Build();
 
-            new CreateApplication().Execute(application);
+            new CreateApplicationFake().Execute(application);
 
             var resource = new ResourceBuilder()
                 .WithLocale("de-DE")
@@ -41,7 +42,7 @@ namespace Lemonade.Sql.Tests
             Assert.That(resource, Is.Null);
         }
 
-        private CreateResource _createResource;
+        private CreateResourceFake _createResource;
         private GetResource _getResource;
         private DeleteResource _deleteFeature;
     }

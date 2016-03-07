@@ -1,4 +1,6 @@
 ﻿using Lemonade.Builders;
+using Lemonade.Data.Commands;
+using Lemonade.Fakes;
 using Lemonade.Sql.Commands;
 using Lemonade.Sql.Migrations;
 using Lemonade.Sql.Queries;
@@ -11,8 +13,8 @@ namespace Lemonade.Sql.Tests
         [SetUp]
         public void SetUp()
         {
-            _createFeature = new CreateFeature();
-            _createApplication = new CreateApplication();
+            _createFeature = new CreateFeatureFake();
+            _createApplication = new CreateApplicationFake();
             _deleteApplication = new DeleteApplication();
             _getApplicationByName = new GetApplicationByName();
             Runner.SqlCompact("Lemonade").Down();
@@ -57,8 +59,8 @@ namespace Lemonade.Sql.Tests
         }
 
         private GetApplicationByName _getApplicationByName;
-        private CreateApplication _createApplication;
+        private ICreateApplication _createApplication;
         private DeleteApplication _deleteApplication;
-        private CreateFeature _createFeature;
+        private ICreateFeature _createFeature;
     }
 }

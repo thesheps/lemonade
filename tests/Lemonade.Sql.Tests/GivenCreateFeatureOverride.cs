@@ -1,4 +1,5 @@
 ﻿using Lemonade.Data.Entities;
+using Lemonade.Fakes;
 using Lemonade.Sql.Commands;
 using Lemonade.Sql.Queries;
 using NUnit.Framework;
@@ -19,13 +20,13 @@ namespace Lemonade.Sql.Tests
         public void WhenISaveAFeatureOverride_ThenTheFeatureOverrideIsSaved()
         {
             var application = new Application { Name = "Test" };
-            new CreateApplication().Execute(application);
+            new CreateApplicationFake().Execute(application);
 
             var feature = new Feature { Name = "Test", ApplicationId = application.ApplicationId };
-            new CreateFeature().Execute(feature);
+            new CreateFeatureFake().Execute(feature);
 
             var featureOverride = new FeatureOverride { IsEnabled = true, FeatureId = feature.FeatureId, Hostname = "Test" };
-            new CreateFeatureOverride().Execute(featureOverride);
+            new CreateFeatureOverrideFake().Execute(featureOverride);
 
             var features = new GetAllFeaturesByApplicationId().Execute(application.ApplicationId);
 

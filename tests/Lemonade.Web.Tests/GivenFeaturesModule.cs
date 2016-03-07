@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Net;
+using Lemonade.Fakes;
 using Lemonade.Services;
 using Lemonade.Sql.Commands;
 using Lemonade.Sql.Migrations;
@@ -22,7 +23,7 @@ namespace Lemonade.Web.Tests
         [SetUp]
         public void SetUp()
         {
-            _createApplication = new CreateApplication();
+            _createApplication = new CreateApplicationFake();
             _getApplication = new GetApplicationByName();
             _getFeature = new GetFeatureByNameAndApplication();
             _server = new Server(64978);
@@ -129,11 +130,11 @@ namespace Lemonade.Web.Tests
         public void WhenIGetAFeatureWithAHostnameOverride_ThenTheFeatureIsRetrieved()
         {
             var application = new Data.Entities.Application { Name = "TestApplication" };
-            new CreateApplication().Execute(application);
+            new CreateApplicationFake().Execute(application);
             var feature = new Data.Entities.Feature { ApplicationId = application.ApplicationId, Name = "MyTestFeature" };
-            new CreateFeature().Execute(feature);
+            new CreateFeatureFake().Execute(feature);
 
-            new CreateFeatureOverride().Execute(new Data.Entities.FeatureOverride { FeatureId = feature.FeatureId, Hostname = Dns.GetHostName(), IsEnabled = true });
+            new CreateFeatureOverrideFake().Execute(new Data.Entities.FeatureOverride { FeatureId = feature.FeatureId, Hostname = Dns.GetHostName(), IsEnabled = true });
 
             var response = _browser.Get("/api/feature", with =>
             {
@@ -178,7 +179,7 @@ namespace Lemonade.Web.Tests
 
         private Browser _browser;
         private Server _server;
-        private CreateApplication _createApplication;
+        private CreateApplicationFake _createApplication;
         private GetApplicationByName _getApplication;
         private GetFeatureByNameAndApplication _getFeature;
         private TestBootstrapper _testBootstrapper;

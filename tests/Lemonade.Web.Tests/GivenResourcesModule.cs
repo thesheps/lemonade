@@ -1,4 +1,5 @@
-﻿using Lemonade.Sql.Commands;
+﻿using Lemonade.Fakes;
+using Lemonade.Sql.Commands;
 using Lemonade.Sql.Migrations;
 using Lemonade.Sql.Queries;
 using Lemonade.Web.Contracts;
@@ -19,7 +20,7 @@ namespace Lemonade.Web.Tests
         [SetUp]
         public void SetUp()
         {
-            _createApplication = new CreateApplication();
+            _createApplication = new CreateApplicationFake();
             _getApplication = new GetApplicationByName();
             _getResource = new GetResource();
             _server = new Server(64978);
@@ -145,7 +146,7 @@ namespace Lemonade.Web.Tests
 
         private Browser _browser;
         private Server _server;
-        private CreateApplication _createApplication;
+        private CreateApplicationFake _createApplication;
         private GetApplicationByName _getApplication;
         private GetResource _getResource;
         private TestBootstrapper _bootstrapper;

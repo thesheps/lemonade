@@ -1,4 +1,5 @@
 ﻿using Lemonade.Builders;
+using Lemonade.Fakes;
 using Lemonade.Sql.Commands;
 using Lemonade.Sql.Migrations;
 using Lemonade.Sql.Queries;
@@ -18,9 +19,9 @@ namespace Lemonade.Sql.Tests
         [Test]
         public void WhenITryToSaveAFeature_ThenFeatureHasBeenSavedEventIsRaisedWithCorrectDetails()
         {
-            var saveFeature = new CreateFeature();
+            var saveFeature = new CreateFeatureFake();
             var updateFeature = new UpdateFeature();
-            var saveApplication = new CreateApplication();
+            var saveApplication = new CreateApplicationFake();
             var getApplicationByName = new GetApplicationByName();
             var getFeatureByNameAndApplication = new GetFeatureByNameAndApplication();
 

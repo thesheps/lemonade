@@ -1,4 +1,5 @@
 ﻿using Lemonade.Builders;
+using Lemonade.Fakes;
 using Lemonade.Sql.Commands;
 using Lemonade.Sql.Migrations;
 using Lemonade.Sql.Queries;
@@ -11,8 +12,8 @@ namespace Lemonade.Sql.Tests
         [SetUp]
         public void SetUp()
         {
-            _createFeature = new CreateFeature();
-            _createApplication = new CreateApplication();
+            _createFeature = new CreateFeatureFake();
+            _createApplication = new CreateApplicationFake();
             _deleteFeature = new DeleteFeature();
             _getApplicationByName = new GetApplicationByName();
             _getFeatureByNameAndApplication = new GetFeatureByNameAndApplication();
@@ -45,8 +46,8 @@ namespace Lemonade.Sql.Tests
         }
 
         private GetFeatureByNameAndApplication _getFeatureByNameAndApplication;
-        private CreateApplication _createApplication;
-        private CreateFeature _createFeature;
+        private CreateApplicationFake _createApplication;
+        private CreateFeatureFake _createFeature;
         private DeleteFeature _deleteFeature;
         private GetApplicationByName _getApplicationByName;
     }

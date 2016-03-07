@@ -42,6 +42,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lemonade.Core", "src\Lemona
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lemonade.Web.Core", "src\Lemonade.Web.Core\Lemonade.Web.Core.csproj", "{8DC27E9B-C739-44D3-BCCE-5545CFCA8098}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lemonade.Fakes", "tests\Lemonade.Fakes\Lemonade.Fakes.csproj", "{6070E619-6AC8-49FE-8745-C4A68C803FEE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -100,6 +102,10 @@ Global
 		{8DC27E9B-C739-44D3-BCCE-5545CFCA8098}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8DC27E9B-C739-44D3-BCCE-5545CFCA8098}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8DC27E9B-C739-44D3-BCCE-5545CFCA8098}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6070E619-6AC8-49FE-8745-C4A68C803FEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6070E619-6AC8-49FE-8745-C4A68C803FEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6070E619-6AC8-49FE-8745-C4A68C803FEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6070E619-6AC8-49FE-8745-C4A68C803FEE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -118,5 +124,6 @@ Global
 		{A9171A74-BFAD-4C2E-A8E2-54BC2BCE496C} = {C92253CB-CC26-4544-9469-C7677DB42084}
 		{EE4CB55F-6CFF-47E0-82B1-A2A6E0D9EECF} = {C92253CB-CC26-4544-9469-C7677DB42084}
 		{8DC27E9B-C739-44D3-BCCE-5545CFCA8098} = {C92253CB-CC26-4544-9469-C7677DB42084}
+		{6070E619-6AC8-49FE-8745-C4A68C803FEE} = {87416585-33B0-4DEE-A807-57F5FA129A34}
 	EndGlobalSection
 EndGlobal

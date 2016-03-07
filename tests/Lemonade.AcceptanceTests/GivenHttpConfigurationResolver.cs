@@ -1,6 +1,7 @@
 ﻿using System;
 using Lemonade.Builders;
 using Lemonade.Data.Entities;
+using Lemonade.Fakes;
 using Lemonade.Services;
 using Lemonade.Sql.Commands;
 using Lemonade.Sql.Migrations;
@@ -22,7 +23,7 @@ namespace Lemonade.AcceptanceTests
             Runner.SqlCompact("Lemonade").Down();
             Runner.SqlCompact("Lemonade").Up();
 
-            new CreateApplication().Execute(application);
+            new CreateApplicationFake().Execute(application);
             _application = new GetApplicationByName().Execute(application.Name);
 
             _nancyHost = new NancyHost(new Uri("http://localhost:12345"), new LemonadeBootstrapper());
@@ -40,7 +41,7 @@ namespace Lemonade.AcceptanceTests
         public void WhenIHaveAKnownStringConfigurationValueAndITryToRetrieveIt_ThenTheValueIsAsExpected()
         {
             var configuration = new ConfigurationBuilder().WithName("MyTestString").WithApplication(_application).WithValue("Hello World").Build();
-            new CreateConfiguration().Execute(configuration);
+            new CreateConfigurationFake().Execute(configuration);
 
             var value = Config.Settings<string>("MyTestString");
             Assert.That(value, Is.EqualTo("Hello World"));
@@ -50,7 +51,7 @@ namespace Lemonade.AcceptanceTests
         public void WhenIHaveAKnownBooleanConfigurationValueAndITryToRetrieveIt_ThenTheValueIsAsExpected()
         {
             var configuration = new ConfigurationBuilder().WithName("MyTestBoolean").WithApplication(_application).WithValue("true").Build();
-            new CreateConfiguration().Execute(configuration);
+            new CreateConfigurationFake().Execute(configuration);
 
             var value = Config.Settings<bool>("MyTestBoolean");
             Assert.That(value, Is.True);
@@ -60,7 +61,7 @@ namespace Lemonade.AcceptanceTests
         public void WhenIHaveAKnownIntegerConfigurationValueAndITryToRetrieveIt_ThenTheValueIsAsExpected()
         {
             var configuration = new ConfigurationBuilder().WithName("MyTestInteger").WithApplication(_application).WithValue("1").Build();
-            new CreateConfiguration().Execute(configuration);
+            new CreateConfigurationFake().Execute(configuration);
 
             var value = Config.Settings<int>("MyTestInteger");
             Assert.That(value, Is.EqualTo(1));
@@ -70,7 +71,7 @@ namespace Lemonade.AcceptanceTests
         public void WhenIHaveAKnownDoubleConfigurationValueAndITryToRetrieveIt_ThenTheValueIsAsExpected()
         {
             var configuration = new ConfigurationBuilder().WithName("MyTestDouble").WithApplication(_application).WithValue("3.142").Build();
-            new CreateConfiguration().Execute(configuration);
+            new CreateConfigurationFake().Execute(configuration);
 
             var value = Config.Settings<double>("MyTestDouble");
             Assert.That(value, Is.EqualTo(3.142));
@@ -80,7 +81,7 @@ namespace Lemonade.AcceptanceTests
         public void WhenIHaveAKnownDecimalConfigurationValueAndITryToRetrieveIt_ThenTheValueIsAsExpected()
         {
             var configuration = new ConfigurationBuilder().WithName("MyTestDecimal").WithApplication(_application).WithValue("10.57").Build();
-            new CreateConfiguration().Execute(configuration);
+            new CreateConfigurationFake().Execute(configuration);
 
             var value = Config.Settings<decimal>("MyTestDecimal");
             Assert.That(value, Is.EqualTo(10.57m));
@@ -91,7 +92,7 @@ namespace Lemonade.AcceptanceTests
         {
             var dateTime = DateTime.Now;
             var configuration = new ConfigurationBuilder().WithName("MyTestDateTime").WithApplication(_application).WithValue(dateTime.ToString()).Build();
-            new CreateConfiguration().Execute(configuration);
+            new CreateConfigurationFake().Execute(configuration);
 
             var value = Config.Settings<DateTime>("MyTestDateTime");
             Assert.That(value, Is.EqualTo(DateTime.Parse(dateTime.ToString())));
@@ -102,7 +103,7 @@ namespace Lemonade.AcceptanceTests
         {
             const string uri = "http://localhost:51346/";
             var configuration = new ConfigurationBuilder().WithName("MyTestUri").WithApplication(_application).WithValue(uri).Build();
-            new CreateConfiguration().Execute(configuration);
+            new CreateConfigurationFake().Execute(configuration);
 
             var value = Config.Settings<Uri>("MyTestUri");
             Assert.That(value.AbsoluteUri, Is.EqualTo(uri));

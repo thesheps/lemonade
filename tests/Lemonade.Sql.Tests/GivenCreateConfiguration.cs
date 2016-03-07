@@ -1,5 +1,6 @@
 ﻿using Lemonade.Builders;
 using Lemonade.Data.Exceptions;
+using Lemonade.Fakes;
 using Lemonade.Sql.Commands;
 using Lemonade.Sql.Migrations;
 using Lemonade.Sql.Queries;
@@ -19,8 +20,8 @@ namespace Lemonade.Sql.Tests
         [Test]
         public void WhenITryToSaveADuplicateConfiguration_ThenSaveConfigurationExceptionIsThrown()
         {
-            var saveConfiguration = new CreateConfiguration();
-            var saveApplication = new CreateApplication();
+            var saveConfiguration = new CreateConfigurationFake();
+            var saveApplication = new CreateApplicationFake();
             var getApplicationByName = new GetApplicationByName();
 
             var application = new ApplicationBuilder()

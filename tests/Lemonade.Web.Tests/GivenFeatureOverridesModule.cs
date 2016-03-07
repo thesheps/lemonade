@@ -1,4 +1,5 @@
-﻿using Lemonade.Sql.Commands;
+﻿using Lemonade.Fakes;
+using Lemonade.Sql.Commands;
 using Lemonade.Sql.Migrations;
 using Lemonade.Sql.Queries;
 using Lemonade.Web.Contracts;
@@ -20,9 +21,9 @@ namespace Lemonade.Web.Tests
         public void SetUp()
         {
             _getFeature = new GetFeatureByNameAndApplication();
-            _createApplication = new CreateApplication();
-            _createFeature = new CreateFeature();
-            _createFeatureOverride = new CreateFeatureOverride();
+            _createApplication = new CreateApplicationFake();
+            _createFeature = new CreateFeatureFake();
+            _createFeatureOverride = new CreateFeatureOverrideFake();
             _server = new Server(64978);
 
             Runner.SqlCompact(ConnectionString).Down();
@@ -137,9 +138,9 @@ namespace Lemonade.Web.Tests
         private Browser _browser;
         private Server _server;
         private GetFeatureByNameAndApplication _getFeature;
-        private CreateApplication _createApplication;
-        private CreateFeature _createFeature;
-        private CreateFeatureOverride _createFeatureOverride;
+        private CreateApplicationFake _createApplication;
+        private CreateFeatureFake _createFeature;
+        private CreateFeatureOverrideFake _createFeatureOverride;
         private TestBootstrapper _bootstrapper;
         private const string ConnectionString = "Lemonade";
     }

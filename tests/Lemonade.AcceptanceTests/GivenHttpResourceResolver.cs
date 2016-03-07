@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.Web;
 using Lemonade.Builders;
+using Lemonade.Fakes;
 using Lemonade.Services;
 using Lemonade.Sql.Commands;
 using Lemonade.Sql.Migrations;
@@ -24,7 +25,7 @@ namespace Lemonade.AcceptanceTests
                 .WithName("Test Application")
                 .Build();
 
-            new CreateApplication().Execute(application);
+            new CreateApplicationFake().Execute(application);
 
             var resource = new ResourceBuilder()
                 .WithLocale("de-DE")
@@ -33,7 +34,7 @@ namespace Lemonade.AcceptanceTests
                 .WithValue("Hello World")
                 .WithApplication(application).Build();
 
-            new CreateResource().Execute(resource);
+            new CreateResourceFake().Execute(resource);
 
             _nancyHost = new NancyHost(new Uri("http://localhost:12345"), new LemonadeBootstrapper());
             _nancyHost.Start();

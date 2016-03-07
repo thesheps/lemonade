@@ -147,6 +147,10 @@
       <Project>{512C5D36-27F0-4F72-9A19-3098BC8834BE}</Project>
       <Name>Lemonade.AcceptanceTests</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Lemonade.Fakes\Lemonade.Fakes.csproj">
+      <Project>{6070E619-6AC8-49FE-8745-C4A68C803FEE}</Project>
+      <Name>Lemonade.Fakes</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Javascript\GivenResource.js" />

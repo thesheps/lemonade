@@ -23,15 +23,15 @@ namespace Lemonade.Sql.Commands
             {
                 try
                 {
-                    cnn.Execute(@"INSERT INTO FeatureOverride (FeatureId, Hostname, IsEnabled)
-                                  VALUES (@FeatureId, @Hostname, @IsEnabled)", new
-                    {
-                        featureOverride.FeatureId,
-                        featureOverride.Hostname,
-                        featureOverride.IsEnabled
-                    });
-
-                    featureOverride.FeatureOverrideId = cnn.Query<int>("SELECT CAST(@@IDENTITY AS INT)").First();
+                    featureOverride.FeatureOverrideId =
+                        cnn.Query<int>(@"INSERT INTO FeatureOverride (FeatureId, Hostname, IsEnabled)
+                                         VALUES (@FeatureId, @Hostname, @IsEnabled);
+                                         SELECT SCOPE_IDENTITY();", new
+                        {
+                            featureOverride.FeatureId,
+                            featureOverride.Hostname,
+                            featureOverride.IsEnabled
+                        }).First();
                 }
                 catch (DbException exception)
                 {

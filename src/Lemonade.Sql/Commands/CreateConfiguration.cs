@@ -22,15 +22,15 @@ namespace Lemonade.Sql.Commands
             {
                 try
                 {
-                    cnn.Execute(@"INSERT INTO Configuration (Value, Name, ApplicationId)
-                                  VALUES (@Value, @Name, @ApplicationId)", new
-                    {
-                        configuration.Value,
-                        configuration.Name,
-                        configuration.ApplicationId
-                    });
-
-                    configuration.ConfigurationId = cnn.Query<int>("SELECT CAST(@@IDENTITY AS INT)").First();
+                    configuration.ConfigurationId =
+                        cnn.Query<int>(@"INSERT INTO Configuration (Value, Name, ApplicationId)
+                                         VALUES (@Value, @Name, @ApplicationId);
+                                         SELECT SCOPE_IDENTITY();", new
+                        {
+                            configuration.Value,
+                            configuration.Name,
+                            configuration.ApplicationId
+                        }).First();
                 }
                 catch (DbException exception)
                 {

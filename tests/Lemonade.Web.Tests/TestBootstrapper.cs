@@ -1,4 +1,6 @@
-﻿using Lemonade.Web.Infrastructure;
+﻿using Lemonade.Data.Commands;
+using Lemonade.Fakes;
+using Lemonade.Web.Infrastructure;
 using Lemonade.Web.Tests.Mocks;
 using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Infrastructure;
@@ -22,6 +24,11 @@ namespace Lemonade.Web.Tests
 
             container.Register(mockClient);
             container.Register(connectionManager);
+            container.Register<ICreateApplication, CreateApplicationFake>();
+            container.Register<ICreateConfiguration, CreateConfigurationFake>();
+            container.Register<ICreateFeature, CreateFeatureFake>();
+            container.Register<ICreateFeatureOverride, CreateFeatureOverrideFake>();
+            container.Register<ICreateResource, CreateResourceFake>();
         }
 
         public T Resolve<T>() where T : class

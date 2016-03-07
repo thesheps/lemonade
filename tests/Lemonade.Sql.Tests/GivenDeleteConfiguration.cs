@@ -1,5 +1,6 @@
 ﻿using Lemonade.Builders;
 using Lemonade.Data.Entities;
+using Lemonade.Fakes;
 using Lemonade.Sql.Commands;
 using Lemonade.Sql.Migrations;
 using Lemonade.Sql.Queries;
@@ -9,16 +10,16 @@ namespace Lemonade.Sql.Tests
 {
     public class GivenDeleteConfiguration
     {
-        private CreateConfiguration _createConfiguration;
-        private CreateApplication _createApplication;
+        private CreateConfigurationFake _createConfiguration;
+        private CreateApplicationFake _createApplication;
         private DeleteConfiguration _deleteConfiguration;
         private GetConfigurationByNameAndApplication _getConfigurationByNameAndApplication;
 
         [SetUp]
         public void SetUp()
         {
-            _createConfiguration = new CreateConfiguration();
-            _createApplication = new CreateApplication();
+            _createConfiguration = new CreateConfigurationFake();
+            _createApplication = new CreateApplicationFake();
             _deleteConfiguration = new DeleteConfiguration();
             _getConfigurationByNameAndApplication = new GetConfigurationByNameAndApplication();
             Runner.SqlCompact("Lemonade").Down();

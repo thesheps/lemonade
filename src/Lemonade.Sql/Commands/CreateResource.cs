@@ -23,18 +23,18 @@ namespace Lemonade.Sql.Commands
             {
                 try
                 {
-                    cnn.Execute(@"INSERT INTO Resource (ApplicationId, ResourceSet, ResourceKey, Locale, Value)
-                                  VALUES (@ApplicationId, @ResourceSet, @ResourceKey, @Locale, @Value)", 
-                    new
-                    {
-                        resource.ApplicationId,
-                        resource.ResourceSet,
-                        resource.ResourceKey,
-                        resource.Locale,
-                        resource.Value
-                    });
-
-                    resource.ResourceId = cnn.Query<int>("SELECT CAST(@@IDENTITY AS INT)").First();
+                    resource.ResourceId =
+                        cnn.Query<int>(@"INSERT INTO Resource (ApplicationId, ResourceSet, ResourceKey, Locale, Value)
+                                         VALUES (@ApplicationId, @ResourceSet, @ResourceKey, @Locale, @Value);
+                                         SELECT SCOPE_IDENTITY();",
+                            new
+                            {
+                                resource.ApplicationId,
+                                resource.ResourceSet,
+                                resource.ResourceKey,
+                                resource.Locale,
+                                resource.Value
+                            }).First();
                 }
                 catch (DbException exception)
                 {

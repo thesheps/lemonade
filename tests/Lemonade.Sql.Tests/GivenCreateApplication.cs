@@ -1,5 +1,6 @@
 ﻿using Lemonade.Builders;
 using Lemonade.Data.Exceptions;
+using Lemonade.Fakes;
 using Lemonade.Sql.Commands;
 using Lemonade.Sql.Migrations;
 using Lemonade.Sql.Queries;
@@ -19,7 +20,7 @@ namespace Lemonade.Sql.Tests
         [Test]
         public void WhenISaveAnApplication_ThenICanRetrieveIt()
         {
-            var saveApplication = new CreateApplication();
+            var saveApplication = new CreateApplicationFake();
             var getApplicationByName = new GetApplicationByName();
             saveApplication.Execute(new ApplicationBuilder()
                 .WithName("Test12345")
@@ -33,7 +34,7 @@ namespace Lemonade.Sql.Tests
         [Test]
         public void WhenITryToSaveADuplicateApplication_ThenSaveApplicationExceptionIsThrown()
         {
-            var saveApplication = new CreateApplication();
+            var saveApplication = new CreateApplicationFake();
             var application = new ApplicationBuilder()
                 .WithName("Test12345")
                 .Build();

@@ -2,6 +2,8 @@
 using System.Net;
 using Lemonade.Builders;
 using Lemonade.Core.Exceptions;
+using Lemonade.Data.Commands;
+using Lemonade.Fakes;
 using Lemonade.Services;
 using Lemonade.Sql.Commands;
 using Lemonade.Sql.Migrations;
@@ -23,8 +25,8 @@ namespace Lemonade.AcceptanceTests
             Runner.SqlCompact("Lemonade").Down();
             Runner.SqlCompact("Lemonade").Up();
             _getFeature = new GetFeatureByNameAndApplication();
-            _createFeature = new CreateFeature();
-            _createApplication = new CreateApplication();
+            _createFeature = new CreateFeatureFake();
+            _createApplication = new CreateApplicationFake();
             _getApplicationByName = new GetApplicationByName();
             _createApplication.Execute(application);
             application = _getApplicationByName.Execute(application.Name);
@@ -42,7 +44,7 @@ namespace Lemonade.AcceptanceTests
             _createFeature.Execute(feature1);
             _createFeature.Execute(feature2);
 
-            new CreateFeatureOverride().Execute(new Data.Entities.FeatureOverride { FeatureId = feature2.FeatureId, Hostname = Dns.GetHostName(), IsEnabled = true });
+            new CreateFeatureOverrideFake().Execute(new Data.Entities.FeatureOverride { FeatureId = feature2.FeatureId, Hostname = Dns.GetHostName(), IsEnabled = true });
             _nancyHost = new NancyHost(new Uri("http://localhost:12345"), new LemonadeBootstrapper());
             _nancyHost.Start();
         }
@@ -84,9 +86,9 @@ namespace Lemonade.AcceptanceTests
             Assert.That(Configuration.ApplicationName, Is.EqualTo("Test Application"));
         }
 
-        private CreateFeature _createFeature;
+        private ICreateFeature _createFeature;
         private NancyHost _nancyHost;
-        private CreateApplication _createApplication;
+        private ICreateApplication _createApplication;
         private GetApplicationByName _getApplicationByName;
         private GetFeatureByNameAndApplication _getFeature;
     }
