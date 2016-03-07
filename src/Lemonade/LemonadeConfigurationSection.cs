@@ -25,6 +25,9 @@ namespace Lemonade
         [ConfigurationProperty("CacheExpiration", IsRequired = false)]
         public double? CacheExpiration => this["CacheExpiration"] as double? ?? 0;
 
+        [ConfigurationProperty("MaximumAttempts", IsRequired = false)]
+        public int? MaximumAttempts => this["MaximumAttempts"] as int? ?? 3;
+
         private static LemonadeConfigurationSection GetSection()
         {
             var section = (LemonadeConfigurationSection)ConfigurationManager.GetSection("Lemonade");

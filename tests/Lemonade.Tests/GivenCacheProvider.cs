@@ -11,7 +11,7 @@ namespace Lemonade.Tests
         public void WhenTheValueIsNotCached_ThenItIsRetrievedUsingTheSpecifiedStrategy()
         {
             var strategyIsUsed = false;
-            var cacheProvider = new CacheProvider(10);
+            var cacheProvider = new DefaultCacheProvider(new DefaultRetryPolicy(3), 10);
             var value = cacheProvider.GetValue("TEST", () =>
             {
                 strategyIsUsed = true;
@@ -26,7 +26,7 @@ namespace Lemonade.Tests
         public void WhenTheValueIsAlreadyCached_ThenItIsNotRetrievedASecondTime()
         {
             var strategyIsUsed = false;
-            var cacheProvider = new CacheProvider(10);
+            var cacheProvider = new DefaultCacheProvider(new DefaultRetryPolicy(3), 10);
             var value = cacheProvider.GetValue("TEST", () => false);
             value = cacheProvider.GetValue("TEST", () =>
             {
@@ -42,7 +42,7 @@ namespace Lemonade.Tests
         public void WhenTheCacheExpirationPeriodHasExpired_ThenTheValueIsRetrievedUsingTheStrategy()
         {
             var strategyIsUsed = false;
-            var cacheProvider = new CacheProvider(0.1);
+            var cacheProvider = new DefaultCacheProvider(new DefaultRetryPolicy(3), 0.1);
             var value = cacheProvider.GetValue("TEST", () => false);
 
             Thread.Sleep(TimeSpan.FromSeconds(10));
@@ -63,7 +63,7 @@ namespace Lemonade.Tests
         public void WhenTheStrategyResultsInAnException_ThenItIsRetriedAConfigurableNumberOfTimes(int retries)
         {
             var attempts = 0;
-            var cacheProvider = new CacheProvider(0.1, retries);
+            var cacheProvider = new DefaultCacheProvider(new DefaultRetryPolicy(retries), 0.1);
 
             var value = cacheProvider.GetValue<bool>("TEST", () =>
             {

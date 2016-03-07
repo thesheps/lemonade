@@ -20,7 +20,7 @@ namespace Lemonade.Tests
             _featureResolver.Resolve("Test2", Arg.Any<string>()).Returns(false);
 
             Configuration.FeatureResolver = _featureResolver;
-            Configuration.CacheProvider = new CacheProvider(0.0);
+            Configuration.CacheProvider = new DefaultCacheProvider(new DefaultRetryPolicy(3), 0.0);
         }
 
         [Test]
@@ -72,7 +72,7 @@ namespace Lemonade.Tests
         public void WhenUsingCacheExpiration_ThenCacheIsRefreshedAfterSpecifiedTime()
         {
             var enabled = false;
-            Configuration.CacheProvider = new CacheProvider(0.1);
+            Configuration.CacheProvider = new DefaultCacheProvider(new DefaultRetryPolicy(3), 0.1);
             enabled = Feature.Switches["Test1"];
             enabled = Feature.Switches["Test1"];
             enabled = Feature.Switches["Test1"];
@@ -89,7 +89,7 @@ namespace Lemonade.Tests
         public void WhenUsingNoCacheExpiration_ThenCacheIsRefreshedAways()
         {
             bool enabled;
-            Configuration.CacheProvider = new CacheProvider(0);
+            Configuration.CacheProvider = new DefaultCacheProvider(new DefaultRetryPolicy(3), 0);
             enabled = Feature.Switches["Test2"];
             enabled = Feature.Switches["Test2"];
             enabled = Feature.Switches["Test2"];

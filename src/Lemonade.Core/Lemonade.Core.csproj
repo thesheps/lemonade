@@ -53,6 +53,7 @@
     <Compile Include="Exceptions\HttpConnectionException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\IResourceResolver.cs" />
+    <Compile Include="Services\IRetryPolicy.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

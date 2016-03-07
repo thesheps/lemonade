@@ -23,6 +23,16 @@
         $.ajax({ url: "/api/resources?id=" + resourceId, type: "DELETE" });
     }
 
+    $scope.resourceFilter = function (criteria) {
+        return function (resource) {
+            return criteria === undefined ||
+                   criteria.resourceSet === "" || resource.resourceSet === criteria.resourceSet ||
+                   criteria.resourceKey === "" || resource.resourceKey === criteria.resourceKey ||
+                   criteria.locale === "" || resource.locale === criteria.locale ||
+                   criteria.value === "" || resource.value === criteria.value;
+        };
+    }
+
     $scope.onResourceAdded = function (resource) {
         $scope.$apply(function () {
             $scope.newResource = { applicationId: $scope.application.applicationId }

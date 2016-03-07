@@ -1,16 +1,15 @@
 using System;
 using System.Collections.Generic;
 using Lemonade.Core.Services;
-using Polly;
 
 namespace Lemonade.Services
 {
-    public class CacheProvider : ICacheProvider
+    public class DefaultCacheProvider : ICacheProvider
     {
-        public CacheProvider(double? cacheExpiration, int maximumRetries = 3)
+        public DefaultCacheProvider(IRetryPolicy retryPolicy, double? cacheExpiration)
         {
+            _retryPolicy = retryPolicy;
             _cacheExpiration = cacheExpiration;
-            _maximumRetries = maximumRetries;
         }
 
         public T GetValue<T>(string key, Func<T> strategy)
@@ -30,18 +29,13 @@ namespace Lemonade.Services
         {
             var result = default(T);
 
-            var exception = Policy.Handle<Exception>()
-                .Retry(_maximumRetries)
-                .ExecuteAndCapture(() => result = strategy())
-                .FinalException;
-
-            if (exception != null) throw exception;
+            _retryPolicy.Execute(() => result = strategy());
 
             return result;
         }
 
         private readonly Dictionary<string, Tuple<DateTime, object>> _values = new Dictionary<string, Tuple<DateTime, object>>();
         private readonly double? _cacheExpiration;
-        private readonly int _maximumRetries;
+        private readonly IRetryPolicy _retryPolicy;
     }
 }

@@ -30,6 +30,12 @@ namespace Lemonade
             set { _cacheProvider = value; }
         }
 
+        public static IRetryPolicy RetryPolicy
+        {
+            get { return _retryPolicy ?? (_retryPolicy = GetRetryPolicy()); }
+            set { _retryPolicy = value; }
+        }
+
         public static string ApplicationName
         {
             get { return _applicationName ?? LemonadeConfigurationSection.Current.ApplicationName; }
@@ -40,6 +46,12 @@ namespace Lemonade
         {
             get { return _cacheExpiration ?? LemonadeConfigurationSection.Current.CacheExpiration; }
             set { _cacheExpiration = value; }
+        }
+
+        public static int? MaximumAttempts
+        {
+            get { return _maximumAttempts ?? LemonadeConfigurationSection.Current.MaximumAttempts; }
+            set { _maximumAttempts = value; }
         }
 
         private static IFeatureResolver GetFeatureResolver()
@@ -78,19 +90,32 @@ namespace Lemonade
         private static ICacheProvider GetCacheProvider()
         {
             var configuration = LemonadeConfigurationSection.Current;
-            if (configuration == null) return new CacheProvider(CacheExpiration);
+            if (configuration == null) return new DefaultCacheProvider(RetryPolicy, CacheExpiration);
 
             var type = Type.GetType(configuration.CacheProvider);
             if (type != null) return Activator.CreateInstance(type) as ICacheProvider;
 
-            return new CacheProvider(CacheExpiration);
+            return new DefaultCacheProvider(RetryPolicy, CacheExpiration);
         }
 
+        private static IRetryPolicy GetRetryPolicy()
+        {
+            var configuration = LemonadeConfigurationSection.Current;
+            if (configuration == null) return new DefaultRetryPolicy(MaximumAttempts.GetValueOrDefault());
+
+            var type = Type.GetType(configuration.CacheProvider);
+            if (type != null) return Activator.CreateInstance(type) as IRetryPolicy;
+
+            return new DefaultRetryPolicy(MaximumAttempts.GetValueOrDefault());
+        }
+
+        private static int? _maximumAttempts;
         private static double? _cacheExpiration;
         private static string _applicationName;
         private static IFeatureResolver _featureResolver;
         private static IConfigurationResolver _configurationResolver;
         private static IResourceResolver _resourceResolver;
         private static ICacheProvider _cacheProvider;
+        private static IRetryPolicy _retryPolicy;
     }
 }

@@ -38,8 +38,30 @@
                 </md-button>
             </div>
 
+            <div layout="row" ng-show="resources != null">
+                <md-input-container class="md-block">
+                    <label>Filter on resource set</label>
+                    <input ng-model="criteria.resourceSet" />
+                </md-input-container>
+
+                <md-input-container class="md-block">
+                    <label>Filter on resource key</label>
+                    <input ng-model="criteria.resourceKey" />
+                </md-input-container>
+
+                <md-input-container class="md-block">
+                    <label>Filter on locale</label>
+                    <input ng-model="criteria.locale" />
+                </md-input-container>
+
+                <md-input-container class="md-block">
+                    <label>Filter on value</label>
+                    <input ng-model="criteria.value" />
+                </md-input-container>
+            </div>
+
             <md-list>
-                <md-list-item ng-repeat="resource in resources" class="animate">
+                <md-list-item ng-repeat="resource in resources | filter:resourceFilter(criteria)" class="animate">
                     <md-input-container class="md-icon-float md-block">
                         <label>Resource Set</label>
                         <input ng-model="resource.resourceSet" type="text" ng-enter="updateResource(newResource)">

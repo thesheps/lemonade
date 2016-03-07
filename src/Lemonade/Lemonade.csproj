@@ -95,7 +95,7 @@
     <Compile Include="LemonadeConfigurationSection.cs" />
     <Compile Include="Services\DefaultConfigurationResolver.cs" />
     <Compile Include="Services\DefaultFeatureResolver.cs" />
-    <Compile Include="Services\CacheProvider.cs" />
+    <Compile Include="Services\DefaultCacheProvider.cs" />
     <Compile Include="Services\DefaultResourceResolver.cs" />
     <Compile Include="Services\HttpConfigurationResolver.cs" />
     <Compile Include="Collections\ValueCollection.cs" />
@@ -105,6 +105,7 @@
     <Compile Include="Services\HttpFeatureResolver.cs" />
     <Compile Include="Services\HttpResourceResolver.cs" />
     <Compile Include="Services\LemonadeResourceProviderFactory.cs" />
+    <Compile Include="Services\DefaultRetryPolicy.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Content\App.config.install.xdt">
