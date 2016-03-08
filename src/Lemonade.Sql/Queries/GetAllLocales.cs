@@ -20,7 +20,7 @@ namespace Lemonade.Sql.Queries
         {
             using (var cnn = CreateConnection())
             {
-                return cnn.Query<Locale>("SELECT * FROM Locale").ToList();
+                return cnn.Query<Locale>("SELECT * FROM Locale ORDER BY Description").ToList();
             }
         }
     }
