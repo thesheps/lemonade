@@ -63,7 +63,7 @@ namespace Lemonade.Web.Modules
             try
             {
                 var resource = this.Bind<Resource>();
-                _commandDispatcher.Dispatch(new UpdateResourceCommand(resource.ResourceId, resource.LocaleId, resource.ResourceSet, resource.ResourceKey, resource.Value));
+                _commandDispatcher.Dispatch(new UpdateResourceCommand(resource.ResourceId, resource.LocaleId, resource.ResourceKey, resource.ResourceSet, resource.Value));
 
                 return HttpStatusCode.OK;
             }

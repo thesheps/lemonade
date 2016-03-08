@@ -80,12 +80,12 @@
             <md-list-item ng-repeat="resource in resources | filter:resourceFilter(criteria)" class="animate">
                 <md-input-container class="md-icon-float md-block" flex="20">
                     <label>Resource Set</label>
-                    <input ng-model="resource.resourceSet" type="text" ng-enter="updateResource(newResource)">
+                    <input ng-model="resource.resourceSet" type="text" ng-enter="updateResource(resource)">
                 </md-input-container>
 
                 <md-input-container class="md-icon-float md-block" flex="20">
                     <label>Resource Key</label>
-                    <input ng-model="resource.resourceKey" type="text" ng-enter="updateResource(newResource)">
+                    <input ng-model="resource.resourceKey" type="text" ng-enter="updateResource(resource)">
                 </md-input-container>
 
                 <md-input-container class="md-block" flex="20">
@@ -99,7 +99,7 @@
 
                 <md-input-container class="md-icon-float md-block" flex="20">
                     <label>Value</label>
-                    <input ng-model="resource.value" type="text" ng-enter="updateResource(newResource)">
+                    <input ng-model="resource.value" type="text" ng-enter="updateResource(resource)">
                 </md-input-container>
 
                 <md-button class="md-icon-button" ng-click="deleteResource(resource.resourceId)" flex="10">

@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Configuration;
 using System.Globalization;
+using System.Linq;
 using System.Net;
 using System.Resources;
+using System.Web;
 using System.Web.Compilation;
 using Lemonade.Core.Exceptions;
 using Lemonade.Core.Services;
@@ -40,7 +42,7 @@ namespace Lemonade.Services
 
             public object GetObject(string resourceKey, CultureInfo culture)
             {
-                var locale = (culture ?? CultureInfo.CurrentCulture).ToString();
+                var locale = (culture ?? GetCurrentUserCulture()).ToString();
                 var key = $"Resource{_applicationName}|{_resourceSet}|{resourceKey}|{locale}";
 
                 return _cacheProvider.GetValue(key, () =>
@@ -61,6 +63,22 @@ namespace Lemonade.Services
 
                     return response.Data.Value;
                 });
+            }
+
+            private static CultureInfo GetCurrentUserCulture()
+            {
+                var userLanguages = HttpContext.Current.Request.UserLanguages;
+
+                if (userLanguages != null && !userLanguages.Any()) return CultureInfo.InvariantCulture;
+
+                try
+                {
+                    return new CultureInfo(userLanguages[0]);
+                }
+                catch (CultureNotFoundException)
+                {
+                    return CultureInfo.InvariantCulture;
+                }
             }
 
             private readonly ICacheProvider _cacheProvider;
