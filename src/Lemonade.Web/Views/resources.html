@@ -11,9 +11,10 @@
             </md-select>
         </md-input-container>
 
-        <div layout="row" ng-show="application != null" layout-align="start center">
+        <md-list-item layout="row" ng-show="application != null" layout-align="start center">
             <md-input-container class="md-icon-float md-block" flex="20">
                 <label>Resource Set</label>
+                <md-icon>add_circle</md-icon>
                 <input ng-model="newResource.resourceSet" type="text" ng-enter="addResource(newResource)">
             </md-input-container>
 
@@ -33,13 +34,13 @@
 
             <md-input-container class="md-icon-float md-block" flex="20">
                 <label>Value</label>
-                <input ng-model="newResource.value" type="text" ng-enter="addResource(newResource)">
+                <textarea ng-model="newResource.value" type="text" ng-enter="addResource(newResource)"></textarea>
             </md-input-container>
 
             <md-button class="md-icon-button" ng-click="addResource(newResource)">
                 <md-icon>done</md-icon>
             </md-button>
-        </div>
+        </md-list-item>
 
         <md-list>
             <md-list-item>
@@ -61,7 +62,7 @@
                             <label>Locale</label>
                             <md-select ng-model="criteria.locale">
                                 <md-option>Show all...</md-option>
-                                <md-option ng-repeat="locale in locales" ng-value="locale">
+                                <md-option ng-repeat="locale in locales | filter:usedLocales" ng-value="locale">
                                     {{locale.description}}
                                 </md-option>
                             </md-select>

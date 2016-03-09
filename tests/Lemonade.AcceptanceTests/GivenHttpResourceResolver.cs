@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Globalization;
+using System.IO;
 using System.Web;
 using Lemonade.Builders;
-using Lemonade.Data.Commands;
 using Lemonade.Data.Entities;
 using Lemonade.Fakes;
 using Lemonade.Services;
-using Lemonade.Sql.Commands;
 using Lemonade.Sql.Migrations;
 using Lemonade.Web.Infrastructure;
 using Nancy.Hosting.Self;
@@ -53,7 +52,7 @@ namespace Lemonade.AcceptanceTests
         }
 
         [Test]
-        public void WhenIHaveAKnownLocalisedResourceAndRetrieveIt_ThenTheValueIsCorrect()
+        public void WhenIHaveAKnownGloballyLocalisedResourceAndRetrieveIt_ThenTheValueIsCorrect()
         {
             var culture = CultureInfo.CreateSpecificCulture("en-GB");
             var test = HttpContext.GetGlobalResourceObject("MyTestResources", "HelloWorld", culture);

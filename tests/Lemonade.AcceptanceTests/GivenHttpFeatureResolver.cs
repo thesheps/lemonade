@@ -5,7 +5,6 @@ using Lemonade.Core.Exceptions;
 using Lemonade.Data.Commands;
 using Lemonade.Fakes;
 using Lemonade.Services;
-using Lemonade.Sql.Commands;
 using Lemonade.Sql.Migrations;
 using Lemonade.Sql.Queries;
 using Lemonade.Web.Infrastructure;

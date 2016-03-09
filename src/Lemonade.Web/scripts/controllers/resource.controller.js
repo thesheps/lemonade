@@ -29,12 +29,26 @@
 
     $scope.resourceFilter = function (criteria) {
         return function (resource) {
-            return criteria === undefined ||
-                   criteria.resourceSet === "" || resource.resourceSet === criteria.resourceSet ||
-                   criteria.resourceKey === "" || resource.resourceKey === criteria.resourceKey ||
-                   criteria.locale === {} || criteria.locale === "Show all..." || resource.localeId === criteria.locale.localeId ||
-                   criteria.value === "" || resource.value === criteria.value;
+            return (!angular.isDefined(criteria)) ||
+                   (!angular.isDefined(criteria.locale) || criteria.locale === "Show all..." || resource.localeId === criteria.locale.localeId) &&
+                   (!angular.isDefined(criteria.resourceSet) || criteria.resourceSet === "" || resource.resourceSet.indexOf(criteria.resourceSet) >= 0) &&
+                   (!angular.isDefined(criteria.resourceKey) || criteria.resourceKey === "" || resource.resourceKey.indexOf(criteria.resourceKey) >= 0) &&
+                   (!angular.isDefined(criteria.value) || criteria.value === "" || resource.value.indexOf(criteria.value) >= 0);
         };
+    }
+
+    $scope.usedLocales = function (locale) {
+        if (!$scope.resources) {
+            return false;
+        }
+
+        for (var i = 0; i < $scope.resources.length; i++) {
+            if ($scope.resources[i].localeId === locale.localeId) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     $scope.onResourceAdded = function (resource) {
@@ -56,11 +70,16 @@
         });
     }
 
+    $scope.onResourceUpdated= function () {
+        toastService.toast("Successfully updated!", "OK", "bottom right");
+    }
+
     $scope.onResourceErrorEncountered = function (error) {
         toastService.toast(error.message, "OK", "bottom right");
     }
 
     eventService.onResourceAdded($scope, $scope.onResourceAdded);
     eventService.onResourceRemoved($scope, $scope.onResourceRemoved);
+    eventService.onResourceUpdated($scope, $scope.onResourceUpdated);
     eventService.onResourceErrorEncountered($scope, $scope.onResourceErrorEncountered);
 }

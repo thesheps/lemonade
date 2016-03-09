@@ -3,7 +3,6 @@ using Lemonade.Builders;
 using Lemonade.Data.Entities;
 using Lemonade.Fakes;
 using Lemonade.Services;
-using Lemonade.Sql.Commands;
 using Lemonade.Sql.Migrations;
 using Lemonade.Sql.Queries;
 using Lemonade.Web.Infrastructure;

@@ -9,6 +9,10 @@
         eventService.applicationRemoved(application);
     }
 
+    hubProxy.client.updateApplication = function (application) {
+        eventService.applicationRemoved(application);
+    }
+
     hubProxy.client.logApplicationError = function (error) {
         eventService.applicationErrorEncountered(error);
     }
@@ -19,6 +23,10 @@
 
     hubProxy.client.removeFeature = function(feature) {
         eventService.featureRemoved(feature);
+    }
+
+    hubProxy.client.updateFeature = function (feature) {
+        eventService.featureUpdated(feature);
     }
 
     hubProxy.client.logFeatureError = function (error) {
@@ -33,12 +41,20 @@
         eventService.featureOverrideRemoved(featureOverride);
     }
 
+    hubProxy.client.updateFeatureOverride = function (featureOverride) {
+        eventService.featureOverrideUpdated(featureOverride);
+    }
+
     hubProxy.client.addConfiguration= function (configuration) {
         eventService.configurationAdded(configuration);
     }
 
     hubProxy.client.removeConfiguration = function (configuration) {
         eventService.configurationRemoved(configuration);
+    }
+
+    hubProxy.client.updateConfiguration = function (configuration) {
+        eventService.configurationUpdated(configuration);
     }
 
     hubProxy.client.logConfigurationError = function (error) {
@@ -51,6 +67,10 @@
 
     hubProxy.client.removeResource = function (resource) {
         eventService.resourceRemoved(resource);
+    }
+
+    hubProxy.client.updateResource = function (resource) {
+        eventService.resourceUpdated(resource);
     }
 
     hubProxy.client.logResourceError = function (error) {

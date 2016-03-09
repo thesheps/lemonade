@@ -53,6 +53,10 @@
         });
     }
 
+    $scope.onFeatureUpdated = function () {
+        toastService.toast("Successfully updated!", "OK", "bottom right");
+    }
+
     $scope.onFeatureOverrideAdded = function (featureOverride) {
         $scope.$apply(function () {
             for (var i = 0; i < $scope.features.length; i++) {
@@ -79,13 +83,19 @@
         });
     }
 
+    $scope.onFeatureOverrideUpdated = function () {
+        toastService.toast("Successfully updated!", "OK", "bottom right");
+    }
+
     $scope.onFeatureErrorEncountered = function (error) {
         toastService.toast(error.message, "OK", "bottom right");
     }
 
     eventService.onFeatureAdded($scope, $scope.onFeatureAdded);
     eventService.onFeatureRemoved($scope, $scope.onFeatureRemoved);
+    eventService.onFeatureUpdated($scope, $scope.onFeatureUpdated);
     eventService.onFeatureOverrideAdded($scope, $scope.onFeatureOverrideAdded);
     eventService.onFeatureOverrideRemoved($scope, $scope.onFeatureOverrideRemoved);
     eventService.onFeatureErrorEncountered($scope, $scope.onFeatureErrorEncountered);
+    eventService.onFeatureOverrideUpdated($scope, $scope.onFeatureOverrideUpdated);
 }

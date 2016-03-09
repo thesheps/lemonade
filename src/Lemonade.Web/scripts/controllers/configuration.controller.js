@@ -42,11 +42,16 @@
         });
     }
 
+    $scope.onConfigurationUpdated = function () {
+        toastService.toast("Successfully updated!", "OK", "bottom right");
+    }
+
     $scope.onConfigurationErrorEncountered = function (error) {
         toastService.toast(error.message, "OK", "bottom right");
     }
 
     eventService.onConfigurationAdded($scope, $scope.onConfigurationAdded);
     eventService.onConfigurationRemoved($scope, $scope.onConfigurationRemoved);
+    eventService.onConfigurationUpdated($scope, $scope.onConfigurationUpdated);
     eventService.onConfigurationErrorEncountered($scope, $scope.onConfigurationErrorEncountered);
 }

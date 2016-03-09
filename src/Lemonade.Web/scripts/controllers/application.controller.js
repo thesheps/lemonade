@@ -35,6 +35,10 @@
         });
     },
 
+    $scope.onApplicationUpdated = function () {
+        toastService.toast("Successfully Updated!", "OK", "bottom right");
+    },
+
     $scope.onApplicationErrorEncountered = function (error) {
         toastService.toast(error.message, "OK", "bottom right");
     }
