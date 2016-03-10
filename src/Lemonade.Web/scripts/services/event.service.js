@@ -63,8 +63,8 @@
         resourceRemoved: function (event) { subscribe("resourceRemoved", event); },
         onResourceRemoved: function ($scope, callback) { handle($scope, "resourceRemoved", callback); },
 
-        resourceUpdated: function (event) { subscribe("resourceRemoved", event); },
-        onResourceUpdated: function ($scope, callback) { handle($scope, "resourceRemoved", callback); },
+        resourceUpdated: function (event) { subscribe("resourceUpdated", event); },
+        onResourceUpdated: function ($scope, callback) { handle($scope, "resourceUpdated", callback); },
 
         resourceErrorEncountered: function (event) { subscribe("resourceErrorEncountered", event); },
         onResourceErrorEncountered: function ($scope, callback) { handle($scope, "resourceErrorEncountered", callback); }

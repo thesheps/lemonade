@@ -20,29 +20,26 @@
             </md-select>
         </md-input-container>
 
-        <md-list-item layout="row" ng-show="application != null" layout-align="start center">
-            <md-input-container class="md-icon-float md-block" flex="20">
+        <md-list-item layout="row" ng-show="application != null">
+            <md-input-container class="md-block">
                 <label>Resource set</label>
-                <md-icon>add_circle</md-icon>
                 <input ng-model="newResource.resourceSet" type="text" ng-enter="addResource(newResource)">
             </md-input-container>
 
-            <md-input-container class="md-icon-float md-block" flex="20">
+            <md-input-container class="md-block">
                 <label>Resource key</label>
                 <input ng-model="newResource.resourceKey" type="text" ng-enter="addResource(newResource)">
             </md-input-container>
 
-            <md-input-container class="md-icon-float md-block" flex="20">
+            <md-input-container class="md-icon-right md-block">
                 <label>Value</label>
                 <textarea ng-model="newResource.value" type="text" ng-enter="addResource(newResource)"></textarea>
+                <md-icon>add_circle</md-icon>
             </md-input-container>
 
-            <md-button class="md-icon-button" ng-click="addResource(newResource)">
-                <md-icon>done</md-icon>
-            </md-button>
         </md-list-item>
 
-        <md-list md-show="">
+        <md-list>
             <md-list-item>
                 <div ng-show="resources != null" layout="column">
                     <h3 class="md-headline">Filters</h3>
@@ -68,7 +65,7 @@
 
             <md-list-item />
 
-            <md-list-item ng-repeat="resource in resources | filter:resourceFilter(criteria)" class="animate" layout-padding>
+            <md-list-item ng-repeat="resource in resources | filter:resourceFilter(criteria)" class="animate">
                 <md-input-container class="md-icon-float md-block" flex="20">
                     <label>Resource set</label>
                     <input ng-model="resource.resourceSet" type="text" ng-enter="updateResource(resource)">
