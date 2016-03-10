@@ -30,7 +30,7 @@
     $scope.resourceFilter = function (criteria) {
         return function (resource) {
             return (!angular.isDefined(criteria)) ||
-                   (!angular.isDefined(criteria.locale) || criteria.locale === "Show all..." || resource.localeId === criteria.locale.localeId) &&
+                   (!angular.isDefined(criteria.locale) || criteria.locale === "Show all..." || resource.localeId === criteria.locale) &&
                    (!angular.isDefined(criteria.resourceSet) || criteria.resourceSet === "" || resource.resourceSet.indexOf(criteria.resourceSet) >= 0) &&
                    (!angular.isDefined(criteria.resourceKey) || criteria.resourceKey === "" || resource.resourceKey.indexOf(criteria.resourceKey) >= 0) &&
                    (!angular.isDefined(criteria.value) || criteria.value === "" || resource.value.indexOf(criteria.value) >= 0);
@@ -53,7 +53,7 @@
 
     $scope.onResourceAdded = function (resource) {
         $scope.$apply(function () {
-            $scope.newResource = { applicationId: $scope.application.applicationId }
+            $scope.newResource = { applicationId: $scope.application.applicationId, localeId: $scope.criteria.locale }
             $scope.resources.push(resource);
         });
     }

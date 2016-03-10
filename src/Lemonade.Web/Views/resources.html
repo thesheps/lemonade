@@ -3,7 +3,7 @@
 <div layout="row">
     <md-content flex="" layout-padding>
         <md-input-container class="md-block">
-            <label>Please Select an Application</label>
+            <label>Please select an application</label>
             <md-select ng-model="ctrl.userState">
                 <md-option ng-repeat="application in applications" ng-click="selectApplication(application)">
                     {{application.name}}
@@ -11,25 +11,25 @@
             </md-select>
         </md-input-container>
 
+        <md-input-container class="md-block">
+            <label>Locale</label>
+            <md-select ng-model="criteria.locale" ng-change="newResource.localeId = criteria.locale">
+                <md-option ng-repeat="locale in locales" ng-value="locale.localeId">
+                    {{locale.isoCode}} - {{locale.description}}
+                </md-option>
+            </md-select>
+        </md-input-container>
+
         <md-list-item layout="row" ng-show="application != null" layout-align="start center">
             <md-input-container class="md-icon-float md-block" flex="20">
-                <label>Resource Set</label>
+                <label>Resource set</label>
                 <md-icon>add_circle</md-icon>
                 <input ng-model="newResource.resourceSet" type="text" ng-enter="addResource(newResource)">
             </md-input-container>
 
             <md-input-container class="md-icon-float md-block" flex="20">
-                <label>Resource Key</label>
+                <label>Resource key</label>
                 <input ng-model="newResource.resourceKey" type="text" ng-enter="addResource(newResource)">
-            </md-input-container>
-
-            <md-input-container class="md-block" flex="20">
-                <label>Locale</label>
-                <md-select ng-model="newResource.localeId">
-                    <md-option ng-repeat="locale in locales" ng-value="locale.localeId">
-                        {{locale.isoCode}} - {{locale.description}}
-                    </md-option>
-                </md-select>
             </md-input-container>
 
             <md-input-container class="md-icon-float md-block" flex="20">
@@ -42,7 +42,7 @@
             </md-button>
         </md-list-item>
 
-        <md-list>
+        <md-list md-show="">
             <md-list-item>
                 <div ng-show="resources != null" layout="column">
                     <h3 class="md-headline">Filters</h3>
@@ -59,16 +59,6 @@
                         </md-input-container>
 
                         <md-input-container class="md-block" flex="30">
-                            <label>Locale</label>
-                            <md-select ng-model="criteria.locale">
-                                <md-option>Show all...</md-option>
-                                <md-option ng-repeat="locale in locales | filter:usedLocales" ng-value="locale">
-                                    {{locale.description}}
-                                </md-option>
-                            </md-select>
-                        </md-input-container>
-
-                        <md-input-container class="md-block" flex="30">
                             <label>Value</label>
                             <input ng-model="criteria.value" />
                         </md-input-container>
@@ -78,24 +68,15 @@
 
             <md-list-item />
 
-            <md-list-item ng-repeat="resource in resources | filter:resourceFilter(criteria)" class="animate">
+            <md-list-item ng-repeat="resource in resources | filter:resourceFilter(criteria)" class="animate" layout-padding>
                 <md-input-container class="md-icon-float md-block" flex="20">
-                    <label>Resource Set</label>
+                    <label>Resource set</label>
                     <input ng-model="resource.resourceSet" type="text" ng-enter="updateResource(resource)">
                 </md-input-container>
 
                 <md-input-container class="md-icon-float md-block" flex="20">
-                    <label>Resource Key</label>
+                    <label>Resource key</label>
                     <input ng-model="resource.resourceKey" type="text" ng-enter="updateResource(resource)">
-                </md-input-container>
-
-                <md-input-container class="md-block" flex="20">
-                    <label>Locale</label>
-                    <md-select ng-model="resource.locale">
-                        <md-option ng-repeat="locale in locales" ng-value="locale" ng-selected="resource.localeId == locale.localeId">
-                            {{locale.isoCode}}
-                        </md-option>
-                    </md-select>
                 </md-input-container>
 
                 <md-input-container class="md-icon-float md-block" flex="20">

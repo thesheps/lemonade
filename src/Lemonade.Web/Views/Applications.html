@@ -2,9 +2,10 @@
 
 <div layout="row" ng-cloak>
     <md-content flex="" layout-padding>
-        <md-input-container class="md-block">
-            <label>Create a New Application</label>
+        <md-input-container class="md-block md-icon-right">
+            <label>Create a new application</label>
             <input ng-model="applicationName" type="text" ng-enter="addApplication(applicationName)" aria-label="Enter application name">
+            <md-icon>add_circle</md-icon>
         </md-input-container>
 
         <md-list>

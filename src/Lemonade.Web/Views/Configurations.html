@@ -3,7 +3,7 @@
 <div layout="row">
     <md-content flex="" layout-padding>
         <md-input-container class="md-block">
-            <label>Please Select an Application</label>
+            <label>Please select an application</label>
             <md-select ng-model="ctrl.userState">
                 <md-option ng-repeat="application in applications" ng-click="selectApplication(application)">
                     {{application.name}}
@@ -11,20 +11,24 @@
             </md-select>
         </md-input-container>
 
-        <div layout="row" ng-show="application != null" layout-align="start center">
-            <md-input-container class="md-icon-float md-block">
+        <md-card layout="column" ng-show="application != null">
+            <h2 class="md-headline">Create new</h2>
+
+            <md-input-container class="md-icon-right md-block">
                 <label>Configuration Name</label>
-                <md-icon>add_circle</md-icon>
                 <input ng-model="newConfiguration.name" type="text" ng-enter="addConfiguration(newConfiguration)">
+                <md-icon>add_circle</md-icon>
             </md-input-container>
 
-            <multi-input ng-model="newConfiguration.value">
-            </multi-input>
+            <div layout="row">
+                <multi-input ng-model="newConfiguration.value">
+                </multi-input>
 
-            <md-button class="md-icon-button" ng-click="addConfiguration(newConfiguration)">
-                <md-icon>done</md-icon>
-            </md-button>
-        </div>
+                <md-button class="md-icon-button" ng-click="addConfiguration(newConfiguration)">
+                    <md-icon>done</md-icon>
+                </md-button>    
+            </div>
+        </md-card>
 
         <md-list>
             <md-list-item ng-repeat="configuration in configurations" class="animate">
