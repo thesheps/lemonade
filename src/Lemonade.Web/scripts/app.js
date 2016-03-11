@@ -4,7 +4,7 @@ app.controller("aboutController", [function () { }]);
 app.controller("applicationController", ["$scope", "$http", "eventService", "toastService", applicationController]);
 app.controller("configurationController", ["$scope", "$http", "eventService", "toastService", configurationController]);
 app.controller("featureController", ["$scope", "$http", "eventService", "toastService", featureController]);
-app.controller("resourceController", ["$scope", "$http", "eventService", "toastService", resourceController]);
+app.controller("resourceController", ["$scope", "$http", "$mdDialog", "eventService", "toastService", resourceController]);
 app.controller("indexController", ["$scope", "$http", "eventService", indexController]);
 
 app.service("eventService", ["$rootScope", eventService]);

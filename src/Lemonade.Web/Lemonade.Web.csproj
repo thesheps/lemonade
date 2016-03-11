@@ -254,6 +254,7 @@
     </None>
     <EmbeddedResource Include="scripts\controllers\resource.controller.js" />
     <EmbeddedResource Include="views\resources.html" />
+    <EmbeddedResource Include="views\dialogs\create-resource-dialog.html" />
     <Content Include="views\logo-header.png" />
     <EmbeddedResource Include="scripts\directives\multiInput.directive.js" />
     <EmbeddedResource Include="views\directives\multiInput.html" />

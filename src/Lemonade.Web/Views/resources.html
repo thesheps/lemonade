@@ -20,24 +20,9 @@
             </md-select>
         </md-input-container>
 
-        <md-list-item layout="row" ng-show="application != null">
-            <md-input-container class="md-block">
-                <label>Resource set</label>
-                <input ng-model="newResource.resourceSet" type="text" ng-enter="addResource(newResource)">
-            </md-input-container>
-
-            <md-input-container class="md-block">
-                <label>Resource key</label>
-                <input ng-model="newResource.resourceKey" type="text" ng-enter="addResource(newResource)">
-            </md-input-container>
-
-            <md-input-container class="md-icon-right md-block">
-                <label>Value</label>
-                <textarea ng-model="newResource.value" type="text" ng-enter="addResource(newResource)"></textarea>
-                <md-icon>add_circle</md-icon>
-            </md-input-container>
-
-        </md-list-item>
+        <md-button class="md-fab" aria-label="Create resource" ng-click="showCreateDialog()" ng-show="newResource.applicationId != null && newResource.localeId != null">
+            <md-icon>add</md-icon>
+        </md-button>
 
         <md-list>
             <md-list-item>
@@ -65,7 +50,7 @@
 
             <md-list-item />
 
-            <md-list-item ng-repeat="resource in resources | filter:resourceFilter(criteria)" class="animate">
+            <md-list-item ng-repeat="resource in resources | filter:resourceFilter(criteria) track by $index" class="animate">
                 <md-input-container class="md-icon-float md-block" flex="20">
                     <label>Resource set</label>
                     <input ng-model="resource.resourceSet" type="text" ng-enter="updateResource(resource)">

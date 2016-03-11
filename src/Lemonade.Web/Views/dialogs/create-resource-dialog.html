@@ -1,0 +1,41 @@
+﻿<md-dialog>
+    <form>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>Create a new resource</h2>
+                <span flex></span>
+
+                <md-button class="md-icon-button" ng-click="cancelDialog()">
+                    <md-icon aria-label="Close dialog">clear</md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+    </form>
+
+    <md-dialog-content layout-padding>
+        <span/>
+        <md-input-container class="md-block">
+            <label>Resource set</label>
+            <input ng-model="newResource.resourceSet" type="text">
+        </md-input-container>
+
+        <md-input-container class="md-block">
+            <label>Resource key</label>
+            <input ng-model="newResource.resourceKey" type="text">
+        </md-input-container>
+
+        <md-input-container class="md-block">
+            <label>Value</label>
+            <textarea ng-model="newResource.value" type="text"></textarea>
+        </md-input-container>
+    </md-dialog-content>
+
+    <md-dialog-actions layout="row">
+        <md-button ng-click="addResource(newResource)">
+            Create
+        </md-button>
+        <md-button ng-click="cancelDialog()">
+            Cancel
+        </md-button>
+    </md-dialog-actions>
+</md-dialog>

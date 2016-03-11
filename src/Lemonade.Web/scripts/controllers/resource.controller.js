@@ -1,4 +1,4 @@
-﻿function resourceController($scope, $http, eventService, toastService) {
+﻿function resourceController($scope, $http, $mdDialog, eventService, toastService) {
     $http.get("/api/applications").then(function (res) {
         $scope.applications = res.data;
     });
@@ -15,8 +15,27 @@
         });
     }
 
+    $scope.showCreateDialog = function() {
+        $mdDialog.show({
+            locals: { newResource: $scope.newResource },
+            controller: resourceController,
+            templateUrl: "views/dialogs/create-resource-dialog.html",
+            parent: angular.element(document.body),
+            clickOutsideToClose: true,
+            fullscreen: false
+        })
+        .then(function() {
+        }, function() {
+        });
+    }
+
+    $scope.cancelDialog = function() {
+        $mdDialog.cancel();
+    }
+
     $scope.addResource = function (resource) {
         $http.post("/api/resources", resource);
+        $mdDialog.cancel();
     }
 
     $scope.updateResource = function (resource) {
