@@ -20,7 +20,7 @@
             </md-select>
         </md-input-container>
 
-        <md-button class="md-fab" aria-label="Create resource" ng-click="showCreateDialog()" ng-show="newResource.applicationId != null && newResource.localeId != null">
+        <md-button class="md-fab" aria-label="Create resource" ng-click="showCreateDialog(newResource)" ng-show="newResource.applicationId != null && newResource.localeId != null">
             <md-icon>add</md-icon>
         </md-button>
 

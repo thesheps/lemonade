@@ -12,7 +12,10 @@
     }
 
     $scope.addFeature = function (feature) {
-        $http.post("/api/features", feature);
+        $http.post("/api/features", feature)
+            .then(function() {
+                $scope.newFeature = { applicationId: $scope.application.applicationId }
+            });
     }
 
     $scope.updateFeature = function (feature) {
@@ -38,7 +41,6 @@
     $scope.onFeatureAdded = function (feature) {
         $scope.$apply(function () {
             $scope.features.push(feature);
-            $scope.newFeature = { applicationId: $scope.application.applicationId }
         });
     }
 

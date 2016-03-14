@@ -15,27 +15,25 @@
         });
     }
 
-    $scope.showCreateDialog = function() {
+    $scope.showCreateDialog = function (resource) {
         $mdDialog.show({
-            locals: { newResource: $scope.newResource },
-            controller: resourceController,
+            controller: function ($mdDialog, $http, $scope) {
+                $scope.newResource = { applicationId: resource.applicationId, localeId: resource.localeId };
+
+                $scope.addResource = function (resource) {
+                    $http.post("/api/resources", resource);
+                    $mdDialog.cancel();
+                }
+
+                $scope.cancelDialog = function () {
+                    $mdDialog.cancel();
+                }
+            },
             templateUrl: "views/dialogs/create-resource-dialog.html",
             parent: angular.element(document.body),
             clickOutsideToClose: true,
             fullscreen: false
-        })
-        .then(function() {
-        }, function() {
         });
-    }
-
-    $scope.cancelDialog = function() {
-        $mdDialog.cancel();
-    }
-
-    $scope.addResource = function (resource) {
-        $http.post("/api/resources", resource);
-        $mdDialog.cancel();
     }
 
     $scope.updateResource = function (resource) {
@@ -72,7 +70,6 @@
 
     $scope.onResourceAdded = function (resource) {
         $scope.$apply(function () {
-            $scope.newResource = { applicationId: $scope.application.applicationId, localeId: $scope.criteria.locale }
             $scope.resources.push(resource);
         });
     }
@@ -89,7 +86,7 @@
         });
     }
 
-    $scope.onResourceUpdated= function () {
+    $scope.onResourceUpdated = function () {
         toastService.toast("Successfully updated!", "OK", "bottom right");
     }
 

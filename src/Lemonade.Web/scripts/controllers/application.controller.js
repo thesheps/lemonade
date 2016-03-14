@@ -4,7 +4,10 @@
     });
 
     $scope.addApplication = function (applicationName) {
-        $.post("/api/applications", { name: applicationName });
+        $.post("/api/applications", { name: applicationName })
+            .then(function() {
+                $scope.applicationName = "";
+            });
     }
 
     $scope.updateApplication = function (application) {
@@ -18,7 +21,6 @@
     $scope.onApplicationAdded = function (application) {
         $scope.$apply(function () {
             $scope.applications.push(application);
-            $scope.applicationName = "";
         });
     }
 
@@ -29,9 +31,6 @@
                     $scope.applications.splice(i, 1);
                 }
             }
-
-            $scope.application = null;
-            $scope.features = [];
         });
     },
 

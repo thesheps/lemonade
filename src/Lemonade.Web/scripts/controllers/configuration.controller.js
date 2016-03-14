@@ -12,7 +12,10 @@
     }
 
     $scope.addConfiguration = function (configuration) {
-        $http.post("/api/configurations", configuration);
+        $http.post("/api/configurations", configuration)
+            .then(function() {
+                $scope.newConfiguration = { applicationId: $scope.application.applicationId }
+            });
     }
 
     $scope.updateConfiguration = function (configuration) {
@@ -25,7 +28,6 @@
 
     $scope.onConfigurationAdded = function (configuration) {
         $scope.$apply(function () {
-            $scope.newConfiguration = { applicationId: $scope.application.applicationId }
             $scope.configurations.push(configuration);
         });
     }
@@ -37,8 +39,6 @@
                     $scope.configurations.splice(i, 1);
                 }
             }
-
-            $scope.configuration = null;
         });
     }
 
