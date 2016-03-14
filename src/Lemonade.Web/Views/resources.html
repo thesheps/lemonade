@@ -24,32 +24,15 @@
             <md-icon>add</md-icon>
         </md-button>
 
+        <md-button class="md-fab" aria-label="Apply a filter" ng-click="showFilterDialog()" ng-show="newResource.applicationId != null && newResource.localeId != null">
+            <md-icon>search</md-icon>
+        </md-button>
+
+        <md-button class="md-fab" aria-label="Generate resources for a locale" ng-show="newResource.applicationId != null && newResource.localeId != null">
+            <md-icon>create</md-icon>
+        </md-button>
+
         <md-list>
-            <md-list-item>
-                <div ng-show="resources != null" layout="column">
-                    <h3 class="md-headline">Filters</h3>
-
-                    <div layout="row">
-                        <md-input-container class="md-block" flex="30">
-                            <label>Resource set</label>
-                            <input ng-model="criteria.resourceSet" />
-                        </md-input-container>
-
-                        <md-input-container class="md-block" flex="30">
-                            <label>Resource key</label>
-                            <input ng-model="criteria.resourceKey" />
-                        </md-input-container>
-
-                        <md-input-container class="md-block" flex="30">
-                            <label>Value</label>
-                            <input ng-model="criteria.value" />
-                        </md-input-container>
-                    </div>
-                </div>
-            </md-list-item>
-
-            <md-list-item />
-
             <md-list-item ng-repeat="resource in resources | filter:resourceFilter(criteria) track by $index" class="animate">
                 <md-input-container class="md-icon-float md-block" flex="20">
                     <label>Resource set</label>

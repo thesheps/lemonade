@@ -36,6 +36,16 @@
         });
     }
 
+    $scope.showFilterDialog = function () {
+        $mdDialog.show({
+            controller: resourceController,
+            templateUrl: "views/dialogs/filter-resource-dialog.html",
+            parent: angular.element(document.body),
+            clickOutsideToClose: true,
+            fullscreen: false
+        });
+    }
+
     $scope.updateResource = function (resource) {
         $http.put("/api/resources", resource);
     }
