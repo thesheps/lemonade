@@ -36,9 +36,20 @@
         });
     }
 
-    $scope.showFilterDialog = function () {
+    $scope.showFilterDialog = function (criteria) {
         $mdDialog.show({
-            controller: resourceController,
+            controller: function ($scope) {
+                $scope.applyFilter = function (filter) {
+                    criteria.resourceSet = filter ? filter.resourceSet : "";
+                    criteria.resourceKey = filter ? filter.resourceKey : "";
+                    criteria.value = filter ? filter.value : "";
+                    $mdDialog.cancel();
+                }
+
+                $scope.cancelDialog = function () {
+                    $mdDialog.cancel();
+                }
+            },
             templateUrl: "views/dialogs/filter-resource-dialog.html",
             parent: angular.element(document.body),
             clickOutsideToClose: true,
