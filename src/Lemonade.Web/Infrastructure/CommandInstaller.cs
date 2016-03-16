@@ -23,6 +23,7 @@ namespace Lemonade.Web.Infrastructure
             container.Register<ICommandHandler<CreateFeatureOverrideCommand>, CreateFeatureOverrideCommandHandler>();
             container.Register<ICommandHandler<UpdateFeatureOverrideCommand>, UpdateFeatureOverrideCommandHandler>();
             container.Register<ICommandHandler<DeleteFeatureOverrideCommand>, DeleteFeatureOverrideCommandHandler>();
+            container.Register<ICommandHandler<GenerateResourcesCommand>, GenerateResourcesCommandHandler>();
 
             return container;
         }

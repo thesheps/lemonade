@@ -88,12 +88,14 @@
     <Compile Include="Queries\IGetAllConfigurationsByApplicationId.cs" />
     <Compile Include="Queries\IGetAllFeatures.cs" />
     <Compile Include="Queries\IGetAllLocales.cs" />
+    <Compile Include="Queries\IGetAllResourcesByApplicationIdAndLocaleId.cs" />
     <Compile Include="Queries\IGetAllResourcesByApplicationId.cs" />
     <Compile Include="Queries\IGetAllFeaturesByApplicationId.cs" />
     <Compile Include="Queries\IGetApplicationByName.cs" />
     <Compile Include="Queries\IGetConfigurationByNameAndApplication.cs" />
     <Compile Include="Queries\IGetFeatureByNameAndApplication.cs" />
     <Compile Include="Queries\IGetFeatureOverride.cs" />
+    <Compile Include="Queries\IGetLocaleById.cs" />
     <Compile Include="Queries\IGetResource.cs" />
     <Compile Include="Queries\IUpdateFeatureOverride.cs" />
     <Compile Include="Entities\Locale.cs" />

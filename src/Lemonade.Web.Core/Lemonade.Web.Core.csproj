@@ -42,11 +42,13 @@
   <ItemGroup>
     <Compile Include="CommandHandlers\CreateFeatureCommandHandler.cs" />
     <Compile Include="CommandHandlers\CreateFeatureOverrideCommandHandler.cs" />
+    <Compile Include="CommandHandlers\GenerateResourcesCommandHandler.cs" />
     <Compile Include="CommandHandlers\CreateResourceCommandHandler.cs" />
     <Compile Include="CommandHandlers\DeleteFeatureCommandHandler.cs" />
     <Compile Include="CommandHandlers\DeleteFeatureOverrideCommandHandler.cs" />
     <Compile Include="CommandHandlers\DeleteResourceCommandHandler.cs" />
     <Compile Include="CommandHandlers\ICommandHandler.cs" />
+    <Compile Include="Events\ResourceGenerationErrorHasOccurred.cs" />
     <Compile Include="CommandHandlers\UpdateFeatureCommandHandler.cs" />
     <Compile Include="CommandHandlers\UpdateFeatureOverrideCommandHandler.cs" />
     <Compile Include="CommandHandlers\UpdateResourceCommandHandler.cs" />
@@ -60,6 +62,7 @@
     <Compile Include="Commands\DeleteFeatureCommand.cs" />
     <Compile Include="Commands\DeleteFeatureOverrideCommand.cs" />
     <Compile Include="Commands\DeleteResourceCommand.cs" />
+    <Compile Include="Commands\GenerateResourcesCommand.cs" />
     <Compile Include="Commands\UpdateConfigurationCommand.cs" />
     <Compile Include="CommandHandlers\UpdateConfigurationCommandHandler.cs" />
     <Compile Include="CommandHandlers\UpdateApplicationCommandHandler.cs" />
@@ -114,6 +117,7 @@
     <Compile Include="Events\ResourceHasBeenCreated.cs" />
     <Compile Include="Events\ResourceHasBeenDeleted.cs" />
     <Compile Include="Events\ResourceHasBeenUpdated.cs" />
+    <Compile Include="Exceptions\UnsupportedTranslationException.cs" />
     <Compile Include="Mappers\CultureMapper.cs" />
     <Compile Include="Mappers\LocaleMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -144,6 +148,8 @@
     <Compile Include="Services\ICommandDispatcher.cs" />
     <Compile Include="Services\IDomainEventDispatcher.cs" />
     <Compile Include="Services\INotifyClients.cs" />
+    <Compile Include="Services\ITranslateResource.cs" />
+    <Compile Include="Services\ITranslateResourceFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Lemonade.Data\Lemonade.Data.csproj">

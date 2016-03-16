@@ -46,6 +46,7 @@
     <Compile Include="Configuration.cs" />
     <Compile Include="Feature.cs" />
     <Compile Include="FeatureOverride.cs" />
+    <Compile Include="GenerateResources.cs" />
     <Compile Include="Locale.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resource.cs" />

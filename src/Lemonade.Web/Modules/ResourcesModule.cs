@@ -18,6 +18,7 @@ namespace Lemonade.Web.Modules
             Get["/api/resource"] = r => GetResource();
             Get["/api/resources"] = r => GetResources();
             Post["/api/resources"] = r => CreateResource();
+            Post["/api/resources/generate"] = r => GenerateResources();
             Put["/api/resources"] = r => UpdateResource();
             Delete["api/resources"] = r => DeleteResource();
         }
@@ -49,6 +50,21 @@ namespace Lemonade.Web.Modules
             {
                 var resource = this.Bind<Resource>();
                 _commandDispatcher.Dispatch(new CreateResourceCommand(resource.ApplicationId, resource.LocaleId, resource.ResourceKey, resource.ResourceSet, resource.Value));
+
+                return HttpStatusCode.OK;
+            }
+            catch (Exception)
+            {
+                return HttpStatusCode.BadRequest;
+            }
+        }
+
+        private HttpStatusCode GenerateResources()
+        {
+            try
+            {
+                var generateResources = this.Bind<GenerateResources>();
+                _commandDispatcher.Dispatch(new GenerateResourcesCommand(generateResources.ApplicationId, generateResources.LocaleId, generateResources.TargetLocaleId, generateResources.Type));
 
                 return HttpStatusCode.OK;
             }

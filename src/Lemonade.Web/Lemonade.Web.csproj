@@ -85,10 +85,13 @@
     <Compile Include="Modules\LocalesModules.cs" />
     <Compile Include="Modules\ResourcesModule.cs" />
     <Compile Include="Modules\IndexModule.cs" />
+    <Compile Include="Services\PseudoResourceTranslator.cs" />
+    <Compile Include="Services\GoogleResourceTranslator.cs" />
     <Compile Include="Services\QueryDispatcher.cs" />
     <Compile Include="Services\CommandDispatcher.cs" />
     <Compile Include="Services\DomainEventDispatcher.cs" />
     <Compile Include="Services\NotifyClients.cs" />
+    <Compile Include="Services\TranslateResourceFactory.cs" />
     <Compile Include="Startup.cs" />
     <None Include="bower.json" />
     <None Include="bower_components\angular-animate\.bower.json" />
@@ -256,6 +259,7 @@
     <EmbeddedResource Include="views\resources.html" />
     <EmbeddedResource Include="views\dialogs\create-resource-dialog.html" />
     <EmbeddedResource Include="views\dialogs\filter-resource-dialog.html" />
+    <EmbeddedResource Include="views\dialogs\generate-resources-dialog.html" />
     <Content Include="views\logo-header.png" />
     <EmbeddedResource Include="scripts\directives\multiInput.directive.js" />
     <EmbeddedResource Include="views\directives\multiInput.html" />

@@ -115,12 +115,57 @@ namespace Lemonade.Web.Tests
                 .updateResource(Arg.Any<dynamic>());
         }
 
+        [Test]
+        public void WhenIGenerateResourcesForAGivenLocale_ThenICanGetItViaHttpAndSignalRClientsAreNotified()
+        {
+            var application = new Data.Entities.Application { ApplicationId = 1, Name = "TestApplication1" };
+            _createApplication.Execute(application);
+
+            var locale = new GetAllLocales().Execute()[10].ToContract();
+            var targetLocale = new GetAllLocales().Execute()[1].ToContract();
+            var resource = GetResourceModel(locale, "Test", "Test", "Test", application.ToContract());
+            var generateResourcesModel = GetGenerateResourcesModel(application.ApplicationId, locale.LocaleId, targetLocale.LocaleId, "pseudo");
+
+            Post(resource);
+            Post(generateResourcesModel);
+
+            var response = _browser.Get("/api/resource", with =>
+            {
+                with.Header("Accept", "application/json");
+                with.Query("application", application.Name);
+                with.Query("resourceSet", resource.ResourceSet);
+                with.Query("resourceKey", resource.ResourceKey);
+                with.Query("locale", targetLocale.IsoCode);
+            });
+
+            var result = JsonConvert.DeserializeObject<Resource>(response.Body.AsString());
+            Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
+            Assert.That(result.ApplicationId, Is.EqualTo(application.ApplicationId));
+            Assert.That(result.ResourceKey, Is.EqualTo(resource.ResourceKey));
+            Assert.That(result.ResourceSet, Is.EqualTo(resource.ResourceSet));
+            Assert.That(result.Locale.IsoCode, Is.EqualTo(resource.Locale.IsoCode));
+
+            _bootstrapper
+                .Resolve<IMockClient>()
+                .Received()
+                .addResource(Arg.Any<dynamic>());
+        }
+
         private void Post(Resource resource)
         {
             _browser.Post("/api/resources", with =>
             {
                 with.Header("Content-Type", "application/json");
                 with.Body(JsonConvert.SerializeObject(resource));
+            });
+        }
+
+        private void Post(GenerateResources contract)
+        {
+            _browser.Post("/api/resources/generate", with =>
+            {
+                with.Header("Content-Type", "application/json");
+                with.Body(JsonConvert.SerializeObject(contract));
             });
         }
 
@@ -145,6 +190,11 @@ namespace Lemonade.Web.Tests
                 Application = application,
                 ApplicationId = application.ApplicationId
             };
+        }
+
+        private static GenerateResources GetGenerateResourcesModel(int applicationId, int localeId, int targetLocaleId, string type)
+        {
+            return new GenerateResources { ApplicationId = applicationId, LocaleId = localeId, TargetLocaleId = targetLocaleId, Type = type };
         }
 
         private Browser _browser;

@@ -57,6 +57,33 @@
         });
     }
 
+    $scope.showGenerateResourcesDialog = function(applicationId, localeId, locales) {
+        $mdDialog.show({
+            controller: function ($scope, $http) {
+                $scope.locales = locales;
+
+                $scope.generateResources = function () {
+                    $http.post("/api/resources/generate", {
+                        applicationId : applicationId,
+                        localeId: localeId,
+                        targetLocaleId: $scope.targetLocaleId,
+                        type: $scope.type
+                    });
+
+                    $mdDialog.cancel();
+                }
+
+                $scope.cancelDialog = function () {
+                    $mdDialog.cancel();
+                }
+            },
+            templateUrl: "views/dialogs/generate-resources-dialog.html",
+            parent: angular.element(document.body),
+            clickOutsideToClose: true,
+            fullscreen: false
+        });
+    }
+
     $scope.updateResource = function (resource) {
         $http.put("/api/resources", resource);
     }

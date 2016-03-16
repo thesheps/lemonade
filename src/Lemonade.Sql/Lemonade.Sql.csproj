@@ -78,8 +78,10 @@
     <Compile Include="Migrations\CreateLocaleTable.cs" />
     <Compile Include="Migrations\RemoveUnusedColumns.cs" />
     <Compile Include="Queries\GetAllLocales.cs" />
+    <Compile Include="Queries\GetAllResourcesByApplicationIdAndLocaleId.cs" />
     <Compile Include="Queries\GetAllResourcesByApplicationId.cs" />
     <Compile Include="Queries\GetConfigurationByNameAndApplication.cs" />
+    <Compile Include="Queries\GetLocaleById.cs" />
     <Compile Include="Queries\GetResource.cs" />
     <Compile Include="Queries\GetFeatureOverride.cs" />
     <Compile Include="Queries\GetAllConfigurationsByApplicationId.cs" />

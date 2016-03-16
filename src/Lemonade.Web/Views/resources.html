@@ -28,11 +28,12 @@
             <md-icon>search</md-icon>
         </md-button>
 
-        <md-button class="md-fab" aria-label="Generate resources for a locale" ng-show="newResource.applicationId != null && newResource.localeId != null">
-            <md-icon>create</md-icon>
+        <md-button class="md-fab" aria-label="Generate resources" ng-click="showGenerateResourcesDialog(newResource.applicationId, newResource.localeId, locales)" ng-show="newResource.applicationId != null && newResource.localeId != null">
+            <md-icon>content_copy</md-icon>
         </md-button>
 
         <md-list>
+            <md-list-item />
             <md-list-item ng-repeat="resource in resources | filter:resourceFilter(criteria) track by $index" class="animate">
                 <md-input-container class="md-icon-float md-block" flex="20">
                     <label>Resource set</label>
@@ -44,7 +45,7 @@
                     <input ng-model="resource.resourceKey" type="text" ng-enter="updateResource(resource)">
                 </md-input-container>
 
-                <md-input-container class="md-icon-float md-block" flex="20">
+                <md-input-container class="md-icon-float md-block" flex="40">
                     <label>Value</label>
                     <input ng-model="resource.value" type="text" ng-enter="updateResource(resource)">
                 </md-input-container>
