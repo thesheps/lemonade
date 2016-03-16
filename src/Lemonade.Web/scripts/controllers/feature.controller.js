@@ -13,7 +13,7 @@
 
     $scope.addFeature = function (feature) {
         $http.post("/api/features", feature)
-            .then(function() {
+            .then(function () {
                 $scope.newFeature = { applicationId: $scope.application.applicationId }
             });
     }
@@ -55,7 +55,7 @@
         });
     }
 
-    $scope.onFeatureUpdated = function () {
+    $scope.onFeatureUpdated = function (feature) {
         toastService.toast("Successfully updated!", "OK", "bottom right");
     }
 
@@ -85,7 +85,7 @@
         });
     }
 
-    $scope.onFeatureOverrideUpdated = function () {
+    $scope.onFeatureOverrideUpdated = function (featureOverride) {
         toastService.toast("Successfully updated!", "OK", "bottom right");
     }
 

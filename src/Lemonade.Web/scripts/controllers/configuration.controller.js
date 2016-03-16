@@ -13,7 +13,7 @@
 
     $scope.addConfiguration = function (configuration) {
         $http.post("/api/configurations", configuration)
-            .then(function() {
+            .then(function () {
                 $scope.newConfiguration = { applicationId: $scope.application.applicationId }
             });
     }
@@ -37,12 +37,13 @@
             for (var i = 0; i < $scope.configurations.length; i++) {
                 if ($scope.configurations[i].configurationId === configuration.configurationId) {
                     $scope.configurations.splice(i, 1);
+                    return;
                 }
             }
         });
     }
 
-    $scope.onConfigurationUpdated = function () {
+    $scope.onConfigurationUpdated = function (configuration) {
         toastService.toast("Successfully updated!", "OK", "bottom right");
     }
 

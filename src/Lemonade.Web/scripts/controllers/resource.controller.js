@@ -100,14 +100,13 @@
             for (var i = 0; i < $scope.resources.length; i++) {
                 if ($scope.resources[i].resourceId === resource.resourceId) {
                     $scope.resources.splice(i, 1);
+                    return;
                 }
             }
-
-            $scope.resource = null;
         });
     }
 
-    $scope.onResourceUpdated = function () {
+    $scope.onResourceUpdated = function (resource) {
         toastService.toast("Successfully updated!", "OK", "bottom right");
     }
 

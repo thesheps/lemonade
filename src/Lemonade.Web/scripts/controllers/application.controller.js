@@ -5,7 +5,7 @@
 
     $scope.addApplication = function (applicationName) {
         $.post("/api/applications", { name: applicationName })
-            .then(function() {
+            .then(function () {
                 $scope.applicationName = "";
             });
     }
@@ -29,12 +29,13 @@
             for (var i = 0; i < $scope.applications.length; i++) {
                 if ($scope.applications[i].applicationId === application.applicationId) {
                     $scope.applications.splice(i, 1);
+                    return;
                 }
             }
         });
     },
 
-    $scope.onApplicationUpdated = function () {
+    $scope.onApplicationUpdated = function (application) {
         toastService.toast("Successfully Updated!", "OK", "bottom right");
     },
 
@@ -44,5 +45,6 @@
 
     eventService.onApplicationAdded($scope, $scope.onApplicationAdded);
     eventService.onApplicationRemoved($scope, $scope.onApplicationRemoved);
+    eventService.onApplicationUpdated($scope, $scope.onApplicationUpdated);
     eventService.onApplicationErrorEncountered($scope, $scope.onApplicationErrorEncountered);
 }

@@ -10,7 +10,7 @@
     }
 
     hubProxy.client.updateApplication = function (application) {
-        eventService.applicationRemoved(application);
+        eventService.applicationUpdated(application);
     }
 
     hubProxy.client.logApplicationError = function (error) {
