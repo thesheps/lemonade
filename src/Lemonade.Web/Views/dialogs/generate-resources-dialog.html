@@ -15,7 +15,7 @@
     <md-dialog-content layout-padding>
         <span />
         <md-input-container class="md-block">
-            <label>Locale</label>
+            <label>Target locale</label>
             <md-select ng-model="targetLocaleId">
                 <md-option ng-repeat="locale in locales" ng-value="locale.localeId">
                     {{locale.isoCode}} - {{locale.description}}
@@ -23,18 +23,14 @@
             </md-select>
         </md-input-container>
 
-        <md-radio-group ng-model="type">
+        <md-radio-group ng-model="translationType">
             <md-radio-button value="pseudo">Pseudoise</md-radio-button>
-            <md-radio-button value="google">Google Translate</md-radio-button>
+            <md-radio-button value="bing">Bing Translate</md-radio-button>
         </md-radio-group>
     </md-dialog-content>
 
     <md-dialog-actions layout="row">
-        <md-button ng-click="generateResources()">
-            Generate
-        </md-button>
-        <md-button ng-click="cancelDialog()">
-            Cancel
-        </md-button>
+        <md-button ng-click="generateResources()">Generate</md-button>
+        <md-button ng-click="cancelDialog()">Cancel</md-button>
     </md-dialog-actions>
 </md-dialog>

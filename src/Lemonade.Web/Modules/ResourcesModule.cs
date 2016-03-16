@@ -64,7 +64,7 @@ namespace Lemonade.Web.Modules
             try
             {
                 var generateResources = this.Bind<GenerateResources>();
-                _commandDispatcher.Dispatch(new GenerateResourcesCommand(generateResources.ApplicationId, generateResources.LocaleId, generateResources.TargetLocaleId, generateResources.Type));
+                _commandDispatcher.Dispatch(new GenerateResourcesCommand(generateResources.ApplicationId, generateResources.LocaleId, generateResources.TargetLocaleId, generateResources.TranslationType));
 
                 return HttpStatusCode.OK;
             }

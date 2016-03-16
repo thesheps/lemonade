@@ -8,7 +8,7 @@ QUnit.test("WhenIAddAResource_ThenTheResourceIsAddedToTheList", function (assert
     var http = new Http([]);
     var eventService = new EventService();
 
-    resourceController(scope, http, eventService);
+    resourceController(scope, http, , null, eventService);
 
     scope.onResourceAdded({ resourceId: 1, resourceKey: "MyTestResource" });
     assert.ok(scope.resources[0].resourceKey === "MyTestResource", "Passed!");
@@ -19,7 +19,7 @@ QUnit.test("WhenIRemoveAResource_ThenTheResourceIsRemovedFromTheList", function 
     var http = new Http([]);
     var eventService = new EventService();
 
-    resourceController(scope, http, eventService);
+    resourceController(scope, http, null, eventService);
 
     scope.onResourceAdded({ resource: { resourceId: 1, resourceKey: "MyTestResource" } });
     scope.onResourceRemoved({ resource: { resourceId: 1, resourceKey: "MyTestResource" } });

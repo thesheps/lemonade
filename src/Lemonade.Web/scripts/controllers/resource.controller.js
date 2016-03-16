@@ -67,7 +67,7 @@
                         applicationId : applicationId,
                         localeId: localeId,
                         targetLocaleId: $scope.targetLocaleId,
-                        type: $scope.type
+                        translationType: $scope.translationType
                     });
 
                     $mdDialog.cancel();

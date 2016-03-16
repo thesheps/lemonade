@@ -64,6 +64,10 @@
       <HintPath>..\..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="RestSharp, Version=105.2.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\RestSharp.105.2.3\lib\net45\RestSharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -86,13 +90,14 @@
     <Compile Include="Modules\ResourcesModule.cs" />
     <Compile Include="Modules\IndexModule.cs" />
     <Compile Include="Services\PseudoResourceTranslator.cs" />
-    <Compile Include="Services\GoogleResourceTranslator.cs" />
+    <Compile Include="Services\BingResourceTranslator.cs" />
     <Compile Include="Services\QueryDispatcher.cs" />
     <Compile Include="Services\CommandDispatcher.cs" />
     <Compile Include="Services\DomainEventDispatcher.cs" />
     <Compile Include="Services\NotifyClients.cs" />
     <Compile Include="Services\TranslateResourceFactory.cs" />
     <Compile Include="Startup.cs" />
+    <None Include="app.config" />
     <None Include="bower.json" />
     <None Include="bower_components\angular-animate\.bower.json" />
     <None Include="bower_components\angular-animate\angular-animate.min.js.map" />

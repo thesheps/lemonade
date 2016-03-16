@@ -1,4 +1,5 @@
-﻿using Lemonade.Web.Core.Exceptions;
+﻿using System.Configuration;
+using Lemonade.Web.Core.Exceptions;
 using Lemonade.Web.Core.Services;
 
 namespace Lemonade.Web.Services
@@ -11,8 +12,10 @@ namespace Lemonade.Web.Services
             {
                 case "pseudo":
                     return new PseudoResourceTranslator();
-                case "google":
-                    return new GoogleResourceTranslator();
+                case "bing":
+                    return new BingResourceTranslator(
+                        ConfigurationManager.AppSettings["TranslationUrl"], 
+                        ConfigurationManager.AppSettings["TranslationSecret"]);
                 default:
                     throw new UnsupportedTranslationException(type);
             }

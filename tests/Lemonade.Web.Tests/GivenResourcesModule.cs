@@ -1,4 +1,5 @@
-﻿using Lemonade.Fakes;
+﻿using System.Linq;
+using Lemonade.Fakes;
 using Lemonade.Sql.Migrations;
 using Lemonade.Sql.Queries;
 using Lemonade.Web.Contracts;
@@ -116,7 +117,7 @@ namespace Lemonade.Web.Tests
         }
 
         [Test]
-        public void WhenIGenerateResourcesForAGivenLocale_ThenICanGetItViaHttpAndSignalRClientsAreNotified()
+        public void WhenIGeneratePseudoResourcesForAGivenLocale_ThenICanGetItViaHttpAndSignalRClientsAreNotified()
         {
             var application = new Data.Entities.Application { ApplicationId = 1, Name = "TestApplication1" };
             _createApplication.Execute(application);
@@ -143,7 +144,46 @@ namespace Lemonade.Web.Tests
             Assert.That(result.ApplicationId, Is.EqualTo(application.ApplicationId));
             Assert.That(result.ResourceKey, Is.EqualTo(resource.ResourceKey));
             Assert.That(result.ResourceSet, Is.EqualTo(resource.ResourceSet));
-            Assert.That(result.Locale.IsoCode, Is.EqualTo(resource.Locale.IsoCode));
+            Assert.That(result.Locale.IsoCode, Is.EqualTo(targetLocale.IsoCode));
+            Assert.That(result.Value, Is.EqualTo("[aa-DJ - Ŧęşŧ]"));
+
+            _bootstrapper
+                .Resolve<IMockClient>()
+                .Received()
+                .addResource(Arg.Any<dynamic>());
+        }
+
+        [Test]
+        public void WhenIGenerateBingResourcesForAGivenLocale_ThenICanGetItViaHttpAndSignalRClientsAreNotified()
+        {
+            var application = new Data.Entities.Application { ApplicationId = 1, Name = "TestApplication1" };
+            _createApplication.Execute(application);
+
+            var locale = new GetAllLocales().Execute().Single(l => l.IsoCode == "en-GB").ToContract();
+            var targetLocale = new GetAllLocales().Execute().Single(l => l.IsoCode == "de-DE").ToContract();
+            var resource = GetResourceModel(locale, "Test", "Test", "Hello World", application.ToContract());
+            var generateResourcesModel = GetGenerateResourcesModel(application.ApplicationId, locale.LocaleId, targetLocale.LocaleId, "google");
+
+            Post(resource);
+            Post(generateResourcesModel);
+
+            var response = _browser.Get("/api/resource", with =>
+            {
+                with.Header("Accept", "application/json");
+                with.Query("application", application.Name);
+                with.Query("resourceSet", resource.ResourceSet);
+                with.Query("resourceKey", resource.ResourceKey);
+                with.Query("locale", targetLocale.IsoCode);
+            });
+
+            Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
+
+            var result = JsonConvert.DeserializeObject<Resource>(response.Body.AsString());
+            Assert.That(result.ApplicationId, Is.EqualTo(application.ApplicationId));
+            Assert.That(result.ResourceKey, Is.EqualTo(resource.ResourceKey));
+            Assert.That(result.ResourceSet, Is.EqualTo(resource.ResourceSet));
+            Assert.That(result.Locale.IsoCode, Is.EqualTo(targetLocale.IsoCode));
+            Assert.That(result.Value, Is.EqualTo("Tag Weld"));
 
             _bootstrapper
                 .Resolve<IMockClient>()
@@ -194,7 +234,7 @@ namespace Lemonade.Web.Tests
 
         private static GenerateResources GetGenerateResourcesModel(int applicationId, int localeId, int targetLocaleId, string type)
         {
-            return new GenerateResources { ApplicationId = applicationId, LocaleId = localeId, TargetLocaleId = targetLocaleId, Type = type };
+            return new GenerateResources { ApplicationId = applicationId, LocaleId = localeId, TargetLocaleId = targetLocaleId, TranslationType = type };
         }
 
         private Browser _browser;

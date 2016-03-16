@@ -5,14 +5,14 @@ namespace Lemonade.Web.Core.Commands
         public int ApplicationId { get; }
         public int LocaleId { get; }
         public int TargetLocaleId { get; }
-        public string Type { get; }
+        public string TranslationType { get; }
 
-        public GenerateResourcesCommand(int applicationId, int localeId, int targetLocaleId, string type)
+        public GenerateResourcesCommand(int applicationId, int localeId, int targetLocaleId, string translationType)
         {
             ApplicationId = applicationId;
             LocaleId = localeId;
             TargetLocaleId = targetLocaleId;
-            Type = type;
+            TranslationType = translationType;
         }
     }
 }
