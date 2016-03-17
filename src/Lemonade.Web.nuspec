@@ -20,10 +20,10 @@
       <dependency id="Nancy" version="1.2.0" />
       <dependency id="Nancy.Hosting.Self" version="1.2.0" />
       <dependency id="Nancy.Hosting.Aspnet" version="1.2.0" />
-      <dependency id="Nancy.Viewengines.Razor" version="1.2.0" />
       <dependency id="Microsoft.AspNet.SignalR.Core" version="2.2.0" />
       <dependency id="Microsoft.Owin" version="3.0.1" />
       <dependency id="Microsoft.Owin.Host.SystemWeb" version="3.0.1" />
+      <dependency id="Newtonsoft.Json" version="8.0.2" />
     </dependencies>
   </metadata>
 
