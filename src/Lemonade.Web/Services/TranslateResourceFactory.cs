@@ -14,7 +14,8 @@ namespace Lemonade.Web.Services
                     return new PseudoResourceTranslator();
                 case "bing":
                     return new BingResourceTranslator(
-                        ConfigurationManager.AppSettings["TranslationUrl"], 
+                        ConfigurationManager.AppSettings["TranslationClientId"], 
+                        ConfigurationManager.AppSettings["TranslationUrl"],
                         ConfigurationManager.AppSettings["TranslationSecret"]);
                 default:
                     throw new UnsupportedTranslationException(type);

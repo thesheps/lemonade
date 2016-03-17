@@ -122,8 +122,8 @@ namespace Lemonade.Web.Tests
             var application = new Data.Entities.Application { ApplicationId = 1, Name = "TestApplication1" };
             _createApplication.Execute(application);
 
-            var locale = new GetAllLocales().Execute()[10].ToContract();
-            var targetLocale = new GetAllLocales().Execute()[1].ToContract();
+            var locale = new GetAllLocales().Execute().Single(l => l.IsoCode == "en-GB").ToContract();
+            var targetLocale = new GetAllLocales().Execute().Single(l => l.IsoCode == "de-DE").ToContract();
             var resource = GetResourceModel(locale, "Test", "Test", "Test", application.ToContract());
             var generateResourcesModel = GetGenerateResourcesModel(application.ApplicationId, locale.LocaleId, targetLocale.LocaleId, "pseudo");
 
@@ -145,7 +145,7 @@ namespace Lemonade.Web.Tests
             Assert.That(result.ResourceKey, Is.EqualTo(resource.ResourceKey));
             Assert.That(result.ResourceSet, Is.EqualTo(resource.ResourceSet));
             Assert.That(result.Locale.IsoCode, Is.EqualTo(targetLocale.IsoCode));
-            Assert.That(result.Value, Is.EqualTo("[aa-DJ - Ŧęşŧ]"));
+            Assert.That(result.Value, Is.EqualTo("[de-DE - Ŧęşŧ]"));
 
             _bootstrapper
                 .Resolve<IMockClient>()
@@ -162,7 +162,7 @@ namespace Lemonade.Web.Tests
             var locale = new GetAllLocales().Execute().Single(l => l.IsoCode == "en-GB").ToContract();
             var targetLocale = new GetAllLocales().Execute().Single(l => l.IsoCode == "de-DE").ToContract();
             var resource = GetResourceModel(locale, "Test", "Test", "Hello World", application.ToContract());
-            var generateResourcesModel = GetGenerateResourcesModel(application.ApplicationId, locale.LocaleId, targetLocale.LocaleId, "google");
+            var generateResourcesModel = GetGenerateResourcesModel(application.ApplicationId, locale.LocaleId, targetLocale.LocaleId, "bing");
 
             Post(resource);
             Post(generateResourcesModel);
@@ -183,7 +183,7 @@ namespace Lemonade.Web.Tests
             Assert.That(result.ResourceKey, Is.EqualTo(resource.ResourceKey));
             Assert.That(result.ResourceSet, Is.EqualTo(resource.ResourceSet));
             Assert.That(result.Locale.IsoCode, Is.EqualTo(targetLocale.IsoCode));
-            Assert.That(result.Value, Is.EqualTo("Tag Weld"));
+            Assert.That(result.Value, Is.EqualTo("﻿Hallo Welt"));
 
             _bootstrapper
                 .Resolve<IMockClient>()
