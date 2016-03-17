@@ -67,6 +67,9 @@
         onResourceUpdated: function ($scope, callback) { handle($scope, "resourceUpdated", callback); },
 
         resourceErrorEncountered: function (event) { subscribe("resourceErrorEncountered", event); },
-        onResourceErrorEncountered: function ($scope, callback) { handle($scope, "resourceErrorEncountered", callback); }
+        onResourceErrorEncountered: function ($scope, callback) { handle($scope, "resourceErrorEncountered", callback); },
+
+        resourcesGenerated: function (resources) { subscribe("resourcesGenerated", resources); },
+        onResourcesGenerated: function ($scope, callback) { handle($scope, "resourcesGenerated", callback); }
     }
 }

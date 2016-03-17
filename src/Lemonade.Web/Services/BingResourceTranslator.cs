@@ -1,6 +1,4 @@
-﻿using System;
-using Lemonade.Web.Core.Services;
-using Nancy.Helpers;
+﻿using Lemonade.Web.Core.Services;
 using RestSharp;
 
 namespace Lemonade.Web.Services

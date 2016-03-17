@@ -49,6 +49,8 @@
     <Compile Include="CommandHandlers\DeleteFeatureOverrideCommandHandler.cs" />
     <Compile Include="CommandHandlers\DeleteResourceCommandHandler.cs" />
     <Compile Include="CommandHandlers\ICommandHandler.cs" />
+    <Compile Include="EventHandlers\ResourcesHaveBeenGeneratedHandler.cs" />
+    <Compile Include="Events\ResourcesHaveBeenGenerated.cs" />
     <Compile Include="Events\ResourceGenerationErrorHasOccurred.cs" />
     <Compile Include="CommandHandlers\UpdateFeatureCommandHandler.cs" />
     <Compile Include="CommandHandlers\UpdateFeatureOverrideCommandHandler.cs" />

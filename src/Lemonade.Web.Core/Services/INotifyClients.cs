@@ -9,6 +9,7 @@ namespace Lemonade.Web.Core.Services
         void LogFeatureOverrideError(FeatureOverrideErrorHasOccurred featureOverrideErrorHasOccured);
         void LogConfigurationError(ConfigurationErrorHasOccurred configurationErrorHasOccurred);
         void LogResourceError(ResourceErrorHasOccurred resourceErrorHasOccurred);
+        void LogResourcesGenerated(ResourcesHaveBeenGenerated @event);
         void AddApplication(ApplicationHasBeenCreated applicationHasBeenCreated);
         void AddConfiguration(ConfigurationHasBeenCreated configurationHasBeenCreated);
         void AddFeature(FeatureHasBeenCreated featureHasBeenCreated);

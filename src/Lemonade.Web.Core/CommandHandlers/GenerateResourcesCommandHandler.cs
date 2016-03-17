@@ -30,6 +30,8 @@ namespace Lemonade.Web.Core.CommandHandlers
                     var value = translateResource.Translate(resource.Value, resource.Locale.IsoCode, targetLocale.IsoCode);
                     _commandDispatcher.Dispatch(new CreateResourceCommand(command.ApplicationId, targetLocale.LocaleId, resource.ResourceKey, resource.ResourceSet, value));
                 }
+
+                _eventDispatcher.Dispatch(new ResourcesHaveBeenGenerated(command.ApplicationId, command.TargetLocaleId, command.TranslationType));
             }
             catch (UnsupportedTranslationException exception)
             {

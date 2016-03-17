@@ -28,6 +28,7 @@ namespace Lemonade.Web.Infrastructure
             container.Register<IDomainEventHandler<ResourceHasBeenUpdated>, ResourceHasBeenUpdatedHandler>();
             container.Register<IDomainEventHandler<ResourceHasBeenDeleted>, ResourceHasBeenDeletedHandler>();
             container.Register<IDomainEventHandler<ResourceErrorHasOccurred>, ResourceErrorHasOccurredHandler>();
+            container.Register<IDomainEventHandler<ResourcesHaveBeenGenerated>, ResourcesHaveBeenGeneratedHandler>();
 
             return container;
         }

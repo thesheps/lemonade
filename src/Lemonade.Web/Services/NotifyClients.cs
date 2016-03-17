@@ -42,6 +42,12 @@ namespace Lemonade.Web.Services
             hubContext.Clients.All.logResourceError(resourceErrorHasOccurred);
         }
 
+        public void LogResourcesGenerated(ResourcesHaveBeenGenerated resourceErrorHasOccurred)
+        {
+            var hubContext = _connectionManager.GetHubContext<LemonadeHub>();
+            hubContext.Clients.All.logResourcesGenerated(resourceErrorHasOccurred);
+        }
+
         public void AddApplication(ApplicationHasBeenCreated applicationHasBeenCreated)
         {
             var hubContext = _connectionManager.GetHubContext<LemonadeHub>();

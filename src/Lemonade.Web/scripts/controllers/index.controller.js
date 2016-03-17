@@ -17,6 +17,10 @@
         eventService.applicationErrorEncountered(error);
     }
 
+    hubProxy.client.logResourcesGenerated = function(resources) {
+        eventService.resourcesGenerated(resources);
+    }
+
     hubProxy.client.addFeature = function(feature) {
         eventService.featureAdded(feature);
     }

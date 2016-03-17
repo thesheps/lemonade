@@ -137,6 +137,10 @@
         toastService.toast("Successfully updated!", "OK", "bottom right");
     }
 
+    $scope.onResourcesGenerated = function (resource) {
+        toastService.toast("Successfully generated!", "OK", "bottom right");
+    }
+
     $scope.onResourceErrorEncountered = function (error) {
         toastService.toast(error.message, "OK", "bottom right");
     }
@@ -145,4 +149,5 @@
     eventService.onResourceRemoved($scope, $scope.onResourceRemoved);
     eventService.onResourceUpdated($scope, $scope.onResourceUpdated);
     eventService.onResourceErrorEncountered($scope, $scope.onResourceErrorEncountered);
+    eventService.onResourcesGenerated($scope, $scope.onResourcesGenerated);
 }
