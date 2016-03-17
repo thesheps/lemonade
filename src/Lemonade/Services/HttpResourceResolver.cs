@@ -53,15 +53,23 @@ namespace Lemonade.Services
                     restRequest.AddQueryParameter("resourceKey", resourceKey);
                     restRequest.AddQueryParameter("locale", locale);
 
-                    var response = _restClient.Get<Resource>(restRequest);
+                    try
+                    {
+                        var response = _restClient.Get<Resource>(restRequest);
 
-                    if (response.ErrorMessage == "Unable to connect to the remote server")
-                        throw new HttpConnectionException(string.Format(Errors.UnableToConnect, _restClient.BaseUrl), response.ErrorException);
+                        if (response.ErrorMessage == "Unable to connect to the remote server")
+                            throw new HttpConnectionException(
+                                string.Format(Errors.UnableToConnect, _restClient.BaseUrl), response.ErrorException);
 
-                    if (response.StatusCode == HttpStatusCode.InternalServerError)
-                        throw new HttpConnectionException(Errors.ServerError, response.ErrorException);
+                        if (response.StatusCode == HttpStatusCode.InternalServerError)
+                            throw new HttpConnectionException(Errors.ServerError, response.ErrorException);
 
-                    return response.Data.Value;
+                        return response.Data.Value;
+                    }
+                    catch (Exception)
+                    {
+                        return resourceKey;
+                    }
                 });
             }
 

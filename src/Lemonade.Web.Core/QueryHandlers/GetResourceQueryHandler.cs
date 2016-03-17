@@ -15,7 +15,7 @@ namespace Lemonade.Web.Core.QueryHandlers
         public Resource Handle(GetResourceQuery query)
         {
             var resource = _getResource.Execute(query.Application, query.ResourceSet, query.ResourceKey, query.Locale);
-            return resource.ToContract();
+            return resource?.ToContract();
         }
 
         private readonly IGetResource _getResource;
