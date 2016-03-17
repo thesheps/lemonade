@@ -12,10 +12,7 @@
     }
 
     $scope.addConfiguration = function (configuration) {
-        $http.post("/api/configurations", configuration)
-            .then(function () {
-                $scope.newConfiguration = { applicationId: $scope.application.applicationId }
-            });
+        $http.post("/api/configurations", configuration);
     }
 
     $scope.updateConfiguration = function (configuration) {

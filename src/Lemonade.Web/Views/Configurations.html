@@ -14,21 +14,22 @@
         <md-card layout="column" ng-show="application != null" layout-padding>
             <h2 class="md-headline">Create new</h2>
 
-            <md-input-container class="md-icon-right md-block">
-                <label>Configuration Name</label>
-                <input ng-model="newConfiguration.name" type="text" ng-enter="addConfiguration(newConfiguration)">
-                <md-icon>add_circle</md-icon>
-            </md-input-container>
+            <div layout="row" layout-align="left center">
+                <md-input-container class="md-block">
+                    <label>Configuration Name</label>
+                    <input ng-model="newConfiguration.name" type="text" ng-enter="addConfiguration(newConfiguration)">
+                </md-input-container>
 
-            <div layout="row">
                 <multi-input ng-model="newConfiguration.value">
                 </multi-input>
 
                 <md-button class="md-icon-button" ng-click="addConfiguration(newConfiguration)">
                     <md-icon>done</md-icon>
-                </md-button>    
+                </md-button>
             </div>
         </md-card>
+
+        <md-list />
 
         <md-list>
             <md-list-item ng-repeat="configuration in configurations" class="animate">
