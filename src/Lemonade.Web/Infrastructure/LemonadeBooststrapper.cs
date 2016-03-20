@@ -33,7 +33,11 @@ namespace Lemonade.Web.Infrastructure
         protected override void ConfigureApplicationContainer(TinyIoCContainer container)
         {
             base.ConfigureApplicationContainer(container);
-            LemonadeInstaller.Install(container);
+
+            container.InstallGenerics(typeof(IDomainEventHandler<>));
+            container.InstallGenerics(typeof(IQueryHandler<,>));
+            container.InstallGenerics(typeof(ICommandHandler<>));
+
             ConfigureDependencies(container);
         }
 

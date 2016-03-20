@@ -8,7 +8,11 @@ namespace Lemonade.Web.Infrastructure
     {
         public static Response BadRequest(Exception ex)
         {
-            return new Response { StatusCode = HttpStatusCode.BadRequest, ReasonPhrase = Regex.Replace(ex.InnerException.Message, @"\t|\n|\r", "") };
+            return new Response
+            {
+                StatusCode = HttpStatusCode.BadRequest,
+                ReasonPhrase = Regex.Replace(ex.StackTrace, @"\t|\n|\r", "")
+            };
         }
     }
 }
