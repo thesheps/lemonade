@@ -11,24 +11,30 @@ namespace Lemonade.Web.Tests
 {
     public class TestBootstrapper : LemonadeBootstrapper
     {
-        protected override void ConfigureDependencies(TinyIoCContainer container)
+        protected override IConnectionManager GetConnectionManager()
         {
-            _container = container;
-
             var hubContext = Substitute.For<IHubContext>();
             var connectionManager = Substitute.For<IConnectionManager>();
             connectionManager.GetHubContext<LemonadeHub>().Returns(hubContext);
 
+            return connectionManager;
+        }
+
+        protected override void ConfigureDependencies(TinyIoCContainer container)
+        {
+            _container = container;
+            _container.Register<ICreateApplication, CreateApplicationFake>();
+            _container.Register<ICreateConfiguration, CreateConfigurationFake>();
+            _container.Register<ICreateFeature, CreateFeatureFake>();
+            _container.Register<ICreateFeatureOverride, CreateFeatureOverrideFake>();
+            _container.Register<ICreateResource, CreateResourceFake>();
+
             var mockClient = Substitute.For<IMockClient>();
+            var connectionManager = container.Resolve<IConnectionManager>();
+            var hubContext = connectionManager.GetHubContext<LemonadeHub>();
             SubstituteExtensions.Returns(hubContext.Clients.All, mockClient);
 
-            container.Register(mockClient);
-            container.Register(connectionManager);
-            container.Register<ICreateApplication, CreateApplicationFake>();
-            container.Register<ICreateConfiguration, CreateConfigurationFake>();
-            container.Register<ICreateFeature, CreateFeatureFake>();
-            container.Register<ICreateFeatureOverride, CreateFeatureOverrideFake>();
-            container.Register<ICreateResource, CreateResourceFake>();
+            _container.Register(mockClient);
         }
 
         public T Resolve<T>() where T : class

@@ -6,6 +6,7 @@ using Lemonade.Web.Core.CommandHandlers;
 using Lemonade.Web.Core.EventHandlers;
 using Lemonade.Web.Core.QueryHandlers;
 using Microsoft.AspNet.SignalR;
+using Microsoft.AspNet.SignalR.Infrastructure;
 using Nancy;
 using Nancy.Bootstrapper;
 using Nancy.Conventions;
@@ -34,21 +35,26 @@ namespace Lemonade.Web.Infrastructure
         {
             base.ConfigureApplicationContainer(container);
 
-            container.InstallGenerics(typeof(IDomainEventHandler<>));
-            container.InstallGenerics(typeof(IQueryHandler<,>));
-            container.InstallGenerics(typeof(ICommandHandler<>));
+            container.RegisterImplementations(typeof(IDomainEventHandler<>));
+            container.RegisterImplementations(typeof(IQueryHandler<,>));
+            container.RegisterImplementations(typeof(ICommandHandler<>));
+            container.Register(GetConnectionManager());
 
             ConfigureDependencies(container);
-        }
-
-        protected virtual void ConfigureDependencies(TinyIoCContainer container)
-        {
-            container.Register(GlobalHost.ConnectionManager);
         }
 
         protected override NancyInternalConfiguration InternalConfiguration
         {
             get { return NancyInternalConfiguration.WithOverrides(nic => nic.ViewLocationProvider = typeof(ResourceViewLocationProvider)); }
+        }
+
+        protected virtual IConnectionManager GetConnectionManager()
+        {
+            return GlobalHost.ConnectionManager;
+        }
+
+        protected virtual void ConfigureDependencies(TinyIoCContainer container)
+        {
         }
 
         private static void MapResourcesFromAssembly(NancyConventions conventions, Assembly assembly)

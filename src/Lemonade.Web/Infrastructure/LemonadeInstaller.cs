@@ -7,7 +7,7 @@ namespace Lemonade.Web.Infrastructure
 {
     public static class LemonadeInstaller
     {
-        public static void InstallGenerics(this TinyIoCContainer container, Type genericType)
+        public static void RegisterImplementations(this TinyIoCContainer container, Type genericType)
         {
             foreach (var type in Types)
             {
