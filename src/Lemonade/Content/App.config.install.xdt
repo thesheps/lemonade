@@ -12,7 +12,7 @@
             ResourceResolver="Lemonade.Services.HttpResourceResolver"
             CacheResolver="Lemonade.Services.DefaultCacheProvider"
             RetryPolicy="Lemonade.Services.DefaultRetryPolicy"
-            ApplicationName="Hello World"
+            ApplicationName="Test Application"
             CacheExpiration="0" />
 
   <system.web xdt:Transform="InsertIfMissing">
