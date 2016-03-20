@@ -18,6 +18,8 @@ namespace Lemonade.Web.Infrastructure
 {
     public class LemonadeBootstrapper : DefaultNancyBootstrapper
     {
+        protected override IRootPathProvider RootPathProvider => new AspNetRootPathProvider();
+
         protected override void ConfigureConventions(NancyConventions conventions)
         {
             base.ConfigureConventions(conventions);
@@ -50,21 +52,23 @@ namespace Lemonade.Web.Infrastructure
             get { return NancyInternalConfiguration.WithOverrides(nic => nic.ViewLocationProvider = typeof(ResourceViewLocationProvider)); }
         }
 
-        protected override IRootPathProvider RootPathProvider => new AspNetRootPathProvider();
-
         private static void MapResourcesFromAssembly(NancyConventions conventions, Assembly assembly)
         {
             var resourceNames = assembly.GetManifestResourceNames();
 
             conventions.StaticContentsConventions.Add((ctx, p) =>
             {
+                var filename = Path.GetFileName(ctx.Request.Path);
                 var directoryName = Path.GetDirectoryName(ctx.Request.Path);
-                var path = assembly.GetName().Name + directoryName?.Replace(Path.DirectorySeparatorChar, '.').Replace("-", "_");
-                var file = Path.GetFileName(ctx.Request.Path);
-                var name = string.Concat(path, ".", file);
+                var path = assembly.GetName().Name + directoryName?
+                    .Replace(Path.DirectorySeparatorChar, '.')
+                    .Replace("-", "_")
+                    .TrimEnd('.');
+
+                var name = string.Concat(path, ".", filename);
 
                 return resourceNames.Any(r => r.Equals(name, StringComparison.InvariantCultureIgnoreCase))
-                    ? new EmbeddedFileResponse(assembly, path, file)
+                    ? new EmbeddedFileResponse(assembly, path, filename)
                     : null;
             });
         }

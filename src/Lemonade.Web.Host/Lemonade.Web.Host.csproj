@@ -108,7 +108,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="styles\lemonade.css" />
+    <EmbeddedResource Include="lemonade.css" />
     <Content Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -118,7 +118,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="scripts\lemonade.js" />
+    <EmbeddedResource Include="lemonade.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

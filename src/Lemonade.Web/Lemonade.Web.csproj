@@ -271,7 +271,7 @@
     <EmbeddedResource Include="scripts\services\event.service.js" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Content\styles\lemonade.css">
+    <None Include="Content\lemonade.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
@@ -283,7 +283,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="bower_components\angular-animate\angular-animate.js" />
-    <None Include="Content\scripts\lemonade.js">
+    <None Include="Content\lemonade.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <EmbeddedResource Include="scripts\controllers\resource.controller.js" />
