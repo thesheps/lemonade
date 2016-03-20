@@ -11,7 +11,6 @@ using Lemonade.Exceptions;
 using Lemonade.Web.Contracts;
 using RestSharp;
 
-
 namespace Lemonade.Services
 {
     public class HttpResourceResolver : IResourceResolver

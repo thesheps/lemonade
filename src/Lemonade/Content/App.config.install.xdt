@@ -10,7 +10,6 @@
             FeatureResolver="Lemonade.Services.HttpFeatureResolver"
             ConfigurationResolver="Lemonade.Services.HttpConfigurationResolver"
             ResourceResolver="Lemonade.Services.HttpResourceResolver"
-            CacheProvider="Lemonade.Services.DefaultCacheProvider"
             RetryPolicy="Lemonade.Services.DefaultRetryPolicy"
             ApplicationName="Test Application"
             CacheExpiration="0" />
