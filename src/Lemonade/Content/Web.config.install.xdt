@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<configuration xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
+  <configSections xdt:Transform="InsertBefore(/configuration/*[1])" />
+  <configSections xdt:Locator="XPath(/configuration/configSections[last()])">
+    <section name="Lemonade" type="Lemonade.LemonadeConfigurationSection, Lemonade" xdt:Transform="InsertIfMissing"/>
+  </configSections>
+  <configSections xdt:Transform="RemoveAll" xdt:Locator="Condition(count(*)=0)" />
+
+  <Lemonade xdt:Transform="InsertAfter(/configuration/configSections)"
+            FeatureResolver="Lemonade.Services.HttpFeatureResolver"
+            ConfigurationResolver="Lemonade.Services.HttpConfigurationResolver"
+            ResourceResolver="Lemonade.Services.HttpResourceResolver"
+            CacheResolver="Lemonade.Services.DefaultCacheProvider"
+            RetryPolicy="Lemonade.Services.DefaultRetryPolicy"
+            ApplicationName="Hello World"
+            CacheExpiration="0" />
+
+  <system.web xdt:Transform="InsertIfMissing">
+    <globalization resourceProviderFactoryType="Lemonade.Services.LemonadeResourceProviderFactory, Lemonade" />
+  </system.web>
+
+  <appSettings xdt:Transform="InsertIfMissing">
+    <add xdt:Transform="InsertIfMissing" key="LemonadeServiceUrl" value="" xdt:Locator="Match(key)" />
+  </appSettings>
+</configuration>

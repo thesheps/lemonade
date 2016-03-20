@@ -109,6 +109,9 @@
     <Compile Include="Services\DefaultRetryPolicy.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Content\Web.config.install.xdt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Content\App.config.install.xdt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
