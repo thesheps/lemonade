@@ -39,7 +39,8 @@ namespace Lemonade.Web.Infrastructure
             container
                 .InstallGenerics(typeof(IQueryHandler<,>))
                 .InstallGenerics(typeof(IDomainEventHandler<>))
-                .InstallGenerics(typeof(ICommandHandler<>));
+                .InstallGenerics(typeof(ICommandHandler<>))
+                .AutoRegister();
         }
 
         protected virtual void ConfigureDependencies(TinyIoCContainer container)
