@@ -11,7 +11,7 @@ namespace Lemonade.Web.Infrastructure
             return new Response
             {
                 StatusCode = HttpStatusCode.BadRequest,
-                ReasonPhrase = Regex.Replace(ex.StackTrace, @"\t|\n|\r", "")
+                ReasonPhrase = Regex.Replace(ex.InnerException.Message, @"\t|\n|\r", "")
             };
         }
     }
