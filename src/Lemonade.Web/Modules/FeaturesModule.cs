@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using Lemonade.Web.Contracts;
 using Lemonade.Web.Core.Commands;
 using Lemonade.Web.Core.Queries;
@@ -42,7 +43,7 @@ namespace Lemonade.Web.Modules
             return features;
         }
 
-        private HttpStatusCode CreateFeature()
+        private Response CreateFeature()
         {
             try
             {
@@ -51,13 +52,13 @@ namespace Lemonade.Web.Modules
 
                 return HttpStatusCode.OK;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return HttpStatusCode.BadRequest;
+                return new Response { StatusCode = HttpStatusCode.BadRequest, ReasonPhrase = Regex.Replace(ex.InnerException.Message, @"\t|\n|\r", "") };
             }
         }
 
-        private HttpStatusCode UpdateFeature()
+        private Response UpdateFeature()
         {
             try
             {
@@ -66,13 +67,13 @@ namespace Lemonade.Web.Modules
 
                 return HttpStatusCode.OK;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return HttpStatusCode.BadRequest;
+                return new Response { StatusCode = HttpStatusCode.BadRequest, ReasonPhrase = Regex.Replace(ex.InnerException.Message, @"\t|\n|\r", "") };
             }
         }
 
-        private HttpStatusCode DeleteFeature()
+        private Response DeleteFeature()
         {
             int featureId;
             int.TryParse(Request.Query["id"].Value as string, out featureId);
@@ -82,9 +83,9 @@ namespace Lemonade.Web.Modules
                 _commandDispatcher.Dispatch(new DeleteFeatureCommand(featureId));
                 return HttpStatusCode.OK;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return HttpStatusCode.BadRequest;
+                return new Response { StatusCode = HttpStatusCode.BadRequest, ReasonPhrase = Regex.Replace(ex.InnerException.Message, @"\t|\n|\r", "") };
             }
         }
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using Lemonade.Web.Contracts;
 using Lemonade.Web.Core.Commands;
 using Lemonade.Web.Core.Queries;
@@ -41,7 +42,7 @@ namespace Lemonade.Web.Modules
             return configurations;
         }
 
-        private HttpStatusCode PostConfiguration()
+        private Response PostConfiguration()
         {
             try
             {
@@ -50,13 +51,13 @@ namespace Lemonade.Web.Modules
 
                 return HttpStatusCode.OK;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return HttpStatusCode.BadRequest;
+                return new Response { StatusCode = HttpStatusCode.BadRequest, ReasonPhrase = Regex.Replace(ex.InnerException.Message, @"\t|\n|\r", "") };
             }
         }
 
-        private HttpStatusCode PutConfiguration()
+        private Response PutConfiguration()
         {
             try
             {
@@ -65,13 +66,13 @@ namespace Lemonade.Web.Modules
 
                 return HttpStatusCode.OK;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return HttpStatusCode.BadRequest;
+                return new Response { StatusCode = HttpStatusCode.BadRequest, ReasonPhrase = Regex.Replace(ex.InnerException.Message, @"\t|\n|\r", "") };
             }
         }
 
-        private HttpStatusCode DeleteConfiguration()
+        private Response DeleteConfiguration()
         {
             int configurationId;
             int.TryParse(Request.Query["id"].Value as string, out configurationId);
@@ -81,9 +82,9 @@ namespace Lemonade.Web.Modules
                 _commandDispatcher.Dispatch(new DeleteConfigurationCommand(configurationId));
                 return HttpStatusCode.OK;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return HttpStatusCode.BadRequest;
+                return new Response { StatusCode = HttpStatusCode.BadRequest, ReasonPhrase = Regex.Replace(ex.InnerException.Message, @"\t|\n|\r", "") };
             }
         }
 

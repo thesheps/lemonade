@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 using Lemonade.Web.Contracts;
 using Lemonade.Web.Core.Commands;
 using Lemonade.Web.Core.Services;
@@ -17,7 +18,7 @@ namespace Lemonade.Web.Modules
             Delete["/api/featureoverrides"] = p => DeleteFeatureOverride();
         }
 
-        private HttpStatusCode CreateFeatureOverride()
+        private Response CreateFeatureOverride()
         {
             try
             {
@@ -25,13 +26,13 @@ namespace Lemonade.Web.Modules
                 _commandDispatcher.Dispatch(new CreateFeatureOverrideCommand(featureOverride.FeatureId, featureOverride.FeatureOverrideId, featureOverride.Hostname, featureOverride.IsEnabled));
                 return HttpStatusCode.OK;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return HttpStatusCode.BadRequest;
+                return new Response { StatusCode = HttpStatusCode.BadRequest, ReasonPhrase = Regex.Replace(ex.InnerException.Message, @"\t|\n|\r", "") };
             }
         }
 
-        private HttpStatusCode UpdateFeatureOverride()
+        private Response UpdateFeatureOverride()
         {
             try
             {
@@ -40,13 +41,13 @@ namespace Lemonade.Web.Modules
 
                 return HttpStatusCode.OK;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return HttpStatusCode.BadRequest;
+                return new Response { StatusCode = HttpStatusCode.BadRequest, ReasonPhrase = Regex.Replace(ex.InnerException.Message, @"\t|\n|\r", "") };
             }
         }
 
-        private HttpStatusCode DeleteFeatureOverride()
+        private Response DeleteFeatureOverride()
         {
             int featureOverrideId;
             int.TryParse(Request.Query["id"].Value as string, out featureOverrideId);
@@ -56,9 +57,9 @@ namespace Lemonade.Web.Modules
                 _commandDispatcher.Dispatch(new DeleteFeatureOverrideCommand(featureOverrideId));                
                 return HttpStatusCode.OK;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return HttpStatusCode.BadRequest;
+                return new Response { StatusCode = HttpStatusCode.BadRequest, ReasonPhrase = Regex.Replace(ex.InnerException.Message, @"\t|\n|\r", "") };
             }
         }
 

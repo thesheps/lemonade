@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using Lemonade.Web.Contracts;
 using Lemonade.Web.Core.Commands;
 using Lemonade.Web.Core.Queries;
@@ -44,7 +45,7 @@ namespace Lemonade.Web.Modules
             return resources;
         }
 
-        private HttpStatusCode CreateResource()
+        private Response CreateResource()
         {
             try
             {
@@ -53,13 +54,13 @@ namespace Lemonade.Web.Modules
 
                 return HttpStatusCode.OK;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return HttpStatusCode.BadRequest;
+                return new Response { StatusCode = HttpStatusCode.BadRequest, ReasonPhrase = Regex.Replace(ex.InnerException.Message, @"\t|\n|\r", "") };
             }
         }
 
-        private HttpStatusCode GenerateResources()
+        private Response GenerateResources()
         {
             try
             {
@@ -68,13 +69,13 @@ namespace Lemonade.Web.Modules
 
                 return HttpStatusCode.OK;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return HttpStatusCode.BadRequest;
+                return new Response { StatusCode = HttpStatusCode.BadRequest, ReasonPhrase = Regex.Replace(ex.InnerException.Message, @"\t|\n|\r", "") };
             }
         }
 
-        private HttpStatusCode UpdateResource()
+        private Response UpdateResource()
         {
             try
             {
@@ -83,13 +84,13 @@ namespace Lemonade.Web.Modules
 
                 return HttpStatusCode.OK;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return HttpStatusCode.BadRequest;
+                return new Response { StatusCode = HttpStatusCode.BadRequest, ReasonPhrase = Regex.Replace(ex.InnerException.Message, @"\t|\n|\r", "") };
             }
         }
 
-        private HttpStatusCode DeleteResource()
+        private Response DeleteResource()
         {
             int resourceId;
             int.TryParse(Request.Query["id"].Value as string, out resourceId);
@@ -99,9 +100,9 @@ namespace Lemonade.Web.Modules
                 _commandDispatcher.Dispatch(new DeleteResourceCommand(resourceId));
                 return HttpStatusCode.OK;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return HttpStatusCode.BadRequest;
+                return new Response { StatusCode = HttpStatusCode.BadRequest, ReasonPhrase = Regex.Replace(ex.InnerException.Message, @"\t|\n|\r", "") };
             }
         }
 
