@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Text.RegularExpressions;
 using Lemonade.Web.Contracts;
 using Lemonade.Web.Core.Commands;
 using Lemonade.Web.Core.Services;
+using Lemonade.Web.Infrastructure;
 using Nancy;
 using Nancy.ModelBinding;
 
@@ -28,7 +28,7 @@ namespace Lemonade.Web.Modules
             }
             catch (Exception ex)
             {
-                return new Response { StatusCode = HttpStatusCode.BadRequest, ReasonPhrase = Regex.Replace(ex.InnerException.Message, @"\t|\n|\r", "") };
+                return Responses.BadRequest(ex);
             }
         }
 
@@ -43,7 +43,7 @@ namespace Lemonade.Web.Modules
             }
             catch (Exception ex)
             {
-                return new Response { StatusCode = HttpStatusCode.BadRequest, ReasonPhrase = Regex.Replace(ex.InnerException.Message, @"\t|\n|\r", "") };
+                return Responses.BadRequest(ex);
             }
         }
 
@@ -59,7 +59,7 @@ namespace Lemonade.Web.Modules
             }
             catch (Exception ex)
             {
-                return new Response { StatusCode = HttpStatusCode.BadRequest, ReasonPhrase = Regex.Replace(ex.InnerException.Message, @"\t|\n|\r", "") };
+                return Responses.BadRequest(ex);
             }
         }
 

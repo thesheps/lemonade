@@ -110,6 +110,7 @@
     <Compile Include="Infrastructure\CamelCasePropertyNameContractResolver.cs" />
     <Compile Include="Infrastructure\LemonadeBooststrapper.cs" />
     <Compile Include="Infrastructure\Installer.cs" />
+    <Compile Include="Infrastructure\Responses.cs" />
     <Compile Include="Modules\FeatureOverridesModule.cs" />
     <Compile Include="Modules\ConfigurationsModule.cs" />
     <Compile Include="Modules\LocalesModules.cs" />
