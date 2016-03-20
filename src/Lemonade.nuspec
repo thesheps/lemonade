@@ -10,7 +10,7 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Lemonade provides an easy to use feature-switch framework with an http back-end.</description>
     <releaseNotes></releaseNotes>
-    <tags>featureswitch feature lemonade toggle featuretoggle configuration</tags>
+    <tags>featureswitch feature lemonade toggle featuretoggle configuration translation localisation</tags>
 
     <dependencies>
       <dependency id="Microsoft.AspNet.Mvc" version="5.2.3" />
