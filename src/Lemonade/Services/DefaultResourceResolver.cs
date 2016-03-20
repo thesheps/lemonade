@@ -1,5 +1,7 @@
 ﻿using System.Globalization;
+using System.Reflection;
 using System.Resources;
+using System.Web;
 using System.Web.Compilation;
 using Lemonade.Core.Services;
 
@@ -27,21 +29,9 @@ namespace Lemonade.Services
             {
                 var locale = (culture ?? CultureInfo.CurrentCulture).ThreeLetterWindowsLanguageName;
                 var key = $"Resource{_applicationName}|{_resourceSet}|{resourceKey}|{locale}";
+                var resourceManager = new ResourceManager(resourceKey, Assembly.GetCallingAssembly());
 
-                return _cacheProvider.GetValue(key, () =>
-                {
-                    switch (locale)
-                    {
-                        case "ENG":
-                            return "Hello World";
-                        case "DEU":
-                            return "Tag Weld";
-                        case "FRA":
-                            return "Bonjour le monde";
-                        default:
-                            return string.Empty;
-                    }
-                });
+                return _cacheProvider.GetValue(key, () => resourceManager.GetObject(resourceKey));
             }
 
             private readonly ICacheProvider _cacheProvider;

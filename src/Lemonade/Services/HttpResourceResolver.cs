@@ -6,7 +6,6 @@ using System.Net;
 using System.Resources;
 using System.Web;
 using System.Web.Compilation;
-using Lemonade.Core.Exceptions;
 using Lemonade.Core.Services;
 using Lemonade.Exceptions;
 using Lemonade.Web.Contracts;
