@@ -79,12 +79,12 @@ namespace Lemonade
         private static IResourceResolver GetResourceResolver()
         {
             var configuration = LemonadeConfigurationSection.Current;
-            if (configuration == null) return new DefaultResourceResolver();
+            if (configuration == null) return null;
 
             var type = Type.GetType(configuration.ResourceResolver);
             if (type != null) return Activator.CreateInstance(type) as IResourceResolver;
 
-            return new DefaultResourceResolver();
+            return null;
         }
 
         private static ICacheProvider GetCacheProvider()

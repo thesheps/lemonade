@@ -97,7 +97,6 @@
     <Compile Include="Services\DefaultConfigurationResolver.cs" />
     <Compile Include="Services\DefaultFeatureResolver.cs" />
     <Compile Include="Services\DefaultCacheProvider.cs" />
-    <Compile Include="Services\DefaultResourceResolver.cs" />
     <Compile Include="Services\HttpConfigurationResolver.cs" />
     <Compile Include="Collections\ValueCollection.cs" />
     <Compile Include="FeatureAttribute.cs" />
