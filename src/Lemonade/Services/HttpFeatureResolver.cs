@@ -4,7 +4,9 @@ using System.Linq;
 using System.Net;
 using Lemonade.Core.Exceptions;
 using Lemonade.Core.Services;
+using Lemonade.Exceptions;
 using RestSharp;
+
 
 namespace Lemonade.Services
 {

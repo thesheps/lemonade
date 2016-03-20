@@ -84,6 +84,7 @@
   <ItemGroup>
     <Compile Include="Config.cs" />
     <Compile Include="Configuration.cs" />
+    <Compile Include="Exceptions\HttpConnectionException.cs" />
     <Compile Include="Feature.cs" />
     <Compile Include="Collections\ConfigurationValueCollection.cs" />
     <Compile Include="Errors.Designer.cs">

@@ -1,6 +1,4 @@
 ﻿using Nancy.TinyIoc;
-using Lemonade.Data.Queries;
-using Lemonade.Data.Commands;
 using Lemonade.Web.Infrastructure;
 
 namespace Lemonade.Web.Content

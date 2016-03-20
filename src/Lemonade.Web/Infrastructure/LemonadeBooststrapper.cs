@@ -2,6 +2,9 @@
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using Lemonade.Web.Core.CommandHandlers;
+using Lemonade.Web.Core.EventHandlers;
+using Lemonade.Web.Core.QueryHandlers;
 using Microsoft.AspNet.SignalR;
 using Nancy;
 using Nancy.Bootstrapper;
@@ -32,9 +35,9 @@ namespace Lemonade.Web.Infrastructure
             ConfigureDependencies(container);
 
             container
-                .InstallCommandHandlers()
-                .InstallQueryHandlers()
-                .InstallDomainEventHandlers();
+                .InstallGenerics(typeof(IQueryHandler<,>))
+                .InstallGenerics(typeof(IDomainEventHandler<>))
+                .InstallGenerics(typeof(ICommandHandler<>));
         }
 
         protected virtual void ConfigureDependencies(TinyIoCContainer container)
