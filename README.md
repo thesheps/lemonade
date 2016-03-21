@@ -3,7 +3,7 @@ Build Status: [![lemonade MyGet Build Status](https://www.myget.org/BuildSource/
 # Lemonade
 ### Because what's in a name, right? ###
 
-Lemonade is a [reasonably] easy-to-use feature-switching framework.  It currently allows for features to be obtained via app/web.config files, a RESTful service, or alternatively via a data provider of your choice.  
+Lemonade is a [reasonably] easy-to-use configuration framework.  It provides a mechanism for retrieving localised resources, configuration values and boolean feature switches.  These can be obtained via app/web.config files, a RESTful service, or alternatively via a data provider of your choice.
 
 You can get all you need to use Lemonade from the nuget feeds at
 
