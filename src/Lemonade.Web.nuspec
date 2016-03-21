@@ -6,9 +6,10 @@
     <title>Lemonade.Web</title>
     <authors>Chris Shepherd</authors>
     <owners>Chris Shepherd</owners>
+    <projectUrl>https://github.com/thesheps/lemonade</projectUrl>
     <iconUrl>https://raw.githubusercontent.com/thesheps/lemonade/master/src/nuget-icon.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>A web UI and Api for supporting the configuration of feature switches</description>
+    <description>Provides RESTful Api and management front-end for Lemonade configuration framework.</description>
     <releaseNotes></releaseNotes>
     <tags>featureswitch feature lemonade toggle featuretoggle configuration nancy web self-host translation localisation</tags>
 

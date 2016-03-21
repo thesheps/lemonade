@@ -6,9 +6,10 @@
     <title>Lemonade.Sql</title>
     <authors>Chris Shepherd</authors>
     <owners>Chris Shepherd</owners>
+    <projectUrl>https://github.com/thesheps/lemonade</projectUrl>
     <iconUrl>https://raw.githubusercontent.com/thesheps/lemonade/master/src/nuget-icon.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Provides an SQL data layer for use with Lemonade.</description>
+    <description>Allows Microsoft Sql Server to be used with Lemonade.</description>
     <releaseNotes></releaseNotes>
     <tags>featureswitch feature lemonade toggle featuretoggle configuration sql sqlce fluentmigrator translation localisation</tags>
 

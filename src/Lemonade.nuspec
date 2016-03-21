@@ -6,11 +6,12 @@
     <title>Lemonade</title>
     <authors>Chris Shepherd</authors>
     <owners>Chris Shepherd</owners>
+    <projectUrl>https://github.com/thesheps/lemonade</projectUrl>
     <iconUrl>https://raw.githubusercontent.com/thesheps/lemonade/master/src/nuget-icon.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Lemonade provides an easy to use feature-switch framework with an http back-end.</description>
+    <description>A frictionless RESTful client library for providing translations, feature toggles and configurations.</description>
     <releaseNotes></releaseNotes>
-    <tags>featureswitch feature lemonade toggle featuretoggle configuration translation localisation</tags>
+    <tags>featureswitch feature lemonade toggle featuretoggle configuration translation localisation lemonade</tags>
 
     <dependencies>
       <dependency id="Microsoft.AspNet.Mvc" version="5.2.3" />
