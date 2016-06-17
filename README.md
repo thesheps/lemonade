@@ -13,4 +13,4 @@ You can get all you need to use Lemonade from the nuget feeds at
 
 <a href="https://www.nuget.org/packages/Lemonade.Web">Lemonade.Web</a>
 
-Take a look <a href='http://thesheps.github.io/lemonade'>here</a> for supporting documentation!
+Take a look <a href='http://thesheps.github.io/lemonade'>here</a> for supporting documentation.
