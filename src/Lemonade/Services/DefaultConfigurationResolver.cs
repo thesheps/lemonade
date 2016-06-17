@@ -1,6 +1,7 @@
 using System;
-using System.Configuration;
 using Lemonade.Core.Services;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Configuration.Json;
 
 namespace Lemonade.Services
 {
@@ -8,7 +9,10 @@ namespace Lemonade.Services
     {
         public T Resolve<T>(string configurationName, string applicationName)
         {
-            var value = ConfigurationManager.AppSettings[configurationName];
+            var configuration = new ConfigurationBuilder().Add(new JsonConfigurationSource()).Build();
+            var configurationSection = configuration.GetSection("AppSettings");
+
+            var value = configurationSection[configurationName];
             if (typeof(T) == typeof(Uri))
                 return ((T)(object)new Uri(value));
 

@@ -1,42 +1,46 @@
 using System;
-using System.Configuration;
-using System.Net;
+using System.Net.Http;
+using System.Threading.Tasks;
 using Lemonade.Core.Services;
 using Lemonade.Exceptions;
-using RestSharp;
+using Newtonsoft.Json;
 
 namespace Lemonade.Services
 {
     public class HttpConfigurationResolver : IConfigurationResolver
     {
-        public HttpConfigurationResolver() : this(ConfigurationManager.AppSettings["LemonadeServiceUrl"])
-        {
-        }
-
         public HttpConfigurationResolver(string lemonadeServiceUri) : this(new Uri(lemonadeServiceUri))
         {
         }
 
         public HttpConfigurationResolver(Uri lemonadeServiceUri)
         {
-            _restClient = new RestClient(lemonadeServiceUri);
+            _restClient = new HttpClient { BaseAddress = lemonadeServiceUri };
         }
 
         public T Resolve<T>(string configurationName, string applicationName)
         {
-            var restRequest = new RestRequest("/api/configuration") { OnBeforeDeserialization = resp => { resp.ContentType = "application/json"; } };
-            restRequest.AddQueryParameter("configuration", configurationName);
-            restRequest.AddQueryParameter("application", applicationName);
+            return GetConfiguration<T>(configurationName, applicationName).Result;
+        }
 
-            var response = _restClient.Get<Web.Contracts.Configuration>(restRequest);
+        private async Task<T> GetConfiguration<T>(string configurationName, string applicationName)
+        {
+            var requestMessage = new HttpRequestMessage(HttpMethod.Get, "/api/configuration");
+            requestMessage.Headers.Add("configuration", configurationName);
+            requestMessage.Headers.Add("application", applicationName);
 
-            if (response.ErrorMessage == "Unable to connect to the remote server")
-                throw new HttpConnectionException(string.Format(Errors.UnableToConnect, _restClient.BaseUrl), response.ErrorException);
+            try
+            {
+                var response = await _restClient.SendAsync(requestMessage);
+                var jsonString = await response.Content.ReadAsStringAsync();
+                var configuration = JsonConvert.DeserializeObject<Web.Contracts.Configuration>(jsonString);
 
-            if (response.StatusCode == HttpStatusCode.InternalServerError)
-                throw new HttpConnectionException(Errors.ServerError, response.ErrorException);
-
-            return GetValue<T>(response.Data.Value);
+                return GetValue<T>(configuration.Value);
+            }
+            catch (Exception ex)
+            {
+                throw new HttpConnectionException(Errors.ServerError, ex);
+            }
         }
 
         private static T GetValue<T>(string value)
@@ -47,6 +51,6 @@ namespace Lemonade.Services
             return (T)Convert.ChangeType(value, typeof(T));
         }
 
-        private readonly RestClient _restClient;
+        private readonly HttpClient _restClient;
     }
 }

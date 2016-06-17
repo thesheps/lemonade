@@ -1,5 +1,6 @@
-using System.Configuration;
 using Lemonade.Core.Services;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Configuration.Json;
 
 namespace Lemonade.Services
 {
@@ -8,7 +9,11 @@ namespace Lemonade.Services
         public bool Resolve(string featureName, string applicationName)
         {
             bool enabled;
-            return bool.TryParse(ConfigurationManager.AppSettings[featureName], out enabled) && enabled;
+
+            var configuration = new ConfigurationBuilder().Add(new JsonConfigurationSource()).Build();
+            var configurationSection = configuration.GetSection("AppSettings");
+
+            return bool.TryParse(configurationSection[featureName], out enabled) && enabled;
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Net;
 using Lemonade.Builders;
 using Lemonade.Core.Exceptions;
 using Lemonade.Data.Commands;
+using Lemonade.Data.Entities;
 using Lemonade.Fakes;
 using Lemonade.Services;
 using Lemonade.Sql.Migrations;

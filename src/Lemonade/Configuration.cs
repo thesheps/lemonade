@@ -18,12 +18,6 @@ namespace Lemonade
             set { _configurationResolver = value; }
         }
 
-        public static IResourceResolver ResourceResolver
-        {
-            get { return _resourceResolver ?? (_resourceResolver = GetResourceResolver()); }
-            set { _resourceResolver = value; }
-        }
-
         public static ICacheProvider CacheProvider
         {
             get { return _cacheProvider ?? (_cacheProvider = GetCacheProvider()); }
@@ -38,25 +32,25 @@ namespace Lemonade
 
         public static string ApplicationName
         {
-            get { return _applicationName ?? LemonadeConfigurationSection.Current.ApplicationName; }
+            get { return _applicationName ?? LemonadeSettings.Current.ApplicationName; }
             set { _applicationName = value; }
         }
 
         public static double? CacheExpiration
         {
-            get { return _cacheExpiration ?? LemonadeConfigurationSection.Current.CacheExpiration; }
+            get { return _cacheExpiration ?? LemonadeSettings.Current.CacheExpiration; }
             set { _cacheExpiration = value; }
         }
 
         public static int? MaximumAttempts
         {
-            get { return _maximumAttempts ?? LemonadeConfigurationSection.Current.MaximumAttempts; }
+            get { return _maximumAttempts ?? LemonadeSettings.Current.MaximumAttempts; }
             set { _maximumAttempts = value; }
         }
 
         private static IFeatureResolver GetFeatureResolver()
         {
-            var configuration = LemonadeConfigurationSection.Current;
+            var configuration = LemonadeSettings.Current;
             if (configuration == null) return new DefaultFeatureResolver();
 
             var type = Type.GetType(configuration.FeatureResolver);
@@ -67,7 +61,7 @@ namespace Lemonade
 
         private static IConfigurationResolver GetConfigurationResolver()
         {
-            var configuration = LemonadeConfigurationSection.Current;
+            var configuration = LemonadeSettings.Current;
             if (configuration == null) return new DefaultConfigurationResolver();
 
             var type = Type.GetType(configuration.ConfigurationResolver);
@@ -76,20 +70,9 @@ namespace Lemonade
             return new DefaultConfigurationResolver();
         }
 
-        private static IResourceResolver GetResourceResolver()
-        {
-            var configuration = LemonadeConfigurationSection.Current;
-            if (configuration == null) return null;
-
-            var type = Type.GetType(configuration.ResourceResolver);
-            if (type != null) return Activator.CreateInstance(type) as IResourceResolver;
-
-            return null;
-        }
-
         private static ICacheProvider GetCacheProvider()
         {
-            var configuration = LemonadeConfigurationSection.Current;
+            var configuration = LemonadeSettings.Current;
             if (configuration == null) return new DefaultCacheProvider(RetryPolicy, CacheExpiration);
 
             var type = Type.GetType(configuration.CacheProvider);
@@ -100,7 +83,7 @@ namespace Lemonade
 
         private static IRetryPolicy GetRetryPolicy()
         {
-            var configuration = LemonadeConfigurationSection.Current;
+            var configuration = LemonadeSettings.Current;
             if (configuration == null) return new DefaultRetryPolicy(MaximumAttempts.GetValueOrDefault());
 
             var type = Type.GetType(configuration.CacheProvider);
@@ -114,7 +97,6 @@ namespace Lemonade
         private static string _applicationName;
         private static IFeatureResolver _featureResolver;
         private static IConfigurationResolver _configurationResolver;
-        private static IResourceResolver _resourceResolver;
         private static ICacheProvider _cacheProvider;
         private static IRetryPolicy _retryPolicy;
     }

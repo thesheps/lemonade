@@ -1,23 +1,43 @@
-﻿using Lemonade.Web;
-using Lemonade.Web.Core.Events;
-using Lemonade.Web.Infrastructure;
-using Microsoft.AspNet.SignalR;
-using Microsoft.Owin;
-using Newtonsoft.Json;
-using Owin;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
-[assembly: OwinStartup(typeof(Startup))]
 namespace Lemonade.Web
 {
     public class Startup
     {
-        public void Configuration(IAppBuilder app)
+        public Startup(IHostingEnvironment env)
         {
-            app.MapSignalR();
-            GlobalHost.DependencyResolver.Register(typeof(JsonSerializer), () => new JsonSerializer
-            {
-                ContractResolver = new CamelCasePropertyNameContractResolver { AssembliesToInclude = { typeof(ApplicationHasBeenCreated).Assembly } }
-            });
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(env.ContentRootPath)
+                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
+                .AddEnvironmentVariables();
+            Configuration = builder.Build();
+        }
+
+        public IConfigurationRoot Configuration { get; }
+
+        // This method gets called by the runtime. Use this method to add services to the container.
+        public void ConfigureServices(IServiceCollection services)
+        {
+            // Add framework services.
+            services.AddMvc();
+        }
+
+        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        {
+            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
+            loggerFactory.AddDebug();
+
+            app.UseMvc();
         }
     }
 }
